@@ -1,0 +1,29 @@
+{
+  "scope": "Canonical contracts frozen at final integration; baseline is not runtime correctness evidence",
+  "files": [
+    {
+      "path": "docs/CONTRACTS.md",
+      "sha256": "57d6de9473eb735c5025e666ca8ae5f85f5db2a7ad00c09274b3d4e5ca957f29"
+    },
+    {
+      "path": "docs/PHOTO_ARCHITECTURE.md",
+      "sha256": "60d15ca883d0c91c1f746fbc7c1893f43cd01463164227199164c68bc50264c5"
+    },
+    {
+      "path": "docs/SUITE_SPEC.md",
+      "sha256": "8ba4816144a6e74be7d491bd75247dbb57b8bed180eceace512371061768ad16"
+    },
+    {
+      "path": "docs/MOBILE_OVERRIDE.md",
+      "sha256": "fe1724fb7ceed6f60fbf54f00a7094a360e4130d2d798d1be9802762cefc278a"
+    },
+    {
+      "path": "docs/ADDITIONAL_SPEC.md",
+      "sha256": "622e5587502e0bef47b96d577631d40082f0b867b746431ca335f8d68dd93cc3"
+    },
+    {
+      "path": "docs/CLOUD_STORAGE_OVERRIDE.md",
+      "sha256": "b1a595db0fccf6f913e481640f5052a3a19fd0d2506afcab3ff6875bbf6ba492"
+    }
+  ]
+}

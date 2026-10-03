@@ -1,0 +1,17 @@
+{
+  // Anonymous, local-browser-only verification on this account's workers.dev.
+  // No D1, R2, Access, administrator secret, custom domain, or Sites binding.
+  // This file defines the intended URL; a live deployment has NOT been verified.
+  "name": "suite-preview",
+  "main": "../dist-cloudflare/server/index.js",
+  "compatibility_date": "2026-10-03",
+  "workers_dev": true,
+  "assets": {
+    "directory": "../dist-cloudflare/client",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "vars": {
+    "SUITE_ALLOWED_ORIGIN": "https://suite-preview.bals-enter.workers.dev"
+  }
+}

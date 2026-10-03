@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-03T08:05:27.688Z",
+  "scope": "NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY",
+  "command": "node --test apps/web/tests/multipart-client.test.mjs",
+  "runtime": "v24.19.0",
+  "sourceSHA256": {
+    "sitesClient": "70b8d78b353ecd97311d2af7f88866dcac6292912c3c56a8f910c21b032de22e",
+    "apiClient": "fb474380077e7d4e70ebaad0783ee8b9470a11ac62e5e224c74aad86f5aed0cc"
+  },
+  "input": {
+    "kind": "ARTIFICIAL_ARRAYBUFFER_NOT_CAMERA_RAW",
+    "maximumTestedBytes": 8388645,
+    "rawDecodeExecuted": false
+  },
+  "status": "PASS",
+  "tests": 12,
+  "pass": 12,
+  "fail": 0,
+  "browser": "NOT_RUN",
+  "Cloudflare": "NOT_RUN",
+  "R2": "NOT_RUN",
+  "D1": "NOT_RUN",
+  "ChatGPTIdentity": "NOT_RUN",
+  "realRAW": "NOT_RUN",
+  "realPerson": "BLOCKED_PRIVACY_REVIEW_REQUIRED",
+  "cloudSafeCertification": false,
+  "observations": [
+    {
+      "id": "MC01",
+      "title": "real client sends bounded binary parts with octet type, SHA header, and preserves caller bytes",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.215Z"
+    },
+    {
+      "id": "MC02",
+      "title": "verified checksum and size matching existing parts are skipped without changing old part bytes/etag",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.299Z"
+    },
+    {
+      "id": "MC03",
+      "title": "wrong checksum part alone is repaired, healthy part stays identical",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.363Z"
+    },
+    {
+      "id": "MC04",
+      "title": "wrong size or unverified part is not skipped even when its checksum matches",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.426Z"
+    },
+    {
+      "id": "MC05",
+      "title": "lost part acknowledgement leaves server job durable and a new client resumes same asset without re-PUT",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.529Z"
+    },
+    {
+      "id": "MC06",
+      "title": "lost complete acknowledgement retries completion without changing healthy parts",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.613Z"
+    },
+    {
+      "id": "MC07",
+      "title": "upload metadata binds exact asset/checksum/size/8MiB geometry before any part",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.616Z"
+    },
+    {
+      "id": "MC08",
+      "title": "wrong part acknowledgement number/checksum/size/verified refuses completion and preserves source",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.618Z"
+    },
+    {
+      "id": "MC09",
+      "title": "HTTP checksum rejection leaves server job and input available, does not complete/evict",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.620Z"
+    },
+    {
+      "id": "MC10",
+      "title": "completion checksum/asset/size/cloudSafe mismatch cannot be reported as upload success",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.621Z"
+    },
+    {
+      "id": "MC11",
+      "title": "zero bytes and non-ArrayBuffer input reject before HTTP without fake decoding",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.623Z"
+    },
+    {
+      "id": "MC12",
+      "title": "exact 8MiB boundary produces one part; small source produces one trailing part",
+      "status": "PASS",
+      "startedAt": "2026-10-03T08:05:27.624Z"
+    }
+  ]
+}

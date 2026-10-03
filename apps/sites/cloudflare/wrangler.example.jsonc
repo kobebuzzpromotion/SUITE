@@ -1,0 +1,41 @@
+{
+  // Example only. Replace every REPLACE_* value after verifying the target account.
+  // Never deploy this placeholder configuration or commit real secret values.
+  "name": "REPLACE_WITH_SUITE_ONLY_WORKER_NAME",
+  "main": "../dist-cloudflare/server/index.js",
+  "compatibility_date": "2026-10-03",
+  "assets": {
+    "directory": "../dist-cloudflare/client",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "REPLACE_WITH_SUITE_ONLY_D1_NAME",
+      "database_id": "REPLACE_WITH_VERIFIED_D1_ID",
+      "migrations_dir": "../drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "REPLACE_WITH_SUITE_ONLY_R2_BUCKET"
+    }
+  ],
+  "secrets": {
+    "required": [
+      "SUITE_ALLOWED_ORIGIN",
+      "CF_ACCESS_TEAM_DOMAIN",
+      "CF_ACCESS_AUD",
+      "SUITE_SESSION_SECRET",
+      "SUITE_ADMIN_USER_ID",
+      "SUITE_ADMIN_PASSWORD",
+      "SUITE_ADMIN_SESSION_SECRET",
+      "SUITE_TRIAL_STORAGE_LIMIT_BYTES",
+      "SUITE_TRIAL_R2_WRITE_LIMIT_MONTH",
+      "SUITE_TRIAL_R2_READ_LIMIT_MONTH",
+      "SUITE_TRIAL_REQUEST_LIMIT_DAY"
+    ]
+  }
+}

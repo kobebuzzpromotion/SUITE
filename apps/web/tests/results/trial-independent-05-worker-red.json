@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "runID": "trial-independent-05-worker-red",
+  "recordedAt": "2026-10-03T08:17:42.843Z",
+  "command": "node --test apps/web/tests/sites-worker.test.mjs",
+  "exitCode": 1,
+  "summary": {
+    "total": 13,
+    "pass": 12,
+    "fail": 1,
+    "skip": 0
+  },
+  "failedID": "SW06",
+  "finding": "WAITING_FOR_ORIGINAL is misclassified403 because the ORIGIN regex matches the substring ORIGINAL. Expected retry/waiting409, not authentication/origin403.",
+  "scope": "ACTUAL_WORKER_HANDLER_WITH_REAL_TEMP_SQLITE_D1_ADAPTER_AND_EXPLICIT_MOCK_R2_AND_NODE_TEST_DIGEST; NOT_ACTUAL_SITES_D1_R2_OR_RAW",
+  "sourceHashScope": "POST_RUN_ONLY_NOT_SOURCE_FREEZE; owner source work continues",
+  "sourceHashes": [
+    {
+      "file": "apps/sites/src/worker.mjs",
+      "sha256": "09cb9cfb0c17cd705ba157318e9511688c5e2049a095ab66fa465313c9584e42"
+    },
+    {
+      "file": "apps/sites/drizzle/0000_suite_sites.sql",
+      "sha256": "2b5740c80dc6cd6572f8ac5db05f6988c0b359939bdb755cb83e66e072ab2ee6"
+    },
+    {
+      "file": "apps/web/tests/sites-worker.test.mjs",
+      "sha256": "51a14b22575d68807acd45fa657aeb0a4da06de120448e1d743dcad54f72751a"
+    }
+  ],
+  "output": "✔ SW01 / SQLITE_MOCK_R2: dispatch configuration invitation and Origin gates refuse before private operations (72.887ms)\n✔ SW02 / SQLITE_MOCK_R2: expired invitation cannot bind and bound email cannot switch platform user or elevate role (63.3453ms)\n✔ SW03 / SQLITE_MOCK_R2: another invited author cannot access asset recipe upload or part routes (68.0358ms)\n✔ SW04 / SQLITE_MOCK_R2: wrong part checksum size and number reject without adding durable part rows (62.3015ms)\n✔ SW05 / SQLITE_MOCK_R2_NON_RAW: healthy parts skip and damaged part repairs to a new key without overwriting old bytes (285.075ms)\n✖ SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false (72.4562ms)\n✔ SW07 / SQLITE_MOCK_R2: READY completion is idempotent and Original requires explicit purpose (72.0045ms)\n✔ SW08 / SQLITE_MOCK_R2_FAULT: failed atomic completion cannot mark cloudSafe and retry preserves old objects (78.4206ms)\n✔ SW09 / SQLITE_CONCURRENT_HANDLER: identical concurrent recipe CAS creates one revision and one audit entry (59.8108ms)\n✔ SW10 / SQLITE_MOCK_R2: portrait save remains disabled and does not replace valid saved global recipe (61.5557ms)\n✔ SW11 / SQLITE_MOCK_R2: source-backed author adoption survives restart and checksum corruption refuses without deletion (100.8604ms)\n✔ SW12 / SQLITE_CONCURRENT_HANDLER: draft CAS writes exactly one new immutable version under concurrent updates (84.2612ms)\n✔ SW13 / SQLITE_MOCK_R2: production streaming digest absence fails closed instead of full-buffer fallback (71.9806ms)\nℹ tests 13\nℹ suites 0\nℹ pass 12\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1243.5554\n\n✖ failing tests:\n\ntest at apps\\web\\tests\\sites-worker.test.mjs:142:1\n✖ SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false (72.4562ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  403 !== 409\n  \n      at TestContext.<anonymous> (file:///C:/Users/user/Documents/Codex/2026-10-03/suite-web-iphone-ipad-web-iphone/outputs/SUITE/apps/web/tests/sites-worker.test.mjs:149:12)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 403,\n    expected: 409,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "notes": [
+    "SW09 concurrent CAS one-audit guard was fixed before first measurement; no measured red claimed.",
+    "Quota/source final freeze not reached.",
+    "Whole SHA mismatch kept cloudSafe false and all original part bytes; failed assertion concerns error classification."
+  ]
+}

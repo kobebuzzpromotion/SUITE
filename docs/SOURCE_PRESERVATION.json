@@ -1,0 +1,12 @@
+{
+  "observedDate": "2026-10-03 JST",
+  "method": "Compared complete source attachment and canonical text after CRLF->LF and trimEnd; SHA256 of normalized canonical UTF8",
+  "sources": [
+    {"canonical": "SUITE_SPEC.md", "attachment": "72d1ca5b-078d-4fe0-9106-c66a51a3fda0", "identical": true, "sha256": "c3b8e00d17ffc0178a56c01836a80cf5475575ce3f93cead6a05b475d1c29b1d"},
+    {"canonical": "MOBILE_OVERRIDE.md", "attachment": "447db515-60dd-4e93-8647-25460cad8c81", "identical": true, "sha256": "ce5ad1a4fbaa47cd811eb6adf8783afcfbc63418d8a3e8acbe45409ea367a460"},
+    {"canonical": "ADDITIONAL_SPEC.md", "attachment": "699f552b-71ab-41ec-a101-2281bb0cab86", "identical": true, "sha256": "16ad9e3e0715c00165e0cd76b9fdff010e1d0202b1bc6d3c537f9210810c638a"},
+    {"canonical": "CLOUD_STORAGE_OVERRIDE.md", "attachment": "310114d7-697e-4d6b-9baa-3ff4452d0753", "identical": true, "sha256": "e9a0adb14eab6a3b6a6c5de28af700aa91f79bb45783d2cc351fbbc179d84409"}
+  ],
+  "frozenContractEvidence": "../contracts/frozen.sha256.json",
+  "limitation": "Source preservation and regression checks do not prove every product feature is implemented or native behavior is unchanged."
+}

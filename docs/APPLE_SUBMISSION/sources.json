@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "app-information",
+      "url": "https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/",
+      "purpose": "App identity/limits/categories",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "version-information",
+      "url": "https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information",
+      "purpose": "Description/keywords/support/Review Notes",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "screenshots",
+      "url": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications",
+      "purpose": "Accepted screenshot assets/sizes",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "icon",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-information/add-an-app-icon/",
+      "purpose": "Icon build submission",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "icon-composer",
+      "url": "https://developer.apple.com/documentation/Xcode/creating-your-app-icon-using-icon-composer",
+      "purpose": "Layered icon canvas/design",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "icon-hig",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/app-icons",
+      "purpose": "Icon guidance; dynamic page rendering limited",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "privacy-management",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy/",
+      "purpose": "Required policy URL/declare actual processing",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "privacy-data",
+      "url": "https://developer.apple.com/app-store/app-privacy-details/",
+      "purpose": "Collection definitions/data categories",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "sdk-requirements",
+      "url": "https://developer.apple.com/support/third-party-SDK-requirements/",
+      "purpose": "SDK manifest/signature inventory",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "required-reason",
+      "url": "https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api",
+      "purpose": "Required reason API rules",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "manifest",
+      "url": "https://developer.apple.com/documentation/bundleresources/adding-a-privacy-manifest-to-your-app-or-third-party-sdk",
+      "purpose": "Manifest packaging/validation",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "review",
+      "url": "https://developer.apple.com/app-store/review/guidelines/",
+      "purpose": "2.1 completeness; 3.1 payments; 4.8 login",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "deletion",
+      "url": "https://developer.apple.com/support/offering-account-deletion-in-your-app/",
+      "purpose": "Account deletion",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "age",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-information/set-an-app-age-rating/",
+      "purpose": "Current questionnaire determines age",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "export",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-information/overview-of-export-compliance/",
+      "purpose": "Export requirements",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "export-docs",
+      "url": "https://developer.apple.com/help/app-store-connect/reference/export-compliance-documentation-for-encryption/",
+      "purpose": "Encryption type/document conditions",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "encryption-plist",
+      "url": "https://developer.apple.com/documentation/BundleResources/Information-Property-List/ITSAppUsesNonExemptEncryption",
+      "purpose": "No automatic NO declaration",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "eula",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-information/provide-a-custom-license-agreement/",
+      "purpose": "Standard/custom EULA",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "upcoming",
+      "url": "https://developer.apple.com/news/upcoming-requirements/",
+      "purpose": "Xcode26/SDK26 requirement as of check date",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "mac-availability",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-your-apps-availability/manage-availability-of-iphone-and-ipad-apps-on-macs-with-apple-silicon/",
+      "purpose": "iOS app compatibility distribution not native Mac release",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    },
+    {
+      "id": "vision-availability",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-your-apps-availability/manage-availability-of-iphone-and-ipad-apps-on-apple-vision-pro/",
+      "purpose": "Compatibility distribution opt-out check",
+      "checkedAt": "2026-10-03",
+      "timezone": "Asia/Tokyo",
+      "authority": "Apple official",
+      "notAnAccountAction": true
+    }
+  ]
+}
+

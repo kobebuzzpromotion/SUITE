@@ -1,0 +1,68 @@
+{
+  "checkedOn": "2026-10-03",
+  "duplicateAttachments": [
+    {
+      "original": "C:/Users/user/.codex/attachments/111e6af8-34ef-409e-add5-ebbcabfff271/貼り付けたテキスト.txt",
+      "originalSHA256": "27591b673ef0b5d58629cf8ac1c0cc6f5397a5a12ef3b67d04fc209f83731e2f",
+      "sameAsOriginal": "C:/Users/user/.codex/attachments/4e81ffe8-5221-4f41-987c-d465bdf13298/貼り付けたテキスト.txt",
+      "canonical": "docs/PRICING_BASELINE_2026-10-03.md",
+      "byteIdentical": true,
+      "action": "Read completely and SHA256 confirmed; keep one baseline, no new price decision"
+    }
+  ],
+  "scope": "Original body equality after CRLF/LF and trailing newline normalization; no content summary",
+  "files": [
+    {
+      "original": "C:/Users/user/.codex/attachments/7d15ef1d-8791-4621-9815-c0e52398d653/貼り付けたテキスト.txt",
+      "file": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "originalSHA256": "295a59f8366ce39001886de629b00604d78be6a65ec971a9d6a6a2571365cb1f",
+      "sha256": "a227d29f9898ffbdc7dd5f88dd49cd3bd11daac3e2c3fe51798186d6032963f0",
+      "normalizedBodyMatches": true
+    },
+    {
+      "original": "C:/Users/user/.codex/attachments/d1da7696-27b3-449d-990e-d02b7a23c540/貼り付けたテキスト.txt",
+      "file": "docs/WORKSPACE_SPEC_PART_1.md",
+      "originalSHA256": "154f0f8d41dc2621f8ccd49f49fd0fbac0ba7db5e703bda4f1e00ff46b4d4878",
+      "sha256": "7db4c250573acc116410ca9ab44cd01205685ef562765293ce40834a8e0ab028",
+      "normalizedBodyMatches": true
+    },
+    {
+      "original": "C:/Users/user/.codex/attachments/924ee605-228a-40a8-ae2a-4b01258cf0c7/貼り付けたテキスト.txt",
+      "file": "docs/WORKSPACE_SPEC_PART_2.md",
+      "originalSHA256": "b7b41d863132828146e2aedf37b43762756bb22575541afcc9a60e4e3e2c3ba6",
+      "sha256": "73a012b3ad6359244fd2f3e17aa523828fb69b5a5bb034a0e94c2e3f1f674006",
+      "normalizedBodyMatches": true
+    },
+    {
+      "original": "C:/Users/user/.codex/attachments/bb9b15fe-9532-45da-a400-f790031b0ec0/貼り付けたテキスト.txt",
+      "file": "docs/EVOTO_DEEP_AUDIT_V2_REQUEST.md",
+      "originalSHA256": "4ad7ab9b53d1eac8aaa7a4daff5fddb998772f9afe49bda09e1843bc2ea87bb4",
+      "sha256": "efd61485cb6d3ed134389c1da97c5ee7fc05c9db510a49a2f0119fecd91d625c",
+      "normalizedBodyMatches": true
+    },
+    {
+      "original": "C:/Users/user/.codex/attachments/4c54a3b4-c62a-4c0d-b74a-fee586b0c044/貼り付けたテキスト.txt",
+      "file": "docs/EVOTO_DEEP_AUDIT_V3_REQUEST.md",
+      "originalSHA256": "bb954588a67db78ccb12abb488e01ba193eaec7380b50bd8c951683869b5a3c4",
+      "sha256": "d2885493e6763e119f46c1445452e3cc7474d0da2ed94b2cf18a075358e0daee",
+      "normalizedBodyMatches": true
+    },
+    {
+      "original": "C:/Users/user/.codex/attachments/4e81ffe8-5221-4f41-987c-d465bdf13298/貼り付けたテキスト.txt",
+      "file": "docs/PRICING_BASELINE_2026-10-03.md",
+      "originalSHA256": "27591b673ef0b5d58629cf8ac1c0cc6f5397a5a12ef3b67d04fc209f83731e2f",
+      "sha256": "4bd87dc835fb294bf7bd2217d54dda4a125fe3610f650a145dd1304b43f9cd96",
+      "normalizedBodyMatches": true
+    }
+  ],
+  "chatPart3": {
+    "file": "docs/WORKSPACE_SPEC_PART_3.md",
+    "sha256": "8d898c33f27f72746fc77bc1d791dd28275d685f48dcd27adf339596072e771c",
+    "source": "2026-10-03 user inline message sections31–45",
+    "verification": "Manually transcribed user text; byte hash pins saved copy, not external attachment comparison"
+  },
+  "existing147Manifest": {
+    "file": "docs/requirements.json",
+    "sha256": "49d713430f9e429d90a7c78cd9d52ad3ac75e63308b07e77075473c52c38ac18"
+  }
+}

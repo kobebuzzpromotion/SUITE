@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "review": "INDEPENDENT_PARITY_VALIDATION",
+  "reviewedAt": "2026-10-03",
+  "status": "FINDINGS_OPEN_NOT_PARITY_PASS",
+  "scope": {
+    "readOnlyInputs": [
+      "docs/FEATURE_PARITY_GATE.md",
+      "reviews/photo.json",
+      "reviews/mobile_tether.json",
+      "reviews/workflow.json",
+      "reviews/credit_current.json",
+      "private support/reverse/target snapshots",
+      "tools/integrate-semantic.mjs"
+    ],
+    "writes": [
+      "reviews/parity_validation.json",
+      "reviews/parity_validation.md"
+    ],
+    "method": "All three primary review JSONs structurally traversed; targeted records semantically checked against full cached primary text. This is an independent spot-check, not a second full 240-article semantic certification.",
+    "laterReviews": "index_reverse.json/md reviewed after publication:261 original hrefs resolved,26 newly discovered routes remain open. web_features not yet published.",
+    "noImplementation": true
+  },
+  "counts": {
+    "primaryArticles": 240,
+    "primaryHeadings": 2167,
+    "sourceBoundFacts": 4506,
+    "photoFacts": 1484,
+    "mobileTetherFacts": 1949,
+    "workflowFacts": 1073,
+    "uniqueFeatureCount": "NOT_ESTABLISHED",
+    "emptyPhotoPlatformRecords": 458,
+    "workflowKnownCreditShadowedByDefault": 163,
+    "workflowOperationsExcludedByInitialIntegrator": 458,
+    "exactDuplicateLeicaSourceRecords": 22,
+    "duplicateLeicaOperationPairs": 11
+  },
+  "inputHashes": {
+    "photo.json": "92D0BE36B9C2F5E3A003A56DC68F7630F4000878D3793C1131A3C2244F9751F8",
+    "mobile_tether.json": "FC8F162A2B9E7E4D53EB8370E049A52769145AB61D4A9D9993DD0FA93F454E97",
+    "workflow.json": "280C30AE064B003DBBEF3D0BE05E075E929619F5D322AF946D57D1D8179FA066",
+    "credit_current.json": "02B1E492EC3C73BF444AD7DA8B120AB45C2DC93F62ACF288F2966D7097B77A20",
+    "initial integrate-semantic.mjs": "3385858EE2A9A3D48EC69F14C04B5D894EB2813913AEB39F3C51E4B0D487939A",
+    "index_reverse.json": "4ED569F18ED5B495D9D817E6121666BD730F17BC04110834C685C26CAD7A8090"
+  },
+  "findings": [
+    {
+      "id": "PV01",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "S965:tether-modes:wired7-brands",
+        "S965:tether-modes:wireless4-brands",
+        "S965:tether-originals:inside-app-not-auto-saved-photos",
+        "S965:wireless-data:local-network-transfer-no-mobile-data",
+        "S965:batch-editing:sync-to-selected-project-photos"
+      ],
+      "sourceIds": [
+        "S965"
+      ],
+      "locator": "Tethered Shooting Questions; Effects Questions",
+      "defect": "Article-level iPad/Windows/macOS platform set is inherited by iPad-specific operations. Desktop is mentioned for shared credits/preset portability, not as evidence for each tether/capture/storage fact.",
+      "impact": "False Desktop availability and loss of per-platform operational differences.",
+      "correction": "Keep frozen review unchanged. New semantic overrides must set these operations to iPad context only; other platforms remain UNKNOWN until separately sourced. Preserve Desktop/iPad scope only for actual credit-sharing and directional preset-portability facts.",
+      "check": "Assert the listed operation rows have iPad evidence and do not acquire Windows/macOS DOCUMENTED solely from S965."
+    },
+    {
+      "id": "PV02",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "S21313:subscription:monthly-30-days",
+        "S21313:subscription:60-credits",
+        "S21313:subscription:yearly-365-days",
+        "S21313:subscription:800-credits",
+        "S21313:add-on:60-credits"
+      ],
+      "sourceIds": [
+        "S21313"
+      ],
+      "locator": "Subscription Plans; Add-on Packages; Cross-Platform Usage",
+      "defect": "Mobile subscription offer records inherit iPhone/Android/iPad/Windows/macOS from the credit portability statement. Shared credit use does not prove that all storefronts sell the same offer or grant identical terms.",
+      "impact": "Conflates purchase eligibility, entitlement use and feature pricing; may conflict with current plan cards.",
+      "correction": "Represent purchase product/storefront separately from redeemable-device scope. Retain historical Mobile offer facts with article date/version and current applicability UNKNOWN; do not substitute 60/800 credits for current Desktop plans.",
+      "check": "Plan purchase platforms and credit-use platforms must be separate fields; verify current region/account storefront before eligibility is CONFIRMED."
+    },
+    {
+      "id": "PV03",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "S25871-W013",
+        "S25871-W014",
+        "S25871-W015",
+        "S25871-W016",
+        "PHOTO-S603-107",
+        "S600-W031"
+      ],
+      "sourceIds": [
+        "S25871",
+        "S603",
+        "S600"
+      ],
+      "locator": "Floor Reflection; Presets and Syncing; File Settings",
+      "defect": "Dedicated flags remain NOT_DOCUMENTED despite prose documenting the precise condition. Floor reflection explicitly supports preset/sync; mask person preset/sync is global, not individual; export format behavior explicitly maps RAW to JPEG.",
+      "impact": "Machine counts overstate unknowns and can drop known conditions even when evidenceSummary is accurate.",
+      "correction": "Add evidence-linked semantic overrides for each specific flag. For PHOTO-S603-107, distinguish individual manual selection from unsupported individual-person preset/sync; do not make personSpecific a context-free global boolean.",
+      "check": "Flag assertions must reproduce the prose condition and cite the same source section; no broad batch/person propagation."
+    },
+    {
+      "id": "PV04",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "workflow.json:all 1073 confirmationStatus fields"
+      ],
+      "sourceIds": [
+        "workflow cohort"
+      ],
+      "locator": "Fact confirmationStatus",
+      "defect": "confirmationStatus contains PHOTO_CONFIRMED, VIDEO_CONFIRMED or INFORMATION_CONFIRMED, which are availability/type labels, not the seven required confirmation enums.",
+      "impact": "Schema consumers can treat type as evidence certainty or reject the dataset.",
+      "correction": "Preserve raw field in frozen evidence but normalize separate existence, platform, plan and terms statuses in semantic integration. Validate the exact seven enums.",
+      "check": "No semantic confirmationStatus outside CONFIRMED, CONFIRMED_WITH_PLATFORM_LIMIT, CONFIRMED_WITH_PLAN_LIMIT, CONFIRMED_WITH_CREDIT_CONDITION, CONFLICTING_OFFICIAL_SOURCES, UNKNOWN, NOT_FOUND."
+    },
+    {
+      "id": "PV05",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "integrate-semantic.mjs:credit selection",
+        "S26868-W002",
+        "S25811-W012",
+        "S26029-W025"
+      ],
+      "sourceIds": [
+        "S26868",
+        "S25811",
+        "S26029"
+      ],
+      "locator": "Initial integrator line46: f.creditFreeRequired || f.credit || U",
+      "defect": "NOT_DOCUMENTED is a truthy string and masks documented f.credit. Measured 163 workflow records are affected.",
+      "impact": "Known credit amounts/conditions disappear into UNKNOWN; no accurate credit reconciliation or counts.",
+      "correction": "Select explicitly known values, not merely nonempty strings. Keep free eligibility, export charge and generation charge as independent conditions rather than one coalesced string.",
+      "check": "Unit test a NOT_DOCUMENTED creditFreeRequired plus known credit text and verify preservation. Test unknown+unknown stays UNKNOWN and a known free condition does not erase a generation charge."
+    },
+    {
+      "id": "PV06",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "integrate-semantic.mjs:type fallback/controlRows",
+        "S600-W012",
+        "S13365-W004",
+        "S596-W002"
+      ],
+      "sourceIds": [
+        "S600",
+        "S13365",
+        "S596"
+      ],
+      "locator": "Initial integrator lines50,76",
+      "defect": "Fallback ignores workflow f.category. Its 458 WORKFLOW records use availability INFORMATION_CONFIRMED and therefore become INFORMATION, then are excluded from controlRows.",
+      "impact": "Export, project/cloud and preset workflows vanish from candidate totals and platform/credit gate denominators.",
+      "correction": "Normalize record kind with explicit cohort schema mapping; WORKFLOW must remain an operation. Administrative INFORMATION remains separate and must not inflate photo features.",
+      "check": "Fixture tests for WORKFLOW export vs INFORMATION subscription vs PHOTO control vs VIDEO_FEATURE. All 458 workflow operations must retain operational kind unless individually reclassified with evidence."
+    },
+    {
+      "id": "PV07",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "S1531:*",
+        "S1538:*",
+        "integrate-semantic.mjs:duplicateSourceBodies"
+      ],
+      "sourceIds": [
+        "S1531",
+        "S1538"
+      ],
+      "locator": "Full cached text; initial integrator line73",
+      "defect": "Leica article texts are exactly equal, but contentSHA256 differs. SHA-only duplicate detection misses 11 identical operation pairs. The S1531 URL says Fujifilm while body/title describe Leica.",
+      "impact": "False corroboration and possible duplicate operation inflation; must not infer Fujifilm USB PTP from the URL.",
+      "correction": "Add normalized text-body identity/near-duplicate review in addition to acquisition hashes. Keep both source records, one corroborating content unit, and the official URL/body conflict.",
+      "check": "Assert text equality identifies this pair and maps 22 source records to 11 duplicate operation pairs without deleting provenance."
+    },
+    {
+      "id": "PV08",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "CC01",
+        "CC04",
+        "CC05",
+        "CC06",
+        "CC07",
+        "integrate-semantic.mjs:gate"
+      ],
+      "sourceIds": [
+        "APPLE_IPAD",
+        "JA_UNLIMITED",
+        "JA_CREDIT",
+        "PAYMENT",
+        "PAYMENTJP",
+        "S16030"
+      ],
+      "locator": "credit_current records termsStatus; initial integrator line78",
+      "defect": "Gate majorUnknownRows only examines control-row confirmationStatus. It omits severe policy termsStatus UNKNOWN; especially CC06/CC07 have confirmed rule existence with unknown detailed terms and no CONFLICTING status.",
+      "impact": "Severe unknown count can understate blockers even while overall status remains hard-coded BLOCK.",
+      "correction": "Maintain separate severePolicyUnknown and severePolicyConflict counts, with record IDs. Confirmed existence must not overwrite UNKNOWN terms.",
+      "check": "All five severe records with termsStatus UNKNOWN remain visible; CC06/CC07 cannot disappear because their existence is confirmed."
+    },
+    {
+      "id": "PV09",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "S1897:eye-makeup:saturation",
+        "S1897:eye-makeup:luminance",
+        "S1897:eye-makeup:dimensionality",
+        "S1897:lip-makeup:saturation",
+        "S1897:lip-makeup:luminance",
+        "S1897:lip-makeup:dimensionality"
+      ],
+      "sourceIds": [
+        "S1897"
+      ],
+      "locator": "Eye Makeup; Lip Makeup",
+      "defect": "iPad source explicitly says these subsliders activate only after Amount is adjusted. Review records list independent adjustment but omit the activation dependency from facts/notes.",
+      "impact": "Operation-flow parity can be misread as six always-active sliders; a heading disposition does not prove every constraint was retained.",
+      "correction": "Add per-option activationRequires Amount-adjusted condition with source locator. Do not inherit it to Mobile unless its own source states it.",
+      "check": "Each affected iPad row links to its Amount prerequisite; control discovery tests include disabled/enabled state."
+    },
+    {
+      "id": "PV10",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "S25871-W019",
+        "S25871-W020",
+        "S25871-W021",
+        "S25871-W022"
+      ],
+      "sourceIds": [
+        "S25871"
+      ],
+      "locator": "Favorites; Global Undo / Redo",
+      "defect": "Article-level PHOTO_FEATURE class labels Favorites organization and global Undo workflow facts as photo-feature records.",
+      "impact": "Mixes editing controls, workflow operations and feature inventory totals.",
+      "correction": "Reclassify operational record kind in semantic overlay while preserving actual availability and all restart/unsupported-action constraints. Do not promote release-note administrative text into controls.",
+      "check": "Photo-control counts exclude workflow organization/history rows; workflow coverage still includes them."
+    },
+    {
+      "id": "PV11",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "S21313:export-credit:1-edited-photo-1-credit",
+        "S965:credit:free-editing-1-credit-edited-export",
+        "CC04",
+        "integrate-semantic.mjs:policySourceIds"
+      ],
+      "sourceIds": [
+        "S21313",
+        "S965",
+        "APPLE_IPAD",
+        "JA_UNLIMITED"
+      ],
+      "locator": "Older subscription/iPad FAQ; App Store3.2.5 history; Japan unlimited-plan notice",
+      "defect": "Current policy conflict source set does not include S21313 or S965, so the source-ID/keyword integrator cannot attach CC04 to the old Mobile/iPad export-only claims. The old facts remain source-confirmed without their current-applicability conflict.",
+      "impact": "A consumer may reuse historical 'all editing free/each export1credit' or Desktop-only benefit claims as current Mobile policy.",
+      "correction": "Explicitly cross-link policy issue CC04 to relevant older FAQ records with applicability UNKNOWN and conflict status. Do not broadly mark every source fact conflicting.",
+      "check": "Old FAQ credit rows display the current-policy issue; unrelated FAQ tether/preset facts do not become conflicts."
+    },
+    {
+      "id": "PV12",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "recordIds": [
+        "PHOTO-S615-030",
+        "PHOTO-S615-031",
+        "PHOTO-S615-032",
+        "PHOTO-S615-033",
+        "PHOTO-S615-034",
+        "PHOTO-S615-035",
+        "PHOTO-S615-036",
+        "PHOTO-S615-037"
+      ],
+      "sourceIds": [
+        "S615"
+      ],
+      "locator": "AI Iris Correction, Notes after Feature details",
+      "defect": "Article uncertainty retains an unquantified angle range, but per-option records omit the explicit strong-side-profile failure caveat. Generic notes only say guarantees unknown.",
+      "impact": "Feature extraction preserves controls but loses a known operational limitation needed for identity/quality comparison.",
+      "correction": "Attach the supported-angle/strong-side-profile caveat to the AI Iris operation family; keep numerical range UNKNOWN.",
+      "check": "No invented angle value, universal success, identity guarantee or batch support; constraint survives deduplication."
+    },
+    {
+      "id": "PV13",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "recordIds": [
+        "index_reverse.unresolved:26 routes",
+        "integrate-semantic.mjs:missingIndexLinks"
+      ],
+      "sourceIds": [
+        "index_reverse",
+        "reverse.indexLinks"
+      ],
+      "locator": "index_reverse new-link-discovery; initial integrator missingIndexLinks/gate",
+      "defect": "Index coverage gate only compares the original261 acquired hrefs and ignores26 newly discovered unacquired routes preserved by index_reverse. These include22 possible English article routes and4 malformed routes.",
+      "impact": "A zero acquired-link remainder can be mistaken for complete reverse reconciliation despite a larger discovered universe.",
+      "correction": "Retain the original261 denominator and separately add discoveredRouteOpen count, IDs, route kinds and disposition. Do not infer canonical destination from suspectedArticleId or navigation label.",
+      "check": "A synthetic/new unresolved route must keep reverse reconciliation OPEN even if every original href is resolved. Once destination is acquired, retain alias/current-source evidence and close only that route."
+    }
+  ],
+  "checkedConstraints": [
+    {
+      "topic": "Contacts",
+      "records": [
+        "PHOTO-S616-030",
+        "PHOTO-S13621-018",
+        "PHOTO-S13621-019",
+        "S20838:components:contacts-11-styles",
+        "S1897:components:contacts-11-styles"
+      ],
+      "result": "11-style catalog independently documented on Desktop/Mobile/iPad. Color/Amount tutorial platform remains unspecified. No inherited per-eye, pupil, iris, catchlight preservation or Contacts-specific batch claim."
+    },
+    {
+      "topic": "All Makeup",
+      "sources": [
+        "S616",
+        "S20838",
+        "S1897"
+      ],
+      "result": "22 vs18 suites;14 vs8 eyeshadow;17 vs14 lashes;9 vs6 liner retained. Male/tween/child/infant catalog labels are not blanket age eligibility. Independent sides documented for brows/lashes; not all Contacts. iPad activation dependency defect PV09."
+    },
+    {
+      "topic": "Eye / Iris / Catchlight",
+      "sources": [
+        "S615",
+        "S21187"
+      ],
+      "result": "Human12catchlight styles distinct from Pet General/Indoor/Outdoor categories and Pet batch. Regular glasses glare excludes tinted lenses. Human iris constraints require PV12."
+    },
+    {
+      "topic": "Strong Glare",
+      "records": [
+        "PHOTO-S24836-112",
+        "PHOTO-S24836-113",
+        "PHOTO-S24836-114",
+        "PHOTO-S24836-115"
+      ],
+      "result": "Group-person selection and already-applied ordinary-glare detection caveat retained; does not prove person-ID batch."
+    },
+    {
+      "topic": "Clothing Moire",
+      "records": [
+        "PHOTO-S24836-093",
+        "PHOTO-S24836-094",
+        "PHOTO-S24836-095",
+        "PHOTO-S24836-096",
+        "PHOTO-S24836-097",
+        "PHOTO-S24836-098"
+      ],
+      "result": "Clothing/fabric luminance/color moire Generate and alternate entry confirmed; no invented amount slider, texture guarantee or local/cloud architecture."
+    },
+    {
+      "topic": "Body Hair",
+      "records": [
+        "PHOTO-S24836-136",
+        "PHOTO-S24836-137",
+        "PHOTO-S24836-138",
+        "PHOTO-S24836-139",
+        "PHOTO-S24836-140"
+      ],
+      "result": "Visible arm hair/mask/review/Generate; Asia availability. No leg/body-wide or tattoo protection claim."
+    },
+    {
+      "topic": "Liquify Repair",
+      "records": [
+        "PHOTO-S24836-142",
+        "PHOTO-S24836-143"
+      ],
+      "result": "After-the-fact line/texture repair and other-app distortion range control kept separate from ordinary manual liquify and SUITE background-protection prevention."
+    },
+    {
+      "topic": "People / Smart Removal",
+      "records": [
+        "PHOTO-S24836-082",
+        "PHOTO-S24836-083",
+        "PHOTO-S24836-108",
+        "PHOTO-S24836-109",
+        "PHOTO-S24836-110"
+      ],
+      "result": "Magic0.5/Quick0.1/People0.3 per application separate from final export. Manual masks/subject protection scoped to their tools. Source original remains unchanged for Apply Current; no undocumented local-execution assertion."
+    },
+    {
+      "topic": "Expand / Fusion",
+      "sources": [
+        "S24836",
+        "S20928",
+        "S625"
+      ],
+      "result": "AI Generative Expand3candidates and iterative new images distinct from ordinary Crop Expand. AI Lab Batch supports People/OldPhoto/Detail; Fusion has separate saved-scene batch. Unsaved Fusion results lost on exit; background required and subject must remain in canvas."
+    },
+    {
+      "topic": "Relight",
+      "records": [
+        "S26664:relight:natural-light",
+        "S26664:relight:face-shadow-removal",
+        "S26664:relight:golden-hour"
+      ],
+      "result": "Mobile lighting styles confirmed; not proof Mobile-only or Desktop/iPad availability. Generate/compare/export workflow, charge/network/output limits unknown."
+    },
+    {
+      "topic": "Shadow / Reflection / Spill / Halo",
+      "sources": [
+        "S621",
+        "S622",
+        "S25871"
+      ],
+      "result": "Retain original shadow, added Soft/Hard/Drop, shadow opacity/blur/gradient/blend, background spill, floor reflection distinct. Black/white edge automatic sync excludes manual brush corrections. Water reflection conditional on water detection. Floor reflection flags need PV03."
+    },
+    {
+      "topic": "Hair generation",
+      "sources": [
+        "S24836",
+        "S617",
+        "S20841"
+      ],
+      "result": "Golden Blonde selected-person Generate distinct from ordinary volume/stray/smooth/color tools. Hairstyle consistency is a claim, not verified identity/edge guarantee. Smooth Hair auto-frizz coupling must stay tool-scoped."
+    },
+    {
+      "topic": "Old Photo Restoration",
+      "records": [
+        "PHOTO-S24836-144",
+        "PHOTO-S24836-145",
+        "PHOTO-S24836-146",
+        "PHOTO-S24836-147",
+        "PHOTO-S24836-148",
+        "PHOTO-S24836-149"
+      ],
+      "result": "Default colorization ON;2K/4K; tiny/blurry faces may be redrawn and accessories affected. No identity guarantee or new SUITE omission approval."
+    },
+    {
+      "topic": "Mask regions / batch",
+      "sources": [
+        "S603",
+        "S2258"
+      ],
+      "result": "Person/Ears/Apparel and background Reef are explicit text. Unlabeled image-only regions remain unconfirmed. Person preset/sync global-not-individual, Pet entire-pet, custom luminance, hidden-mask export exclusion retained; normalize flags via PV03."
+    },
+    {
+      "topic": "Print / Multi Export",
+      "sources": [
+        "S600"
+      ],
+      "result": "Selected photos × selected export presets; per-effect variants; RAW→JPEG/alpha→PNG;JPEG8bit/TIFF8/16bit/PNG and output sharpening retained. Preset variants not same as unique photo features; availability does not prove SUITE print rendering."
+    },
+    {
+      "topic": "Tether",
+      "sources": [
+        "S1531",
+        "S1538",
+        "S965",
+        "S1551",
+        "S10681"
+      ],
+      "result": "Vendor/model/method distinctions preserved, except FAQ platform inheritance PV01. Fujifilm URL duplicate cannot prove Fuji setup. iPad wireless format/filter behavior must not be forced onto Desktop. No actual camera/device tests performed."
+    },
+    {
+      "topic": "Cross-platform preset",
+      "records": [
+        "S20787:xmp-cube:desktop-preset-to-mobile",
+        "S965:preset-portability:desktop-ipad",
+        "S965:preset-portability:ipad-desktop"
+      ],
+      "result": "Desktop-origin XMP/CUBE preset requires file availability/download; no direct Mobile upload. Desktop↔iPad most-compatible with unsupported adjustments partial; Mobile→Desktop not established by this source."
+    },
+    {
+      "topic": "Cloud limitations",
+      "records": [
+        "S13365-W001",
+        "S13365-W006",
+        "S13365-W014",
+        "S13365-W015",
+        "S13365-W016"
+      ],
+      "result": "Cloud Space Windows/macOS, iPad not yet, iPhone unknown.4000px<2MB previews/original download on export,30day expiry and deletion described only as competitor behavior. Do not import RAW deletion into SUITE."
+    },
+    {
+      "topic": "Processing labels",
+      "sources": [
+        "S24836",
+        "S965",
+        "S2126",
+        "S26029"
+      ],
+      "result": "Generate/Fast/AI and named algorithms do not establish local/cloud execution. LOCAL_NETWORK_TRANSFER describes tether transport only. Broad privacy FAQ cloud claims cannot be distributed across all photo options. No new benchmark or device proof."
+    }
+  ],
+  "mobilePolicyBlocker": {
+    "status": "BLOCK",
+    "confirmationStatus": "CONFLICTING_OFFICIAL_SOURCES",
+    "termsStatus": "UNKNOWN",
+    "certainFacts": [
+      "US App Store current listing is3.3.3; historical3.2.5 datedAug28 announced tier-dependent free color export allowances.",
+      "Japan color-plan notice effective2026-08-31 11:00JST states Desktop>=7.3.5-150 and planned Mobile support subject to store approval; it does not prove live activation per account.",
+      "Older Mobile/iPad FAQs differ; shared credits do not resolve tier quotas, feature inclusion or regional entitlement."
+    ],
+    "neededOfficialEvidence": [
+      "Current region/storefront-specific iPhone and iPad plan/entitlement matrix naming exact SKU/tier and eligible color operations, including AI Match/Looks/Multi-image/MyStyle, plus exact free allowance and reset rules.",
+      "Official version/build and activation date for each Mobile storefront, including whether Japan policy has passed store approval and is enabled for that product/account.",
+      "Account-specific official entitlement screen or support confirmation linking region, plan/SKU, purchase channel, active dates and app build to quota. Public release notes alone are insufficient.",
+      "Official rules for mixed color+portrait/manual/crop exports, repeat-export identity, cross-device usage, generation event charges, failures/refunds/retries and whether paid generation is charged again at export.",
+      "With separate user authorization and no unapproved spending: observed billing quote/counter evidence on the verified account matching those official conditions. A UI/account observation supplements, not replaces, official policy clarification."
+    ],
+    "forbiddenResolution": [
+      "Set UNKNOWN to0 or N/A to pass gate",
+      "Apply Desktop legacy free list globally to Mobile",
+      "Treat announced Japan rollout as active for every storefront",
+      "Choose SUITE prices/providers or create paid subscriptions during audit"
+    ]
+  },
+  "acceptance": {
+    "audit": "BLOCK",
+    "featureParity": "BLOCK",
+    "mobileRelease": "BLOCK",
+    "formalPriorityDecision": "NONE",
+    "implementationChanged": false,
+    "baseline": "124 Windows PASS evidence unchanged; native82/Mac/realRAW/iPhone/iPad NOT_RUN; production services unconnected",
+    "reason": "Source review completion and valid JSON cannot establish feature, workflow, policy or product parity."
+  },
+  "indexReview": {
+    "sourceBoundRoutes": 261,
+    "newlyDiscoveredOpen": 26,
+    "possibleEnglishArticles": 22,
+    "malformedRoutes": 4,
+    "checks": [
+      "ALIAS72 /preset resolves Desktop S600 despite iPad index Presets label",
+      "ALIAS78 /makeup-2 resolves Desktop S616, not iPad S1897",
+      "S615 reached from iPad menu must not automatically give all Desktop iris controls iPad availability",
+      "53 localized navigation pages are not53 new English feature pages",
+      "Compatibility model lists are separate from unique editor feature count"
+    ],
+    "status": "ROUTING_REVIEW_ACCEPTED_WITH_OPEN_DISCOVERY_UNIVERSE"
+  }
+}

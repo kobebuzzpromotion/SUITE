@@ -1,0 +1,13 @@
+import {generateSQLiteDrizzleJson,generateSQLiteMigration} from 'drizzle-kit/api';
+import * as schema from './db/schema.ts';
+import {mkdirSync,writeFileSync,existsSync,readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+const out=resolve(import.meta.dirname,'drizzle');
+const journal=existsSync(out+'/meta/_journal.json')?JSON.parse(readFileSync(out+'/meta/_journal.json','utf8')):{entries:[]},index=journal.entries.length,number=String(index).padStart(4,'0'),tag=number+'_suite_sites';
+const empty=index?JSON.parse(readFileSync(out+'/meta/'+String(index-1).padStart(4,'0')+'_snapshot.json','utf8')):await generateSQLiteDrizzleJson({}),snapshot=await generateSQLiteDrizzleJson(schema,empty.id),sql=await generateSQLiteMigration(empty,snapshot);
+if(!sql.length)throw Error('NO_SCHEMA_CHANGE');
+mkdirSync(out+'/meta',{recursive:true});
+writeFileSync(out+'/'+tag+'.sql',sql.join('\n--> statement-breakpoint\n')+'\n',{flag:'wx'});
+writeFileSync(out+'/meta/'+number+'_snapshot.json',JSON.stringify(snapshot,null,2),{flag:'wx'});
+writeFileSync(out+'/meta/_journal.json',JSON.stringify({version:String(snapshot.version),dialect:'sqlite',entries:[...journal.entries,{idx:index,version:String(snapshot.version),when:Date.now(),tag,breakpoints:true}]},null,2));
+console.log(JSON.stringify({status:'GENERATED_NOT_PRODUCTION_APPLIED',statements:sql.length,tables:Object.keys(snapshot.tables)}));

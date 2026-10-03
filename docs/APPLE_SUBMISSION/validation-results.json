@@ -1,0 +1,89 @@
+{
+  "command": "node docs/APPLE_SUBMISSION/validate.mjs",
+  "cwd": "outputs/SUITE",
+  "exitCode": 0,
+  "date": "2026-10-03",
+  "timezone": "Asia/Tokyo",
+  "result": {
+    "scope": "APPLE_SUBMISSION_DOCUMENT_STATIC_CHECK_ONLY",
+    "date": "2026-10-03",
+    "submissionReady": false,
+    "total": 7,
+    "pass": 7,
+    "fail": 0,
+    "skip": 0,
+    "fields": 43,
+    "officialSources": 21,
+    "textStats": {
+      "appName": {
+        "characters": 5,
+        "bytes": 5,
+        "limit": 30,
+        "unit": "characters"
+      },
+      "subtitle": {
+        "characters": 17,
+        "bytes": 45,
+        "limit": 30,
+        "unit": "characters"
+      },
+      "description": {
+        "characters": 186,
+        "bytes": 488,
+        "limit": 4000,
+        "unit": "characters"
+      },
+      "keywords": {
+        "characters": 29,
+        "bytes": 71,
+        "limit": 100,
+        "unit": "bytes"
+      },
+      "reviewNotes": {
+        "characters": 496,
+        "bytes": 498,
+        "limit": 4000,
+        "unit": "bytes"
+      }
+    },
+    "results": [
+      {
+        "name": "Submission remains blocked; no external action or provider adoption",
+        "status": "PASS"
+      },
+      {
+        "name": "Initial iPhone/iPad targets only; Mac QA and Web gate separated",
+        "status": "PASS"
+      },
+      {
+        "name": "Required submission topics present once with status and evidence document",
+        "status": "PASS"
+      },
+      {
+        "name": "Unconfirmed declarations, account IDs and URLs remain null",
+        "status": "PASS"
+      },
+      {
+        "name": "Draft copy obeys current character/UTF-8 byte limits",
+        "status": "PASS"
+      },
+      {
+        "name": "Apple official sources are attributed and dated",
+        "status": "PASS"
+      },
+      {
+        "name": "Requested classification documents and local evidence links exist",
+        "status": "PASS"
+      }
+    ],
+    "notExecuted": [
+      "native build",
+      "real RAW pipeline",
+      "iPhone device",
+      "iPad device",
+      "ASC registration",
+      "archive validation",
+      "legal/privacy declarations"
+    ]
+  }
+}

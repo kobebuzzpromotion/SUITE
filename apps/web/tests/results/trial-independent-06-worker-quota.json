@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "runID": "trial-independent-06-worker-quota",
+  "recordedAt": "2026-10-03T08:22:52.192Z",
+  "command": "node --test apps/web/tests/sites-worker.test.mjs",
+  "exitCode": 0,
+  "summary": {
+    "total": 21,
+    "pass": 21,
+    "fail": 0,
+    "skip": 0
+  },
+  "scope": "ACTUAL_WORKER_HANDLER_REAL_TEMP_SQLITE_WITH_MOCK_D1_INTERFACE_R2_PLATFORM_IDENTITY_AND_DIGEST; NOT_DEPLOYMENT_OR_REAL_RAW",
+  "requirementCut": "PRE_TRIAL_END_REQUIREMENT; CURRENT_TRIAL_DEADLINE_CHANGES_REQUIRE_NEW_MEASUREMENT",
+  "sourceStableDuringRun": "NOT_MEASURED_OWNER_SOURCE_ACTIVE",
+  "output": "✔ SW01 / SQLITE_MOCK_R2: dispatch configuration invitation and Origin gates refuse before private operations (126.2804ms)\n✔ SW02 / SQLITE_MOCK_R2: expired invitation cannot bind and bound email cannot switch platform user or elevate role (95.8059ms)\n✔ SW03 / SQLITE_MOCK_R2: another invited author cannot access asset recipe upload or part routes (122.5754ms)\n✔ SW04 / SQLITE_MOCK_R2: wrong part checksum size and number reject without adding durable part rows (105.7159ms)\n✔ SW05 / SQLITE_MOCK_R2_NON_RAW: healthy parts skip and damaged part repairs to a new key without overwriting old bytes (441.6214ms)\n✔ SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false (135.9921ms)\n✔ SW07 / SQLITE_MOCK_R2: READY completion is idempotent and Original requires explicit purpose (170.0373ms)\n✔ SW08 / SQLITE_MOCK_R2_FAULT: failed atomic completion cannot mark cloudSafe and retry preserves old objects (161.337ms)\n✔ SW09 / SQLITE_CONCURRENT_HANDLER: identical concurrent recipe CAS creates one revision and one audit entry (82.1921ms)\n✔ SW10 / SQLITE_MOCK_R2: portrait save remains disabled and does not replace valid saved global recipe (88.1561ms)\n✔ SW11 / SQLITE_MOCK_R2: source-backed author adoption survives restart and checksum corruption refuses without deletion (219.0211ms)\n✔ SW12 / SQLITE_CONCURRENT_HANDLER: draft CAS writes exactly one new immutable version under concurrent updates (175.0423ms)\n✔ SW13 / SQLITE_MOCK_R2: production streaming digest absence fails closed instead of full-buffer fallback (129.224ms)\n✔ SW14 / SQLITE_MOCK_R2_CORRUPTION: damaged READY object cannot remain cloudSafe or silently serve corrupted Original (144.3074ms)\n✔ SW15 / SQLITE_CONCURRENT_HANDLER: simultaneous distinct platform users cannot bind one invitation twice (71.1708ms)\n✔ SW16 / SQLITE_CORRUPTION: earlier wrong-asset portrait history blocks latest global reload and preserves rows (98.5301ms)\n✔ SW17 / SQLITE_MOCK_R2_QUOTA: low storage quota denies only new import and preserves existing Original parts and recipe (168.2771ms)\n✔ SW18 / SQLITE_MOCK_R2_QUOTA: write operation limit stops new R2 calls and conservatively retains reservation (201.4497ms)\n✔ SW19 / SQLITE_MOCK_R2_QUOTA: missing quota configuration and daily budget refuse without library mutation (79.9784ms)\n✔ SW20 / SQLITE_MOCK_D1_METADATA: usage is admin-only and missing D1 measurement remains explicitly unknown (141.0212ms)\n✔ SW21 / SQLITE_MOCK_R2_QUOTA: repair consuming retained-byte allowance cannot assemble beyond storage cap (132.2993ms)\nℹ tests 21\nℹ suites 0\nℹ pass 21\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3184.6886\n",
+  "notes": [
+    "SW06 prior403misclassification now corrected409, red retained05.",
+    "New quota fixtures apply0000 and0001; real ownSite measurement not account-wide freebalance.",
+    "No actual Sites/D1/R2/platform-boundary/streamingDigestStream/RAW test performed.",
+    "Original69 and auth/author results are not part of these21 cases."
+  ]
+}

@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "baseline": "docs/verification-results.json (34 Windows tests)",
+  "scope": "Source additions/differences since frozen baseline hashes plus integration documents. Not a Git committed diff; repo remains uncommitted. Six canonical documents and requirements.json unchanged.",
+  "files": [
+{"file":"apps/web/author-store.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/index.html","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/invite-admin.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/invite-auth.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/preset-policy.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/author-ui.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/editor-ui.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/login-ui.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/preset-author/preset-author-contract.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/preset-author/preset-author-web-adapter.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/encode.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/color-adjustments.mjs","kind":"WEB_POST_DECODE_COLOR_HSL_SYNTHETIC_ONLY"},
+{"file":"apps/web/src/processing/detail-adjustments.mjs","kind":"WEB_POST_DECODE_DETAIL_SYNTHETIC_ONLY"},
+{"file":"apps/web/src/processing/faces.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/index.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/pure.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/qa-page.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/qa.html","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/raw.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/processing/worker.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/sites-client.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/styles.css","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/src/trial-client.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/author-submissions.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/color-adjustments.test.mjs","kind":"WEB_POST_DECODE_COLOR_HSL_SYNTHETIC_TEST"},
+{"file":"apps/web/tests/detail-adjustments.test.mjs","kind":"WEB_POST_DECODE_DETAIL_SYNTHETIC_TEST"},
+{"file":"apps/web/tests/editing-integration-independent.test.mjs","kind":"WEB_POST_DECODE_END_TO_END_SYNTHETIC_TEST"},
+{"file":"apps/web/tests/fixtures.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/local-http-safety.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/multipart-client.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/processing-safety.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/session-safety.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/sites-worker.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/trial-auth.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/tests/worker-lifecycle.test.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/web/trial-server.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"apps/sites/build.mjs","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/db/schema.ts","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/0000_suite_sites.sql","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/0001_suite_sites.sql","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/0002_suite_sites.sql","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/meta/0000_snapshot.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/meta/0001_snapshot.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/meta/0002_snapshot.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle/meta/_journal.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/drizzle.config.ts","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/generate-migration.mjs","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/package.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/src/usage.mjs","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"apps/sites/src/worker.mjs","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+{"file":"scripts/web-trial-ui-seed.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"scripts/run-web-trial-evidence.mjs","kind":"AUTHORIZED_WEB_INVITED_TRIAL_ADDITION"},
+{"file":"docs/WEB_TRIAL_INTEGRATION.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/WEB_TRIAL_GUIDE.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/WEB_SDK_PRIVACY_REVIEW.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/SITES_LIMITS_REVIEW.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/WEB_RAW_INPUT_REQUIREMENTS.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/CHANGE_NOTICE.md","kind":"WEB_TRIAL_INTEGRATION_DOCUMENT"},
+{"file":"docs/EDITING_GAP_MATRIX.md","kind":"EDITOR_FEATURE_GAP_AUDIT_AND_EVIDENCE_BOUNDARY"},
+{"file":"apps/sites/.openai/hosting.json","kind":"SITES_INVITED_TRIAL_ADAPTER_NOT_DEPLOYED"},
+    {"file":"package-lock.json","kind":"AUTHORIZED_WEB_LOCAL_DECODER_VISION_BUILD_DEPENDENCIES"},
+    {"file":"apps/backend/src/person-geometry-validation.ts","kind":"SHARED_GATE_BROWSER_SAFE_EXTRACTION_EXISTING_EXPORTS_RETAINED"},
+    {"file":"apps/web/src/session.mjs","kind":"WEB_EXISTING_V1_CAS_PERSON_GATE_INTEGRATION"},
+    {"file":"apps/web/src/api-client.mjs","kind":"EXISTING_HTTP_PROTOCOL_LOCAL_QA_ADAPTER"},
+    {"file":"apps/web/src/bootstrap.mjs","kind":"WEB_EDITOR_BOOTSTRAP"},
+    {"file":"apps/web/local-server.mjs","kind":"LOOPBACK_ONLY_QA_NOT_PRODUCTION_AUTH"},
+    {"file":"apps/web/build.mjs","kind":"BROWSER_BUILD_RUNTIME_ASSETS"},
+    {"file":"packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift","kind":"EXPORT_PLAN_SHARED_PERSON_ASSET_BINDING_NATIVE_NOT_RUN"},
+    {"file":"apps/backend/src/person-geometry.ts","kind":"SHARED_PERSON_GEOMETRY_GATE_CONTROL_INDEPENDENT"},
+    {"file":"packages/SuiteCore/Sources/SuiteCore/PersonGeometryIntegrity.swift","kind":"SHARED_PERSON_GEOMETRY_GATE_NATIVE_NOT_RUN"},
+    {"file":"apps/backend/tests/person-integrity-paths.test.ts","kind":"INDEPENDENT_PERSON_GEOMETRY_PATH_TESTS"},
+    {"file":"scripts/portrait-integrity-evidence.mjs","kind":"REJECTION_REASON_EVIDENCE_DIAGNOSTICS"},
+    {"file":"apps/apple/Package.swift","kind":"AUTHORIZED_MAC_QA_PORTRAIT_SOURCE_INCLUDE_2026_10_03"},
+    {"file":"apps/apple/QA/RawQAAdapter.swift","kind":"AUTHORIZED_APPLE_TYPED_RAW_INITIALIZER_2026_10_03"},
+    {"file":"packages/SuiteCore/Sources/SuiteCore/Project.swift","kind":"AUTHORIZED_PORTRAIT_HISTORY_BINDING_2026_10_03"},
+    {"file":"packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift","kind":"AUTHORIZED_PORTRAIT_PERSISTED_BINDING_2026_10_03"},
+    {"file":"packages/SuiteCore/Sources/SuiteCore/PortraitRecipe.swift","kind":"ADDITIONAL_FACE_BRIGHTNESS_BRIDGE_2026_10_03"},
+    {"file":"apps/backend/src/portrait-recipe.ts","kind":"ADDITIONAL_FACE_BRIGHTNESS_GUARD_2026_10_03"},
+    {"file":"apps/apple/Suite/Services/PortraitPipeline.swift","kind":"ADDITIONAL_UNVERIFIED_FACE_BRIGHTNESS_ADAPTER_2026_10_03"},
+    {"file":"apps/backend/tests/portrait-recipe.test.ts","kind":"ADDITIONAL_ASTRA_INDEPENDENT_TEST_2026_10_03"},
+    {"file":"packages/SuiteCore/Tests/SuiteCoreTests/PortraitRecipeTests.swift","kind":"ADDITIONAL_NATIVE_NOT_RUN_TEST_2026_10_03"},
+    {"file":"apps/apple/Tests/PortraitPipelineTests.swift","kind":"ADDITIONAL_NATIVE_NOT_RUN_TEST_2026_10_03"},
+    {"file":"docs/ORIGINAL_RECOVERY_DESIGN.md","kind":"DESIGN_ONLY_NOT_IMPLEMENTED_2026_10_03"},
+    {
+      "file": "apps/apple/Suite/EditorModel.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "7baaf784a605ac8e4636b9fb4c4da7fe2701d1a2be695d0844ea2d048091326a"
+    },
+    {
+      "file": "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "c86175a64e85f7951c74a5e401abb293af50802ffd8a296e396dc80cbc3cab94"
+    },
+    {
+      "file": "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "cf0c1c5e038196a3831ab5ceb8981cf2a304dd8aab0ed2fcf5e70d89d0386628"
+    },
+    {
+      "file": "apps/apple/Suite/Services/PhotoPipeline.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "b47c039048c3cd8b7007196051b699ca773a8e9e5d197c5c06a18613a619221d"
+    },
+    {
+      "file": "apps/apple/Suite/Services/SuiteBackendClient.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "cf7e72a8e61b504debba6fa3be582e1e4fef071764bb19fdfc146b29d34a8bbb"
+    },
+    {
+      "file": "apps/apple/Suite/Services/WorkspaceClient.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "fe5df5e762f0b180c54073c6123899c06e25c379f49b33663583f8dc43a7d118"
+    },
+    {
+      "file": "apps/apple/Suite/Shared/CropEditorSheet.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "967b33b6b6b4f8719a0cc01f86c075e5dc90d779d8d68dad0c945cc696645cc7"
+    },
+    {
+      "file": "apps/apple/Suite/Shared/CropExportControls.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "d124eb110d6340b642c6ece8ed36e5a4400dd720ccf8484986950137043585aa"
+    },
+    {
+      "file": "apps/apple/Suite/Shared/EditorComponents.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "032d804a599f46a4bdcfa47be8534915d6c45787139f9d6464e0fe6b8d75cfba"
+    },
+    {
+      "file": "apps/apple/Suite/Shared/WorkspaceBrowser.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "5c771f0fbfb8ada659d125eb21dc002316632cf8409e64dcfce02e7c50a126ea"
+    },
+    {
+      "file": "apps/apple/Suite/SuiteApp.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "632d30489598570cb2cff678f28983eaadc99e9bf20bd43382c3cc5f6d2c9f2b"
+    },
+    {
+      "file": "apps/apple/Tests/CropExportPipelineTests.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "c6fceff42a7808c937537228e9df21e24619a15737232ac338385b4c66b1011b"
+    },
+    {
+      "file": "apps/backend/src/auth.ts",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "7769acdd1c7920110326712c36763217035ef5505b39bbf47b70e96715a6df81"
+    },
+    {
+      "file": "apps/backend/src/crop-export.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a"
+    },
+    {
+      "file": "apps/backend/src/photo-policy.ts",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "351daba569666887aa17cc1356851efe6fc2b081941aba984a62bf6cf57b85f6"
+    },
+    {
+      "file": "apps/backend/src/repository.ts",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "2011eb3b83cca8a80e669d52c917603448c20058827357e8732b58a19161fd83"
+    },
+    {
+      "file": "apps/backend/src/server.ts",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "a1585ee718eeec1b05f603db6387d7400b92746ba56d019886b57bf4b85b678f"
+    },
+    {
+      "file": "apps/backend/src/workspace-access.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "73c72cb614f12d3b943f375f9fd7c6249d209ad5f62a1e6eadc3f2c17ea311a5"
+    },
+    {
+      "file": "apps/backend/src/workspace-server.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "001a02720f0e5c992b5a3dd2baef954d1549ffc4ea5c317fe54aed652f487325"
+    },
+    {
+      "file": "apps/backend/src/workspace-storage.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "47e17f457f9228f994ad5d77584d5a9e7b47a786b6536cf62e5fe69d534877e5"
+    },
+    {
+      "file": "apps/backend/src/workspace.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "0957ae41bc876bb40c26dc9c5b62c5574fbbd08cd62e09a83361e423a320fcb9"
+    },
+    {
+      "file": "apps/backend/tests/crop-export.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "9fd6fb3f2f16500ea84f338c44b29b58a4d543c0e6206e5035d1352f191c9391"
+    },
+    {
+      "file": "apps/backend/tests/crop-integration.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "bef973524f7f8bf00f5ccda68c5469f9f5cdd3c12e6dc8dc89d229f1e60cdb03"
+    },
+    {
+      "file": "apps/backend/tests/workspace-access.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "6fe68021a374f6cb91ef14a9d340e0bda7be3794f0566230ea424ec04dd23a97"
+    },
+    {
+      "file": "apps/backend/tests/workspace-server.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "7db04fe3ed96b88b7e62d4ad8a3f11d8e4f4fa7ac59cefe3659e33c7b5bb8d1d"
+    },
+    {
+      "file": "apps/backend/tests/workspace-storage.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "ebbc4e20bc4e2f77ba255de536019d218fb369fff929608a8eba492cc84a6372"
+    },
+    {
+      "file": "apps/backend/tests/workspace.test.ts",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "c8410a2b74d5c9fa3ce73603096e090fcb0eca1e2b56f1a1a96a1f20ceeddaf7"
+    },
+    {
+      "file": "contracts/fixtures/print-presets.json",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "4c5110047fc0b896be9387c04b3485a80f511e2da29f183f70b6354f93476eb1"
+    },
+    {
+      "file": "package.json",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "ef9ed55e3bbcb1c85a378b93d90ac11665aae8c0353b3217cac058ff3b57aeb6"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "c02cff2512434570a43a310f968a9baba512b966466b27dc97d00998a578f266"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "b1ad1013db99fad87f95e5ec4ed75ca5afcbed87ec588264685ba3df3ededef0"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Providers.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "abee3236d57046c269eaf5df194bd21983c4036277b5650f7e7b05e6533ba6a1"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "7d9c89b1d6ae26133fda909e44c789798534b01a9bb2bc536da4e70b175ee234"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Workspace.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "3c853f48c7d8cdd689a5e56541f6fbd4a3daea0412b97b37382a0cd99273ca8f"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "9960c820452e03e450847649508eb915cda3fd5c9e69c5ac025ef916384e74e0"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/WorkspaceTests.swift",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "181ae7c8af73e4685dcbefdf5bfebd130ed2d829e5e2c4462b3f7d3e750dfa16"
+    },
+    {
+      "file": "scripts/check-additional-spec.mjs",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "96bc35f9249a3c5976af833d4333d5d0fa31fa2c0633e6ed9f3acf38ad1eda24"
+    },
+    {
+      "file": "scripts/check-readiness-evidence.mjs",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "c056c1d71125c85335b1dbfbec15e770551e40d37739539f047456de37bce8dc"
+    },
+    {
+      "file": "scripts/final-regression.mjs",
+      "kind": "MODIFIED_SINCE_34_TEST_BASELINE",
+      "sha256": "d7baf496a572a00d6c5ffc9af189f3c10fa9af1b133db3df8f618e2179342770"
+    },
+    {
+      "file": "scripts/pricing-model.mjs",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "a5e146d8ab36fff444eb13ddea32ab07e76dd07d9c5e53fc9ca66af610234104"
+    },
+    {
+      "file": "scripts/pricing-model.test.mjs",
+      "kind": "ADDITIONAL_SOURCE_SINCE_34_TEST_BASELINE",
+      "sha256": "494ba9f53591aec70675b87bdabf6c6cb4f0dd7d124012a301a2aea7541a5d9c"
+    },
+    {
+      "file": "docs/OWNERSHIP.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/HANDOFF.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/VERIFICATION.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/TEST_CATALOG.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/NEXT_RUN.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "README.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/INTEGRATED_REPORT.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/INTEGRATED_TEST_CATALOG.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/INTEGRATED_TRACEABILITY.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/INTEGRATED_CHANGES.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/ASTRA_REVIEW.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/ADDITIONAL_SOURCE_PRESERVATION.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/CROP_IMPLEMENTATION.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/CROP_REQUIREMENTS.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/PRINT_PRESETS.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_SPEC_PART_1.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_SPEC_PART_2.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_SPEC_PART_3.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_REQUIREMENTS.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_INTEGRATION.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_BACKEND.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/WORKSPACE_MOBILE.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/STORAGE_PROVIDER_COMPARISON.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/EVOTO_DEEP_AUDIT_V2_REQUEST.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/EVOTO_DEEP_AUDIT_V3_REQUEST.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/evoto-audit.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/PRICING_BASELINE_2026-10-03.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/PRICING_REVIEW.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/PRICING_REQUIREMENTS.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/PRICING_SCENARIO.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/APPLE_SUBMISSION/IAP_ASSESSMENT.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/MOBILE_DEVICE_QA.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/evidence/integrated-2026-10-03/regression.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/CANDIDATE_REQUIREMENTS.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "4eb8e6613db3ff567c2c944ff3a30e769ef2e93ccbd756a50ed425e181b90ec7"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/CATEGORY_RECONCILIATION.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "14fe3d9f02dad41aa919fcf956be3de4f29af9097b7920dc0d5bcb4e11949eaf"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVIDENCE_INDEX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "503d00c8c348aba0e511585e2cf056ea6e22b6e50fdd3dda23f4a57e4cf34116"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/evoto-deep-audit.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "d91ba14caaca910124bed8c5d336f0bb552786d0be8742f58423b2a4127ecf64"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_AI_LAB_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "7f2c1da41f2a50ba8206a0a51c72e8f9b45a87abae7c558e7839ba1f880ad60b"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_BACKGROUND_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "48f33769e2e89784079334d9b10cd30943c1d9d39518d5d93d770a23171dd4bb"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_CLOUD_TEAM_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "9c7180dd0e864010986349ba78cfc53cb28a11c1f87cc7827426540617739dc0"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_COLOR_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "8e2ea6442543ecc2d550abfaf0eeaad78890055dfef8a958a6f6b42e6ac572c8"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_EXPORT_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "dc43e3e2a4853192dc11e5b555b6697ab8cced0151dd75a807a28f5df8fb9d64"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_FEATURE_MASTER.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "abef7bfb459b6da13f58ea9ee1f64646e2016856c8f81bcb50944afe121272a7"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_FEATURE_TREE.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "c7f73d6d64f20fefdb1311b16fd349d261e5ed1a3ad9abd705a09deea16e28d8"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_PLATFORM_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "052008d780377404df02f4c781aef3898eda52dc662c4ce91559f3a8168dc9be"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_PORTRAIT_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "0e1eab6f7a65a1c5e8c9141a76c768279ce057ea978018eadf69a62e1ff13816"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_PRICING_CREDIT_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "f75a0d39b438875fb88a8e55cd7083bc83b62a03a9315a5e8819f17c805a98f7"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/EVOTO_TETHER_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "5d81bc140c38633c7f622f4d7e9e723ee0594c6f6b5a97f3294d0544bf17ecb0"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/HEADING_DISPOSITION.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "d64fa1987aed9983b069829b3f41653dacde04fd47d808cbbba7eef734edb7fa"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/NEXT_REVIEW_QUEUE.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "3cfbb649c2ab6a9e62f50a426c4dfab7d52d745853c347cc0fdf0d68d366830d"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/OFFICIAL_SUPPORT_ARTICLE_INDEX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "6943cdcaf32e8f3b2ffbcc89db2c06c968a216443579f9368752f7c8df0fa96a"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/OPEN_ARTICLES.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "5d59afb4303d64ec602be841133e74888fb192aab46183176b19cdf0d74666f2"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/PERFORMANCE_QUALITY_CREDIT.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "024bbf1666e24213cf9b6b3f95b79daafec5a5d92ea5b341d02bc6951cfc68df"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/README.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "e61876c75426c0771ab84a7cca5f26cc3b3ae592e1ae26d8d5fd7c5acd27ea29"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/REQUIREMENT_TRACE_V2_V3.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "404a9d7035c9f13bf58efacc32c4ff9aca40b6e2e55b7e235cdc424db2faa36c"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/SUITE_ADVANTAGE_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "7958a20b486852f39c5e3cab3436f5e0a12f29f3193df0fc91f8f9d6dc28438e"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/SUITE_GAP_MATRIX.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "37a611a92ad2dd3b401bdaca76e17300aea7ccc9731ebaabd604825af034dace"
+    },
+    {
+      "file": "docs/EVOTO_AUDIT/VALIDATION.json",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "9e8e1a39ba471637c37ff4587b2bff6d09655fe15e2f8682d8ce9180d0957beb"
+    },
+    {
+      "file": "scripts/evoto-deep-audit-validate.mjs",
+      "kind": "ADDITIONAL_AUDIT_TOOL",
+      "sha256": "10e3ec3b6e7185f22d74340a805509b641b95be7d4e761a7cff8c7ff7497af00"
+    },
+    {
+      "file": "scripts/evoto-deep-audit.mjs",
+      "kind": "ADDITIONAL_AUDIT_TOOL",
+      "sha256": "cf935e641ea3b5b1bb5764b25460fa361af47c4e7c6a5bb1f23c3481aeb421de"
+    },
+    {
+      "file": "docs/APPLE_SUBMISSION/PRIVACY_DATA_SDK.md",
+      "kind": "INTEGRATION_DOCUMENT_OR_EVIDENCE",
+      "sha256": "75216f95929367ffdba723e181dccfdcee1588c0878479625a9044d893fdfdfc"
+    },
+    {
+      "file": "docs/evidence/integrated-2026-10-03/final-commands.json",
+      "kind": "FINAL_PARENT_EVIDENCE"
+    },
+    {
+      "file": "docs/evidence/integrated-2026-10-03/integrity.json",
+      "kind": "FINAL_PARENT_EVIDENCE"
+    }
+  ]
+}

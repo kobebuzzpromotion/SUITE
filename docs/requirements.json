@@ -1,0 +1,4621 @@
+{
+  "version": 2,
+  "requirements": [
+    {
+      "id": "SPEC-001",
+      "source": "SUITE_SPEC.md",
+      "section": 1,
+      "title": "PRODUCT VISION",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-002",
+      "source": "SUITE_SPEC.md",
+      "section": 2,
+      "title": "DEVELOPMENT PRIORITY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-003",
+      "source": "SUITE_SPEC.md",
+      "section": 3,
+      "title": "METIS INHERITANCE",
+      "status": "汎用境界一部・未接続能力28保持",
+      "evidence": [
+        "packages/METISMobileCore",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "コード/資料確認・native未実行",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/METISMobileCore/Sources/METISMobileCore"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-004",
+      "source": "SUITE_SPEC.md",
+      "section": 4,
+      "title": "BASIC ARCHITECTURE",
+      "status": "骨組み・production未接続",
+      "evidence": [
+        "docs/ARCHITECTURE.md",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "コード/資料確認・native未実行",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-005",
+      "source": "SUITE_SPEC.md",
+      "section": 5,
+      "title": "NATIVE MOBILE IMPLEMENTATION",
+      "status": "ネイティブ骨組み・未ビルド",
+      "evidence": [
+        "apps/apple/project.yml",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-006",
+      "source": "SUITE_SPEC.md",
+      "section": 6,
+      "title": "NON-DESTRUCTIVE EDITING",
+      "status": "非破壊データ一部",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "コード/資料確認・native未実行",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-007",
+      "source": "SUITE_SPEC.md",
+      "section": 7,
+      "title": "PROXY ARCHITECTURE",
+      "status": "Proxy契約・native未検証",
+      "evidence": [
+        "docs/PHOTO_ARCHITECTURE.md",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "コード/資料確認・native未実行",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-008",
+      "source": "SUITE_SPEC.md",
+      "section": 8,
+      "title": "TETHER SHOOTING",
+      "status": "要件保持・テザー実接続未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/Providers.swift",
+        "docs/ADDITIONAL_SPEC.md",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-009",
+      "source": "SUITE_SPEC.md",
+      "section": 9,
+      "title": "OFFICIAL CABLE PROGRAM",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-010",
+      "source": "SUITE_SPEC.md",
+      "section": 10,
+      "title": "RAW DEVELOPMENT",
+      "status": "4調整のみ候補実装・全RAW項目未完成",
+      "evidence": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Services/PhotoPipeline.swift",
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-011",
+      "source": "SUITE_SPEC.md",
+      "section": 11,
+      "title": "AUTO DEVELOP",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-012",
+      "source": "SUITE_SPEC.md",
+      "section": 12,
+      "title": "AI PORTRAIT RETOUCH",
+      "status": "意図データ境界のみ・人物処理未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-013",
+      "source": "SUITE_SPEC.md",
+      "section": 13,
+      "title": "BODY RETOUCH",
+      "status": "意図データ境界のみ・人物処理未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-014",
+      "source": "SUITE_SPEC.md",
+      "section": 14,
+      "title": "PERSON-BASED BATCH RETOUCH",
+      "status": "意図データ境界のみ・人物処理未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-015",
+      "source": "SUITE_SPEC.md",
+      "section": 15,
+      "title": "COLOR / LOOK ENGINE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-016",
+      "source": "SUITE_SPEC.md",
+      "section": 16,
+      "title": "PERSONAL COLOR / SKIN TONE",
+      "status": "意図データ境界のみ・人物処理未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-017",
+      "source": "SUITE_SPEC.md",
+      "section": 17,
+      "title": "CATEGORY MODE",
+      "status": "意図データ境界のみ・人物処理未実装",
+      "evidence": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-018",
+      "source": "SUITE_SPEC.md",
+      "section": 18,
+      "title": "GENERATIVE AI",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-019",
+      "source": "SUITE_SPEC.md",
+      "section": 19,
+      "title": "GENERATIVE MODES",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-020",
+      "source": "SUITE_SPEC.md",
+      "section": 20,
+      "title": "PREVIEW == FINAL PRINCIPLE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Services/PhotoPipeline.swift",
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-021",
+      "source": "SUITE_SPEC.md",
+      "section": 21,
+      "title": "IDENTITY LOCK",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-022",
+      "source": "SUITE_SPEC.md",
+      "section": 22,
+      "title": "OBJECT REMOVAL",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-023",
+      "source": "SUITE_SPEC.md",
+      "section": 23,
+      "title": "WEATHER",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-024",
+      "source": "SUITE_SPEC.md",
+      "section": 24,
+      "title": "SHARE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-025",
+      "source": "SUITE_SPEC.md",
+      "section": 25,
+      "title": "CLIENT GALLERY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-026",
+      "source": "SUITE_SPEC.md",
+      "section": 26,
+      "title": "CLOUD-FIRST STORAGE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-027",
+      "source": "SUITE_SPEC.md",
+      "section": 27,
+      "title": "ORIGINAL / PROXY / RECIPE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-028",
+      "source": "SUITE_SPEC.md",
+      "section": 28,
+      "title": "CROSS DEVICE",
+      "status": "API注入接続のみ・cross-device未完成",
+      "evidence": [
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-029",
+      "source": "SUITE_SPEC.md",
+      "section": 29,
+      "title": "UPLOAD SAFETY",
+      "status": "local基盤一部・本番provider未実装",
+      "evidence": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-030",
+      "source": "SUITE_SPEC.md",
+      "section": 30,
+      "title": "SOFT DELETE",
+      "status": "backend論理削除/復元・端末UI未接続",
+      "evidence": [
+        "apps/backend/src/repository.ts",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Windows backend tests PASS",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-031",
+      "source": "SUITE_SPEC.md",
+      "section": 31,
+      "title": "STORAGE PROVIDER",
+      "status": "local基盤一部・本番provider未実装",
+      "evidence": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-032",
+      "source": "SUITE_SPEC.md",
+      "section": 32,
+      "title": "STORAGE PLAN",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-033",
+      "source": "SUITE_SPEC.md",
+      "section": 33,
+      "title": "STORAGE COST ACCOUNTING",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-034",
+      "source": "SUITE_SPEC.md",
+      "section": 34,
+      "title": "PRESET",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-035",
+      "source": "SUITE_SPEC.md",
+      "section": 35,
+      "title": "COMMUNITY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-036",
+      "source": "SUITE_SPEC.md",
+      "section": 36,
+      "title": "COMMUNITY ACCESS",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-037",
+      "source": "SUITE_SPEC.md",
+      "section": 37,
+      "title": "STUDIO / TEAM WORKSPACE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/auth.ts",
+          "apps/backend/src/server.ts"
+        ],
+        "scope": "JWT署名/tenant/期限切れのみ。本番role/member失効未実装"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts"
+        ],
+        "scope": "JWT署名/tenant/期限切れのみ。本番role/member失効未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-038",
+      "source": "SUITE_SPEC.md",
+      "section": 38,
+      "title": "STUDIO PRESET",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-039",
+      "source": "SUITE_SPEC.md",
+      "section": 39,
+      "title": "EDIT CONFLICT",
+      "status": "期待版CAS・UI調停未完成",
+      "evidence": [
+        "apps/backend/src/repository.ts",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-040",
+      "source": "SUITE_SPEC.md",
+      "section": 40,
+      "title": "EXPORT",
+      "status": "固定入力・原本限定・一時出力候補実装",
+      "evidence": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Services/PhotoPipeline.swift",
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-041",
+      "source": "SUITE_SPEC.md",
+      "section": 41,
+      "title": "SOCIAL EXPORT",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-042",
+      "source": "SUITE_SPEC.md",
+      "section": 42,
+      "title": "PRINT EXPORT",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-043",
+      "source": "SUITE_SPEC.md",
+      "section": 43,
+      "title": "JAPANESE PHOTO SIZE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-044",
+      "source": "SUITE_SPEC.md",
+      "section": 44,
+      "title": "PRINT PREVIEW",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-045",
+      "source": "SUITE_SPEC.md",
+      "section": 45,
+      "title": "300 PPI CHECK",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-046",
+      "source": "SUITE_SPEC.md",
+      "section": 46,
+      "title": "UPSCALE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-047",
+      "source": "SUITE_SPEC.md",
+      "section": 47,
+      "title": "PRINT WORKFLOW",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-048",
+      "source": "SUITE_SPEC.md",
+      "section": 48,
+      "title": "GENERATIVE DESIGN",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-049",
+      "source": "SUITE_SPEC.md",
+      "section": 49,
+      "title": "GENERATIVE MODEL ROUTING",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-050",
+      "source": "SUITE_SPEC.md",
+      "section": 50,
+      "title": "GENERATIVE BILLING",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-051",
+      "source": "SUITE_SPEC.md",
+      "section": 51,
+      "title": "MOBILE BILLING",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-052",
+      "source": "SUITE_SPEC.md",
+      "section": 52,
+      "title": "PLAN STRUCTURE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-053",
+      "source": "SUITE_SPEC.md",
+      "section": 53,
+      "title": "LOCAL-FIRST + CLOUD OPTION",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-054",
+      "source": "SUITE_SPEC.md",
+      "section": 54,
+      "title": "DEVICE STORAGE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-055",
+      "source": "SUITE_SPEC.md",
+      "section": 55,
+      "title": "OFFLINE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-056",
+      "source": "SUITE_SPEC.md",
+      "section": 56,
+      "title": "BATTERY / THERMAL",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/METISMobileCore/Sources/METISMobileCore"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-057",
+      "source": "SUITE_SPEC.md",
+      "section": 57,
+      "title": "BACKGROUND TASK",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/METISMobileCore/Sources/METISMobileCore"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "汎用判断境界のみ、28能力実動は未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-058",
+      "source": "SUITE_SPEC.md",
+      "section": 58,
+      "title": "PERFORMANCE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "scripts/raw-harness.mjs",
+          "apps/apple/QA/RawQAAdapter.swift"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_HARNESS_ONLY",
+        "files": [
+          "scripts/raw-harness.test.mjs"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-059",
+      "source": "SUITE_SPEC.md",
+      "section": 59,
+      "title": "SECURITY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/auth.ts",
+          "apps/backend/src/server.ts"
+        ],
+        "scope": "JWT署名/tenant/期限切れのみ。本番role/member失効未実装"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts"
+        ],
+        "scope": "JWT署名/tenant/期限切れのみ。本番role/member失効未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-060",
+      "source": "SUITE_SPEC.md",
+      "section": 60,
+      "title": "PRIVACY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-061",
+      "source": "SUITE_SPEC.md",
+      "section": 61,
+      "title": "BACKUP / RECOVERY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-062",
+      "source": "SUITE_SPEC.md",
+      "section": 62,
+      "title": "DATABASE",
+      "status": "backend SQLite WAL実装・本番未接続",
+      "evidence": [
+        "apps/backend/src/repository.ts",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Windows backend persistence/CAS/kill tests PASS",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-063",
+      "source": "SUITE_SPEC.md",
+      "section": 63,
+      "title": "PICASSO / DA VINCI REUSE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-064",
+      "source": "SUITE_SPEC.md",
+      "section": 64,
+      "title": "APP UX",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-065",
+      "source": "SUITE_SPEC.md",
+      "section": 65,
+      "title": "IPHONE",
+      "status": "iPhone専用UI骨組み",
+      "evidence": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-066",
+      "source": "SUITE_SPEC.md",
+      "section": 66,
+      "title": "IPAD",
+      "status": "iPad専用UI骨組み",
+      "evidence": [
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "Swift/実機は未検証。実行範囲はVERIFICATION.md参照",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-067",
+      "source": "SUITE_SPEC.md",
+      "section": 67,
+      "title": "DESKTOP FUTURE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-068",
+      "source": "SUITE_SPEC.md",
+      "section": 68,
+      "title": "WEB",
+      "status": "後続・実装しない",
+      "evidence": [
+        "docs/MOBILE_RELEASE_FIRST.md",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "WebをMobile Gateに含めない",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-069",
+      "source": "SUITE_SPEC.md",
+      "section": 69,
+      "title": "STUDIO BUSINESS MODEL SUPPORT",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-070",
+      "source": "SUITE_SPEC.md",
+      "section": 70,
+      "title": "OBSERVABILITY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-071",
+      "source": "SUITE_SPEC.md",
+      "section": 71,
+      "title": "COST OBSERVABILITY",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-072",
+      "source": "SUITE_SPEC.md",
+      "section": 72,
+      "title": "CAMERA COMPATIBILITY TEST",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "scripts/raw-harness.mjs",
+          "apps/apple/QA/RawQAAdapter.swift"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_HARNESS_ONLY",
+        "files": [
+          "scripts/raw-harness.test.mjs"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-073",
+      "source": "SUITE_SPEC.md",
+      "section": 73,
+      "title": "HARDWARE TEST MATRIX",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "scripts/raw-harness.mjs",
+          "apps/apple/QA/RawQAAdapter.swift"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_HARNESS_ONLY",
+        "files": [
+          "scripts/raw-harness.test.mjs"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-074",
+      "source": "SUITE_SPEC.md",
+      "section": 74,
+      "title": "QUALITY GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/gates.ts",
+          "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-075",
+      "source": "SUITE_SPEC.md",
+      "section": 75,
+      "title": "GENERATIVE QUALITY GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-076",
+      "source": "SUITE_SPEC.md",
+      "section": 76,
+      "title": "BODY RETOUCH QUALITY GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-077",
+      "source": "SUITE_SPEC.md",
+      "section": 77,
+      "title": "PRINT QUALITY GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-078",
+      "source": "SUITE_SPEC.md",
+      "section": 78,
+      "title": "CLOUD SAFETY GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-079",
+      "source": "SUITE_SPEC.md",
+      "section": 79,
+      "title": "APP STORE RELEASE GATE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/gates.ts",
+          "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-080",
+      "source": "SUITE_SPEC.md",
+      "section": 80,
+      "title": "DEVELOPMENT PHASES",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-081",
+      "source": "SUITE_SPEC.md",
+      "section": 81,
+      "title": "FIRST RELEASE SCOPE",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-082",
+      "source": "SUITE_SPEC.md",
+      "section": 82,
+      "title": "DO NOT DO",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-083",
+      "source": "SUITE_SPEC.md",
+      "section": 83,
+      "title": "CODEX FIRST TASK",
+      "status": "事前16項目報告済み",
+      "evidence": [
+        "docs/IMPLEMENTATION_REPORT.md",
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "コード/資料確認・native未実行",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "SPEC-084",
+      "source": "SUITE_SPEC.md",
+      "section": 84,
+      "title": "PRODUCT PRINCIPLES",
+      "status": "未実装",
+      "evidence": [
+        "docs/SUITE_SPEC.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-01",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 1,
+      "title": "RELEASE PRIORITY",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-02",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 2,
+      "title": "MOBILE IS THE PRIMARY PRODUCT",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-03",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 3,
+      "title": "DEVICE PRIORITY",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-04",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 4,
+      "title": "MOBILE COREを先に作る",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-05",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 5,
+      "title": "SUITE MOBILE WORKFLOW",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-06",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 6,
+      "title": "PHOTO PROFESSIONAL USE",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+          "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+          "apps/apple/Suite/EditorModel.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "tests": {
+        "status": "NOT_RUN_DEVICE",
+        "files": [
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "端末別UI接続。操作/見た目/主要導線は実機未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-07",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 7,
+      "title": "AI EXECUTION",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-08",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 8,
+      "title": "LIGHT PREVIEW / FINAL RENDER",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-09",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 9,
+      "title": "IPHONE UX",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-10",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 10,
+      "title": "IPAD UX",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-11",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 11,
+      "title": "PERFORMANCE IS A PRODUCT REQUIREMENT",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-12",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 12,
+      "title": "OFFLINE / INTERRUPTION",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-13",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 13,
+      "title": "CODEX IMPLEMENTATION PRIORITY",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-14",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 14,
+      "title": "CODEX EXECUTION OPTIMIZER",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-15",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 15,
+      "title": "RELEASE GATE",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/gates.ts",
+          "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift"
+        ],
+        "scope": "未知Gate拒否ロジックのみ。実ReleaseはBLOCK"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "MOBILE-16",
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 16,
+      "title": "ABSOLUTE RULE",
+      "status": "設計に反映",
+      "evidence": [
+        "docs/MOBILE_OVERRIDE.md"
+      ],
+      "verification": "未実施",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-01",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 1,
+      "title": "基本原則",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-02",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 2,
+      "title": "ORIGINAL RAW IS IMMUTABLE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-03",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 3,
+      "title": "PROXY FIRST",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-04",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 4,
+      "title": "PROXY QUALITY LEVEL",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-05",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 5,
+      "title": "1:1 INSPECTION",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-06",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 6,
+      "title": "EDIT RECIPE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+          "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/failures.test.ts",
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+          "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift"
+        ],
+        "scope": "Golden JSON/CAS/永続化。Swift往復・異常終了耐久UIは未検証"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-07",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 7,
+      "title": "CLOUD-FIRST",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-08",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 8,
+      "title": "IMPORT FLOW",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-09",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 9,
+      "title": "CLOUD SAFE GATE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-10",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 10,
+      "title": "LOCAL RAW EVICTION",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-11",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 11,
+      "title": "EXPORT FLOW",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/apple/Suite/Services/PhotoPipeline.swift",
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "Original待機/入力版固定/未対応拒否の境界。実RAW出力は未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-12",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 12,
+      "title": "EXPORT DEVICE INDEPENDENCE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-13",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 13,
+      "title": "BACKGROUND RAW DOWNLOAD",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-14",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 14,
+      "title": "SMART CACHE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/PhotoPipeline.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+          "apps/apple/Tests/PhotoPipelineTests.swift"
+        ],
+        "scope": "表現選択/削除保護。実複数Proxy/cloud転送未接続"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-15",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 15,
+      "title": "OFFLINE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-16",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 16,
+      "title": "SYNC PRIORITY",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-17",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 17,
+      "title": "MOBILE NETWORK CONTROL",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-18",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 18,
+      "title": "STORAGE PROVIDER ABSTRACTION",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "apps/backend/src/storage.ts",
+          "apps/backend/src/multipart.ts",
+          "apps/backend/src/repository.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_PARTIAL",
+        "files": [
+          "apps/backend/tests/suite.test.ts",
+          "apps/backend/tests/failures.test.ts"
+        ],
+        "scope": "local bytes/SQLite/再開/破損/ENOSPC注入。cloud provider/実デバイスではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-19",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 19,
+      "title": "STORAGE PROVIDER SELECTION",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-20",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 20,
+      "title": "COST MODEL",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-21",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 21,
+      "title": "USER EXPERIENCE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-22",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 22,
+      "title": "CLOUD AS PRODUCT VALUE",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+          "apps/apple/Suite/Services/SuiteBackendClient.swift",
+          "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift"
+        ],
+        "scope": "判定/注入接続のみ。背景同期・全復元・通信設定UI未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-23",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 23,
+      "title": "TEST",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "scripts/raw-harness.mjs",
+          "apps/apple/QA/RawQAAdapter.swift"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_HARNESS_ONLY",
+        "files": [
+          "scripts/raw-harness.test.mjs"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "CLOUD-24",
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 24,
+      "title": "最終原則",
+      "status": "要件保持・実装未完",
+      "evidence": [
+        "docs/CLOUD_STORAGE_OVERRIDE.md"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-01",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 1,
+      "title": "Tether Session Look",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-02",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 2,
+      "title": "撮影モード",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-03",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 3,
+      "title": "Wedding Mode",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-04",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 4,
+      "title": "Night Work Mode",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-05",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 5,
+      "title": "Fashion Mode",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-06",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 6,
+      "title": "Beauty Mode",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-07",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 7,
+      "title": "ローカル処理優先",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-08",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 8,
+      "title": "Face / Skin / Body Retouch",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-09",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 9,
+      "title": "レタッチ強度",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-10",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 10,
+      "title": "人物補正の自動追従",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-11",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 11,
+      "title": "Body Retouchの背景保護",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-12",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 12,
+      "title": "Personal Color",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-13",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 13,
+      "title": "Personal Color適用範囲",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-14",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 14,
+      "title": "Session Lookとの統合",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-15",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 15,
+      "title": "Adaptive Apply",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-16",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 16,
+      "title": "複数人物",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-17",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 17,
+      "title": "Auto Apply",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-18",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 18,
+      "title": "Progressive Display",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "未実装",
+        "paths": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "tests": {
+        "status": "NOT_IMPLEMENTED_NO_EXECUTION",
+        "files": [],
+        "scope": "原文保持。実装・機能試験なし、完成扱いしない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-19",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 19,
+      "title": "撮影途中のLook変更",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-20",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 20,
+      "title": "Auto Apply Control",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-21",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 21,
+      "title": "完全非破壊",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "tests": {
+        "status": "NOT_RUN_MAC",
+        "files": [
+          "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift"
+        ],
+        "scope": "Session Look/人物意図データ・適用計画のみ。描画/ML/テザー未実装"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-22",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 22,
+      "title": "Tether QA",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "一部コードあり（範囲限定）",
+        "paths": [
+          "scripts/raw-harness.mjs",
+          "apps/apple/QA/RawQAAdapter.swift"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "tests": {
+        "status": "PASS_WINDOWS_HARNESS_ONLY",
+        "files": [
+          "scripts/raw-harness.test.mjs"
+        ],
+        "scope": "18機構試験。実RAW100/500/1000・容量別Projectは未実施"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    },
+    {
+      "id": "ADD-23",
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 23,
+      "title": "メインエージェント統括",
+      "status": "仕様保持・データ境界一部/機能実動未完成",
+      "evidence": [
+        "docs/ADDITIONAL_SPEC.md",
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "verification": "未実施（詳細はHANDOFF/VERIFICATION）",
+      "implementation": {
+        "status": "文書反映",
+        "paths": [
+          "docs/MOBILE_RELEASE_FIRST.md"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "tests": {
+        "status": "PASS_DOCUMENT_ONLY",
+        "files": [
+          "scripts/check-spec.mjs"
+        ],
+        "scope": "原文/番号/参照/方針/hash照合のみ。機能完成ではない"
+      },
+      "testEvidence": {
+        "record": "docs/verification-results.json",
+        "catalog": "docs/TEST_CATALOG.md",
+        "failureMatrix": "docs/FAILURE_MATRIX.md",
+        "release": "BLOCK"
+      }
+    }
+  ]
+}

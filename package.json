@@ -1,0 +1,35 @@
+{
+  "name": "suite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/apps/backend/tests/*.test.js scripts/*.test.mjs",
+    "qa:raw:manifest": "node scripts/raw-harness.mjs manifest --sets 100,500,1000",
+    "qa:raw:pipeline": "node scripts/raw-harness.mjs pipeline --sets 100,500,1000",
+    "check:spec": "node scripts/check-spec.mjs",
+    "check": "npm run check:spec && npm test",
+    "start": "node dist/apps/backend/src/server.js",
+    "web:build": "npm run build && node apps/web/build.mjs",
+    "web:dev": "node apps/web/local-server.mjs",
+    "web:test": "npm run build && node --test apps/web/tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@colorhythm/libraw-wasm": "1.1.1",
+    "@mediapipe/tasks-vision": "1.0.1",
+    "jose": "6.2.12"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "agent-browser": "0.21.0",
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.2",
+    "esbuild-wasm": "0.28.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.147.0"
+  }
+}

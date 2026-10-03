@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUITE — NONRAW Worker diagnostics</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#121822;color:#edf2f7}body{max-width:1080px;margin:auto;padding:24px}h1{font-size:1.6rem}h2{font-size:1.15rem}.warning{background:#332b18;border:1px solid #caaa52;padding:16px;border-radius:8px}button,a{display:inline-block;min-height:44px;box-sizing:border-box;padding:10px 16px;border:1px solid #8396b4;border-radius:6px;background:#223650;color:white;font:inherit}button:disabled{opacity:.5}a[hidden]{display:none}#qa-results{padding-left:28px}#qa-results li{margin:12px 0;padding:10px;background:#1b2635;border-radius:6px}.PASS{border-left:4px solid #73d9a6}.FAIL{border-left:4px solid #ff8181}.NOT_RUN{border-left:4px solid #dfbf68}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem}.images{display:grid;grid-template-columns:1fr 1fr;gap:20px}figure{margin:0}img{display:block;width:100%;height:210px;object-fit:contain;image-rendering:pixelated;background:#000;border:1px solid #4c5c75}.muted{color:#b7c3d7}#qa-status{min-height:3em}details{margin-top:24px}@media(max-width:600px){body{padding:16px}.images{grid-template-columns:1fr}h1{font-size:1.3rem}}:focus-visible{outline:3px solid #8dbdff;outline-offset:3px}
+</style></head>
+<body>
+<a href="/">← Editorへ戻る</a>
+<h1>Web Worker診断 — 人工RGBA / NONRAW限定</h1>
+<p class="warning">実ブラウザWorkerと実WASM/modelを呼びますが、入力は人工画素と16ゼロbyteのみです。写真・実RAW・本物の人物品質・Mobileの合格試験ではありません。実RAW / 実人物 / Proxy–Final視覚QA / Appleは常にNOT_RUNです。</p>
+<p class="muted">数値レンダー、Proxy、PNG/JPEG encode、安全拒否、fresh Worker中断を順番に実行。合格はこの限定scopeだけです。端末メモリ負荷試験・全RAWdecoder対応ではありません。</p>
+<button id="run-processing-qa" type="button">Run NONRAW / artificial diagnostics</button>
+<a id="qa-download" hidden download="suite-nonraw-worker-qa.json">JSON Evidenceを保存</a>
+<p id="qa-status" role="status" aria-live="polite">NOT_RUN — Runで開始します。</p>
+<ol id="qa-results" aria-label="順序付き診断結果"></ol>
+<section><h2>人工pixelのPNG表示 — 写真ではありません</h2><div class="images"><figure><img id="qa-before" alt="未編集の人工RGBA gradient。写真/RAWではありません"><figcaption>Artificial base → 実Worker PNG</figcaption></figure><figure><img id="qa-after" alt="global露出/contrast/saturationを変更した人工RGBA gradient。写真/RAWではありません"><figcaption>Artificial global adjustment → 実Worker PNG</figcaption></figure></div></section>
+<details><summary>実run JSON（秘密token・人物データなし）</summary><pre id="qa-json">NOT_RUN</pre></details>
+<script type="module" src="/qa.js"></script>
+</body></html>

@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "existing147Unchanged": true,
+  "requirements": [
+    {
+      "id": "CROP-01",
+      "title": "Crop標準比率",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 1,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-01"
+    },
+    {
+      "id": "CROP-02",
+      "title": "印刷実寸Crop",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 2,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-02"
+    },
+    {
+      "id": "CROP-03",
+      "title": "写真プリント規格",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 3,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-03"
+    },
+    {
+      "id": "CROP-04",
+      "title": "Crop画面で完成イメージを表示",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 4,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-04"
+    },
+    {
+      "id": "CROP-05",
+      "title": "Cropは非破壊",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 5,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-05"
+    },
+    {
+      "id": "CROP-06",
+      "title": "CropとExportを連動",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 6,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-06"
+    },
+    {
+      "id": "CROP-07",
+      "title": "DPI",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 7,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-07"
+    },
+    {
+      "id": "CROP-08",
+      "title": "解像度不足",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 8,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-08"
+    },
+    {
+      "id": "CROP-09",
+      "title": "Export Format",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 9,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-09"
+    },
+    {
+      "id": "CROP-10",
+      "title": "Color Space",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 10,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-10"
+    },
+    {
+      "id": "CROP-11",
+      "title": "Export Preset",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 11,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-11"
+    },
+    {
+      "id": "CROP-12",
+      "title": "UIカテゴリ",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 12,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-12"
+    },
+    {
+      "id": "CROP-13",
+      "title": "Evoto競合監査への追加",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 13,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "docs/EVOTO_AUDIT.md",
+        "docs/evoto-audit.json"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-13"
+    },
+    {
+      "id": "CROP-14",
+      "title": "Lightroomは参考比較のみ",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 14,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "docs/EVOTO_AUDIT.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-14"
+    },
+    {
+      "id": "CROP-15",
+      "title": "テスト追加",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 15,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/crop-export.ts",
+        "packages/SuiteCore/Sources/SuiteCore/CropExport.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CropRecipeBridge.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "apps/apple/Suite/Shared/CropExportControls.swift",
+        "apps/apple/Suite/Shared/CropEditorSheet.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testFiles": [
+        "apps/backend/tests/crop-export.test.ts",
+        "apps/backend/tests/crop-integration.test.ts",
+        "packages/SuiteCore/Tests/SuiteCoreTests/CropExportTests.swift",
+        "apps/apple/Tests/CropExportPipelineTests.swift"
+      ],
+      "status": "WINDOWS_SUBSET_TESTED_NATIVE_NOT_RUN",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-15"
+    },
+    {
+      "id": "CROP-16",
+      "title": "完了報告",
+      "source": "docs/CROP_PRINT_EXPORT_SPEC.md",
+      "section": 16,
+      "design": [
+        "docs/CROP_IMPLEMENTATION.md",
+        "docs/PRINT_PRESETS.md"
+      ],
+      "implementationPaths": [
+        "docs/HANDOFF.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "設定・保存・数値計算と実画像処理を区別。Mac/実RAW/iPhone/iPad未実行。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/additionalRequirements/CROP-16"
+    }
+  ]
+}

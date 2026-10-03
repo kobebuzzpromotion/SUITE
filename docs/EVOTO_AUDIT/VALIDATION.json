@@ -1,0 +1,40 @@
+{
+  "checkedOn": "2026-10-03",
+  "command": "node scripts/evoto-deep-audit-validate.mjs",
+  "structuralValidation": "PASS_DOCUMENT_INTEGRITY_ONLY",
+  "auditGate": "BLOCK",
+  "counts": {
+    "officialArticles": 240,
+    "officialCategories": 62,
+    "officialHeadings": 2167,
+    "majorCuratedCategories": 15,
+    "confirmedNamedFeatureGroups": 120,
+    "inquiryRows": 34,
+    "suiteAdvantageCandidates": 14,
+    "localProcessingCandidateRows": 904,
+    "cloudProcessingCandidateRows": 143,
+    "identityLockCandidateRows": 90,
+    "explicitCreditRows": 22,
+    "conditionalCreditFreeRows": 156,
+    "priority": {
+      "P0": 50,
+      "P1": 190,
+      "P2": 786,
+      "P3": 26
+    },
+    "documentedAIGenerationWorkflowGroups": 19,
+    "inventoriedControlOptionRows": 1086,
+    "documentationConfirmedControlOptionRows": 1052,
+    "unconfirmedControlOptionRows": 34,
+    "technicalGenerativeFeatureCount": "UNKNOWN_NOT_FINAL",
+    "priorityFeatureGroups": {
+      "P0": 7,
+      "P1": 28,
+      "P2": 81,
+      "P3": 4
+    }
+  },
+  "errors": [],
+  "canonicalSHA256": "d91ba14caaca910124bed8c5d336f0bb552786d0be8742f58423b2a4127ecf64",
+  "scope": "Document and evidence integrity only; not semantic completeness, product behavior, or release acceptance"
+}

@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 1,
+  "runID": "web-independent-node-06",
+  "command": "node --test apps/web/tests/*.test.mjs",
+  "startedAt": "2026-10-03T07:36:32.768Z",
+  "endedAt": "2026-10-03T07:36:33.188Z",
+  "exitCode": 0,
+  "summary": {
+    "total": 69,
+    "pass": 69,
+    "fail": 0,
+    "skip": 0
+  },
+  "baseline63": "REEXECUTED_63_NO_DELETIONS",
+  "additionalPrivacyIDs": [
+    "WEB-ST29",
+    "WEB-ST30",
+    "WEB-ST31",
+    "WEB-ST32",
+    "WEB-ST33",
+    "WEB-ST34"
+  ],
+  "scope": {
+    "syntheticPixels": 23,
+    "mockSessionExisting": 28,
+    "mockSessionPrivacy": 6,
+    "mockWorker": 6,
+    "realLoopbackHTTPNonRAW": 6,
+    "realRAW": "NOT_RUN",
+    "realPhotoQuality": "NOT_RUN",
+    "SDKTelemetryNetwork": "NOT_RUN",
+    "browser": "NOT_RUN_BY_THIS_REVIEWER",
+    "apple": "112_NOT_RUN_UNCHANGED",
+    "baseline154": "NOT_PART_OF_THIS_RUN"
+  },
+  "sourceStableDuringRun": true,
+  "sourceHashScope": "All apps/web code/html/css and tests excluding results; backend TS; executed compiled backend JS/declarations; package manifests. Not browser bundles/vendor/full repository.",
+  "sourceHashes": [
+    {
+      "file": "apps\\backend\\src\\auth.ts",
+      "sha256": "7769acdd1c7920110326712c36763217035ef5505b39bbf47b70e96715a6df81"
+    },
+    {
+      "file": "apps\\backend\\src\\crop-export.ts",
+      "sha256": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a"
+    },
+    {
+      "file": "apps\\backend\\src\\gates.ts",
+      "sha256": "d60f0b2cdc14e359ab46e62e06253d381710264a4fa21293927cd1e5fbdc99e3"
+    },
+    {
+      "file": "apps\\backend\\src\\multipart.ts",
+      "sha256": "620e8ee5da87d217c89680a73043ace61933ed097deb1da955545761ef47b68e"
+    },
+    {
+      "file": "apps\\backend\\src\\object-provider.ts",
+      "sha256": "2afa90763289da61108b050502d45a570852c53faf0de61981c1f7486d054be2"
+    },
+    {
+      "file": "apps\\backend\\src\\person-geometry-validation.ts",
+      "sha256": "de5338ae1d3d0b5cfe0b04a4e5692bbe44ed57e65fde58f41c30f14675121050"
+    },
+    {
+      "file": "apps\\backend\\src\\person-geometry.ts",
+      "sha256": "296981340493f88d0a04745e421337f2bb289f5cd3eb4064b188d5a5faa1a6c4"
+    },
+    {
+      "file": "apps\\backend\\src\\photo-policy.ts",
+      "sha256": "6672bbcc113e0938449aded1a095a7832f18dceb5c522ba20e4060a08621298d"
+    },
+    {
+      "file": "apps\\backend\\src\\portrait-recipe.ts",
+      "sha256": "4b8754a788495dbcec8a24db565c026e1000322bf8ba9781c3e7f95610510318"
+    },
+    {
+      "file": "apps\\backend\\src\\repository.ts",
+      "sha256": "f0995af6fa8de67fcd18041c1f4c352244e54e725f632eba3da7e16d9ec9424d"
+    },
+    {
+      "file": "apps\\backend\\src\\server.ts",
+      "sha256": "a1585ee718eeec1b05f603db6387d7400b92746ba56d019886b57bf4b85b678f"
+    },
+    {
+      "file": "apps\\backend\\src\\storage.ts",
+      "sha256": "018cf5d01b78e3938d0e01e1f40bac1f220901c7b71ea7e534fb3c794aaee0b9"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-access.ts",
+      "sha256": "73c72cb614f12d3b943f375f9fd7c6249d209ad5f62a1e6eadc3f2c17ea311a5"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-server.ts",
+      "sha256": "001a02720f0e5c992b5a3dd2baef954d1549ffc4ea5c317fe54aed652f487325"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-storage.ts",
+      "sha256": "47e17f457f9228f994ad5d77584d5a9e7b47a786b6536cf62e5fe69d534877e5"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace.ts",
+      "sha256": "041c683402e039ba70e38175776e11e9d167a2dec67f3972f24bb2bb79c51ba8"
+    },
+    {
+      "file": "apps\\web\\build.mjs",
+      "sha256": "890854752f1e6433929cc0c92d5136cdcf319b63c3ebf8a5008861d64ccf278d"
+    },
+    {
+      "file": "apps\\web\\index.html",
+      "sha256": "1ce8438b6558b7afe414d3783bb622165ee51a84e9529404a2cc8cbeea329fd9"
+    },
+    {
+      "file": "apps\\web\\local-server.mjs",
+      "sha256": "07a6ae5d1b485fc52cbc738e9725849d29da3d2a74e29413751d8ec640023e55"
+    },
+    {
+      "file": "apps\\web\\src\\api-client.mjs",
+      "sha256": "f2b8fb78a883de64be07ea109926dcc6db9aafd404b9af160eca7e45dee495ae"
+    },
+    {
+      "file": "apps\\web\\src\\bootstrap.mjs",
+      "sha256": "8b2d7e24f0a293feec62ae9354dbb2b15d63c70fb0ddc8f6de1247863c6aae22"
+    },
+    {
+      "file": "apps\\web\\src\\editor-ui.mjs",
+      "sha256": "60665744b26bf0574a918727bb97f00f01468ff64672e1c4449544c0116c7ed9"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\encode.mjs",
+      "sha256": "9b5df0e9782d7d169b93b96f3ac808f3fa1267220540fa8bdf8c6a1ca32db240"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\faces.mjs",
+      "sha256": "799d7f6cbf67d665819912a4fa84c5e69855c189ac7bef6314cefe54c220b775"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\index.mjs",
+      "sha256": "f4c6af764c951a8128bf219ead822662ce463049fee6d5b2d4099e96c43d5b74"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\pure.mjs",
+      "sha256": "5681566c8d11a129bd7a353c68b030d2814340df19182a169b77abc073161356"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\qa-page.mjs",
+      "sha256": "610f1981f428e9abfca8280a9c155795a830d3d89e69c3da111aa6574affb5fa"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\qa.html",
+      "sha256": "27de5040c9925c6cd83fd1f9121eee94bbca8e837f3cd7433534935c4f11bae6"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\raw.mjs",
+      "sha256": "f8a047885451dde3297aecbdd55881453c8f77e85f71cd5e345c800802a96f3d"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\worker.mjs",
+      "sha256": "33a160d5ab0886870185f65ba8bbe7500a8907b98f1d933d75f7e0a4e1201205"
+    },
+    {
+      "file": "apps\\web\\src\\session.mjs",
+      "sha256": "eba8c62a2a4b32012c521644c6d4887829c0080e8648c21695131ae0e55c8695"
+    },
+    {
+      "file": "apps\\web\\src\\styles.css",
+      "sha256": "d5c1a27b7e849c3744e0d2f57eca9e0e5118b7227a89de5215dd8f964ffd23e8"
+    },
+    {
+      "file": "apps\\web\\tests\\fixtures.mjs",
+      "sha256": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d"
+    },
+    {
+      "file": "apps\\web\\tests\\local-http-safety.test.mjs",
+      "sha256": "ba81456d6134e7807ca88c1a0ded29879c3081883aaf8fb3f99ab4311ff794e3"
+    },
+    {
+      "file": "apps\\web\\tests\\processing-safety.test.mjs",
+      "sha256": "f71a390b404805af77ee63236a3f69bf6aa57734dae1104624b35e11e8bfe41d"
+    },
+    {
+      "file": "apps\\web\\tests\\session-safety.test.mjs",
+      "sha256": "9824a8350d3c0ad171f5ae52db85ae201a9e96d5c9cf9d582860ca9172dff906"
+    },
+    {
+      "file": "apps\\web\\tests\\worker-lifecycle.test.mjs",
+      "sha256": "f9b75aaafbda72277dc0ded68829fbfc84cc3d8020ca66f73e46865ef160d6d9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.d.ts",
+      "sha256": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.js",
+      "sha256": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.d.ts",
+      "sha256": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.js",
+      "sha256": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.d.ts",
+      "sha256": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.js",
+      "sha256": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.d.ts",
+      "sha256": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.js",
+      "sha256": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.d.ts",
+      "sha256": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.js",
+      "sha256": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.d.ts",
+      "sha256": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.js",
+      "sha256": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.d.ts",
+      "sha256": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.js",
+      "sha256": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.d.ts",
+      "sha256": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.js",
+      "sha256": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.d.ts",
+      "sha256": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.js",
+      "sha256": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.d.ts",
+      "sha256": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.js",
+      "sha256": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.d.ts",
+      "sha256": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.js",
+      "sha256": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.d.ts",
+      "sha256": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.js",
+      "sha256": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.d.ts",
+      "sha256": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.js",
+      "sha256": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.d.ts",
+      "sha256": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.js",
+      "sha256": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.d.ts",
+      "sha256": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.js",
+      "sha256": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.d.ts",
+      "sha256": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.js",
+      "sha256": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "9b3596abecfbf65b3ddfe45079b780d0e54b15c7b94f76b405bec9ab449f73a5"
+    },
+    {
+      "file": "package.json",
+      "sha256": "7db768be543724925c5ada048b1935d6b375fb6b8397de1cb4f90125fd8045bd"
+    }
+  ],
+  "afterHashes": [
+    {
+      "file": "apps\\backend\\src\\auth.ts",
+      "sha256": "7769acdd1c7920110326712c36763217035ef5505b39bbf47b70e96715a6df81"
+    },
+    {
+      "file": "apps\\backend\\src\\crop-export.ts",
+      "sha256": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a"
+    },
+    {
+      "file": "apps\\backend\\src\\gates.ts",
+      "sha256": "d60f0b2cdc14e359ab46e62e06253d381710264a4fa21293927cd1e5fbdc99e3"
+    },
+    {
+      "file": "apps\\backend\\src\\multipart.ts",
+      "sha256": "620e8ee5da87d217c89680a73043ace61933ed097deb1da955545761ef47b68e"
+    },
+    {
+      "file": "apps\\backend\\src\\object-provider.ts",
+      "sha256": "2afa90763289da61108b050502d45a570852c53faf0de61981c1f7486d054be2"
+    },
+    {
+      "file": "apps\\backend\\src\\person-geometry-validation.ts",
+      "sha256": "de5338ae1d3d0b5cfe0b04a4e5692bbe44ed57e65fde58f41c30f14675121050"
+    },
+    {
+      "file": "apps\\backend\\src\\person-geometry.ts",
+      "sha256": "296981340493f88d0a04745e421337f2bb289f5cd3eb4064b188d5a5faa1a6c4"
+    },
+    {
+      "file": "apps\\backend\\src\\photo-policy.ts",
+      "sha256": "6672bbcc113e0938449aded1a095a7832f18dceb5c522ba20e4060a08621298d"
+    },
+    {
+      "file": "apps\\backend\\src\\portrait-recipe.ts",
+      "sha256": "4b8754a788495dbcec8a24db565c026e1000322bf8ba9781c3e7f95610510318"
+    },
+    {
+      "file": "apps\\backend\\src\\repository.ts",
+      "sha256": "f0995af6fa8de67fcd18041c1f4c352244e54e725f632eba3da7e16d9ec9424d"
+    },
+    {
+      "file": "apps\\backend\\src\\server.ts",
+      "sha256": "a1585ee718eeec1b05f603db6387d7400b92746ba56d019886b57bf4b85b678f"
+    },
+    {
+      "file": "apps\\backend\\src\\storage.ts",
+      "sha256": "018cf5d01b78e3938d0e01e1f40bac1f220901c7b71ea7e534fb3c794aaee0b9"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-access.ts",
+      "sha256": "73c72cb614f12d3b943f375f9fd7c6249d209ad5f62a1e6eadc3f2c17ea311a5"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-server.ts",
+      "sha256": "001a02720f0e5c992b5a3dd2baef954d1549ffc4ea5c317fe54aed652f487325"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace-storage.ts",
+      "sha256": "47e17f457f9228f994ad5d77584d5a9e7b47a786b6536cf62e5fe69d534877e5"
+    },
+    {
+      "file": "apps\\backend\\src\\workspace.ts",
+      "sha256": "041c683402e039ba70e38175776e11e9d167a2dec67f3972f24bb2bb79c51ba8"
+    },
+    {
+      "file": "apps\\web\\build.mjs",
+      "sha256": "890854752f1e6433929cc0c92d5136cdcf319b63c3ebf8a5008861d64ccf278d"
+    },
+    {
+      "file": "apps\\web\\index.html",
+      "sha256": "1ce8438b6558b7afe414d3783bb622165ee51a84e9529404a2cc8cbeea329fd9"
+    },
+    {
+      "file": "apps\\web\\local-server.mjs",
+      "sha256": "07a6ae5d1b485fc52cbc738e9725849d29da3d2a74e29413751d8ec640023e55"
+    },
+    {
+      "file": "apps\\web\\src\\api-client.mjs",
+      "sha256": "f2b8fb78a883de64be07ea109926dcc6db9aafd404b9af160eca7e45dee495ae"
+    },
+    {
+      "file": "apps\\web\\src\\bootstrap.mjs",
+      "sha256": "8b2d7e24f0a293feec62ae9354dbb2b15d63c70fb0ddc8f6de1247863c6aae22"
+    },
+    {
+      "file": "apps\\web\\src\\editor-ui.mjs",
+      "sha256": "60665744b26bf0574a918727bb97f00f01468ff64672e1c4449544c0116c7ed9"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\encode.mjs",
+      "sha256": "9b5df0e9782d7d169b93b96f3ac808f3fa1267220540fa8bdf8c6a1ca32db240"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\faces.mjs",
+      "sha256": "799d7f6cbf67d665819912a4fa84c5e69855c189ac7bef6314cefe54c220b775"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\index.mjs",
+      "sha256": "f4c6af764c951a8128bf219ead822662ce463049fee6d5b2d4099e96c43d5b74"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\pure.mjs",
+      "sha256": "5681566c8d11a129bd7a353c68b030d2814340df19182a169b77abc073161356"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\qa-page.mjs",
+      "sha256": "610f1981f428e9abfca8280a9c155795a830d3d89e69c3da111aa6574affb5fa"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\qa.html",
+      "sha256": "27de5040c9925c6cd83fd1f9121eee94bbca8e837f3cd7433534935c4f11bae6"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\raw.mjs",
+      "sha256": "f8a047885451dde3297aecbdd55881453c8f77e85f71cd5e345c800802a96f3d"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\worker.mjs",
+      "sha256": "33a160d5ab0886870185f65ba8bbe7500a8907b98f1d933d75f7e0a4e1201205"
+    },
+    {
+      "file": "apps\\web\\src\\session.mjs",
+      "sha256": "eba8c62a2a4b32012c521644c6d4887829c0080e8648c21695131ae0e55c8695"
+    },
+    {
+      "file": "apps\\web\\src\\styles.css",
+      "sha256": "d5c1a27b7e849c3744e0d2f57eca9e0e5118b7227a89de5215dd8f964ffd23e8"
+    },
+    {
+      "file": "apps\\web\\tests\\fixtures.mjs",
+      "sha256": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d"
+    },
+    {
+      "file": "apps\\web\\tests\\local-http-safety.test.mjs",
+      "sha256": "ba81456d6134e7807ca88c1a0ded29879c3081883aaf8fb3f99ab4311ff794e3"
+    },
+    {
+      "file": "apps\\web\\tests\\processing-safety.test.mjs",
+      "sha256": "f71a390b404805af77ee63236a3f69bf6aa57734dae1104624b35e11e8bfe41d"
+    },
+    {
+      "file": "apps\\web\\tests\\session-safety.test.mjs",
+      "sha256": "9824a8350d3c0ad171f5ae52db85ae201a9e96d5c9cf9d582860ca9172dff906"
+    },
+    {
+      "file": "apps\\web\\tests\\worker-lifecycle.test.mjs",
+      "sha256": "f9b75aaafbda72277dc0ded68829fbfc84cc3d8020ca66f73e46865ef160d6d9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.d.ts",
+      "sha256": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.js",
+      "sha256": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.d.ts",
+      "sha256": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.js",
+      "sha256": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.d.ts",
+      "sha256": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.js",
+      "sha256": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.d.ts",
+      "sha256": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.js",
+      "sha256": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.d.ts",
+      "sha256": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.js",
+      "sha256": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.d.ts",
+      "sha256": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.js",
+      "sha256": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.d.ts",
+      "sha256": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.js",
+      "sha256": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.d.ts",
+      "sha256": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.js",
+      "sha256": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.d.ts",
+      "sha256": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.js",
+      "sha256": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.d.ts",
+      "sha256": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.js",
+      "sha256": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.d.ts",
+      "sha256": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.js",
+      "sha256": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.d.ts",
+      "sha256": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.js",
+      "sha256": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.d.ts",
+      "sha256": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.js",
+      "sha256": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.d.ts",
+      "sha256": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.js",
+      "sha256": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.d.ts",
+      "sha256": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.js",
+      "sha256": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.d.ts",
+      "sha256": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.js",
+      "sha256": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "9b3596abecfbf65b3ddfe45079b780d0e54b15c7b94f76b405bec9ab449f73a5"
+    },
+    {
+      "file": "package.json",
+      "sha256": "7db768be543724925c5ada048b1935d6b375fb6b8397de1cb4f90125fd8045bd"
+    }
+  ],
+  "output": "✔ WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim (55.0915ms)\n✔ WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset (18.5332ms)\n✔ WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes (34.3381ms)\n✔ WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original (37.0199ms)\n✔ WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body (27.3698ms)\n✔ WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original (32.3992ms)\n✔ WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order (1.4886ms)\n✔ WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed (0.3483ms)\n✔ WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected (0.1631ms)\n✔ WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input (4.7643ms)\n✔ WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical (17.3957ms)\n✔ WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion (0.7659ms)\n✔ WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound (2.2966ms)\n✔ WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels (0.4426ms)\n✔ WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes (0.2861ms)\n✔ WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image (0.3193ms)\n✔ WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base (1.5955ms)\n✔ WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image (0.1954ms)\n✔ WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory (0.3054ms)\n✔ WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering (0.1444ms)\n✔ WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation (0.6573ms)\n✔ WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render (0.5336ms)\n✔ WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution (1.6306ms)\n✔ WEB-PX18 / SYNTHETIC: all eight exposure/contrast/saturation endpoint combinations follow linear-sRGB oracle (0.7039ms)\n✔ WEB-PX19 / SYNTHETIC: combined person/global adjustments apply person exposure once before global stages (11.474ms)\n✔ WEB-PX20 / SYNTHETIC: unsupported reordered processing stages are rejected rather than silently interpreted (0.2842ms)\n✔ WEB-PX21 / SYNTHETIC: rounded Proxy and full base accept one canonical Crop recipe including rotation (1.4282ms)\n✔ WEB-PX22 / SYNTHETIC: canonical source frame cannot excuse a mathematically wrong Crop ratio (0.2696ms)\n✔ WEB-PX23 / SYNTHETIC: source-frame metadata must be paired, integer, large enough and within cap (0.31ms)\n✔ WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation (12.4121ms)\n✔ WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values (18.1348ms)\n✔ WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean (6.9768ms)\n✔ WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft (7.4129ms)\n✔ WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID (8.2386ms)\n✔ WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement (3.4538ms)\n✔ WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload (2.9038ms)\n✔ WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it (2.8237ms)\n✔ WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output (1.8576ms)\n✔ WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later (1.5242ms)\n✔ WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update (4.4609ms)\n✔ WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft (0.8894ms)\n✔ WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder (5.361ms)\n✔ WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode (4.2802ms)\n✔ WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes (3.2804ms)\n✔ WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset (1.5855ms)\n✔ WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset (0.9601ms)\n✔ WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft (0.8383ms)\n✔ WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry (50.8042ms)\n✔ WEB-ST20 / MOCK_STATE: person edit Undo/reanalysis/Redo retains known UUIDs and geometry (32.6484ms)\n✔ WEB-ST21 / MOCK_STATE: incomplete fresh Final person inventory refuses output despite valid saved targets (4.0238ms)\n✔ WEB-ST22 / MOCK_STATE: server revision changes during encode cannot publish stale Final (1.918ms)\n✔ WEB-ST23 / SYNTHETIC_MOCK_STATE: rotate-crop Undo/Redo save/reload fixed export retains source pixels and NON_RAW bytes (8.7392ms)\n✔ WEB-ST24 / SYNTHETIC_MOCK_STATE: all offered crop ratios recenter after rotation; Original removes Crop only (16.92ms)\n✔ WEB-ST25 / MOCK_STATE: global range endpoints accepted and illegal values rejected without changing draft (4.4729ms)\n✔ WEB-ST26 / SYNTHETIC_MOCK_STATE: tiny ratio Crop fails without zero-sized image or partial export success (1.234ms)\n✔ WEB-ST27 / SYNTHETIC_MOCK_STATE: session derives one Crop from full source dimensions despite rounded Proxy (4.3977ms)\n✔ WEB-ST28 / SYNTHETIC_MOCK_STATE: free Crop preserves selected region through rotation Undo/Redo save/reload and fixed export (17.0636ms)\n✔ WEB-ST29 / PRIVACY_MOCK_STATE: unknown status and synthetic token without explicit fake marker are refused (0.5133ms)\n✔ WEB-ST30 / PRIVACY_MOCK_STATE: default person detection refuses before detector and clears stale selection (1.2619ms)\n✔ WEB-ST31 / PRIVACY_MOCK_STATE: saved portrait reopen keeps body and history but cannot detect or render portrait (1.1457ms)\n✔ WEB-ST32 / PRIVACY_MOCK_STATE: portrait Final refuses before Original fetch decode detector render or encode (1.1571ms)\n✔ WEB-ST33 / PRIVACY_MOCK_STATE: person selection and adjustment reject without changing saved or draft body (1.8605ms)\n✔ WEB-ST34 / PRIVACY_MOCK_STATE: default block does not disable nonportrait global save reload or synthetic Final (12.6598ms)\n✔ WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable (2.2645ms)\n✔ WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base (0.3791ms)\n✔ WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output (0.6037ms)\n✔ WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success (15.8804ms)\n✔ WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse (0.6242ms)\n✔ WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation (0.3698ms)\nℹ tests 69\nℹ suites 0\nℹ pass 69\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 359.5479\n",
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "output": "\n> suite@0.1.0 build\n> tsc -p tsconfig.json\n\n"
+  }
+}

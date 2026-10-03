@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-03",
+  "unit": "mm",
+  "dimension_order": "portrait_short_edge_first",
+  "wire_examples": {
+  "crop": {
+    "preset_id": "a.a4",
+    "preset_name": "A4",
+    "width_mm": 210,
+    "height_mm": 297,
+    "orientation": "portrait",
+    "crop_rect": {
+      "x": 0,
+      "y": 0.02857142857142858,
+      "width": 1,
+      "height": 0.9428571428571428
+    },
+    "crop_ratio": {
+      "width": 210,
+      "height": 297
+    },
+    "rotation": 90,
+    "custom_size": false,
+    "requested_dpi": 300
+  },
+  "export": {
+    "format": "jpeg",
+    "jpeg_quality": 100,
+    "bit_depth": 8,
+    "color_space": "sRGB",
+    "tiff_compression": "none",
+    "preserve_alpha": false,
+    "metadata": "preserve",
+    "file_name_template": "{original}-{sequence}",
+    "requested_dpi": 300
+  },
+  "recipe": {
+    "schemaVersion": 1,
+    "parameters": {
+      "exposure": 0,
+      "contrast": 1,
+      "saturation": 1,
+      "rotationDegrees": 90,
+      "extendedParameters": {
+        "crop": {
+          "preset_id": "a.a4",
+          "preset_name": "A4",
+          "width_mm": 210,
+          "height_mm": 297,
+          "orientation": "portrait",
+          "crop_rect": {
+            "x": 0,
+            "y": 0.02857142857142858,
+            "width": 1,
+            "height": 0.9428571428571428
+          },
+          "crop_ratio": {
+            "width": 210,
+            "height": 297
+          },
+          "rotation": 90,
+          "custom_size": false,
+          "requested_dpi": 300
+        },
+        "export": {
+          "format": "jpeg",
+          "jpeg_quality": 100,
+          "bit_depth": 8,
+          "color_space": "sRGB",
+          "tiff_compression": "none",
+          "preserve_alpha": false,
+          "metadata": "preserve",
+          "file_name_template": "{original}-{sequence}",
+          "requested_dpi": 300
+        }
+      },
+      "processingOrder": [
+        "exposure",
+        "contrast",
+        "saturation",
+        "rotation",
+        "crop"
+      ]
+    }
+  }
+},
+  "presets": [
+    {
+      "id": "a.a0-double",
+      "name": "A0倍",
+      "category": "aSeries",
+      "width_mm": 1189,
+      "height_mm": 1682,
+      "source_url": "https://www.graphic.jp/lineup/poster_xl",
+      "available": true,
+      "notes": "A0とは別ID。印刷所のA0倍仕上がり寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a0",
+      "name": "A0",
+      "category": "aSeries",
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a1",
+      "name": "A1",
+      "category": "aSeries",
+      "width_mm": 594,
+      "height_mm": 841,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a2",
+      "name": "A2",
+      "category": "aSeries",
+      "width_mm": 420,
+      "height_mm": 594,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a3",
+      "name": "A3",
+      "category": "aSeries",
+      "width_mm": 297,
+      "height_mm": 420,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a4",
+      "name": "A4",
+      "category": "aSeries",
+      "width_mm": 210,
+      "height_mm": 297,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a5",
+      "name": "A5",
+      "category": "aSeries",
+      "width_mm": 148,
+      "height_mm": 210,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "a.a6",
+      "name": "A6",
+      "category": "aSeries",
+      "width_mm": 105,
+      "height_mm": 148,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b0-double",
+      "name": "B0倍",
+      "category": "bSeries",
+      "width_mm": 1456,
+      "height_mm": 2060,
+      "source_url": "https://www.graphic.jp/lineup/poster_xl",
+      "available": true,
+      "notes": "B0とは別ID。JIS B系の印刷所B0倍。ISO Bと混同しない。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b0",
+      "name": "B0",
+      "category": "bSeries",
+      "width_mm": 1030,
+      "height_mm": 1456,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b1",
+      "name": "B1",
+      "category": "bSeries",
+      "width_mm": 728,
+      "height_mm": 1030,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b2",
+      "name": "B2",
+      "category": "bSeries",
+      "width_mm": 515,
+      "height_mm": 728,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b3",
+      "name": "B3",
+      "category": "bSeries",
+      "width_mm": 364,
+      "height_mm": 515,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b4",
+      "name": "B4",
+      "category": "bSeries",
+      "width_mm": 257,
+      "height_mm": 364,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b5",
+      "name": "B5",
+      "category": "bSeries",
+      "width_mm": 182,
+      "height_mm": 257,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "b.b6",
+      "name": "B6",
+      "category": "bSeries",
+      "width_mm": 128,
+      "height_mm": 182,
+      "source_url": "https://www.yutakaprint.co.jp/papersize/",
+      "available": true,
+      "notes": "日本向けJIS B寸法。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.l",
+      "name": "L",
+      "category": "photoPrint",
+      "width_mm": 89,
+      "height_mm": 127,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.2l",
+      "name": "2L",
+      "category": "photoPrint",
+      "width_mm": 127,
+      "height_mm": 178,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.dsc",
+      "name": "DSC",
+      "category": "photoPrint",
+      "width_mm": 89,
+      "height_mm": 119,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.dscw",
+      "name": "DSCW",
+      "category": "photoPrint",
+      "width_mm": 127,
+      "height_mm": 169,
+      "source_url": "https://ikb135.onlinelab.jp/help/faq/print.php",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.kg",
+      "name": "KG",
+      "category": "photoPrint",
+      "width_mm": 102,
+      "height_mm": 152,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.postcard",
+      "name": "はがき",
+      "category": "photoPrint",
+      "width_mm": 100,
+      "height_mm": 148,
+      "source_url": "https://www2.epson.jp/support/manual/data/ink/scpx7v2/CMP0038_00.PDF",
+      "available": true,
+      "notes": "郵便はがき100×148mm。KG 102×152mmとは別ID。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.hv",
+      "name": "HV",
+      "category": "photoPrint",
+      "width_mm": 89,
+      "height_mm": 158,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "89×158mmを提供する写真のスマイルの候補。他のHV用紙とは寸法が異なる。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.square",
+      "name": "スクエア",
+      "category": "photoPrint",
+      "width_mm": 89,
+      "height_mm": 89,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "89mm正方形の候補。スクエアは寸法を一意に決める名称ではない。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.panorama",
+      "name": "パノラマ",
+      "category": "photoPrint",
+      "width_mm": 89,
+      "height_mm": 254,
+      "source_url": "https://netprint-smile.com/netprint.html",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.cabinet",
+      "name": "キャビネ",
+      "category": "photoPrint",
+      "width_mm": 127,
+      "height_mm": 178,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.8cut",
+      "name": "八切",
+      "category": "photoPrint",
+      "width_mm": 165,
+      "height_mm": 216,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.6cut",
+      "name": "六切",
+      "category": "photoPrint",
+      "width_mm": 203,
+      "height_mm": 254,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.wide6",
+      "name": "ワイド六切",
+      "category": "photoPrint",
+      "width_mm": 203,
+      "height_mm": 305,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.4cut",
+      "name": "四切",
+      "category": "photoPrint",
+      "width_mm": 254,
+      "height_mm": 305,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.wide4",
+      "name": "ワイド四切",
+      "category": "photoPrint",
+      "width_mm": 254,
+      "height_mm": 381,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.large4",
+      "name": "大四切",
+      "category": "photoPrint",
+      "width_mm": 279,
+      "height_mm": 356,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.half",
+      "name": "半切",
+      "category": "photoPrint",
+      "width_mm": 356,
+      "height_mm": 432,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.full",
+      "name": "全紙",
+      "category": "photoPrint",
+      "width_mm": 457,
+      "height_mm": 560,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.largefull",
+      "name": "大全紙",
+      "category": "photoPrint",
+      "width_mm": 508,
+      "height_mm": 600,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.doublefull",
+      "name": "全倍",
+      "category": "photoPrint",
+      "width_mm": 540,
+      "height_mm": 840,
+      "source_url": "https://www.tomicolor.co.jp/services/print/largeprint/",
+      "available": true,
+      "notes": "トミカラーの提供実寸を採用した候補。名称が同じでもラボ差あり。注文先の実寸を確認しCustom Sizeで変更。",
+      "checked_at": "2026-10-03"
+    },
+    {
+      "id": "photo.a3plus",
+      "name": "A3ノビ",
+      "category": "photoPrint",
+      "width_mm": 329,
+      "height_mm": 483,
+      "source_url": "https://www.epson.jp/products/colorio/supply/paper/use/pro.htm",
+      "available": true,
+      "notes": "提供元の実寸候補。実際のラボ指定を優先しCustom Sizeを併設。",
+      "checked_at": "2026-10-03"
+    }
+  ]
+}

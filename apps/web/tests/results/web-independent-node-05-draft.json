@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "runID": "web-independent-node-05",
+  "command": "node --test apps/web/tests/*.test.mjs",
+  "startedAt": "2026-10-03 07:21:22 UTC",
+  "endedAt": "2026-10-03 07:21:24 UTC",
+  "exitCode": 0,
+  "summary": {
+    "total": 63,
+    "pass": 63,
+    "fail": 0,
+    "skip": 0
+  },
+  "preflightExisting62": {
+    "command": "node --test apps/web/tests/*.test.mjs",
+    "testCountBeforeST28Added": 62,
+    "pass": 62,
+    "fail": 0,
+    "scope": "EXISTING_62_REEXECUTED_BEFORE_ADDITIVE_FREE_CROP_TEST"
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "output": "\n> suite@0.1.0 build\n> tsc -p tsconfig.json\n\n"
+  },
+  "scope": {
+    "syntheticPixels": 23,
+    "mockSession": 28,
+    "mockWorker": 6,
+    "realLoopbackHTTPNonRAW": 6,
+    "realRAW": "NOT_RUN",
+    "realPhotoQuality": "NOT_RUN",
+    "browser": "NOT_RUN_BY_THIS_REVIEWER",
+    "apple": "112_NOT_RUN_UNCHANGED",
+    "baseline154": "NOT_PART_OF_THIS_RUN"
+  },
+  "sourceStableDuringRun": true,
+  "sourceHashScope": "Actual scan collected only two package manifests due to a test-harness glob error; the broader original scope label was incorrect. Execution63PASS itself was real. Final node05 is remeasured before freezing.",
+  "sourceHashes": [
+    {
+      "file": "package-lock.json",
+      "sha256": "9b3596abecfbf65b3ddfe45079b780d0e54b15c7b94f76b405bec9ab449f73a5"
+    },
+    {
+      "file": "package.json",
+      "sha256": "7db768be543724925c5ada048b1935d6b375fb6b8397de1cb4f90125fd8045bd"
+    }
+  ],
+  "output": "✔ WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim (53.0197ms)\n✔ WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset (20.0776ms)\n✔ WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes (36.3267ms)\n✔ WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original (37.4078ms)\n✔ WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body (23.2289ms)\n✔ WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original (28.1313ms)\n✔ WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order (1.3332ms)\n✔ WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed (0.9378ms)\n✔ WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected (0.1987ms)\n✔ WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input (3.6582ms)\n✔ WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical (16.8239ms)\n✔ WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion (2.3304ms)\n✔ WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound (4.8656ms)\n✔ WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels (0.8341ms)\n✔ WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes (0.4942ms)\n✔ WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image (0.4341ms)\n✔ WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base (1.6052ms)\n✔ WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image (0.1839ms)\n✔ WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory (0.3056ms)\n✔ WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering (0.1412ms)\n✔ WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation (0.7062ms)\n✔ WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render (0.4883ms)\n✔ WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution (2.3201ms)\n✔ WEB-PX18 / SYNTHETIC: all eight exposure/contrast/saturation endpoint combinations follow linear-sRGB oracle (0.5575ms)\n✔ WEB-PX19 / SYNTHETIC: combined person/global adjustments apply person exposure once before global stages (4.3432ms)\n✔ WEB-PX20 / SYNTHETIC: unsupported reordered processing stages are rejected rather than silently interpreted (0.2505ms)\n✔ WEB-PX21 / SYNTHETIC: rounded Proxy and full base accept one canonical Crop recipe including rotation (1.4901ms)\n✔ WEB-PX22 / SYNTHETIC: canonical source frame cannot excuse a mathematically wrong Crop ratio (0.3017ms)\n✔ WEB-PX23 / SYNTHETIC: source-frame metadata must be paired, integer, large enough and within cap (0.3303ms)\n✔ WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation (12.4756ms)\n✔ WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values (17.3269ms)\n✔ WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean (5.9269ms)\n✔ WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft (6.4498ms)\n✔ WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID (8.9154ms)\n✔ WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement (3.2896ms)\n✔ WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload (2.2105ms)\n✔ WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it (2.6864ms)\n✔ WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output (1.2094ms)\n✔ WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later (1.719ms)\n✔ WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update (3.4019ms)\n✔ WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft (1.298ms)\n✔ WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder (4.2332ms)\n✔ WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode (2.5078ms)\n✔ WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes (2.9751ms)\n✔ WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset (1.3289ms)\n✔ WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset (1.0079ms)\n✔ WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft (1.4335ms)\n✔ WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry (1.8257ms)\n✔ WEB-ST20 / MOCK_STATE: person edit Undo/reanalysis/Redo retains known UUIDs and geometry (6.6933ms)\n✔ WEB-ST21 / MOCK_STATE: incomplete fresh Final person inventory refuses output despite valid saved targets (2.6436ms)\n✔ WEB-ST22 / MOCK_STATE: server revision changes during encode cannot publish stale Final (1.6814ms)\n✔ WEB-ST23 / SYNTHETIC_MOCK_STATE: rotate-crop Undo/Redo save/reload fixed export retains source pixels and NON_RAW bytes (10.3629ms)\n✔ WEB-ST24 / SYNTHETIC_MOCK_STATE: all offered crop ratios recenter after rotation; Original removes Crop only (17.8003ms)\n✔ WEB-ST25 / MOCK_STATE: global range endpoints accepted and illegal values rejected without changing draft (4.775ms)\n✔ WEB-ST26 / SYNTHETIC_MOCK_STATE: tiny ratio Crop fails without zero-sized image or partial export success (2.8153ms)\n✔ WEB-ST27 / SYNTHETIC_MOCK_STATE: session derives one Crop from full source dimensions despite rounded Proxy (1.938ms)\n✔ WEB-ST28 / SYNTHETIC_MOCK_STATE: free Crop preserves selected region through rotation Undo/Redo save/reload and fixed export (18.3538ms)\n✔ WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable (2.3932ms)\n✔ WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base (0.5021ms)\n✔ WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output (0.7725ms)\n✔ WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success (17.117ms)\n✔ WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse (0.8751ms)\n✔ WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation (0.4008ms)\nℹ tests 63\nℹ suites 0\nℹ pass 63\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 348.8448\n",
+  "supersedesForCurrentSource": "web-independent-node-04 FAIL retained unchanged; WSR13/ST24 and WSR14/ST27 corrected by product owner",
+  "status": "DRAFT_HASH_SCOPE_INCOMPLETE_DO_NOT_USE_FOR_SOURCE_FREEZE"
+}

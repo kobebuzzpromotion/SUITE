@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-03T14:55:10Z",
+  "scope": "Read-only inspection of one existing Sites project and its live URL",
+  "projectID": "appgprj_6a9fbab0e50c8191be942b254c0e5af8",
+  "confirmedFacts": {
+    "siteMetadata": {
+      "title": "SUITE",
+      "slug": "eclat-genseki-demo",
+      "currentLiveURL": "https://eclat-genseki-demo.bals-enter.chatgpt.site",
+      "latestVersionNumber": 33,
+      "status": "active",
+      "accessModeAtInspection": "public",
+      "accessPolicyRevision": 4,
+      "accessPolicyUpdatedAt": "2026-10-03T14:01:55.313695+00:00"
+    },
+    "version33": {
+      "versionID": "appgprj_6a9fbab0e50c8191be942b254c0e5af8~appgver_63be89caab4c8191aa4a17d872a6b095",
+      "sourceCommitSHA": "3ca920af14bef1e80d2c1b974ad440c446572909",
+      "archiveFormat": "tar",
+      "archiveContentHash": "sha256:d5e087b48bc923a209f3de8af158499b365dbffd38d4c22d6bc017cd42603be8",
+      "archiveFileCount": 197,
+      "archiveSizeBytes": 10874880,
+      "deploymentID": "appgdep_6aa55029b23c8191bccc6b445e418721"
+    },
+    "deployment": {
+      "status": "succeeded",
+      "type": "publish",
+      "versionIDMatchesVersion33": true,
+      "urlMatchesCurrentLiveURL": true,
+      "updatedAt": "2026-09-12T13:18:29.071346+00:00"
+    },
+    "liveBrowserObservation": {
+      "url": "https://eclat-genseki-demo.bals-enter.chatgpt.site/",
+      "visibleBrand": "ÉCLAT INTIME",
+      "visibleMainHeading": "私は、何の原石？",
+      "visibleFlow": "28問と3枚のタロット",
+      "suiteEditorVisible": false,
+      "method": "Chrome read-only DOM snapshot; no login, form submission or site change"
+    },
+    "historicalDocumentConflict": "Existing HANDOFF says owner-only/custom, whereas current Sites get_site reports public and the live page was accessible without login. Current remote policy is the stronger evidence for its present state."
+  },
+  "undetermined": [
+    "Version 33 source file bytes were not downloaded or checked out; metadata hash and commit SHA are provenance, not byte-level inspection.",
+    "The exact source file that renders ÉCLAT INTIME and whether every served byte matches the archived tar were not verified.",
+    "Whether public access is intentional or when it changed from the earlier owner-only record is not established by these read-only calls."
+  ],
+  "authorizedSourceRetrievalRoute": {
+    "metadataAlreadyAvailable": "Sites get_site_version exposes the saved version ID, exact source commit SHA and archive metadata.",
+    "nextReadOnlyTarget": "Owner-authorized Sites source repository checkout/fetch of exact commit 3ca920af14bef1e80d2c1b974ad440c446572909, or an authorized Sites archive-read capability for the version 33 tar; verify archive SHA-256 before inspection.",
+    "currentLimit": "Available read-only Sites tools expose no archive-byte download or source-file read method. A source repository credential would need a separate authorized credential workflow; none was requested or used in this investigation.",
+    "performed": false
+  },
+  "nextPermissionsNeeded": [
+    "An owner-authorized, read-only source repository or Sites archive retrieval path for version 33 if exact source bytes are required.",
+    "Owner decision and authorization before any correction to the currently public access policy. No access change was made."
+  ],
+  "mutations": "NONE",
+  "secretsRecorded": false
+}

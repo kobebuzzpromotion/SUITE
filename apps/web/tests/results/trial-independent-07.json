@@ -1,0 +1,990 @@
+{
+  "schemaVersion": 1,
+  "runID": "trial-independent-07",
+  "command": "node --test --test-reporter=tap apps/web/tests/*.test.mjs",
+  "executedFiles": [
+    "apps/web/tests/author-submissions.test.mjs",
+    "apps/web/tests/local-http-safety.test.mjs",
+    "apps/web/tests/multipart-client.test.mjs",
+    "apps/web/tests/processing-safety.test.mjs",
+    "apps/web/tests/session-safety.test.mjs",
+    "apps/web/tests/sites-worker.test.mjs",
+    "apps/web/tests/trial-auth.test.mjs",
+    "apps/web/tests/worker-lifecycle.test.mjs"
+  ],
+  "startedAt": "2026-10-03T08:34:51.285Z",
+  "endedAt": "2026-10-03T08:34:55.783Z",
+  "exitCode": 0,
+  "summary": {
+    "total": 146,
+    "pass": 146,
+    "fail": 0,
+    "skip": 0
+  },
+  "catalog": [
+    {
+      "id": "TRIAL-AUTHOR01",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR01 / SQLITE: default source verifier refuses draft creation and leaves no record"
+    },
+    {
+      "id": "TRIAL-AUTHOR02",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR02 / SQLITE: another author cannot enumerate get edit submit or review a draft"
+    },
+    {
+      "id": "TRIAL-AUTHOR03",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR03 / SQLITE: draft CAS rejects stale updates and source failure retains the preceding draft"
+    },
+    {
+      "id": "TRIAL-AUTHOR04",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR04 / SQLITE: submit freezes version while newer draft cannot replace admin review snapshot"
+    },
+    {
+      "id": "TRIAL-AUTHOR05",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR05 / SQLITE: accepted portable version is immutable, detached and excludes photo identity/data"
+    },
+    {
+      "id": "TRIAL-AUTHOR06",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR06 / SQLITE: rejection cannot publish a preset and persists through store restart"
+    },
+    {
+      "id": "TRIAL-AUTHOR07",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR07 / SQLITE_VALIDATION: strict portable recipe rejects photo fields unknown controls and nondefault rotation"
+    },
+    {
+      "id": "TRIAL-AUTHOR08",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR08 / SQLITE_VALIDATION: allowed endpoint combinations remain exact and do not mutate input"
+    },
+    {
+      "id": "TRIAL-AUTHOR09",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR09 / SQLITE: rejected source provenance cannot create a record and a valid draft survives restart"
+    },
+    {
+      "id": "TRIAL-AUTHOR10",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR10 / SQLITE: admin cannot approve own submitted version or re-review a terminal decision"
+    },
+    {
+      "id": "TRIAL-AUTHOR11",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen"
+    },
+    {
+      "id": "TRIAL-AUTHOR12",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity"
+    },
+    {
+      "id": "TRIAL-AUTHOR13",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values"
+    },
+    {
+      "id": "TRIAL-AUTHOR14",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved"
+    },
+    {
+      "id": "TRIAL-AUTHOR15",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR15 / SQLITE_CORRUPTION: an in-range altered submission cannot replace its saved immutable version"
+    },
+    {
+      "id": "TRIAL-AUTHOR16",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR16 / HTTP_NON_RAW: source must be owned verified current and exactly match submitted global parameters"
+    },
+    {
+      "id": "TRIAL-AUTHOR17",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR17 / HTTP_SQLITE: owner CAS submit admin adoption and shared immutable version survive restart"
+    },
+    {
+      "id": "TRIAL-AUTHOR18",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR18 / HTTP_INJECTED_STORAGE_FAULT: failed source inspection cannot overwrite durable draft or Original"
+    },
+    {
+      "id": "TRIAL-AUTHOR19",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR19 / PURE_ADAPTER: author UI reuses strict external contract without silently stripping photo-local edits"
+    },
+    {
+      "id": "TRIAL-AUTHOR20",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR20 / SYNTHETIC_SESSION: portable application is one history edit, preserves local rotation and supports exact Undo/Redo"
+    },
+    {
+      "id": "TRIAL-AUTHOR21",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR21 / SYNTHETIC_SESSION: preset endpoints accepted but unknown photo fields refuse without partial history"
+    },
+    {
+      "id": "TRIAL-AUTHOR22",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR22 / SYNTHETIC_SESSION: applying globals to ordered subset restores canonical order rather than reversing stages"
+    },
+    {
+      "id": "TRIAL-AUTHOR23",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR23 / SYNTHETIC_PERMISSION: expired edit preserves dirty recipe history cache and Original without rendering"
+    },
+    {
+      "id": "TRIAL-AUTHOR24",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR24 / SYNTHETIC_PERMISSION: pending live authorization blocks overlapping edits before persistence"
+    },
+    {
+      "id": "TRIAL-AUTHOR25",
+      "status": "PASS",
+      "name": "TRIAL-AUTHOR25 / SYNTHETIC_FINAL_PERMISSION: expiry after fake encoding prevents output release and preserves saved data"
+    },
+    {
+      "id": "WEB-HTTP01",
+      "status": "PASS",
+      "name": "WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim"
+    },
+    {
+      "id": "WEB-HTTP02",
+      "status": "PASS",
+      "name": "WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset"
+    },
+    {
+      "id": "WEB-HTTP03",
+      "status": "PASS",
+      "name": "WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes"
+    },
+    {
+      "id": "WEB-HTTP04",
+      "status": "PASS",
+      "name": "WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original"
+    },
+    {
+      "id": "WEB-HTTP05",
+      "status": "PASS",
+      "name": "WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body"
+    },
+    {
+      "id": "WEB-HTTP06",
+      "status": "PASS",
+      "name": "WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original"
+    },
+    {
+      "id": "MC01",
+      "status": "PASS",
+      "name": "MC01 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: real client sends bounded binary parts with octet type, SHA header, and preserves caller bytes"
+    },
+    {
+      "id": "MC02",
+      "status": "PASS",
+      "name": "MC02 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: verified checksum and size matching existing parts are skipped without changing old part bytes/etag"
+    },
+    {
+      "id": "MC03",
+      "status": "PASS",
+      "name": "MC03 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong checksum part alone is repaired, healthy part stays identical"
+    },
+    {
+      "id": "MC04",
+      "status": "PASS",
+      "name": "MC04 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong size or unverified part is not skipped even when its checksum matches"
+    },
+    {
+      "id": "MC05",
+      "status": "PASS",
+      "name": "MC05 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost part acknowledgement leaves server job durable and a new client resumes same asset without re-PUT"
+    },
+    {
+      "id": "MC06",
+      "status": "PASS",
+      "name": "MC06 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost complete acknowledgement retries completion without changing healthy parts"
+    },
+    {
+      "id": "MC07",
+      "status": "PASS",
+      "name": "MC07 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: upload metadata binds exact asset/checksum/size/8MiB geometry before any part"
+    },
+    {
+      "id": "MC08",
+      "status": "PASS",
+      "name": "MC08 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong part acknowledgement number/checksum/size/verified refuses completion and preserves source"
+    },
+    {
+      "id": "MC09",
+      "status": "PASS",
+      "name": "MC09 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: HTTP checksum rejection leaves server job and input available, does not complete/evict"
+    },
+    {
+      "id": "MC10",
+      "status": "PASS",
+      "name": "MC10 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: completion checksum/asset/size/cloudSafe mismatch cannot be reported as upload success"
+    },
+    {
+      "id": "MC11",
+      "status": "PASS",
+      "name": "MC11 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: zero bytes and non-ArrayBuffer input reject before HTTP without fake decoding"
+    },
+    {
+      "id": "MC12",
+      "status": "PASS",
+      "name": "MC12 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: exact 8MiB boundary produces one part; small source produces one trailing part"
+    },
+    {
+      "id": "WEB-PX01",
+      "status": "PASS",
+      "name": "WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order"
+    },
+    {
+      "id": "WEB-PX02",
+      "status": "PASS",
+      "name": "WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed"
+    },
+    {
+      "id": "WEB-PX03",
+      "status": "PASS",
+      "name": "WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected"
+    },
+    {
+      "id": "WEB-PX04",
+      "status": "PASS",
+      "name": "WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input"
+    },
+    {
+      "id": "WEB-PX05",
+      "status": "PASS",
+      "name": "WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical"
+    },
+    {
+      "id": "WEB-PX06",
+      "status": "PASS",
+      "name": "WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion"
+    },
+    {
+      "id": "WEB-PX07",
+      "status": "PASS",
+      "name": "WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound"
+    },
+    {
+      "id": "WEB-PX08",
+      "status": "PASS",
+      "name": "WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels"
+    },
+    {
+      "id": "WEB-PX09",
+      "status": "PASS",
+      "name": "WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes"
+    },
+    {
+      "id": "WEB-PX10",
+      "status": "PASS",
+      "name": "WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image"
+    },
+    {
+      "id": "WEB-PX11",
+      "status": "PASS",
+      "name": "WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base"
+    },
+    {
+      "id": "WEB-PX12",
+      "status": "PASS",
+      "name": "WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image"
+    },
+    {
+      "id": "WEB-PX13",
+      "status": "PASS",
+      "name": "WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory"
+    },
+    {
+      "id": "WEB-PX14",
+      "status": "PASS",
+      "name": "WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering"
+    },
+    {
+      "id": "WEB-PX15",
+      "status": "PASS",
+      "name": "WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation"
+    },
+    {
+      "id": "WEB-PX16",
+      "status": "PASS",
+      "name": "WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render"
+    },
+    {
+      "id": "WEB-PX17",
+      "status": "PASS",
+      "name": "WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution"
+    },
+    {
+      "id": "WEB-PX18",
+      "status": "PASS",
+      "name": "WEB-PX18 / SYNTHETIC: all eight exposure/contrast/saturation endpoint combinations follow linear-sRGB oracle"
+    },
+    {
+      "id": "WEB-PX19",
+      "status": "PASS",
+      "name": "WEB-PX19 / SYNTHETIC: combined person/global adjustments apply person exposure once before global stages"
+    },
+    {
+      "id": "WEB-PX20",
+      "status": "PASS",
+      "name": "WEB-PX20 / SYNTHETIC: unsupported reordered processing stages are rejected rather than silently interpreted"
+    },
+    {
+      "id": "WEB-PX21",
+      "status": "PASS",
+      "name": "WEB-PX21 / SYNTHETIC: rounded Proxy and full base accept one canonical Crop recipe including rotation"
+    },
+    {
+      "id": "WEB-PX22",
+      "status": "PASS",
+      "name": "WEB-PX22 / SYNTHETIC: canonical source frame cannot excuse a mathematically wrong Crop ratio"
+    },
+    {
+      "id": "WEB-PX23",
+      "status": "PASS",
+      "name": "WEB-PX23 / SYNTHETIC: source-frame metadata must be paired, integer, large enough and within cap"
+    },
+    {
+      "id": "WEB-ST01",
+      "status": "PASS",
+      "name": "WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation"
+    },
+    {
+      "id": "WEB-ST02",
+      "status": "PASS",
+      "name": "WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values"
+    },
+    {
+      "id": "WEB-ST03",
+      "status": "PASS",
+      "name": "WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean"
+    },
+    {
+      "id": "WEB-ST04",
+      "status": "PASS",
+      "name": "WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft"
+    },
+    {
+      "id": "WEB-ST05",
+      "status": "PASS",
+      "name": "WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID"
+    },
+    {
+      "id": "WEB-ST06",
+      "status": "PASS",
+      "name": "WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement"
+    },
+    {
+      "id": "WEB-ST07",
+      "status": "PASS",
+      "name": "WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload"
+    },
+    {
+      "id": "WEB-ST08",
+      "status": "PASS",
+      "name": "WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it"
+    },
+    {
+      "id": "WEB-ST09",
+      "status": "PASS",
+      "name": "WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output"
+    },
+    {
+      "id": "WEB-ST10",
+      "status": "PASS",
+      "name": "WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later"
+    },
+    {
+      "id": "WEB-ST11",
+      "status": "PASS",
+      "name": "WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update"
+    },
+    {
+      "id": "WEB-ST12",
+      "status": "PASS",
+      "name": "WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft"
+    },
+    {
+      "id": "WEB-ST13",
+      "status": "PASS",
+      "name": "WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder"
+    },
+    {
+      "id": "WEB-ST14",
+      "status": "PASS",
+      "name": "WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode"
+    },
+    {
+      "id": "WEB-ST15",
+      "status": "PASS",
+      "name": "WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes"
+    },
+    {
+      "id": "WEB-ST16",
+      "status": "PASS",
+      "name": "WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset"
+    },
+    {
+      "id": "WEB-ST17",
+      "status": "PASS",
+      "name": "WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset"
+    },
+    {
+      "id": "WEB-ST18",
+      "status": "PASS",
+      "name": "WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft"
+    },
+    {
+      "id": "WEB-ST19",
+      "status": "PASS",
+      "name": "WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry"
+    },
+    {
+      "id": "WEB-ST20",
+      "status": "PASS",
+      "name": "WEB-ST20 / MOCK_STATE: person edit Undo/reanalysis/Redo retains known UUIDs and geometry"
+    },
+    {
+      "id": "WEB-ST21",
+      "status": "PASS",
+      "name": "WEB-ST21 / MOCK_STATE: incomplete fresh Final person inventory refuses output despite valid saved targets"
+    },
+    {
+      "id": "WEB-ST22",
+      "status": "PASS",
+      "name": "WEB-ST22 / MOCK_STATE: server revision changes during encode cannot publish stale Final"
+    },
+    {
+      "id": "WEB-ST23",
+      "status": "PASS",
+      "name": "WEB-ST23 / SYNTHETIC_MOCK_STATE: rotate-crop Undo/Redo save/reload fixed export retains source pixels and NON_RAW bytes"
+    },
+    {
+      "id": "WEB-ST24",
+      "status": "PASS",
+      "name": "WEB-ST24 / SYNTHETIC_MOCK_STATE: all offered crop ratios recenter after rotation; Original removes Crop only"
+    },
+    {
+      "id": "WEB-ST25",
+      "status": "PASS",
+      "name": "WEB-ST25 / MOCK_STATE: global range endpoints accepted and illegal values rejected without changing draft"
+    },
+    {
+      "id": "WEB-ST26",
+      "status": "PASS",
+      "name": "WEB-ST26 / SYNTHETIC_MOCK_STATE: tiny ratio Crop fails without zero-sized image or partial export success"
+    },
+    {
+      "id": "WEB-ST27",
+      "status": "PASS",
+      "name": "WEB-ST27 / SYNTHETIC_MOCK_STATE: session derives one Crop from full source dimensions despite rounded Proxy"
+    },
+    {
+      "id": "WEB-ST28",
+      "status": "PASS",
+      "name": "WEB-ST28 / SYNTHETIC_MOCK_STATE: free Crop preserves selected region through rotation Undo/Redo save/reload and fixed export"
+    },
+    {
+      "id": "WEB-ST29",
+      "status": "PASS",
+      "name": "WEB-ST29 / PRIVACY_MOCK_STATE: unknown status and synthetic token without explicit fake marker are refused"
+    },
+    {
+      "id": "WEB-ST30",
+      "status": "PASS",
+      "name": "WEB-ST30 / PRIVACY_MOCK_STATE: default person detection refuses before detector and clears stale selection"
+    },
+    {
+      "id": "WEB-ST31",
+      "status": "PASS",
+      "name": "WEB-ST31 / PRIVACY_MOCK_STATE: saved portrait reopen keeps body and history but cannot detect or render portrait"
+    },
+    {
+      "id": "WEB-ST32",
+      "status": "PASS",
+      "name": "WEB-ST32 / PRIVACY_MOCK_STATE: portrait Final refuses before Original fetch decode detector render or encode"
+    },
+    {
+      "id": "WEB-ST33",
+      "status": "PASS",
+      "name": "WEB-ST33 / PRIVACY_MOCK_STATE: person selection and adjustment reject without changing saved or draft body"
+    },
+    {
+      "id": "WEB-ST34",
+      "status": "PASS",
+      "name": "WEB-ST34 / PRIVACY_MOCK_STATE: default block does not disable nonportrait global save reload or synthetic Final"
+    },
+    {
+      "id": "SW01",
+      "status": "PASS",
+      "name": "SW01 / SQLITE_MOCK_R2: dispatch configuration invitation and Origin gates refuse before private operations"
+    },
+    {
+      "id": "SW02",
+      "status": "PASS",
+      "name": "SW02 / SQLITE_MOCK_R2: expired invitation cannot bind and bound email cannot switch platform user or elevate role"
+    },
+    {
+      "id": "SW03",
+      "status": "PASS",
+      "name": "SW03 / SQLITE_MOCK_R2: another invited author cannot access asset recipe upload or part routes"
+    },
+    {
+      "id": "SW04",
+      "status": "PASS",
+      "name": "SW04 / SQLITE_MOCK_R2: wrong part checksum size and number reject without adding durable part rows"
+    },
+    {
+      "id": "SW05",
+      "status": "PASS",
+      "name": "SW05 / SQLITE_MOCK_R2_NON_RAW: healthy parts skip and damaged part repairs to a new key without overwriting old bytes"
+    },
+    {
+      "id": "SW06",
+      "status": "PASS",
+      "name": "SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false"
+    },
+    {
+      "id": "SW07",
+      "status": "PASS",
+      "name": "SW07 / SQLITE_MOCK_R2: READY completion is idempotent and Original requires explicit purpose"
+    },
+    {
+      "id": "SW08",
+      "status": "PASS",
+      "name": "SW08 / SQLITE_MOCK_R2_FAULT: failed atomic completion cannot mark cloudSafe and retry preserves old objects"
+    },
+    {
+      "id": "SW09",
+      "status": "PASS",
+      "name": "SW09 / SQLITE_CONCURRENT_HANDLER: identical concurrent recipe CAS creates one revision and one audit entry"
+    },
+    {
+      "id": "SW10",
+      "status": "PASS",
+      "name": "SW10 / SQLITE_MOCK_R2: portrait save remains disabled and does not replace valid saved global recipe"
+    },
+    {
+      "id": "SW11",
+      "status": "PASS",
+      "name": "SW11 / SQLITE_MOCK_R2: source-backed author adoption survives restart and checksum corruption refuses without deletion"
+    },
+    {
+      "id": "SW12",
+      "status": "PASS",
+      "name": "SW12 / SQLITE_CONCURRENT_HANDLER: draft CAS writes exactly one new immutable version under concurrent updates"
+    },
+    {
+      "id": "SW13",
+      "status": "PASS",
+      "name": "SW13 / SQLITE_MOCK_R2: production streaming digest absence fails closed instead of full-buffer fallback"
+    },
+    {
+      "id": "SW14",
+      "status": "PASS",
+      "name": "SW14 / SQLITE_MOCK_R2_CORRUPTION: damaged READY object cannot remain cloudSafe or silently serve corrupted Original"
+    },
+    {
+      "id": "SW15",
+      "status": "PASS",
+      "name": "SW15 / SQLITE_CONCURRENT_HANDLER: simultaneous distinct platform users cannot bind one invitation twice"
+    },
+    {
+      "id": "SW16",
+      "status": "PASS",
+      "name": "SW16 / SQLITE_CORRUPTION: earlier wrong-asset portrait history blocks latest global reload and preserves rows"
+    },
+    {
+      "id": "SW17",
+      "status": "PASS",
+      "name": "SW17 / SQLITE_MOCK_R2_QUOTA: low storage quota denies only new import and preserves existing Original parts and recipe"
+    },
+    {
+      "id": "SW18",
+      "status": "PASS",
+      "name": "SW18 / SQLITE_MOCK_R2_QUOTA: write operation limit stops new R2 calls and conservatively retains reservation"
+    },
+    {
+      "id": "SW19",
+      "status": "PASS",
+      "name": "SW19 / SQLITE_MOCK_R2_QUOTA: missing quota configuration and daily budget refuse without library mutation"
+    },
+    {
+      "id": "SW20",
+      "status": "PASS",
+      "name": "SW20 / SQLITE_MOCK_D1_METADATA: usage is admin-only and missing D1 measurement remains explicitly unknown"
+    },
+    {
+      "id": "SW21",
+      "status": "PASS",
+      "name": "SW21 / SQLITE_MOCK_R2_QUOTA: repair consuming retained-byte allowance cannot assemble beyond storage cap"
+    },
+    {
+      "id": "SW22",
+      "status": "PASS",
+      "name": "SW22 / SQLITE_MOCK_R2_TRIAL_CLOCK: no deadline means no access and signed-in expiry retains Original recipe and published preset"
+    },
+    {
+      "id": "SW23",
+      "status": "PASS",
+      "name": "SW23 / SQLITE_MOCK_R2_TRIAL_ADMIN: revocation immediately blocks bound member and never deletes their Original"
+    },
+    {
+      "id": "SW24",
+      "status": "PASS",
+      "name": "SW24 / SQLITE_TRIAL_ADMIN: member cannot extend own deadline and invalid admin changes preserve the prior grant"
+    },
+    {
+      "id": "TRIAL-AUTH01",
+      "status": "PASS",
+      "name": "TRIAL-AUTH01 / SQLITE: invitation is single use across connections and sessions expose no secret principal fields"
+    },
+    {
+      "id": "TRIAL-AUTH02",
+      "status": "PASS",
+      "name": "TRIAL-AUTH02 / SQLITE_CLOCK: invitation and session expire at their fixed boundaries"
+    },
+    {
+      "id": "TRIAL-AUTH03",
+      "status": "PASS",
+      "name": "TRIAL-AUTH03 / SQLITE: author revocation invalidates every current session and outstanding invite"
+    },
+    {
+      "id": "TRIAL-AUTH04",
+      "status": "PASS",
+      "name": "TRIAL-AUTH04 / SQLITE: logout invalidates only the selected session and persists after reopen"
+    },
+    {
+      "id": "TRIAL-AUTH05",
+      "status": "PASS",
+      "name": "TRIAL-AUTH05 / SQLITE: restart retains consumed invite and session without persisting plaintext secrets"
+    },
+    {
+      "id": "TRIAL-AUTH06",
+      "status": "PASS",
+      "name": "TRIAL-AUTH06 / SQLITE: forged credentials and unauthorized role input cannot establish a session"
+    },
+    {
+      "id": "TRIAL-AUTH07",
+      "status": "PASS",
+      "name": "TRIAL-AUTH07 / HTTP: login uses protected HttpOnly cookie and never accepts loopback QA fallback"
+    },
+    {
+      "id": "TRIAL-AUTH08",
+      "status": "PASS",
+      "name": "TRIAL-AUTH08 / HTTP: rejected cross-origin or forged-Host login does not consume invitation"
+    },
+    {
+      "id": "TRIAL-AUTH09",
+      "status": "PASS",
+      "name": "TRIAL-AUTH09 / HTTP_NON_RAW: authors cannot enumerate read or mutate another author Original or recipe"
+    },
+    {
+      "id": "TRIAL-AUTH10",
+      "status": "PASS",
+      "name": "TRIAL-AUTH10 / HTTP: session survives server restart but logout and author revocation do not resurrect"
+    },
+    {
+      "id": "TRIAL-AUTH11",
+      "status": "PASS",
+      "name": "TRIAL-AUTH11 / HTTP_CLOCK: expired session cannot use assets or author API"
+    },
+    {
+      "id": "TRIAL-AUTH12",
+      "status": "PASS",
+      "name": "TRIAL-AUTH12 / SQLITE_THREADS: simultaneous invitation redemption yields exactly one committed session"
+    },
+    {
+      "id": "TRIAL-AUTH13",
+      "status": "PASS",
+      "name": "TRIAL-AUTH13 / SQLITE_TRIAL_CLOCK: missing explicit trial deadline denies access until administrator sets a future end"
+    },
+    {
+      "id": "TRIAL-AUTH14",
+      "status": "PASS",
+      "name": "TRIAL-AUTH14 / SQLITE_TRIAL_CLOCK: shortened trial deadline stops an already signed-in session before security TTL"
+    },
+    {
+      "id": "TRIAL-AUTH15",
+      "status": "PASS",
+      "name": "TRIAL-AUTH15 / HTTP_TRIAL_CLOCK_NON_RAW: live edit export submit authorization expires without deleting saved data"
+    },
+    {
+      "id": "TRIAL-AUTH16",
+      "status": "PASS",
+      "name": "TRIAL-AUTH16 / SQLITE_INVITATION_CLOCK: separate invitations for one author retain independent live deadlines and revocation"
+    },
+    {
+      "id": "WEB-WK01",
+      "status": "PASS",
+      "name": "WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable"
+    },
+    {
+      "id": "WEB-WK02",
+      "status": "PASS",
+      "name": "WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base"
+    },
+    {
+      "id": "WEB-WK03",
+      "status": "PASS",
+      "name": "WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output"
+    },
+    {
+      "id": "WEB-WK04",
+      "status": "PASS",
+      "name": "WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success"
+    },
+    {
+      "id": "WEB-WK05",
+      "status": "PASS",
+      "name": "WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse"
+    },
+    {
+      "id": "WEB-WK06",
+      "status": "PASS",
+      "name": "WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation"
+    }
+  ],
+  "sourceHashBefore": {
+    "apps/backend/src/auth.ts": "7769acdd1c7920110326712c36763217035ef5505b39bbf47b70e96715a6df81",
+    "apps/backend/src/crop-export.ts": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a",
+    "apps/backend/src/gates.ts": "d60f0b2cdc14e359ab46e62e06253d381710264a4fa21293927cd1e5fbdc99e3",
+    "apps/backend/src/multipart.ts": "620e8ee5da87d217c89680a73043ace61933ed097deb1da955545761ef47b68e",
+    "apps/backend/src/object-provider.ts": "2afa90763289da61108b050502d45a570852c53faf0de61981c1f7486d054be2",
+    "apps/backend/src/person-geometry-validation.ts": "de5338ae1d3d0b5cfe0b04a4e5692bbe44ed57e65fde58f41c30f14675121050",
+    "apps/backend/src/person-geometry.ts": "296981340493f88d0a04745e421337f2bb289f5cd3eb4064b188d5a5faa1a6c4",
+    "apps/backend/src/photo-policy.ts": "6672bbcc113e0938449aded1a095a7832f18dceb5c522ba20e4060a08621298d",
+    "apps/backend/src/portrait-recipe.ts": "4b8754a788495dbcec8a24db565c026e1000322bf8ba9781c3e7f95610510318",
+    "apps/backend/src/repository.ts": "f0995af6fa8de67fcd18041c1f4c352244e54e725f632eba3da7e16d9ec9424d",
+    "apps/backend/src/server.ts": "a1585ee718eeec1b05f603db6387d7400b92746ba56d019886b57bf4b85b678f",
+    "apps/backend/src/storage.ts": "018cf5d01b78e3938d0e01e1f40bac1f220901c7b71ea7e534fb3c794aaee0b9",
+    "apps/backend/src/workspace-access.ts": "73c72cb614f12d3b943f375f9fd7c6249d209ad5f62a1e6eadc3f2c17ea311a5",
+    "apps/backend/src/workspace-server.ts": "001a02720f0e5c992b5a3dd2baef954d1549ffc4ea5c317fe54aed652f487325",
+    "apps/backend/src/workspace-storage.ts": "47e17f457f9228f994ad5d77584d5a9e7b47a786b6536cf62e5fe69d534877e5",
+    "apps/backend/src/workspace.ts": "041c683402e039ba70e38175776e11e9d167a2dec67f3972f24bb2bb79c51ba8",
+    "apps/sites/.openai/hosting.json": "de920837f11313d04bc4ac956316f22faa609a1daeca07bb1a9b19bca5fd99d9",
+    "apps/sites/build.mjs": "2a2051556a85179a0c923dcc29319861738891c706363968bffcfac696c1b362",
+    "apps/sites/db/schema.ts": "13cdc832c984c1c5e0c0dc5350a783aa7533357d7783bdf0706e1b96190fc2ed",
+    "apps/sites/drizzle.config.ts": "8f0b0441ef2d967c839418715a2cbb051c0338dc156d989895c03ccbc81d4cf6",
+    "apps/sites/drizzle/0000_suite_sites.sql": "2b5740c80dc6cd6572f8ac5db05f6988c0b359939bdb755cb83e66e072ab2ee6",
+    "apps/sites/drizzle/0001_suite_sites.sql": "aa7619cfe6ccc1a113527362ae67fb851d49589b600508f6dfa703f03aa55652",
+    "apps/sites/drizzle/0002_suite_sites.sql": "f0564901f301eda7ff8418e4437b96f082c125d7d67f55a9cd96916fb00c2313",
+    "apps/sites/drizzle/meta/0000_snapshot.json": "f69fb6f1d3e54540421ca57f66a8618a48d5bf4c89e70217b5e5c56dcd1f4cb9",
+    "apps/sites/drizzle/meta/0001_snapshot.json": "ef9e8721118376a4b7e54a8606461d42b398afde7b669bb45dc01d24c80db7bc",
+    "apps/sites/drizzle/meta/0002_snapshot.json": "67fa92c24fc507d3eb91f6cdccd1845e55dad11bf391b2ef218763e163109630",
+    "apps/sites/drizzle/meta/_journal.json": "0e014b4e75464886909444563bd6f0432abbcfb2c69bfbafaf05ae2dd4cbdf13",
+    "apps/sites/generate-migration.mjs": "66c188154522e0b8aad78dfc9b2bbafd2c6ab78df81e713362bdae183cfe3173",
+    "apps/sites/package.json": "734cdfe6b665b539d726950e41a2f7d785de981b993d6875192c40eb3c538b23",
+    "apps/sites/src/usage.mjs": "5846549e3cc8ccffe45c57a1ec235724ca0aff5063223f17c016ace31661479d",
+    "apps/sites/src/worker.mjs": "e07387aed2e556350c5659eed30de1fe12660eade0a0ad15d22f5f65397112d3",
+    "apps/web/author-store.mjs": "d42fcefc5e34e5f24ce6c8c84a54bc42b8b7faaef0e45c475160c7c85130b277",
+    "apps/web/build.mjs": "890854752f1e6433929cc0c92d5136cdcf319b63c3ebf8a5008861d64ccf278d",
+    "apps/web/index.html": "1ce8438b6558b7afe414d3783bb622165ee51a84e9529404a2cc8cbeea329fd9",
+    "apps/web/invite-auth.mjs": "b7cd936e51d751888b11fc3b6607459b7d2c7a393cf7da91ca2d2e887c90f399",
+    "apps/web/local-server.mjs": "4503109410a33f16a75bdbe4bb391d36413016075df48507cf2b551ea93685f2",
+    "apps/web/preset-policy.mjs": "3d29d1aa4ab067bb4b7bef09b0dd802c73690aea0ad90c2f9dc63e1320845237",
+    "apps/web/src/api-client.mjs": "fb474380077e7d4e70ebaad0783ee8b9470a11ac62e5e224c74aad86f5aed0cc",
+    "apps/web/src/author-ui.mjs": "0f0674b6332cb20c81b528a90607d4198ffbac1efe97c95404f0d4f0fd99849c",
+    "apps/web/src/bootstrap.mjs": "46e752bf5d1a580988487c3e0dd973c1966a9b5939b917c04e71b8eb33e13a8e",
+    "apps/web/src/editor-ui.mjs": "c2cae4a5b4dea6f48e55e59765654084e3eb045d1aaf3cfed6a138b36ceb73ad",
+    "apps/web/src/login-ui.mjs": "21b3c231754606057c2679cdeebd07f8bbb23518e56d3a5c2db09df68de915e6",
+    "apps/web/src/preset-author/preset-author-contract.mjs": "2ebe4a727d4409871da95798868dba39f662ee066d45a19eb7cc70b11f1242da",
+    "apps/web/src/preset-author/preset-author-web-adapter.mjs": "ad8de16db57f0e9120c6b9b93e4840a5572134a5c1722ab952d4cffbfecb91db",
+    "apps/web/src/processing/encode.mjs": "9b5df0e9782d7d169b93b96f3ac808f3fa1267220540fa8bdf8c6a1ca32db240",
+    "apps/web/src/processing/faces.mjs": "799d7f6cbf67d665819912a4fa84c5e69855c189ac7bef6314cefe54c220b775",
+    "apps/web/src/processing/index.mjs": "f4c6af764c951a8128bf219ead822662ce463049fee6d5b2d4099e96c43d5b74",
+    "apps/web/src/processing/pure.mjs": "5681566c8d11a129bd7a353c68b030d2814340df19182a169b77abc073161356",
+    "apps/web/src/processing/qa-page.mjs": "610f1981f428e9abfca8280a9c155795a830d3d89e69c3da111aa6574affb5fa",
+    "apps/web/src/processing/qa.html": "27de5040c9925c6cd83fd1f9121eee94bbca8e837f3cd7433534935c4f11bae6",
+    "apps/web/src/processing/raw.mjs": "f8a047885451dde3297aecbdd55881453c8f77e85f71cd5e345c800802a96f3d",
+    "apps/web/src/processing/worker.mjs": "33a160d5ab0886870185f65ba8bbe7500a8907b98f1d933d75f7e0a4e1201205",
+    "apps/web/src/session.mjs": "1f781471945a47226d4a0ad7fffa1610b40b2cf8fcd1cbc9c4756ce48388d9b4",
+    "apps/web/src/sites-client.mjs": "70b8d78b353ecd97311d2af7f88866dcac6292912c3c56a8f910c21b032de22e",
+    "apps/web/src/styles.css": "9a0823005bf592ae6d93fa3286b487b184623e75b557bcefa389e3f8cff618f3",
+    "apps/web/src/trial-client.mjs": "29d92b1fd3449cf4e59389d5751b7a5729051b2d4c7c514e9dbf745139ebba33",
+    "apps/web/tests/author-submissions.test.mjs": "39612c1cd504a170d6b7ac05b974085f5eace19620e32eba98215a0bcde89c0f",
+    "apps/web/tests/fixtures.mjs": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d",
+    "apps/web/tests/local-http-safety.test.mjs": "ba81456d6134e7807ca88c1a0ded29879c3081883aaf8fb3f99ab4311ff794e3",
+    "apps/web/tests/multipart-client.test.mjs": "e22c4d1274f531c779f7b7e49baa5dd77f9271589647911141d3b61572f2aabc",
+    "apps/web/tests/processing-safety.test.mjs": "f71a390b404805af77ee63236a3f69bf6aa57734dae1104624b35e11e8bfe41d",
+    "apps/web/tests/session-safety.test.mjs": "9824a8350d3c0ad171f5ae52db85ae201a9e96d5c9cf9d582860ca9172dff906",
+    "apps/web/tests/sites-worker.test.mjs": "3aaff995b7b7df548c7004587d847fb16613d99b628642fb7f3697d699bfb336",
+    "apps/web/tests/trial-auth.test.mjs": "f358569a0d4e7b6b799947b04557cb1295855cbaa61839462c95be0bb6a8d69a",
+    "apps/web/tests/worker-lifecycle.test.mjs": "f9b75aaafbda72277dc0ded68829fbfc84cc3d8020ca66f73e46865ef160d6d9",
+    "apps/web/trial-server.mjs": "fe8cbce22c0b1459539123049d6cbbc537d76ae5db53391d52fc850bb34551a0",
+    "dist/apps/backend/src/auth.d.ts": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb",
+    "dist/apps/backend/src/auth.js": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3",
+    "dist/apps/backend/src/crop-export.d.ts": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f",
+    "dist/apps/backend/src/crop-export.js": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9",
+    "dist/apps/backend/src/gates.d.ts": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4",
+    "dist/apps/backend/src/gates.js": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033",
+    "dist/apps/backend/src/multipart.d.ts": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508",
+    "dist/apps/backend/src/multipart.js": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219",
+    "dist/apps/backend/src/object-provider.d.ts": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df",
+    "dist/apps/backend/src/object-provider.js": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0",
+    "dist/apps/backend/src/person-geometry-validation.d.ts": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250",
+    "dist/apps/backend/src/person-geometry-validation.js": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7",
+    "dist/apps/backend/src/person-geometry.d.ts": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92",
+    "dist/apps/backend/src/person-geometry.js": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874",
+    "dist/apps/backend/src/photo-policy.d.ts": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1",
+    "dist/apps/backend/src/photo-policy.js": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634",
+    "dist/apps/backend/src/portrait-recipe.d.ts": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d",
+    "dist/apps/backend/src/portrait-recipe.js": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb",
+    "dist/apps/backend/src/repository.d.ts": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284",
+    "dist/apps/backend/src/repository.js": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e",
+    "dist/apps/backend/src/server.d.ts": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6",
+    "dist/apps/backend/src/server.js": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6",
+    "dist/apps/backend/src/storage.d.ts": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c",
+    "dist/apps/backend/src/storage.js": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328",
+    "dist/apps/backend/src/workspace-access.d.ts": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1",
+    "dist/apps/backend/src/workspace-access.js": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96",
+    "dist/apps/backend/src/workspace-server.d.ts": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb",
+    "dist/apps/backend/src/workspace-server.js": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435",
+    "dist/apps/backend/src/workspace-storage.d.ts": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78",
+    "dist/apps/backend/src/workspace-storage.js": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688",
+    "dist/apps/backend/src/workspace.d.ts": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6",
+    "dist/apps/backend/src/workspace.js": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3",
+    "package-lock.json": "eacf020444e9292bfc6a2b751120a40736314f9655efa578fbb04a9bea3cf28c",
+    "package.json": "3009f8ecc6a3bf5cd2be0beab225762ff0afd716205720469204002cfd4cdf4a",
+    "tsconfig.json": "dfe8b8fdf8afbb66a5b0f08e69a34c1614ceb76adc7869c8718214b3ead9a2c8"
+  },
+  "sourceHashAfter": {
+    "apps/backend/src/auth.ts": "7769acdd1c7920110326712c36763217035ef5505b39bbf47b70e96715a6df81",
+    "apps/backend/src/crop-export.ts": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a",
+    "apps/backend/src/gates.ts": "d60f0b2cdc14e359ab46e62e06253d381710264a4fa21293927cd1e5fbdc99e3",
+    "apps/backend/src/multipart.ts": "620e8ee5da87d217c89680a73043ace61933ed097deb1da955545761ef47b68e",
+    "apps/backend/src/object-provider.ts": "2afa90763289da61108b050502d45a570852c53faf0de61981c1f7486d054be2",
+    "apps/backend/src/person-geometry-validation.ts": "de5338ae1d3d0b5cfe0b04a4e5692bbe44ed57e65fde58f41c30f14675121050",
+    "apps/backend/src/person-geometry.ts": "296981340493f88d0a04745e421337f2bb289f5cd3eb4064b188d5a5faa1a6c4",
+    "apps/backend/src/photo-policy.ts": "6672bbcc113e0938449aded1a095a7832f18dceb5c522ba20e4060a08621298d",
+    "apps/backend/src/portrait-recipe.ts": "4b8754a788495dbcec8a24db565c026e1000322bf8ba9781c3e7f95610510318",
+    "apps/backend/src/repository.ts": "f0995af6fa8de67fcd18041c1f4c352244e54e725f632eba3da7e16d9ec9424d",
+    "apps/backend/src/server.ts": "a1585ee718eeec1b05f603db6387d7400b92746ba56d019886b57bf4b85b678f",
+    "apps/backend/src/storage.ts": "018cf5d01b78e3938d0e01e1f40bac1f220901c7b71ea7e534fb3c794aaee0b9",
+    "apps/backend/src/workspace-access.ts": "73c72cb614f12d3b943f375f9fd7c6249d209ad5f62a1e6eadc3f2c17ea311a5",
+    "apps/backend/src/workspace-server.ts": "001a02720f0e5c992b5a3dd2baef954d1549ffc4ea5c317fe54aed652f487325",
+    "apps/backend/src/workspace-storage.ts": "47e17f457f9228f994ad5d77584d5a9e7b47a786b6536cf62e5fe69d534877e5",
+    "apps/backend/src/workspace.ts": "041c683402e039ba70e38175776e11e9d167a2dec67f3972f24bb2bb79c51ba8",
+    "apps/sites/.openai/hosting.json": "de920837f11313d04bc4ac956316f22faa609a1daeca07bb1a9b19bca5fd99d9",
+    "apps/sites/build.mjs": "2a2051556a85179a0c923dcc29319861738891c706363968bffcfac696c1b362",
+    "apps/sites/db/schema.ts": "13cdc832c984c1c5e0c0dc5350a783aa7533357d7783bdf0706e1b96190fc2ed",
+    "apps/sites/drizzle.config.ts": "8f0b0441ef2d967c839418715a2cbb051c0338dc156d989895c03ccbc81d4cf6",
+    "apps/sites/drizzle/0000_suite_sites.sql": "2b5740c80dc6cd6572f8ac5db05f6988c0b359939bdb755cb83e66e072ab2ee6",
+    "apps/sites/drizzle/0001_suite_sites.sql": "aa7619cfe6ccc1a113527362ae67fb851d49589b600508f6dfa703f03aa55652",
+    "apps/sites/drizzle/0002_suite_sites.sql": "f0564901f301eda7ff8418e4437b96f082c125d7d67f55a9cd96916fb00c2313",
+    "apps/sites/drizzle/meta/0000_snapshot.json": "f69fb6f1d3e54540421ca57f66a8618a48d5bf4c89e70217b5e5c56dcd1f4cb9",
+    "apps/sites/drizzle/meta/0001_snapshot.json": "ef9e8721118376a4b7e54a8606461d42b398afde7b669bb45dc01d24c80db7bc",
+    "apps/sites/drizzle/meta/0002_snapshot.json": "67fa92c24fc507d3eb91f6cdccd1845e55dad11bf391b2ef218763e163109630",
+    "apps/sites/drizzle/meta/_journal.json": "0e014b4e75464886909444563bd6f0432abbcfb2c69bfbafaf05ae2dd4cbdf13",
+    "apps/sites/generate-migration.mjs": "66c188154522e0b8aad78dfc9b2bbafd2c6ab78df81e713362bdae183cfe3173",
+    "apps/sites/package.json": "734cdfe6b665b539d726950e41a2f7d785de981b993d6875192c40eb3c538b23",
+    "apps/sites/src/usage.mjs": "5846549e3cc8ccffe45c57a1ec235724ca0aff5063223f17c016ace31661479d",
+    "apps/sites/src/worker.mjs": "e07387aed2e556350c5659eed30de1fe12660eade0a0ad15d22f5f65397112d3",
+    "apps/web/author-store.mjs": "d42fcefc5e34e5f24ce6c8c84a54bc42b8b7faaef0e45c475160c7c85130b277",
+    "apps/web/build.mjs": "890854752f1e6433929cc0c92d5136cdcf319b63c3ebf8a5008861d64ccf278d",
+    "apps/web/index.html": "1ce8438b6558b7afe414d3783bb622165ee51a84e9529404a2cc8cbeea329fd9",
+    "apps/web/invite-auth.mjs": "b7cd936e51d751888b11fc3b6607459b7d2c7a393cf7da91ca2d2e887c90f399",
+    "apps/web/local-server.mjs": "4503109410a33f16a75bdbe4bb391d36413016075df48507cf2b551ea93685f2",
+    "apps/web/preset-policy.mjs": "3d29d1aa4ab067bb4b7bef09b0dd802c73690aea0ad90c2f9dc63e1320845237",
+    "apps/web/src/api-client.mjs": "fb474380077e7d4e70ebaad0783ee8b9470a11ac62e5e224c74aad86f5aed0cc",
+    "apps/web/src/author-ui.mjs": "0f0674b6332cb20c81b528a90607d4198ffbac1efe97c95404f0d4f0fd99849c",
+    "apps/web/src/bootstrap.mjs": "46e752bf5d1a580988487c3e0dd973c1966a9b5939b917c04e71b8eb33e13a8e",
+    "apps/web/src/editor-ui.mjs": "c2cae4a5b4dea6f48e55e59765654084e3eb045d1aaf3cfed6a138b36ceb73ad",
+    "apps/web/src/login-ui.mjs": "21b3c231754606057c2679cdeebd07f8bbb23518e56d3a5c2db09df68de915e6",
+    "apps/web/src/preset-author/preset-author-contract.mjs": "2ebe4a727d4409871da95798868dba39f662ee066d45a19eb7cc70b11f1242da",
+    "apps/web/src/preset-author/preset-author-web-adapter.mjs": "ad8de16db57f0e9120c6b9b93e4840a5572134a5c1722ab952d4cffbfecb91db",
+    "apps/web/src/processing/encode.mjs": "9b5df0e9782d7d169b93b96f3ac808f3fa1267220540fa8bdf8c6a1ca32db240",
+    "apps/web/src/processing/faces.mjs": "799d7f6cbf67d665819912a4fa84c5e69855c189ac7bef6314cefe54c220b775",
+    "apps/web/src/processing/index.mjs": "f4c6af764c951a8128bf219ead822662ce463049fee6d5b2d4099e96c43d5b74",
+    "apps/web/src/processing/pure.mjs": "5681566c8d11a129bd7a353c68b030d2814340df19182a169b77abc073161356",
+    "apps/web/src/processing/qa-page.mjs": "610f1981f428e9abfca8280a9c155795a830d3d89e69c3da111aa6574affb5fa",
+    "apps/web/src/processing/qa.html": "27de5040c9925c6cd83fd1f9121eee94bbca8e837f3cd7433534935c4f11bae6",
+    "apps/web/src/processing/raw.mjs": "f8a047885451dde3297aecbdd55881453c8f77e85f71cd5e345c800802a96f3d",
+    "apps/web/src/processing/worker.mjs": "33a160d5ab0886870185f65ba8bbe7500a8907b98f1d933d75f7e0a4e1201205",
+    "apps/web/src/session.mjs": "1f781471945a47226d4a0ad7fffa1610b40b2cf8fcd1cbc9c4756ce48388d9b4",
+    "apps/web/src/sites-client.mjs": "70b8d78b353ecd97311d2af7f88866dcac6292912c3c56a8f910c21b032de22e",
+    "apps/web/src/styles.css": "9a0823005bf592ae6d93fa3286b487b184623e75b557bcefa389e3f8cff618f3",
+    "apps/web/src/trial-client.mjs": "29d92b1fd3449cf4e59389d5751b7a5729051b2d4c7c514e9dbf745139ebba33",
+    "apps/web/tests/author-submissions.test.mjs": "39612c1cd504a170d6b7ac05b974085f5eace19620e32eba98215a0bcde89c0f",
+    "apps/web/tests/fixtures.mjs": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d",
+    "apps/web/tests/local-http-safety.test.mjs": "ba81456d6134e7807ca88c1a0ded29879c3081883aaf8fb3f99ab4311ff794e3",
+    "apps/web/tests/multipart-client.test.mjs": "e22c4d1274f531c779f7b7e49baa5dd77f9271589647911141d3b61572f2aabc",
+    "apps/web/tests/processing-safety.test.mjs": "f71a390b404805af77ee63236a3f69bf6aa57734dae1104624b35e11e8bfe41d",
+    "apps/web/tests/session-safety.test.mjs": "9824a8350d3c0ad171f5ae52db85ae201a9e96d5c9cf9d582860ca9172dff906",
+    "apps/web/tests/sites-worker.test.mjs": "3aaff995b7b7df548c7004587d847fb16613d99b628642fb7f3697d699bfb336",
+    "apps/web/tests/trial-auth.test.mjs": "f358569a0d4e7b6b799947b04557cb1295855cbaa61839462c95be0bb6a8d69a",
+    "apps/web/tests/worker-lifecycle.test.mjs": "f9b75aaafbda72277dc0ded68829fbfc84cc3d8020ca66f73e46865ef160d6d9",
+    "apps/web/trial-server.mjs": "fe8cbce22c0b1459539123049d6cbbc537d76ae5db53391d52fc850bb34551a0",
+    "dist/apps/backend/src/auth.d.ts": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb",
+    "dist/apps/backend/src/auth.js": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3",
+    "dist/apps/backend/src/crop-export.d.ts": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f",
+    "dist/apps/backend/src/crop-export.js": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9",
+    "dist/apps/backend/src/gates.d.ts": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4",
+    "dist/apps/backend/src/gates.js": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033",
+    "dist/apps/backend/src/multipart.d.ts": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508",
+    "dist/apps/backend/src/multipart.js": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219",
+    "dist/apps/backend/src/object-provider.d.ts": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df",
+    "dist/apps/backend/src/object-provider.js": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0",
+    "dist/apps/backend/src/person-geometry-validation.d.ts": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250",
+    "dist/apps/backend/src/person-geometry-validation.js": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7",
+    "dist/apps/backend/src/person-geometry.d.ts": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92",
+    "dist/apps/backend/src/person-geometry.js": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874",
+    "dist/apps/backend/src/photo-policy.d.ts": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1",
+    "dist/apps/backend/src/photo-policy.js": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634",
+    "dist/apps/backend/src/portrait-recipe.d.ts": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d",
+    "dist/apps/backend/src/portrait-recipe.js": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb",
+    "dist/apps/backend/src/repository.d.ts": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284",
+    "dist/apps/backend/src/repository.js": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e",
+    "dist/apps/backend/src/server.d.ts": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6",
+    "dist/apps/backend/src/server.js": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6",
+    "dist/apps/backend/src/storage.d.ts": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c",
+    "dist/apps/backend/src/storage.js": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328",
+    "dist/apps/backend/src/workspace-access.d.ts": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1",
+    "dist/apps/backend/src/workspace-access.js": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96",
+    "dist/apps/backend/src/workspace-server.d.ts": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb",
+    "dist/apps/backend/src/workspace-server.js": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435",
+    "dist/apps/backend/src/workspace-storage.d.ts": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78",
+    "dist/apps/backend/src/workspace-storage.js": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688",
+    "dist/apps/backend/src/workspace.d.ts": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6",
+    "dist/apps/backend/src/workspace.js": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3",
+    "package-lock.json": "eacf020444e9292bfc6a2b751120a40736314f9655efa578fbb04a9bea3cf28c",
+    "package.json": "3009f8ecc6a3bf5cd2be0beab225762ff0afd716205720469204002cfd4cdf4a",
+    "tsconfig.json": "dfe8b8fdf8afbb66a5b0f08e69a34c1614ceb76adc7869c8718214b3ead9a2c8"
+  },
+  "sourceStable": true,
+  "sourceFiles": 101,
+  "log": "TAP version 13\n# Subtest: TRIAL-AUTHOR01 / SQLITE: default source verifier refuses draft creation and leaves no record\nok 1 - TRIAL-AUTHOR01 / SQLITE: default source verifier refuses draft creation and leaves no record\n  ---\n  duration_ms: 24.7331\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR02 / SQLITE: another author cannot enumerate get edit submit or review a draft\nok 2 - TRIAL-AUTHOR02 / SQLITE: another author cannot enumerate get edit submit or review a draft\n  ---\n  duration_ms: 22.5019\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR03 / SQLITE: draft CAS rejects stale updates and source failure retains the preceding draft\nok 3 - TRIAL-AUTHOR03 / SQLITE: draft CAS rejects stale updates and source failure retains the preceding draft\n  ---\n  duration_ms: 23.411\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR04 / SQLITE: submit freezes version while newer draft cannot replace admin review snapshot\nok 4 - TRIAL-AUTHOR04 / SQLITE: submit freezes version while newer draft cannot replace admin review snapshot\n  ---\n  duration_ms: 33.6528\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR05 / SQLITE: accepted portable version is immutable, detached and excludes photo identity/data\nok 5 - TRIAL-AUTHOR05 / SQLITE: accepted portable version is immutable, detached and excludes photo identity/data\n  ---\n  duration_ms: 32.129\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR06 / SQLITE: rejection cannot publish a preset and persists through store restart\nok 6 - TRIAL-AUTHOR06 / SQLITE: rejection cannot publish a preset and persists through store restart\n  ---\n  duration_ms: 29.246\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR07 / SQLITE_VALIDATION: strict portable recipe rejects photo fields unknown controls and nondefault rotation\nok 7 - TRIAL-AUTHOR07 / SQLITE_VALIDATION: strict portable recipe rejects photo fields unknown controls and nondefault rotation\n  ---\n  duration_ms: 22.7137\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR08 / SQLITE_VALIDATION: allowed endpoint combinations remain exact and do not mutate input\nok 8 - TRIAL-AUTHOR08 / SQLITE_VALIDATION: allowed endpoint combinations remain exact and do not mutate input\n  ---\n  duration_ms: 31.5932\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR09 / SQLITE: rejected source provenance cannot create a record and a valid draft survives restart\nok 9 - TRIAL-AUTHOR09 / SQLITE: rejected source provenance cannot create a record and a valid draft survives restart\n  ---\n  duration_ms: 28.7969\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR10 / SQLITE: admin cannot approve own submitted version or re-review a terminal decision\nok 10 - TRIAL-AUTHOR10 / SQLITE: admin cannot approve own submitted version or re-review a terminal decision\n  ---\n  duration_ms: 23.62\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen\nok 11 - TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen\n  ---\n  duration_ms: 29.7576\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity\nok 12 - TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity\n  ---\n  duration_ms: 29.4243\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values\nok 13 - TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values\n  ---\n  duration_ms: 22.2571\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved\nok 14 - TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved\n  ---\n  duration_ms: 27.5237\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR15 / SQLITE_CORRUPTION: an in-range altered submission cannot replace its saved immutable version\nok 15 - TRIAL-AUTHOR15 / SQLITE_CORRUPTION: an in-range altered submission cannot replace its saved immutable version\n  ---\n  duration_ms: 25.2124\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR16 / HTTP_NON_RAW: source must be owned verified current and exactly match submitted global parameters\nok 16 - TRIAL-AUTHOR16 / HTTP_NON_RAW: source must be owned verified current and exactly match submitted global parameters\n  ---\n  duration_ms: 200.6041\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR17 / HTTP_SQLITE: owner CAS submit admin adoption and shared immutable version survive restart\nok 17 - TRIAL-AUTHOR17 / HTTP_SQLITE: owner CAS submit admin adoption and shared immutable version survive restart\n  ---\n  duration_ms: 159.1021\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR18 / HTTP_INJECTED_STORAGE_FAULT: failed source inspection cannot overwrite durable draft or Original\nok 18 - TRIAL-AUTHOR18 / HTTP_INJECTED_STORAGE_FAULT: failed source inspection cannot overwrite durable draft or Original\n  ---\n  duration_ms: 75.0593\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR19 / PURE_ADAPTER: author UI reuses strict external contract without silently stripping photo-local edits\nok 19 - TRIAL-AUTHOR19 / PURE_ADAPTER: author UI reuses strict external contract without silently stripping photo-local edits\n  ---\n  duration_ms: 2.8673\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR20 / SYNTHETIC_SESSION: portable application is one history edit, preserves local rotation and supports exact Undo/Redo\nok 20 - TRIAL-AUTHOR20 / SYNTHETIC_SESSION: portable application is one history edit, preserves local rotation and supports exact Undo/Redo\n  ---\n  duration_ms: 6.6889\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR21 / SYNTHETIC_SESSION: preset endpoints accepted but unknown photo fields refuse without partial history\nok 21 - TRIAL-AUTHOR21 / SYNTHETIC_SESSION: preset endpoints accepted but unknown photo fields refuse without partial history\n  ---\n  duration_ms: 4.2194\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR22 / SYNTHETIC_SESSION: applying globals to ordered subset restores canonical order rather than reversing stages\nok 22 - TRIAL-AUTHOR22 / SYNTHETIC_SESSION: applying globals to ordered subset restores canonical order rather than reversing stages\n  ---\n  duration_ms: 4.1385\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR23 / SYNTHETIC_PERMISSION: expired edit preserves dirty recipe history cache and Original without rendering\nok 23 - TRIAL-AUTHOR23 / SYNTHETIC_PERMISSION: expired edit preserves dirty recipe history cache and Original without rendering\n  ---\n  duration_ms: 1.6559\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR24 / SYNTHETIC_PERMISSION: pending live authorization blocks overlapping edits before persistence\nok 24 - TRIAL-AUTHOR24 / SYNTHETIC_PERMISSION: pending live authorization blocks overlapping edits before persistence\n  ---\n  duration_ms: 1.0807\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTHOR25 / SYNTHETIC_FINAL_PERMISSION: expiry after fake encoding prevents output release and preserves saved data\nok 25 - TRIAL-AUTHOR25 / SYNTHETIC_FINAL_PERMISSION: expiry after fake encoding prevents output release and preserves saved data\n  ---\n  duration_ms: 1.51\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim\nok 26 - WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim\n  ---\n  duration_ms: 87.8786\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset\nok 27 - WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset\n  ---\n  duration_ms: 35.5798\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes\nok 28 - WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes\n  ---\n  duration_ms: 62.597\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original\nok 29 - WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original\n  ---\n  duration_ms: 63.6377\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body\nok 30 - WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body\n  ---\n  duration_ms: 35.2193\n  type: 'test'\n  ...\n# Subtest: WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original\nok 31 - WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original\n  ---\n  duration_ms: 52.6106\n  type: 'test'\n  ...\n# Subtest: MC01 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: real client sends bounded binary parts with octet type, SHA header, and preserves caller bytes\nok 32 - MC01 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: real client sends bounded binary parts with octet type, SHA header, and preserves caller bytes\n  ---\n  duration_ms: 114.2727\n  type: 'test'\n  ...\n# Subtest: MC02 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: verified checksum and size matching existing parts are skipped without changing old part bytes/etag\nok 33 - MC02 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: verified checksum and size matching existing parts are skipped without changing old part bytes/etag\n  ---\n  duration_ms: 76.7611\n  type: 'test'\n  ...\n# Subtest: MC03 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong checksum part alone is repaired, healthy part stays identical\nok 34 - MC03 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong checksum part alone is repaired, healthy part stays identical\n  ---\n  duration_ms: 82.0281\n  type: 'test'\n  ...\n# Subtest: MC04 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong size or unverified part is not skipped even when its checksum matches\nok 35 - MC04 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong size or unverified part is not skipped even when its checksum matches\n  ---\n  duration_ms: 123.3907\n  type: 'test'\n  ...\n# Subtest: MC05 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost part acknowledgement leaves server job durable and a new client resumes same asset without re-PUT\nok 36 - MC05 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost part acknowledgement leaves server job durable and a new client resumes same asset without re-PUT\n  ---\n  duration_ms: 94.3362\n  type: 'test'\n  ...\n# Subtest: MC06 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost complete acknowledgement retries completion without changing healthy parts\nok 37 - MC06 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: lost complete acknowledgement retries completion without changing healthy parts\n  ---\n  duration_ms: 1.4498\n  type: 'test'\n  ...\n# Subtest: MC07 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: upload metadata binds exact asset/checksum/size/8MiB geometry before any part\nok 38 - MC07 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: upload metadata binds exact asset/checksum/size/8MiB geometry before any part\n  ---\n  duration_ms: 2.45\n  type: 'test'\n  ...\n# Subtest: MC08 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong part acknowledgement number/checksum/size/verified refuses completion and preserves source\nok 39 - MC08 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: wrong part acknowledgement number/checksum/size/verified refuses completion and preserves source\n  ---\n  duration_ms: 4.7016\n  type: 'test'\n  ...\n# Subtest: MC09 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: HTTP checksum rejection leaves server job and input available, does not complete/evict\nok 40 - MC09 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: HTTP checksum rejection leaves server job and input available, does not complete/evict\n  ---\n  duration_ms: 0.9874\n  type: 'test'\n  ...\n# Subtest: MC10 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: completion checksum/asset/size/cloudSafe mismatch cannot be reported as upload success\nok 41 - MC10 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: completion checksum/asset/size/cloudSafe mismatch cannot be reported as upload success\n  ---\n  duration_ms: 7.4046\n  type: 'test'\n  ...\n# Subtest: MC11 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: zero bytes and non-ArrayBuffer input reject before HTTP without fake decoding\nok 42 - MC11 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: zero bytes and non-ArrayBuffer input reject before HTTP without fake decoding\n  ---\n  duration_ms: 0.6805\n  type: 'test'\n  ...\n# Subtest: MC12 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: exact 8MiB boundary produces one part; small source produces one trailing part\nok 43 - MC12 / NONRAW_SYNTHETIC_FAKE_HTTP_MULTIPART_CLIENT_ONLY: exact 8MiB boundary produces one part; small source produces one trailing part\n  ---\n  duration_ms: 63.6009\n  type: 'test'\n  ...\n# Subtest: WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order\nok 44 - WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order\n  ---\n  duration_ms: 2.0711\n  type: 'test'\n  ...\n# Subtest: WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed\nok 45 - WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed\n  ---\n  duration_ms: 1.3817\n  type: 'test'\n  ...\n# Subtest: WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected\nok 46 - WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected\n  ---\n  duration_ms: 0.3105\n  type: 'test'\n  ...\n# Subtest: WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input\nok 47 - WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input\n  ---\n  duration_ms: 3.9983\n  type: 'test'\n  ...\n# Subtest: WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical\nok 48 - WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical\n  ---\n  duration_ms: 24.6804\n  type: 'test'\n  ...\n# Subtest: WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion\nok 49 - WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion\n  ---\n  duration_ms: 1.2217\n  type: 'test'\n  ...\n# Subtest: WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound\nok 50 - WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound\n  ---\n  duration_ms: 3.2649\n  type: 'test'\n  ...\n# Subtest: WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels\nok 51 - WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels\n  ---\n  duration_ms: 0.5259\n  type: 'test'\n  ...\n# Subtest: WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes\nok 52 - WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes\n  ---\n  duration_ms: 0.389\n  type: 'test'\n  ...\n# Subtest: WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image\nok 53 - WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image\n  ---\n  duration_ms: 0.3803\n  type: 'test'\n  ...\n# Subtest: WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base\nok 54 - WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base\n  ---\n  duration_ms: 2.8939\n  type: 'test'\n  ...\n# Subtest: WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image\nok 55 - WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image\n  ---\n  duration_ms: 0.4055\n  type: 'test'\n  ...\n# Subtest: WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory\nok 56 - WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory\n  ---\n  duration_ms: 0.5575\n  type: 'test'\n  ...\n# Subtest: WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering\nok 57 - WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering\n  ---\n  duration_ms: 0.2226\n  type: 'test'\n  ...\n# Subtest: WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation\nok 58 - WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation\n  ---\n  duration_ms: 1.041\n  type: 'test'\n  ...\n# Subtest: WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render\nok 59 - WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render\n  ---\n  duration_ms: 0.8415\n  type: 'test'\n  ...\n# Subtest: WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution\nok 60 - WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution\n  ---\n  duration_ms: 2.674\n  type: 'test'\n  ...\n# Subtest: WEB-PX18 / SYNTHETIC: all eight exposure/contrast/saturation endpoint combinations follow linear-sRGB oracle\nok 61 - WEB-PX18 / SYNTHETIC: all eight exposure/contrast/saturation endpoint combinations follow linear-sRGB oracle\n  ---\n  duration_ms: 0.912\n  type: 'test'\n  ...\n# Subtest: WEB-PX19 / SYNTHETIC: combined person/global adjustments apply person exposure once before global stages\nok 62 - WEB-PX19 / SYNTHETIC: combined person/global adjustments apply person exposure once before global stages\n  ---\n  duration_ms: 11.3763\n  type: 'test'\n  ...\n# Subtest: WEB-PX20 / SYNTHETIC: unsupported reordered processing stages are rejected rather than silently interpreted\nok 63 - WEB-PX20 / SYNTHETIC: unsupported reordered processing stages are rejected rather than silently interpreted\n  ---\n  duration_ms: 0.2567\n  type: 'test'\n  ...\n# Subtest: WEB-PX21 / SYNTHETIC: rounded Proxy and full base accept one canonical Crop recipe including rotation\nok 64 - WEB-PX21 / SYNTHETIC: rounded Proxy and full base accept one canonical Crop recipe including rotation\n  ---\n  duration_ms: 1.7015\n  type: 'test'\n  ...\n# Subtest: WEB-PX22 / SYNTHETIC: canonical source frame cannot excuse a mathematically wrong Crop ratio\nok 65 - WEB-PX22 / SYNTHETIC: canonical source frame cannot excuse a mathematically wrong Crop ratio\n  ---\n  duration_ms: 0.3101\n  type: 'test'\n  ...\n# Subtest: WEB-PX23 / SYNTHETIC: source-frame metadata must be paired, integer, large enough and within cap\nok 66 - WEB-PX23 / SYNTHETIC: source-frame metadata must be paired, integer, large enough and within cap\n  ---\n  duration_ms: 0.5623\n  type: 'test'\n  ...\n# Subtest: WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation\nok 67 - WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation\n  ---\n  duration_ms: 19.7778\n  type: 'test'\n  ...\n# Subtest: WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values\nok 68 - WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values\n  ---\n  duration_ms: 21.9467\n  type: 'test'\n  ...\n# Subtest: WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean\nok 69 - WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean\n  ---\n  duration_ms: 7.8597\n  type: 'test'\n  ...\n# Subtest: WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft\nok 70 - WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft\n  ---\n  duration_ms: 9.2816\n  type: 'test'\n  ...\n# Subtest: WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID\nok 71 - WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID\n  ---\n  duration_ms: 13.3763\n  type: 'test'\n  ...\n# Subtest: WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement\nok 72 - WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement\n  ---\n  duration_ms: 5.2763\n  type: 'test'\n  ...\n# Subtest: WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload\nok 73 - WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload\n  ---\n  duration_ms: 3.3847\n  type: 'test'\n  ...\n# Subtest: WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it\nok 74 - WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it\n  ---\n  duration_ms: 3.9499\n  type: 'test'\n  ...\n# Subtest: WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output\nok 75 - WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output\n  ---\n  duration_ms: 2.3966\n  type: 'test'\n  ...\n# Subtest: WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later\nok 76 - WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later\n  ---\n  duration_ms: 2.3646\n  type: 'test'\n  ...\n# Subtest: WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update\nok 77 - WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update\n  ---\n  duration_ms: 4.0227\n  type: 'test'\n  ...\n# Subtest: WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft\nok 78 - WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft\n  ---\n  duration_ms: 1.6651\n  type: 'test'\n  ...\n# Subtest: WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder\nok 79 - WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder\n  ---\n  duration_ms: 4.757\n  type: 'test'\n  ...\n# Subtest: WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode\nok 80 - WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode\n  ---\n  duration_ms: 5.1745\n  type: 'test'\n  ...\n# Subtest: WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes\nok 81 - WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes\n  ---\n  duration_ms: 5.513\n  type: 'test'\n  ...\n# Subtest: WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset\nok 82 - WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset\n  ---\n  duration_ms: 3.9544\n  type: 'test'\n  ...\n# Subtest: WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset\nok 83 - WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset\n  ---\n  duration_ms: 3.5779\n  type: 'test'\n  ...\n# Subtest: WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft\nok 84 - WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft\n  ---\n  duration_ms: 4.5612\n  type: 'test'\n  ...\n# Subtest: WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry\nok 85 - WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry\n  ---\n  duration_ms: 3.8391\n  type: 'test'\n  ...\n# Subtest: WEB-ST20 / MOCK_STATE: person edit Undo/reanalysis/Redo retains known UUIDs and geometry\nok 86 - WEB-ST20 / MOCK_STATE: person edit Undo/reanalysis/Redo retains known UUIDs and geometry\n  ---\n  duration_ms: 12.7163\n  type: 'test'\n  ...\n# Subtest: WEB-ST21 / MOCK_STATE: incomplete fresh Final person inventory refuses output despite valid saved targets\nok 87 - WEB-ST21 / MOCK_STATE: incomplete fresh Final person inventory refuses output despite valid saved targets\n  ---\n  duration_ms: 3.6861\n  type: 'test'\n  ...\n# Subtest: WEB-ST22 / MOCK_STATE: server revision changes during encode cannot publish stale Final\nok 88 - WEB-ST22 / MOCK_STATE: server revision changes during encode cannot publish stale Final\n  ---\n  duration_ms: 2.4014\n  type: 'test'\n  ...\n# Subtest: WEB-ST23 / SYNTHETIC_MOCK_STATE: rotate-crop Undo/Redo save/reload fixed export retains source pixels and NON_RAW bytes\nok 89 - WEB-ST23 / SYNTHETIC_MOCK_STATE: rotate-crop Undo/Redo save/reload fixed export retains source pixels and NON_RAW bytes\n  ---\n  duration_ms: 12.3602\n  type: 'test'\n  ...\n# Subtest: WEB-ST24 / SYNTHETIC_MOCK_STATE: all offered crop ratios recenter after rotation; Original removes Crop only\nok 90 - WEB-ST24 / SYNTHETIC_MOCK_STATE: all offered crop ratios recenter after rotation; Original removes Crop only\n  ---\n  duration_ms: 22.6949\n  type: 'test'\n  ...\n# Subtest: WEB-ST25 / MOCK_STATE: global range endpoints accepted and illegal values rejected without changing draft\nok 91 - WEB-ST25 / MOCK_STATE: global range endpoints accepted and illegal values rejected without changing draft\n  ---\n  duration_ms: 7.2946\n  type: 'test'\n  ...\n# Subtest: WEB-ST26 / SYNTHETIC_MOCK_STATE: tiny ratio Crop fails without zero-sized image or partial export success\nok 92 - WEB-ST26 / SYNTHETIC_MOCK_STATE: tiny ratio Crop fails without zero-sized image or partial export success\n  ---\n  duration_ms: 2.28\n  type: 'test'\n  ...\n# Subtest: WEB-ST27 / SYNTHETIC_MOCK_STATE: session derives one Crop from full source dimensions despite rounded Proxy\nok 93 - WEB-ST27 / SYNTHETIC_MOCK_STATE: session derives one Crop from full source dimensions despite rounded Proxy\n  ---\n  duration_ms: 6.0802\n  type: 'test'\n  ...\n# Subtest: WEB-ST28 / SYNTHETIC_MOCK_STATE: free Crop preserves selected region through rotation Undo/Redo save/reload and fixed export\nok 94 - WEB-ST28 / SYNTHETIC_MOCK_STATE: free Crop preserves selected region through rotation Undo/Redo save/reload and fixed export\n  ---\n  duration_ms: 20.2033\n  type: 'test'\n  ...\n# Subtest: WEB-ST29 / PRIVACY_MOCK_STATE: unknown status and synthetic token without explicit fake marker are refused\nok 95 - WEB-ST29 / PRIVACY_MOCK_STATE: unknown status and synthetic token without explicit fake marker are refused\n  ---\n  duration_ms: 0.8782\n  type: 'test'\n  ...\n# Subtest: WEB-ST30 / PRIVACY_MOCK_STATE: default person detection refuses before detector and clears stale selection\nok 96 - WEB-ST30 / PRIVACY_MOCK_STATE: default person detection refuses before detector and clears stale selection\n  ---\n  duration_ms: 2.623\n  type: 'test'\n  ...\n# Subtest: WEB-ST31 / PRIVACY_MOCK_STATE: saved portrait reopen keeps body and history but cannot detect or render portrait\nok 97 - WEB-ST31 / PRIVACY_MOCK_STATE: saved portrait reopen keeps body and history but cannot detect or render portrait\n  ---\n  duration_ms: 1.98\n  type: 'test'\n  ...\n# Subtest: WEB-ST32 / PRIVACY_MOCK_STATE: portrait Final refuses before Original fetch decode detector render or encode\nok 98 - WEB-ST32 / PRIVACY_MOCK_STATE: portrait Final refuses before Original fetch decode detector render or encode\n  ---\n  duration_ms: 1.8643\n  type: 'test'\n  ...\n# Subtest: WEB-ST33 / PRIVACY_MOCK_STATE: person selection and adjustment reject without changing saved or draft body\nok 99 - WEB-ST33 / PRIVACY_MOCK_STATE: person selection and adjustment reject without changing saved or draft body\n  ---\n  duration_ms: 1.9041\n  type: 'test'\n  ...\n# Subtest: WEB-ST34 / PRIVACY_MOCK_STATE: default block does not disable nonportrait global save reload or synthetic Final\nok 100 - WEB-ST34 / PRIVACY_MOCK_STATE: default block does not disable nonportrait global save reload or synthetic Final\n  ---\n  duration_ms: 17.5724\n  type: 'test'\n  ...\n# Subtest: SW01 / SQLITE_MOCK_R2: dispatch configuration invitation and Origin gates refuse before private operations\nok 101 - SW01 / SQLITE_MOCK_R2: dispatch configuration invitation and Origin gates refuse before private operations\n  ---\n  duration_ms: 255.6783\n  type: 'test'\n  ...\n# Subtest: SW02 / SQLITE_MOCK_R2: expired invitation cannot bind and bound email cannot switch platform user or elevate role\nok 102 - SW02 / SQLITE_MOCK_R2: expired invitation cannot bind and bound email cannot switch platform user or elevate role\n  ---\n  duration_ms: 176.6099\n  type: 'test'\n  ...\n# Subtest: SW03 / SQLITE_MOCK_R2: another invited author cannot access asset recipe upload or part routes\nok 103 - SW03 / SQLITE_MOCK_R2: another invited author cannot access asset recipe upload or part routes\n  ---\n  duration_ms: 196.2481\n  type: 'test'\n  ...\n# Subtest: SW04 / SQLITE_MOCK_R2: wrong part checksum size and number reject without adding durable part rows\nok 104 - SW04 / SQLITE_MOCK_R2: wrong part checksum size and number reject without adding durable part rows\n  ---\n  duration_ms: 163.6056\n  type: 'test'\n  ...\n# Subtest: SW05 / SQLITE_MOCK_R2_NON_RAW: healthy parts skip and damaged part repairs to a new key without overwriting old bytes\nok 105 - SW05 / SQLITE_MOCK_R2_NON_RAW: healthy parts skip and damaged part repairs to a new key without overwriting old bytes\n  ---\n  duration_ms: 481.7774\n  type: 'test'\n  ...\n# Subtest: SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false\nok 106 - SW06 / SQLITE_MOCK_R2: whole Original checksum mismatch retains parts and leaves cloudSafe false\n  ---\n  duration_ms: 137.2923\n  type: 'test'\n  ...\n# Subtest: SW07 / SQLITE_MOCK_R2: READY completion is idempotent and Original requires explicit purpose\nok 107 - SW07 / SQLITE_MOCK_R2: READY completion is idempotent and Original requires explicit purpose\n  ---\n  duration_ms: 170.0285\n  type: 'test'\n  ...\n# Subtest: SW08 / SQLITE_MOCK_R2_FAULT: failed atomic completion cannot mark cloudSafe and retry preserves old objects\nok 108 - SW08 / SQLITE_MOCK_R2_FAULT: failed atomic completion cannot mark cloudSafe and retry preserves old objects\n  ---\n  duration_ms: 165.6041\n  type: 'test'\n  ...\n# Subtest: SW09 / SQLITE_CONCURRENT_HANDLER: identical concurrent recipe CAS creates one revision and one audit entry\nok 109 - SW09 / SQLITE_CONCURRENT_HANDLER: identical concurrent recipe CAS creates one revision and one audit entry\n  ---\n  duration_ms: 86.5118\n  type: 'test'\n  ...\n# Subtest: SW10 / SQLITE_MOCK_R2: portrait save remains disabled and does not replace valid saved global recipe\nok 110 - SW10 / SQLITE_MOCK_R2: portrait save remains disabled and does not replace valid saved global recipe\n  ---\n  duration_ms: 91.4701\n  type: 'test'\n  ...\n# Subtest: SW11 / SQLITE_MOCK_R2: source-backed author adoption survives restart and checksum corruption refuses without deletion\nok 111 - SW11 / SQLITE_MOCK_R2: source-backed author adoption survives restart and checksum corruption refuses without deletion\n  ---\n  duration_ms: 213.7689\n  type: 'test'\n  ...\n# Subtest: SW12 / SQLITE_CONCURRENT_HANDLER: draft CAS writes exactly one new immutable version under concurrent updates\nok 112 - SW12 / SQLITE_CONCURRENT_HANDLER: draft CAS writes exactly one new immutable version under concurrent updates\n  ---\n  duration_ms: 170.2374\n  type: 'test'\n  ...\n# Subtest: SW13 / SQLITE_MOCK_R2: production streaming digest absence fails closed instead of full-buffer fallback\nok 113 - SW13 / SQLITE_MOCK_R2: production streaming digest absence fails closed instead of full-buffer fallback\n  ---\n  duration_ms: 133.3433\n  type: 'test'\n  ...\n# Subtest: SW14 / SQLITE_MOCK_R2_CORRUPTION: damaged READY object cannot remain cloudSafe or silently serve corrupted Original\nok 114 - SW14 / SQLITE_MOCK_R2_CORRUPTION: damaged READY object cannot remain cloudSafe or silently serve corrupted Original\n  ---\n  duration_ms: 143.9209\n  type: 'test'\n  ...\n# Subtest: SW15 / SQLITE_CONCURRENT_HANDLER: simultaneous distinct platform users cannot bind one invitation twice\nok 115 - SW15 / SQLITE_CONCURRENT_HANDLER: simultaneous distinct platform users cannot bind one invitation twice\n  ---\n  duration_ms: 73.5304\n  type: 'test'\n  ...\n# Subtest: SW16 / SQLITE_CORRUPTION: earlier wrong-asset portrait history blocks latest global reload and preserves rows\nok 116 - SW16 / SQLITE_CORRUPTION: earlier wrong-asset portrait history blocks latest global reload and preserves rows\n  ---\n  duration_ms: 98.3289\n  type: 'test'\n  ...\n# Subtest: SW17 / SQLITE_MOCK_R2_QUOTA: low storage quota denies only new import and preserves existing Original parts and recipe\nok 117 - SW17 / SQLITE_MOCK_R2_QUOTA: low storage quota denies only new import and preserves existing Original parts and recipe\n  ---\n  duration_ms: 163.3211\n  type: 'test'\n  ...\n# Subtest: SW18 / SQLITE_MOCK_R2_QUOTA: write operation limit stops new R2 calls and conservatively retains reservation\nok 118 - SW18 / SQLITE_MOCK_R2_QUOTA: write operation limit stops new R2 calls and conservatively retains reservation\n  ---\n  duration_ms: 202.8599\n  type: 'test'\n  ...\n# Subtest: SW19 / SQLITE_MOCK_R2_QUOTA: missing quota configuration and daily budget refuse without library mutation\nok 119 - SW19 / SQLITE_MOCK_R2_QUOTA: missing quota configuration and daily budget refuse without library mutation\n  ---\n  duration_ms: 99.5389\n  type: 'test'\n  ...\n# Subtest: SW20 / SQLITE_MOCK_D1_METADATA: usage is admin-only and missing D1 measurement remains explicitly unknown\nok 120 - SW20 / SQLITE_MOCK_D1_METADATA: usage is admin-only and missing D1 measurement remains explicitly unknown\n  ---\n  duration_ms: 165.1853\n  type: 'test'\n  ...\n# Subtest: SW21 / SQLITE_MOCK_R2_QUOTA: repair consuming retained-byte allowance cannot assemble beyond storage cap\nok 121 - SW21 / SQLITE_MOCK_R2_QUOTA: repair consuming retained-byte allowance cannot assemble beyond storage cap\n  ---\n  duration_ms: 160.6865\n  type: 'test'\n  ...\n# Subtest: SW22 / SQLITE_MOCK_R2_TRIAL_CLOCK: no deadline means no access and signed-in expiry retains Original recipe and published preset\nok 122 - SW22 / SQLITE_MOCK_R2_TRIAL_CLOCK: no deadline means no access and signed-in expiry retains Original recipe and published preset\n  ---\n  duration_ms: 252.2994\n  type: 'test'\n  ...\n# Subtest: SW23 / SQLITE_MOCK_R2_TRIAL_ADMIN: revocation immediately blocks bound member and never deletes their Original\nok 123 - SW23 / SQLITE_MOCK_R2_TRIAL_ADMIN: revocation immediately blocks bound member and never deletes their Original\n  ---\n  duration_ms: 215.5996\n  type: 'test'\n  ...\n# Subtest: SW24 / SQLITE_TRIAL_ADMIN: member cannot extend own deadline and invalid admin changes preserve the prior grant\nok 124 - SW24 / SQLITE_TRIAL_ADMIN: member cannot extend own deadline and invalid admin changes preserve the prior grant\n  ---\n  duration_ms: 224.744\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH01 / SQLITE: invitation is single use across connections and sessions expose no secret principal fields\nok 125 - TRIAL-AUTH01 / SQLITE: invitation is single use across connections and sessions expose no secret principal fields\n  ---\n  duration_ms: 48.8676\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH02 / SQLITE_CLOCK: invitation and session expire at their fixed boundaries\nok 126 - TRIAL-AUTH02 / SQLITE_CLOCK: invitation and session expire at their fixed boundaries\n  ---\n  duration_ms: 29.2309\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH03 / SQLITE: author revocation invalidates every current session and outstanding invite\nok 127 - TRIAL-AUTH03 / SQLITE: author revocation invalidates every current session and outstanding invite\n  ---\n  duration_ms: 41.7988\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH04 / SQLITE: logout invalidates only the selected session and persists after reopen\nok 128 - TRIAL-AUTH04 / SQLITE: logout invalidates only the selected session and persists after reopen\n  ---\n  duration_ms: 38.4529\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH05 / SQLITE: restart retains consumed invite and session without persisting plaintext secrets\nok 129 - TRIAL-AUTH05 / SQLITE: restart retains consumed invite and session without persisting plaintext secrets\n  ---\n  duration_ms: 42.9494\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH06 / SQLITE: forged credentials and unauthorized role input cannot establish a session\nok 130 - TRIAL-AUTH06 / SQLITE: forged credentials and unauthorized role input cannot establish a session\n  ---\n  duration_ms: 30.8087\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH07 / HTTP: login uses protected HttpOnly cookie and never accepts loopback QA fallback\nok 131 - TRIAL-AUTH07 / HTTP: login uses protected HttpOnly cookie and never accepts loopback QA fallback\n  ---\n  duration_ms: 172.5311\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH08 / HTTP: rejected cross-origin or forged-Host login does not consume invitation\nok 132 - TRIAL-AUTH08 / HTTP: rejected cross-origin or forged-Host login does not consume invitation\n  ---\n  duration_ms: 67.0149\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH09 / HTTP_NON_RAW: authors cannot enumerate read or mutate another author Original or recipe\nok 133 - TRIAL-AUTH09 / HTTP_NON_RAW: authors cannot enumerate read or mutate another author Original or recipe\n  ---\n  duration_ms: 83.3877\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH10 / HTTP: session survives server restart but logout and author revocation do not resurrect\nok 134 - TRIAL-AUTH10 / HTTP: session survives server restart but logout and author revocation do not resurrect\n  ---\n  duration_ms: 92.2994\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH11 / HTTP_CLOCK: expired session cannot use assets or author API\nok 135 - TRIAL-AUTH11 / HTTP_CLOCK: expired session cannot use assets or author API\n  ---\n  duration_ms: 53.5833\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH12 / SQLITE_THREADS: simultaneous invitation redemption yields exactly one committed session\nok 136 - TRIAL-AUTH12 / SQLITE_THREADS: simultaneous invitation redemption yields exactly one committed session\n  ---\n  duration_ms: 62.0569\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH13 / SQLITE_TRIAL_CLOCK: missing explicit trial deadline denies access until administrator sets a future end\nok 137 - TRIAL-AUTH13 / SQLITE_TRIAL_CLOCK: missing explicit trial deadline denies access until administrator sets a future end\n  ---\n  duration_ms: 24.1817\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH14 / SQLITE_TRIAL_CLOCK: shortened trial deadline stops an already signed-in session before security TTL\nok 138 - TRIAL-AUTH14 / SQLITE_TRIAL_CLOCK: shortened trial deadline stops an already signed-in session before security TTL\n  ---\n  duration_ms: 23.9398\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH15 / HTTP_TRIAL_CLOCK_NON_RAW: live edit export submit authorization expires without deleting saved data\nok 139 - TRIAL-AUTH15 / HTTP_TRIAL_CLOCK_NON_RAW: live edit export submit authorization expires without deleting saved data\n  ---\n  duration_ms: 68.4888\n  type: 'test'\n  ...\n# Subtest: TRIAL-AUTH16 / SQLITE_INVITATION_CLOCK: separate invitations for one author retain independent live deadlines and revocation\nok 140 - TRIAL-AUTH16 / SQLITE_INVITATION_CLOCK: separate invitations for one author retain independent live deadlines and revocation\n  ---\n  duration_ms: 23.9242\n  type: 'test'\n  ...\n# Subtest: WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable\nok 141 - WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable\n  ---\n  duration_ms: 2.8219\n  type: 'test'\n  ...\n# Subtest: WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base\nok 142 - WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base\n  ---\n  duration_ms: 0.4347\n  type: 'test'\n  ...\n# Subtest: WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output\nok 143 - WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output\n  ---\n  duration_ms: 0.9298\n  type: 'test'\n  ...\n# Subtest: WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success\nok 144 - WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success\n  ---\n  duration_ms: 18.6317\n  type: 'test'\n  ...\n# Subtest: WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse\nok 145 - WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse\n  ---\n  duration_ms: 1.3589\n  type: 'test'\n  ...\n# Subtest: WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation\nok 146 - WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation\n  ---\n  duration_ms: 0.7698\n  type: 'test'\n  ...\n1..146\n# tests 146\n# suites 0\n# pass 146\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 4414.8722\n\n",
+  "scope": {
+    "WEB_BASELINE": 69,
+    "TRIAL_AUTH": 16,
+    "TRIAL_AUTHOR": 25,
+    "MULTIPART_CLIENT": 12,
+    "SITES_WORKER": 24,
+    "description": "Node independent tests. Actual temporary SQLite and loopback HTTP; worker uses SQLite-backed D1 adapter and in-memory R2, synthetic trusted dispatch headers and Node digest seam. Pixel fixtures synthetic; decoder/encoder in new permission test deliberately fake NON_RAW. No actual cloud authentication or storage proof."
+  },
+  "requirementCut": "Explicit future trial end required, invitation-specific Node deadlines/revocation and live edit/export authorization. Default/unset trial end denies; security session TTL is separate. Quota accounting is this site only; provider account balance not established.",
+  "limitations": [
+    "REAL_RAW_NOT_RUN",
+    "REAL_FACE_AND_VISUAL_QUALITY_NOT_RUN",
+    "APPLE_NATIVE_112_NOT_RUN_UNCHANGED",
+    "ACTUAL_SITES_DISPATCH_IDENTITY_NOT_RUN",
+    "ACTUAL_D1_R2_STREAMING_AND_QUOTA_NOT_RUN",
+    "PRIVATE_SITES_DEPLOYMENT_BLOCKED_REPORTED_BY_MAIN",
+    "READY_CORRUPTION_SAFE_REFUSAL_TESTED_RECOVERY_NOT_IMPLEMENTED",
+    "NO_PARITY_OR_RELEASE_PASS"
+  ],
+  "notes": [
+    "Previous evidence 01 through 06 retained unchanged, including measured red cases. The former AUTH10 401 expectation was updated to explicit TRIAL_REVOKED 403; logout remains 401.",
+    "Original WEB69 test sources unchanged in this assignment; trial fixtures now explicitly set future deadlines. Dates are fixtures, not business trial durations.",
+    "101 enumerated source/dependency/test files had matching SHA256 before and after this run. Unlisted dependency binaries/platform services were not attested.",
+    "New live permission cases AUTHOR23-25 prove control flow/data preservation only, not real RAW/pixel quality."
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "runID": "trial-independent-02",
+  "command": "node --test apps/web/tests/trial-auth.test.mjs apps/web/tests/author-submissions.test.mjs",
+  "startedAt": "2026-10-03T08:01:38.143Z",
+  "endedAt": "2026-10-03T08:01:38.871Z",
+  "exitCode": 0,
+  "summary": {
+    "total": 30,
+    "pass": 30,
+    "fail": 0,
+    "skip": 0
+  },
+  "scope": {
+    "authRealSQLite": 7,
+    "authRealLoopbackHTTP": 5,
+    "authorRealSQLite": 15,
+    "authorRealHTTP": 3,
+    "authorSourceUnitVerifier": "STUB_ONLY_IN_SQLITE_UNIT_TESTS; HTTP_USES_REAL_REPOSITORY_AND_LOCAL_STORAGE",
+    "storageFailure": "INJECTED_INSPECT_THROW",
+    "realRAW": "NOT_RUN",
+    "realD1R2": "NOT_RUN",
+    "sitesDeployment": "NOT_RUN",
+    "oldWeb69": "NOT_PART_OF_THIS_30_CASE_RUN",
+    "baseline154": "NOT_PART_OF_THIS_RUN",
+    "apple": "112_NOT_RUN_UNCHANGED"
+  },
+  "sourceStableDuringRun": true,
+  "sourceHashScope": "Trial executable source/contracts/tests and imported compiled backend only; UI, future Sites Worker, browser bundle and actual cloud bindings excluded",
+  "sourceHashes": [
+    {
+      "file": "apps/web/author-store.mjs",
+      "sha256": "d42fcefc5e34e5f24ce6c8c84a54bc42b8b7faaef0e45c475160c7c85130b277"
+    },
+    {
+      "file": "apps/web/invite-auth.mjs",
+      "sha256": "5fe5c035d197d907dd6025a9fc44f48d0bd4655c4ad1d1fb861a947c150ebd9a"
+    },
+    {
+      "file": "apps/web/preset-policy.mjs",
+      "sha256": "3d29d1aa4ab067bb4b7bef09b0dd802c73690aea0ad90c2f9dc63e1320845237"
+    },
+    {
+      "file": "apps/web/tests/author-submissions.test.mjs",
+      "sha256": "9d7faa9307af4bee915186201891a6afedd1b17121068b4d1087aa30d80c173f"
+    },
+    {
+      "file": "apps/web/tests/fixtures.mjs",
+      "sha256": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d"
+    },
+    {
+      "file": "apps/web/tests/trial-auth.test.mjs",
+      "sha256": "c8ae71de049e127ac20c20cf6083b9ffdf6102fc03662f57da800a85dc65d320"
+    },
+    {
+      "file": "apps/web/trial-server.mjs",
+      "sha256": "ed70cc3699780e3fdf70d1fdfbcfbdc54b9eac5785d26438281c06b7bb687f45"
+    },
+    {
+      "file": "apps\\web\\src\\preset-author\\preset-author-contract.mjs",
+      "sha256": "2ebe4a727d4409871da95798868dba39f662ee066d45a19eb7cc70b11f1242da"
+    },
+    {
+      "file": "apps\\web\\src\\preset-author\\preset-author-web-adapter.mjs",
+      "sha256": "ad8de16db57f0e9120c6b9b93e4840a5572134a5c1722ab952d4cffbfecb91db"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.d.ts",
+      "sha256": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.js",
+      "sha256": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.d.ts",
+      "sha256": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.js",
+      "sha256": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.d.ts",
+      "sha256": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.js",
+      "sha256": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.d.ts",
+      "sha256": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.js",
+      "sha256": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.d.ts",
+      "sha256": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.js",
+      "sha256": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.d.ts",
+      "sha256": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.js",
+      "sha256": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.d.ts",
+      "sha256": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.js",
+      "sha256": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.d.ts",
+      "sha256": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.js",
+      "sha256": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.d.ts",
+      "sha256": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.js",
+      "sha256": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.d.ts",
+      "sha256": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.js",
+      "sha256": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.d.ts",
+      "sha256": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.js",
+      "sha256": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.d.ts",
+      "sha256": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.js",
+      "sha256": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.d.ts",
+      "sha256": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.js",
+      "sha256": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.d.ts",
+      "sha256": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.js",
+      "sha256": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.d.ts",
+      "sha256": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.js",
+      "sha256": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.d.ts",
+      "sha256": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.js",
+      "sha256": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3"
+    }
+  ],
+  "afterHashes": [
+    {
+      "file": "apps/web/author-store.mjs",
+      "sha256": "d42fcefc5e34e5f24ce6c8c84a54bc42b8b7faaef0e45c475160c7c85130b277"
+    },
+    {
+      "file": "apps/web/invite-auth.mjs",
+      "sha256": "5fe5c035d197d907dd6025a9fc44f48d0bd4655c4ad1d1fb861a947c150ebd9a"
+    },
+    {
+      "file": "apps/web/preset-policy.mjs",
+      "sha256": "3d29d1aa4ab067bb4b7bef09b0dd802c73690aea0ad90c2f9dc63e1320845237"
+    },
+    {
+      "file": "apps/web/tests/author-submissions.test.mjs",
+      "sha256": "9d7faa9307af4bee915186201891a6afedd1b17121068b4d1087aa30d80c173f"
+    },
+    {
+      "file": "apps/web/tests/fixtures.mjs",
+      "sha256": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d"
+    },
+    {
+      "file": "apps/web/tests/trial-auth.test.mjs",
+      "sha256": "c8ae71de049e127ac20c20cf6083b9ffdf6102fc03662f57da800a85dc65d320"
+    },
+    {
+      "file": "apps/web/trial-server.mjs",
+      "sha256": "ed70cc3699780e3fdf70d1fdfbcfbdc54b9eac5785d26438281c06b7bb687f45"
+    },
+    {
+      "file": "apps\\web\\src\\preset-author\\preset-author-contract.mjs",
+      "sha256": "2ebe4a727d4409871da95798868dba39f662ee066d45a19eb7cc70b11f1242da"
+    },
+    {
+      "file": "apps\\web\\src\\preset-author\\preset-author-web-adapter.mjs",
+      "sha256": "ad8de16db57f0e9120c6b9b93e4840a5572134a5c1722ab952d4cffbfecb91db"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.d.ts",
+      "sha256": "e243ff98c02c9759dc2e3cc8c098485982a1389ac7c9a1eb2fe7bcdd2f3e2bdb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\auth.js",
+      "sha256": "94231181908312388ca49e9f2cd129a041b91f47a6088d0b7f7e71c49eda6ca3"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.d.ts",
+      "sha256": "35d59997840174535bc66915fc59d2d0ce8cd5cde1c833ed4ff16024feb7045f"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\crop-export.js",
+      "sha256": "02158cf2dc855253e9b2c0c4b0a4430b4d3a0b6b3d1b77a47b48d67d26e624e9"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.d.ts",
+      "sha256": "808e89c74664544e9e8f9fda7171cba2429ff1c34625f8f55d716889879ea0f4"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\gates.js",
+      "sha256": "3ca9b878eb14def2aca561d8b83e5fc3c2a8a6e114824d3a1dd7b0c6cf2fd033"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.d.ts",
+      "sha256": "4624a1445902aeb9eb4b5edca569bf0d830bfad38437f1e3111d10915f258508"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\multipart.js",
+      "sha256": "987e689339703def4b261b55ac8aefa1c468d233a939a48c12e7873428040219"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.d.ts",
+      "sha256": "673e847b0103536d8990fdda5c94c5b37611022d2f93013084300dea8a9011df"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\object-provider.js",
+      "sha256": "1652eb7439a277125ee35ccff0ba2d26009b40a1b1f9107f24d1bc6750557af0"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.d.ts",
+      "sha256": "eb197127493c5a500bd30f7574b1308422879e6a4574c5134293a795fc4ca250"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry-validation.js",
+      "sha256": "ee4c07820e95355e1222a15a3639a9031650c572673aa58e7eafc64d2aa5dcb7"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.d.ts",
+      "sha256": "1548ab104b40453eb3d6ab5f2da503ed7df87abac89faf1691418328046b1c92"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\person-geometry.js",
+      "sha256": "e7f09dc491713f9053ea61fdf7065ff99700c4e8c30b1b91d12af9d1716af874"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.d.ts",
+      "sha256": "7fb44b684f46744131b877ba62ce5c1539e0959c0b0d6a947c650258af548df1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\photo-policy.js",
+      "sha256": "22ab3b80e85c53d1fd4341bfbec6457ca9a7ce8b5cc9b6b1736354ba76e95634"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.d.ts",
+      "sha256": "efe7e8494bef86eafdc3e8147bacee877a6f00c2ec29a172dc0b03db448e2f0d"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\portrait-recipe.js",
+      "sha256": "91e7a05d3c13f033d0844b730e4fb7aefc1dd299faba700866d9aa5db60bdadb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.d.ts",
+      "sha256": "af8a4936f652e8a6365b5072223c0e39d40b301668f676dc9dfd27478c9ad284"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\repository.js",
+      "sha256": "8ca5d2a06b8647d4107ffcf0a8c9adc017a9aa85ab2f758a8002198fcce5409e"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.d.ts",
+      "sha256": "97ec5cea8070e56ece191973bf0f40750e46ef54d672c89f7cd6339d15edc9c6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\server.js",
+      "sha256": "4d8fa9a0867001fa62c7a2a914f1c820ddf2c02c96bb6e5996226fa9cf39a0a6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.d.ts",
+      "sha256": "722138f3c0e826adfe719e7b1256aaee5f482cfdfe4573fb429e3f386bc4df7c"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\storage.js",
+      "sha256": "7c378af842155b8e679f1eeff2cfc6009dccdb01e0010dae64e18967e4ff5328"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.d.ts",
+      "sha256": "c3e1ea6a88fb60928cb90ecaad5e8551de692dae76b04399a6318e05ee1351e1"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-access.js",
+      "sha256": "2349d7a34cc3e701c036a91823e067d7dd0edf188826314d387206193621ad96"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.d.ts",
+      "sha256": "ad542c61f47b6148b3675cc4ca2f1e57296f8ce16a07672ff217ede3541324cb"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-server.js",
+      "sha256": "f0a891769dbfd803cecdcf12fd5a9f9d91993def0f010642f7864ff58520f435"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.d.ts",
+      "sha256": "096a30b07770cbcd55f2adea4f8565885ad53fb9b9a5c1d224e4c6301707de78"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace-storage.js",
+      "sha256": "a6468bf38d78d6acac7a0cef58239315306b9f475711bf2443d14be2eaed8688"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.d.ts",
+      "sha256": "2bfc844309b3b5bc8254631c02eeacc742aaaa8c14e7eda5835f730d74c6efd6"
+    },
+    {
+      "file": "dist\\apps\\backend\\src\\workspace.js",
+      "sha256": "4a39266b56db36d5c203ed56831765f508143a215a4862806069223728db25e3"
+    }
+  ],
+  "output": "✔ TRIAL-AUTHOR01 / SQLITE: default source verifier refuses draft creation and leaves no record (17.0724ms)\n✔ TRIAL-AUTHOR02 / SQLITE: another author cannot enumerate get edit submit or review a draft (16.542ms)\n✔ TRIAL-AUTHOR03 / SQLITE: draft CAS rejects stale updates and source failure retains the preceding draft (15.576ms)\n✔ TRIAL-AUTHOR04 / SQLITE: submit freezes version while newer draft cannot replace admin review snapshot (19.6097ms)\n✔ TRIAL-AUTHOR05 / SQLITE: accepted portable version is immutable, detached and excludes photo identity/data (21.9816ms)\n✔ TRIAL-AUTHOR06 / SQLITE: rejection cannot publish a preset and persists through store restart (19.4291ms)\n✔ TRIAL-AUTHOR07 / SQLITE_VALIDATION: strict portable recipe rejects photo fields unknown controls and nondefault rotation (14.2951ms)\n✔ TRIAL-AUTHOR08 / SQLITE_VALIDATION: allowed endpoint combinations remain exact and do not mutate input (16.8281ms)\n✔ TRIAL-AUTHOR09 / SQLITE: rejected source provenance cannot create a record and a valid draft survives restart (12.4737ms)\n✔ TRIAL-AUTHOR10 / SQLITE: admin cannot approve own submitted version or re-review a terminal decision (14.4545ms)\n✔ TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen (19.148ms)\n✔ TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity (19.9403ms)\n✔ TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values (15.9795ms)\n✔ TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved (15.2902ms)\n✔ TRIAL-AUTHOR15 / SQLITE_CORRUPTION: an in-range altered submission cannot replace its saved immutable version (16.9552ms)\n✔ TRIAL-AUTHOR16 / HTTP_NON_RAW: source must be owned verified current and exactly match submitted global parameters (145.8907ms)\n✔ TRIAL-AUTHOR17 / HTTP_SQLITE: owner CAS submit admin adoption and shared immutable version survive restart (119.0495ms)\n✔ TRIAL-AUTHOR18 / HTTP_INJECTED_STORAGE_FAULT: failed source inspection cannot overwrite durable draft or Original (50.3843ms)\n✔ TRIAL-AUTH01 / SQLITE: invitation is single use across connections and sessions expose no secret principal fields (24.1293ms)\n✔ TRIAL-AUTH02 / SQLITE_CLOCK: invitation and session expire at their fixed boundaries (16.6808ms)\n✔ TRIAL-AUTH03 / SQLITE: author revocation invalidates every current session and outstanding invite (22.6392ms)\n✔ TRIAL-AUTH04 / SQLITE: logout invalidates only the selected session and persists after reopen (20.6396ms)\n✔ TRIAL-AUTH05 / SQLITE: restart retains consumed invite and session without persisting plaintext secrets (19.6595ms)\n✔ TRIAL-AUTH06 / SQLITE: forged credentials and unauthorized role input cannot establish a session (15.0251ms)\n✔ TRIAL-AUTH07 / HTTP: login uses protected HttpOnly cookie and never accepts loopback QA fallback (109.8524ms)\n✔ TRIAL-AUTH08 / HTTP: rejected cross-origin or forged-Host login does not consume invitation (42.8258ms)\n✔ TRIAL-AUTH09 / HTTP_NON_RAW: authors cannot enumerate read or mutate another author Original or recipe (61.8397ms)\n✔ TRIAL-AUTH10 / HTTP: session survives server restart but logout and author revocation do not resurrect (58.2581ms)\n✔ TRIAL-AUTH11 / HTTP_CLOCK: expired session cannot use assets or author API (42.5867ms)\n✔ TRIAL-AUTH12 / SQLITE_THREADS: simultaneous invitation redemption yields exactly one committed session (51.1466ms)\nℹ tests 30\nℹ suites 0\nℹ pass 30\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 667.2644\n",
+  "correctionHistory": [
+    "Author04/05 initial tests incorrectly prohibited a new draft revision after submission/adoption; corrected to prove old snapshots immutable. Not a product fix.",
+    "AUTHOR16 initially required status400 for missing Original; implementation safely refused503. Contract had not fixed exact status, so assertion now checks refusal plus unchanged draft. Not a product fix.",
+    "AUTHOR11-14 actual missing-corruption guards reproduced4FAIL in trial-independent-01-red; same cases pass after owner correction. AUTHOR15 first execution occurred after owner saved-version comparison fix; no measured red is claimed."
+  ]
+}

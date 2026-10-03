@@ -1,0 +1,19 @@
+{
+  "status": "USER_ACCEPTED_WINDOWS_BASELINE",
+  "fixedOn": "2026-10-03",
+  "windows": {"tests": 124, "pass": 124, "fail": 0, "skip": 0},
+  "sourceIntegrity": {"count": 78, "matched": 78},
+  "documentIntegrity": {"checks": 10, "pass": 10, "fail": 0},
+  "native": {"notRun": 82},
+  "regressionEvidence": "docs/evidence/integrated-2026-10-03/regression.json",
+  "regressionEvidenceSHA256": "5fe82730901c5d74c4aa9d1da4a2ae944a75c63842080423b9dc00aeca47d3d2",
+  "integrityEvidence": "docs/evidence/integrated-2026-10-03/integrity.json",
+  "historical34": "RETAINED_WITHIN_124",
+  "realRAW": "NOT_RUN",
+  "mac": "NOT_RUN",
+  "iPhone": "NOT_RUN",
+  "iPad": "NOT_RUN",
+  "productionCloudAuthSyncBilling": "BLOCK",
+  "mobileRelease": "BLOCK",
+  "policy": "Do not overwrite the baseline Evidence. Any later FAIL prevents completion of new work. The 124 executed cases are Windows foundation tests only, not RAW/device/production or Mobile Release acceptance."
+}

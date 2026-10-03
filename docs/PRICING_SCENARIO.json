@@ -1,0 +1,19 @@
+{
+  "status": "USER_SUPPLIED_CANDIDATE_NOT_PUBLISHED_PRICE",
+  "source": "PRICING_BASELINE_2026-10-03.md",
+  "users": 1,
+  "currency": "JPY",
+  "currencyExponent": 0,
+  "grossMonthlyMinor": 1980,
+  "taxBasisPoints": 1000,
+  "appleFeeBasisPoints": 2600,
+  "appleFeeBasis": "tax-exclusive",
+  "targetMonthlyProfitMinor": 1000,
+  "firstCustomerFixedAllocationMinor": null,
+  "costs": {
+    "storage": null, "api": null, "database": null, "backup": null,
+    "ai": null, "retry": null, "otherPaymentFees": null, "otherVariable": null
+  },
+  "evidence": {"kind": "scenario", "items": {}},
+  "note": "These values are meeting assumptions, not verified Apple/tax rules. Unknown costs must remain null. This file is not loaded by the product or billing server."
+}

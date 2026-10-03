@@ -1,0 +1,586 @@
+{
+  "cohort": "credit_current",
+  "checkedOn": "2026-10-03",
+  "scope": "Official policy reconciliation only. No purchases, selected SUITE prices or billing integration.",
+  "sources": [
+    {
+      "sourceId": "PAYMENT",
+      "url": "https://www.evoto.ai/payment",
+      "finalURL": "https://www.evoto.ai/payment",
+      "fetchedAt": "2026-10-03T00:58:23.148Z",
+      "sha256": "19a86a23e342f071cf28ca0b7b73dba79d09a20f5b3a31485c2bcc35004e1065",
+      "textCoverage": "COMPLETE_REVIEWED",
+      "locale": "English text with Japan-localized JPY offer"
+    },
+    {
+      "sourceId": "PAYMENTJP",
+      "url": "https://www.evoto.ai/ja/payment",
+      "finalURL": "https://www.evoto.ai/ja/payment",
+      "fetchedAt": "2026-10-03T00:58:23.142Z",
+      "sha256": "e21c1db558a9827c8fe8fc7008f730b6b9d3ac6181de770e52d8bc2e22a09a93",
+      "textCoverage": "COMPLETE_REVIEWED",
+      "locale": "Japan / Japanese"
+    },
+    {
+      "sourceId": "JA_CREDIT",
+      "url": "https://support.evoto.ai/ja/how-can-i-use-credit-free-exports/",
+      "finalURL": "https://support.evoto.ai/ja/how-can-i-use-credit-free-exports/",
+      "fetchedAt": "2026-10-03T01:08:20.399Z",
+      "sha256": "bfc1c58ebe7ef918b07ab3ec39d9983a39675613930675f3b9eabd2e9673ddb6",
+      "textCoverage": "COMPLETE_REVIEWED",
+      "locale": "Japan / Japanese"
+    },
+    {
+      "sourceId": "JA_UNLIMITED",
+      "url": "https://support.evoto.ai/ja/color-correction-unlimited-plan-ja/",
+      "finalURL": "https://support.evoto.ai/ja/color-correction-unlimited-plan-ja/",
+      "fetchedAt": "2026-10-03T01:08:20.644Z",
+      "sha256": "36fd30aeed2edff56eb614b612d4a046ed90566e8eda64fa09608632b614d1c5",
+      "textCoverage": "COMPLETE_REVIEWED",
+      "locale": "Japan / Japanese"
+    },
+    {
+      "sourceId": "APPLE_IPAD",
+      "url": "https://apps.apple.com/us/app/evoto-photo-editor-retouch/id6596737043?platform=ipad",
+      "finalURL": "https://apps.apple.com/us/app/evoto-photo-editor-retouch/id6596737043?platform=ipad",
+      "fetchedAt": "2026-10-03T01:08:19.468Z",
+      "sha256": "7e80ba07904591574a4be5eb1465574b971a3f518a6b0e5c35dfc6dd89d7223d",
+      "textCoverage": "COMPLETE_REVIEWED",
+      "locale": "US App Store / English"
+    }
+  ],
+  "records": [
+    {
+      "id": "CC01",
+      "topic": "Japan legacy credit-free export",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Windows",
+        "macOS"
+      ],
+      "plan": "Eligible unexpired paid plan;old support explicitly annual/PAYG, current web includes monthly50/250.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENT/PAYMENTJP monthly/PAYG cards exclude AI color but include manual/crop/basic-color free exports Desktop≥6.1.0.",
+      "oldSupport": "S16030 excludes AI Look/Match/MultiImage;Desktop≥6.1.0 andInstant≥1.8.0. JA_CREDIT excludesInstant.",
+      "contradiction": "Same product family has region/language differences;legacy free tools and all-color subscription are separate entitlements.",
+      "certainFacts": [
+        "Japan legacy Desktop basic-color/manual/crop minimum6.1.0.",
+        "Additional nonexempt photo effects consume1credit.",
+        "Prior charged export not refunded when later reduced to free-only."
+      ],
+      "unknowns": [
+        "Exact monthly eligibility inJA_CREDIT wording vscurrent payment cards requires account checkout/version corroboration.",
+        "No inference of Mobilemanual/crop exemption."
+      ],
+      "sourceIds": [
+        "JA_CREDIT",
+        "PAYMENT",
+        "PAYMENTJP",
+        "S16030"
+      ],
+      "evidenceLocator": "JA_CREDIT-H2/H3/H4;PAYMENT/PAYMENTJP monthly/PAYG cards",
+      "confirmationStatus": "CONFLICTING_OFFICIAL_SOURCES",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "BLOCK_PARITY_PENDING_POLICY_RESOLUTION",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": true
+    },
+    {
+      "id": "CC02",
+      "topic": "Japan all-color entitlement",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Windows",
+        "macOS"
+      ],
+      "plan": "Standalone color plan or currently granted annual subscription/Business Pro.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJP standalone1480JPYmonthly+annual specialoffer coversallcolorincludingAI.",
+      "oldSupport": "OlderS16030 excludesAIcolor;JA_CREDIT now points toJA_UNLIMITED.",
+      "contradiction": "Resolved for scoped JapanDesktop by newer dated entitlement;not global orunconditionalfree rule.",
+      "certainFacts": [
+        "Effective2026-08-31 11:00JST.",
+        "Desktop minimum7.3.5-150;manual update required.",
+        "Basic,AI Look,AI Match,Multi-ImageConsistency,MyAIColorStyle color-only unlimitedexports.",
+        "Standalone1480JPYtaxinclusive/month,zeroexportcredits,2simultaneousdevices.",
+        "Annual/BusinessPro grant currently noextra fee,maychange."
+      ],
+      "unknowns": [
+        "Futureofferend/renewalconditions.",
+        "Account-specific entitlement verification/runtimebehaviornotrun."
+      ],
+      "sourceIds": [
+        "JA_UNLIMITED",
+        "JA_CREDIT",
+        "PAYMENTJP"
+      ],
+      "evidenceLocator": "JA_UNLIMITED-H2/H3/H5/H7/H9/H10",
+      "confirmationStatus": "CONFIRMED_WITH_PLAN_LIMIT",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC03",
+      "topic": "Japan excluded plans",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Desktop",
+        "Mobile eligibility separate"
+      ],
+      "plan": "Monthly50/250 and2yearPAYG not automatically grantedallcolor.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "Monthly50/250,PAYGcards explicitlyexcludeAIcolor;standalonepurchaseavailable.",
+      "oldSupport": "Generic paidplan languageinS16030 cannot confernewallcolorbenefit.",
+      "contradiction": false,
+      "certainFacts": [
+        "Monthly50/250 lackallcolorplan;canbuy1480JPYseparately.",
+        "2yearPAYGlacksannualallcolorbenefit.",
+        "Legacyeligiblemanual/basic/cropdoesnotimplyallAIcolor."
+      ],
+      "unknowns": [
+        "Exact simultaneous ownership/account billing interactionsnotdocumented."
+      ],
+      "sourceIds": [
+        "JA_UNLIMITED",
+        "PAYMENTJP"
+      ],
+      "evidenceLocator": "JA_UNLIMITED-H5/H10;monthly/PAYG pricingcards",
+      "confirmationStatus": "CONFIRMED_WITH_PLAN_LIMIT",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC04",
+      "topic": "Mobile color-free allowances",
+      "openDate": "2026-10-03",
+      "region": "US App Store;Japan support has separate announced rollout",
+      "platform": [
+        "iPhone",
+        "iPad",
+        "Android announcement only"
+      ],
+      "plan": "Mobile subscriptiontier-dependent;Japaneligiblecolorplan.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "JA_UNLIMITED includesAndroid/iPhone/iPad but saysstoreapprovalcausesvariableavailability;doesnotpromiseDesktop-samedate.",
+      "oldSupport": "S16030 broadlyexcludesEvotoApp;newerMobilechangelogstatesallowances.",
+      "contradiction": "Old exclusion cannot be used as currentabsence;AppStoreallowanceannouncementdoesnotestablishJapanunlimitedactivationorquota.",
+      "certainFacts": [
+        "USlistingcurrent3.3.3,iPhone/iPad,iOS/iPadOS15+.",
+        "Version3.2.5Aug28announceddifferenttierallowances.",
+        "JapanMobileeligibilityannouncedwithstoreapprovaltimingcaveat."
+      ],
+      "unknowns": [
+        "ExactfreeexportcountforeachMobiletier.",
+        "Whichspecificcolorfeatureseligiblepertier.",
+        "JapanAppStoreactivationversion/date.",
+        "Androidcurrentreleaseactivation.",
+        "Cross-devicebillingdeduplicationforMobileexports."
+      ],
+      "sourceIds": [
+        "APPLE_IPAD",
+        "JA_UNLIMITED",
+        "S16030"
+      ],
+      "evidenceLocator": "APPLE_IPAD Version History3.2.5 andcurrent3.3.3;JA_UNLIMITED-H8",
+      "confirmationStatus": "CONFLICTING_OFFICIAL_SOURCES",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "BLOCK_PARITY_PENDING_POLICY_RESOLUTION",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED_WITH_PLATFORM_LIMIT",
+      "severeGateBlocking": true
+    },
+    {
+      "id": "CC05",
+      "topic": "Instant regional exemption",
+      "openDate": "2026-10-03",
+      "region": "English-support regionunspecifiedversusJapan",
+      "platform": [
+        "Instant Web",
+        "Instant Mobile"
+      ],
+      "plan": "Active paidplan+versionwhereapplicable.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJPproductslistincludesInstantbutdoesnotgrantallbenefitstoalllistedproducts.",
+      "oldSupport": "S16030allowsInstant≥1.8.0eligiblefree tools;JA_CREDITsaysInstantnoteligiblemanual/crop.",
+      "contradiction": "ExplicitEN/JAsupportdifference;cannotestablishglobalInstantpolicy.",
+      "certainFacts": [
+        "ENsourceeligibilityDesktop6.1/Instant1.8pluspaidplan.",
+        "JAexplicitlyexcludesInstantmanual/cropfreeexport."
+      ],
+      "unknowns": [
+        "ApplicableaccountregionandInstantplanrule.",
+        "WhetherEN/JAdifferenceintentionalregionalpolicyorstaledocumentation.",
+        "InstantAIcolorallcolorplaninclusionnotestablished."
+      ],
+      "sourceIds": [
+        "S16030",
+        "JA_CREDIT",
+        "PAYMENTJP"
+      ],
+      "evidenceLocator": "S16030-H1/H3;JA_CREDIT-H2/H4",
+      "confirmationStatus": "CONFLICTING_OFFICIAL_SOURCES",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "BLOCK_PARITY_PENDING_POLICY_RESOLUTION",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": true
+    },
+    {
+      "id": "CC06",
+      "topic": "Generation versus export charging",
+      "openDate": "2026-10-03",
+      "region": "Japan currentpricing;Online table regionunspecified",
+      "platform": [
+        "Desktop",
+        "Online",
+        "Mobile not inherited"
+      ],
+      "plan": "Perfeature/accountentitlement.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJPFAQ:editingtrialfree,standardexport1ticket,someAIgenerationchargedatgeneration.",
+      "oldSupport": "S12010broadalleditingfreeandS2179nongenerativeonlyareoutdatedoversimplifications;S23185OnlinehasperGeneratebilling.",
+      "contradiction": "Genericexport-onlystatementcannotcoverpaidgeneration;OnlinepricesnotDesktop/Mobilerates.",
+      "certainFacts": [
+        "Separategenerationandexportchargeevents.",
+        "OnlineAIRecognitionMaxqualitytypically1credit,imageLowqualityfree;featureexceptions.",
+        "OnlineLabpergenerationtablecontainsresolution-specificratesandtemporaryfreeentries."
+      ],
+      "unknowns": [
+        "CurrentDesktopper-featureAIgenerationcostsnotenumeratedinpaymentpage.",
+        "Mobileper-featuregenerationrates.",
+        "Whetherexportafterpaidgenerationconsumesadditionalcreditforeachfeature/platform.",
+        "Failure/retryrefundrulesforeachphotoAIgenerationfeature."
+      ],
+      "sourceIds": [
+        "PAYMENTJP",
+        "PAYMENT",
+        "S23185",
+        "S12010",
+        "S2179"
+      ],
+      "evidenceLocator": "PAYMENTJP-H16/H30;S23185-H3",
+      "confirmationStatus": "CONFIRMED_WITH_CREDIT_CONDITION",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "BLOCK_PARITY_PENDING_POLICY_RESOLUTION",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": true
+    },
+    {
+      "id": "CC07",
+      "topic": "Mixed feature export",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Desktop",
+        "Mobile activationunverified"
+      ],
+      "plan": "Allcolorplaneligibleaccount.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "JA_UNLIMITED saysnoncolorportrait/background/clothingcombinedrequirescredits.",
+      "oldSupport": "S16030similarlybillsanynonexemptfeature.",
+      "contradiction": false,
+      "certainFacts": [
+        "Color-onlyunlimiteddoesnotincludephotoexportcredits.",
+        "Portraitskin/face/body,backgroundediting/replacement,clothescombinedrequirescredit.",
+        "Manual/crop-onlyexemptionislegacyseparatebenefit,notthecolorplanitself."
+      ],
+      "unknowns": [
+        "Interactionofcolorpluslegacymanual/cropwithstandalonecolorplanwithoutanotherpaidentitlementrequiresproductconfirmation."
+      ],
+      "sourceIds": [
+        "JA_UNLIMITED",
+        "JA_CREDIT"
+      ],
+      "evidenceLocator": "JA_UNLIMITED-H3/H4/H10",
+      "confirmationStatus": "CONFIRMED_WITH_CREDIT_CONDITION",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "BLOCK_PARITY_PENDING_POLICY_RESOLUTION",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": true
+    },
+    {
+      "id": "CC08",
+      "topic": "Japan expired half-credit AI Looks offer",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Desktop"
+      ],
+      "plan": "HistoricalAIlooks0.5ticketoffer.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "JA_UNLIMITEDstateshalf-creditofferendsat2026-08-31 11:00JSTandcolorplanstartsthen.",
+      "oldSupport": "Anyold0.5AIlooksratemustbeversion/dated.",
+      "contradiction": false,
+      "certainFacts": [
+        "0.5AIlooksbenefitendedatnamedJapantransitiontime."
+      ],
+      "unknowns": [],
+      "sourceIds": [
+        "JA_UNLIMITED"
+      ],
+      "evidenceLocator": "JA_UNLIMITED-H9",
+      "confirmationStatus": "CONFIRMED",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "CONFIRMED",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC09",
+      "topic": "Current Japan listed plans",
+      "openDate": "2026-10-03",
+      "region": "Japan-localizedwebresponse",
+      "platform": [
+        "Account/website"
+      ],
+      "plan": "Monthly,annual,PAYG,standalonecolor.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENT andPAYMENTJPcurrentcachebothJPYdespite/paymentEnglishtext.",
+      "oldSupport": "S12010USDpricesareapproximatehistoricalexamplesnotcurrentJapanquote.",
+      "contradiction": "URLlanguageisnotmarket;geographicresponsevaries.",
+      "certainFacts": [
+        "Monthly50tickets1549JPY;250tickets5999JPY;both2devices.",
+        "Annual800/1600/3600/9000/24000ticketsregular13900/23900/42900/92900/209000JPY;current10%initial/upgradeoffer12510/21510/38610/83610/188100JPY.",
+        "Annualdevices2/3/4/5/6respectively.",
+        "PAYG200/500/1200/3600tickets7500/12600/25500/68700JPY;2years,2devices,noautorenew.",
+        "Pricesdisplaytaxincluded;renewalatthenregularprice."
+      ],
+      "unknowns": [
+        "Actualaccountcheckoutandlocaleeligibility.",
+        "Futureofferexpiration.",
+        "US/globalpricesmustbeacquiredseparately."
+      ],
+      "sourceIds": [
+        "PAYMENT",
+        "PAYMENTJP",
+        "S12010"
+      ],
+      "evidenceLocator": "PAYMENT/PAYMENTJP-H1plan cards;annualcomparison table",
+      "confirmationStatus": "CONFIRMED_WITH_PLAN_LIMIT",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC10",
+      "topic": "Rollover and cancellation",
+      "openDate": "2026-10-03",
+      "region": "Japan currentpricing;Instantseparate",
+      "platform": [
+        "Account/website"
+      ],
+      "plan": "Japanmonthly/annual.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJPmonthly/annualrenewalrolloverup to5×plancredits;cancelunusedbalanceexpiresattermend.",
+      "oldSupport": "S1245annual5×agrees;S24771Instantno-rolloverisproduct-specific.",
+      "contradiction": "Do not globallyreplaceInstanttermswithJapanEvotoplanrule.",
+      "certainFacts": [
+        "Japanmonthly/annualrollovercap5×currentplan;validitymayvarybyplan.",
+        "Upgradeimmediateafterpayment,newrenewaldate,oldbalancerollover.",
+        "Cancelretainsaccessuntiltermend;norefundnormallyunlessothertermsapply."
+      ],
+      "unknowns": [
+        "Exactmonthlycreditexpiryandaccount-specificrolloverdetail.",
+        "Enterprisecontractexceptions."
+      ],
+      "sourceIds": [
+        "PAYMENTJP",
+        "PAYMENT",
+        "S1245",
+        "S24771"
+      ],
+      "evidenceLocator": "PAYMENTJP-H18/H19/H20/H24/H32/H33/H34/H38",
+      "confirmationStatus": "CONFIRMED_WITH_PLAN_LIMIT",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC11",
+      "topic": "Trials and Asset Hub bonus",
+      "openDate": "2026-10-03",
+      "region": "Japan pricing response",
+      "platform": [
+        "Account/website"
+      ],
+      "plan": "Eligiblefirst-timeaccountandlistedplans.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJPfirst3annualtiercardsshow7days/50trialtickets;trialposttermbillsregularprice;3monthAssetHubbonusoneclaim,noautorenew.",
+      "oldSupport": "S26356trial1USDpreauthorization,7daycancel/expiryrules;region/paymentdifferencespossible.",
+      "contradiction": false,
+      "certainFacts": [
+        "One7daytrial/account;50trialticketslisted800/1600/3600annualcards.",
+        "Discountappliesbuy-noworupgrade,notposttrialregularbilling.",
+        "AssetHub3monthaccessbonusendswithoutautorenew,oneclaim."
+      ],
+      "unknowns": [
+        "Whethertrialauthorizationcurrency/amountdiffersJapancheckout.",
+        "Trialeligibilityforothercurrenttiers/platforms.",
+        "AssetHubentitlementonMobileperassetnotestablished."
+      ],
+      "sourceIds": [
+        "PAYMENTJP",
+        "PAYMENT",
+        "S26356"
+      ],
+      "evidenceLocator": "PAYMENTJPannualcards andfootnotes;S26356-H1/H2/H5",
+      "confirmationStatus": "CONFIRMED_WITH_PLAN_LIMIT",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC12",
+      "topic": "Cloud storage current Japan policy",
+      "openDate": "2026-10-03",
+      "region": "Japan",
+      "platform": [
+        "Evoto Cloud"
+      ],
+      "plan": "Annualstoragepacks.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "PAYMENTJP500GB37000JPY/year,1TB58000,2TB83000;independentexpiry;30daygrace.",
+      "oldSupport": "S25687andS13365samecoreexpired-storagegracebehavior.",
+      "contradiction": false,
+      "certainFacts": [
+        "Eachcapacityallocationkeepsoriginalexpiry;repurchasecannotextend.",
+        "30daygracenotrestartedbyanotherexpiry.",
+        "Oldest-modifiedprojectsdeletedwhenexpiredcapacityrequirescleanup;irreversible.",
+        "ThiscompetitorpolicyisnotSUITErequirement."
+      ],
+      "unknowns": [
+        "Currentaccountallocationdeletionrounding/whichprojectboundarynotdefined.",
+        "Independentstorage-providerverificationnotperformed."
+      ],
+      "sourceIds": [
+        "PAYMENTJP",
+        "S25687",
+        "S13365"
+      ],
+      "evidenceLocator": "PAYMENTJP-H40 cloudcards/expiryfootnotes",
+      "confirmationStatus": "CONFIRMED_WITH_CREDIT_CONDITION",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    },
+    {
+      "id": "CC13",
+      "topic": "Video currency and repeated export",
+      "openDate": "2026-10-03",
+      "region": "Evoto Videoofficialsupportregionunspecified",
+      "platform": [
+        "Windows",
+        "macOS",
+        "Video plugins"
+      ],
+      "plan": "Video vCredits;notstandardphotocredits.",
+      "currentAppStore": "APPLE_IPAD current3.3.3;historical3.2.5 Aug28 announces tier-dependent free color-export allowances,without quota/tier mapping.",
+      "currentWeb": "S25710currentrateportrait1vCredit/sec;color0limitedtime;separatelytrackportrait/colorprocessedtime.",
+      "oldSupport": "Photo1credit/image/reimport/same-devicepoliciescannotbeprojectedtoVideo.",
+      "contradiction": false,
+      "certainFacts": [
+        "Frame-ratemultiplierremoved;onlyeffectedsegmentsbilled.",
+        "Newuser60vCredits30dayexpiry.",
+        "Sameoriginalvideoalreadychargeddurationdeduplicatedacrossorganization/subaccounts/devices/projects.",
+        "Plugin/desktopaccountingtogether;legacyrecordfirstexportmaycharge.",
+        "Failedexportnotcharged,unusedvCreditsrefunded."
+      ],
+      "unknowns": [
+        "Limited-timecolorofferduration.",
+        "Unpublishedcountry/planexceptions."
+      ],
+      "sourceIds": [
+        "S25710",
+        "S25811",
+        "S27478"
+      ],
+      "evidenceLocator": "S25710-H1/H2/H3/H4/H5/H6;S27478-H4",
+      "confirmationStatus": "CONFIRMED_WITH_CREDIT_CONDITION",
+      "suiteStatus": "D",
+      "priority": "P1 PROVISIONAL",
+      "adoption": "NOT_ADOPTED",
+      "gateImpact": "SOURCE_RECORDED_NOT_RUNTIME_VERIFIED",
+      "termsStatus": "UNKNOWN",
+      "platformExistenceStatus": "CONFIRMED",
+      "severeGateBlocking": false
+    }
+  ],
+  "findings": [
+    "89-article cohort review is separately complete. Current-policy supplement reads PAYMENT, PAYMENTJP, JA_CREDIT, JA_UNLIMITED and APPLE_IPAD full text.",
+    "PAYMENT at an English URL returned Japan-localized JPY pricing; do not label it US/global or USD.",
+    "Current US App Store listing is 3.3.3; historical 3.2.5 (August 28) announced tier-dependent free color exports without numerical allowances.",
+    "Japan all-color plan took effect August 31,2026 at11:00JST on Desktop7.3.5-150+. Older6.1 eligibility applies different legacy features.",
+    "Japan standalone color plan1480JPY/month includes no export credits; annual/Business Pro currently receive entitlement,monthly50/250andPAYGdo not.",
+    "Mobile entitlement announced but store activation date/version and tier quotas unknown. Do not mark policy completeness or parity PASS.",
+    "English Instant free-feature eligibility conflicts Japanese Instant exclusion; unresolved region/plan scope retained.",
+    "AI generation is separately charged for some features; universal all-editing-free/export-only claim invalid.",
+    "No SUITE prices, providers, purchase, billing integration, raw deletion policy or new requirements adopted."
+  ],
+  "allowedConfirmationStatuses": [
+    "CONFIRMED",
+    "CONFIRMED_WITH_PLATFORM_LIMIT",
+    "CONFIRMED_WITH_PLAN_LIMIT",
+    "CONFIRMED_WITH_CREDIT_CONDITION",
+    "CONFLICTING_OFFICIAL_SOURCES",
+    "UNKNOWN",
+    "NOT_FOUND"
+  ],
+  "gate": {
+    "parity": "BLOCK",
+    "reason": "Severe Mobile color-credit policy ambiguity and region/product conflicts remain.",
+    "severePolicyRows": [
+      "CC01",
+      "CC04",
+      "CC05",
+      "CC06",
+      "CC07"
+    ],
+    "unknownsAreNotZero": true,
+    "requiresNewEvidence": "Current per-tier Mobile color allowances, Japan store activation, Instant locale eligibility, per-platform AI generation and mixed-feature charging."
+  }
+}

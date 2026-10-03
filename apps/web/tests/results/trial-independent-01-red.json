@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "runID": "trial-independent-01-red",
+  "recordedAt": "2026-10-03T07:53:32.028Z",
+  "command": "node --test apps/web/tests/author-submissions.test.mjs",
+  "exitCode": 1,
+  "summary": {
+    "total": 14,
+    "pass": 10,
+    "fail": 4,
+    "skip": 0
+  },
+  "failedIDs": [
+    "TRIAL-AUTHOR11",
+    "TRIAL-AUTHOR12",
+    "TRIAL-AUTHOR13",
+    "TRIAL-AUTHOR14"
+  ],
+  "scope": "REAL_TEMP_SQLITE_READ_CORRUPTION_WITH_STUB_SOURCE_VERIFIER; NO_RAW_NO_IMAGES_NO_HTTP",
+  "findings": "Missing fail-closed validation on accepted preset checksum/shape and draft/submission body identity/range. Damaged rows must be preserved; product owner implementing corrections.",
+  "sourceHashScope": "POST_RUN_CAPTURE_ONLY_NOT_A_PRE_POST_SOURCE_FREEZE",
+  "sourceHashes": [
+    {
+      "file": "apps/web/author-store.mjs",
+      "sha256": "07410655744bb8b44e45d081a306e01fe1b7647b8439afede53958e39c170327"
+    },
+    {
+      "file": "apps/web/tests/author-submissions.test.mjs",
+      "sha256": "34ffbfcdbcc1bd374e4d2243873e20aba98c46d4dbaadbb20a31becff7daaf5d"
+    }
+  ],
+  "output": "✔ TRIAL-AUTHOR01 / SQLITE: default source verifier refuses draft creation and leaves no record (16.8227ms)\n✔ TRIAL-AUTHOR02 / SQLITE: another author cannot enumerate get edit submit or review a draft (14.2143ms)\n✔ TRIAL-AUTHOR03 / SQLITE: draft CAS rejects stale updates and source failure retains the preceding draft (14.3817ms)\n✔ TRIAL-AUTHOR04 / SQLITE: submit freezes version while newer draft cannot replace admin review snapshot (14.3547ms)\n✔ TRIAL-AUTHOR05 / SQLITE: accepted portable version is immutable, detached and excludes photo identity/data (15.5851ms)\n✔ TRIAL-AUTHOR06 / SQLITE: rejection cannot publish a preset and persists through store restart (15.242ms)\n✔ TRIAL-AUTHOR07 / SQLITE_VALIDATION: strict portable recipe rejects photo fields unknown controls and nondefault rotation (10.4987ms)\n✔ TRIAL-AUTHOR08 / SQLITE_VALIDATION: allowed endpoint combinations remain exact and do not mutate input (17.6797ms)\n✔ TRIAL-AUTHOR09 / SQLITE: rejected source provenance cannot create a record and a valid draft survives restart (13.7769ms)\n✔ TRIAL-AUTHOR10 / SQLITE: admin cannot approve own submitted version or re-review a terminal decision (12.4348ms)\n✖ TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen (13.3684ms)\n✖ TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity (14.2826ms)\n✖ TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values (12.2477ms)\n✖ TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved (12.6397ms)\nℹ tests 14\nℹ suites 0\nℹ pass 10\nℹ fail 4\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 281.2112\n\n✖ failing tests:\n\ntest at apps\\web\\tests\\author-submissions.test.mjs:157:1\n✖ TRIAL-AUTHOR11 / SQLITE_CORRUPTION: accepted body checksum mismatch refuses read and retains damaged row after reopen (13.3684ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (file:///C:/Users/user/Documents/Codex/2026-10-03/suite-web-iphone-ipad-web-iphone/outputs/SUITE/apps/web/tests/author-submissions.test.mjs:161:12)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at apps\\web\\tests\\author-submissions.test.mjs:168:1\n✖ TRIAL-AUTHOR12 / SQLITE_CORRUPTION: matching checksum cannot authorize unsafe preset shape range or row identity (14.2826ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (file:///C:/Users/user/Documents/Codex/2026-10-03/suite-web-iphone-ipad-web-iphone/outputs/SUITE/apps/web/tests/author-submissions.test.mjs:175:14)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at apps\\web\\tests\\author-submissions.test.mjs:181:1\n✖ TRIAL-AUTHOR13 / SQLITE_CORRUPTION: parse-valid draft body cannot replace row author ID version or portable values (12.2477ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (file:///C:/Users/user/Documents/Codex/2026-10-03/suite-web-iphone-ipad-web-iphone/outputs/SUITE/apps/web/tests/author-submissions.test.mjs:188:14)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at apps\\web\\tests\\author-submissions.test.mjs:194:1\n✖ TRIAL-AUTHOR14 / SQLITE_CORRUPTION: damaged submitted JSON cannot be approved or publish a preset; row is preserved (12.6397ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (file:///C:/Users/user/Documents/Codex/2026-10-03/suite-web-iphone-ipad-web-iphone/outputs/SUITE/apps/web/tests/author-submissions.test.mjs:200:12)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'throws',\n    diff: 'simple'\n  }\n",
+  "previousPartial": "Original author10 and auth7 success remain separate prior observations; this file does not overwrite them.",
+  "notRun": [
+    "ACTUAL_D1",
+    "ACTUAL_R2",
+    "SITES_DEPLOYMENT",
+    "REAL_RAW",
+    "REAL_PERSON_PHOTO",
+    "APPLE_NATIVE112"
+  ]
+}

@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-03",
+  "timezone": "Asia/Tokyo",
+  "documentStatus": "DRAFT_NOT_FOR_UPLOAD",
+  "submissionReady": false,
+  "mobileRelease": "BLOCK",
+  "targetDevices": [
+    "iPhone",
+    "iPad"
+  ],
+  "macRole": "QA_ENVIRONMENT_ONLY",
+  "webRequiredForMobileRelease": false,
+  "productionProviderSelected": false,
+  "externalSubmissionPerformed": false,
+  "states": {
+    "RECORDED_POLICY": "既存方針転記のみ",
+    "DRAFT": "草案、承認/実測未完",
+    "UNDECIDED": "未確定",
+    "NOT_IMPLEMENTED": "未実装",
+    "NOT_CONNECTED": "未接続",
+    "NOT_RUN": "環境または外部実行が未実施"
+  },
+  "fields": [
+    {
+      "id": "appName",
+      "label": "アプリ名",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "SUITE",
+      "reason": "商標確認完了までは仮称",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "subtitle",
+      "label": "サブタイトル",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "RAWを守る、写真編集ワークフロー",
+      "reason": "実装/実測後に掲載可否確認",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "description",
+      "label": "説明文",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "SUITEは、iPhoneとiPadのための写真編集ワークフローです。\nRAW原本を変更せず、通常の閲覧や編集には軽量なProxyを使用し、編集内容をRecipeとして別に保存する設計です。\n最終書き出しでは原本と保存した編集内容から、新しい画像を生成します。\n対応するRAW形式、利用可能な編集機能、クラウド機能、料金は、実機検証と正式な提供内容の確定後にご案内します。",
+      "reason": "開発中設計の内部草案、提出不可",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "keywords",
+      "label": "キーワード",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "写真編集,RAW現像,非破壊,レタッチ,一括編集,写真管理",
+      "reason": "機能提供検証後に採用を再確認",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "promotionalText",
+      "label": "販促文",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "任意、未作成",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "primaryCategory",
+      "label": "主カテゴリ",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "Photo & Video",
+      "reason": "写真編集用途からの候補、owner未承認",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "secondaryCategory",
+      "label": "副カテゴリ",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "未指定も候補",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "primaryLocale",
+      "label": "主言語",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "ja",
+      "reason": "owner未承認",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "screenshots",
+      "label": "スクショ",
+      "status": "NOT_RUN",
+      "value": null,
+      "draft": null,
+      "reason": "Mac/実機/動作build未用意",
+      "owner": "Main / Product owner",
+      "document": "ASSETS.md"
+    },
+    {
+      "id": "appIcon",
+      "label": "アイコン",
+      "status": "NOT_IMPLEMENTED",
+      "value": null,
+      "draft": null,
+      "reason": "icon asset未確認",
+      "owner": "Main / Product owner",
+      "document": "ASSETS.md"
+    },
+    {
+      "id": "privacyPolicyUrl",
+      "label": "プライバシーURL",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "所有domain/本文未確定",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "supportUrl",
+      "label": "サポートURL",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "実窓口未確定",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "marketingUrl",
+      "label": "マーケURL",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "任意、所有domain未確定",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "termsUrl",
+      "label": "利用規約URL",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "本文/所有domain未確定",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "privacyChoicesUrl",
+      "label": "privacy選択URL",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "任意、削除導線未完成",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "appPrivacy",
+      "label": "App Privacy申告",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "本番取扱い/委託先未確定",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "collectedData",
+      "label": "収集データ一覧",
+      "status": "DRAFT",
+      "value": null,
+      "draft": null,
+      "reason": "候補台帳あり、最終申告未確定",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "thirdPartySdks",
+      "label": "第三者SDK一覧",
+      "status": "DRAFT",
+      "value": null,
+      "draft": null,
+      "reason": "source監査のみ、archive未生成",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "cloudServices",
+      "label": "cloud利用",
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "draft": null,
+      "reason": "provider未選定、本番未接続",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "authentication",
+      "label": "認証利用",
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "draft": null,
+      "reason": "production auth/session/Keychain未接続",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "storageServices",
+      "label": "storage利用",
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "draft": null,
+      "reason": "local development adapter、production未接続",
+      "owner": "Main / Product owner",
+      "document": "PRIVACY_DATA_SDK.md"
+    },
+    {
+      "id": "ageRating",
+      "label": "年齢rating",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "ownerが実コンテンツ/現質問票に回答後確定",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "encryption",
+      "label": "暗号化利用",
+      "status": "DRAFT",
+      "value": null,
+      "draft": null,
+      "reason": "HTTPS/CryptoKit/file protectionコード監査、binary未検証",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "exportCompliance",
+      "label": "Export Compliance",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "最終binary/配信国/owner判断未完",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "reviewNotes",
+      "label": "Review Notes",
+      "status": "DRAFT",
+      "value": null,
+      "draft": "INTERNAL DRAFT — DO NOT SUBMIT. SUITE targets iPhone and iPad. The submitted release must use immutable originals, proxy-based editing, separately saved recipes, and new export files generated from the original plus a fixed recipe. Current native execution, real RAW tests, production cloud/auth and required release gates remain unverified or incomplete. Final review access, supported RAW samples with rights clearance, exact navigation and contact details must be added after those gates pass.",
+      "reason": "未完成buildを送信するための免責文ではない",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "reviewInstructions",
+      "label": "審査操作手順",
+      "status": "DRAFT",
+      "value": null,
+      "draft": null,
+      "reason": "台本あり、全導線の実機確認未実施",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "demoAccount",
+      "label": "demo account要否",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "cloud/account機能に必要見込み、未作成。credentialsはGit禁止",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "reviewPath",
+      "label": "審査導線",
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "draft": null,
+      "reason": "本番認証/同期/課金/削除の導線未完",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "iapRequired",
+      "label": "IAP要否",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "digital商品/地域/価格のowner決定と適用確認待ち",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "accountDeletion",
+      "label": "アカウント削除",
+      "status": "NOT_IMPLEMENTED",
+      "value": null,
+      "draft": null,
+      "reason": "Trashと異なる削除導線/運用が必要",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "rights",
+      "label": "権利関係",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "商標/素材/肖像/library/model権利未確認",
+      "owner": "Product owner / Legal",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "terms",
+      "label": "利用規約/EULA",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "標準/custom選択と事業条件未確定",
+      "owner": "Main / Product owner",
+      "document": "REVIEW_LEGAL.md"
+    },
+    {
+      "id": "bundleId",
+      "label": "Bundle ID",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "com.example.suiteは開発placeholder",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "developerTeam",
+      "label": "Developer Team",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "ownerの契約/署名未確認",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "seller",
+      "label": "販売者/著作権名",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "法主体/権利者情報未確定",
+      "owner": "Product owner / Legal",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "sku",
+      "label": "SKU",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "ASC app record未作成",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "appleId",
+      "label": "Apple ID",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "ASC app record未作成",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "releaseVersion",
+      "label": "提出Version/Build",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "0.1.0/1は開発値",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "minimumOs",
+      "label": "最低OS",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "暫定build target17.0は製品確定値でない",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "territoriesPricing",
+      "label": "公開国/価格/税区分",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "事業判断未確定",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "reviewContact",
+      "label": "審査連絡先",
+      "status": "UNDECIDED",
+      "value": null,
+      "draft": null,
+      "reason": "phone/email/担当者未確定",
+      "owner": "Main / Product owner",
+      "document": "METADATA.md"
+    },
+    {
+      "id": "macAvailability",
+      "label": "Apple silicon Mac互換配信",
+      "status": "NOT_RUN",
+      "value": null,
+      "draft": null,
+      "reason": "iPhone/iPadのみの初期公開に沿って除外設定を確認。ASC操作未実施",
+      "owner": "Main / Product owner",
+      "document": "NEXT_SUBMISSION.md"
+    },
+    {
+      "id": "visionAvailability",
+      "label": "Vision Pro互換配信",
+      "status": "NOT_RUN",
+      "value": null,
+      "draft": null,
+      "reason": "初期対象外。ASC除外設定未確認/未実施",
+      "owner": "Main / Product owner",
+      "document": "NEXT_SUBMISSION.md"
+    }
+  ],
+  "declaredAnswers": {
+    "dataCollected": null,
+    "tracking": null,
+    "linkedToUser": null,
+    "itsAppUsesNonExemptEncryption": null,
+    "ageRating": null,
+    "iapRequired": null,
+    "signInRequiredForReview": null
+  },
+  "observedSource": {
+    "bundleId": "com.example.suite",
+    "version": "0.1.0",
+    "build": "1",
+    "deploymentTarget": "17.0",
+    "thirdPartyAppSdkNotObserved": true,
+    "archiveInspected": false,
+    "privacyManifestFound": false,
+    "appIconFound": false
+  },
+  "textLimits": {
+    "appNameCharacters": 30,
+    "subtitleCharacters": 30,
+    "descriptionCharacters": 4000,
+    "keywordsUtf8Bytes": 100,
+    "promotionalTextCharacters": 170,
+    "reviewNotesUtf8Bytes": 4000
+  },
+  "urlCandidates": {
+    "kind": "PATH_TEMPLATES_ONLY_NOT_REGISTERED_DOMAINS",
+    "privacyPolicy": "/suite/privacy",
+    "support": "/suite/support",
+    "marketing": "/suite",
+    "terms": "/suite/terms",
+    "privacyChoices": "/suite/privacy/choices"
+  },
+  "blockers": [
+    "NATIVE_BUILD_NOT_RUN",
+    "REAL_RAW_NOT_PLACED",
+    "IPHONE_DEVICE_NOT_RUN",
+    "IPAD_DEVICE_NOT_RUN",
+    "PRODUCTION_AUTH_STORAGE_SYNC_NOT_CONNECTED",
+    "COMMERCIAL_V1_INCOMPLETE",
+    "PRIVACY_MANIFEST_NOT_IMPLEMENTED",
+    "APP_PRIVACY_UNDECIDED",
+    "ACCOUNT_DELETION_NOT_IMPLEMENTED",
+    "IAP_UNDECIDED_AND_NOT_IMPLEMENTED",
+    "LEGAL_URLS_AND_RIGHTS_UNDECIDED",
+    "ICON_SCREENSHOTS_NOT_READY",
+    "SIGNING_AND_APP_RECORD_UNDECIDED"
+  ],
+  "evidence": [
+    "../HANDOFF.md",
+    "../TRACEABILITY.md",
+    "../verification-results.json",
+    "../../apps/apple/project.yml",
+    "../../apps/apple/Suite/Info.plist",
+    "../../apps/apple/Package.swift",
+    "../../package.json"
+  ]
+}
+

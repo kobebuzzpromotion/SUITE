@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SUITE shared RecipeDocument v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "parameters"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "parameters": {
+      "type": "object", "additionalProperties": false,
+      "required": ["exposure", "contrast", "saturation", "rotationDegrees", "extendedParameters", "processingOrder"],
+      "properties": {
+        "exposure": {"type": "number"},
+        "contrast": {"type": "number", "minimum": 0},
+        "saturation": {"type": "number", "minimum": 0},
+        "rotationDegrees": {"type": "integer", "minimum": -9007199254740991, "maximum": 9007199254740991},
+        "extendedParameters": {"type": "object", "propertyNames": {"pattern": "\\S"}, "additionalProperties": {"$ref": "#/$defs/value"}},
+        "processingOrder": {"type": "array", "uniqueItems": true, "items": {"enum": ["whiteBalance", "tint", "exposure", "contrast", "highlight", "shadow", "white", "black", "temperature", "saturation", "vibrance", "hsl", "toneCurve", "sharpness", "noiseReduction", "lensCorrection", "postDecodeAdjustments", "crop", "rotation"]}}
+      }
+    }
+  },
+  "$defs": {
+    "value": {"oneOf": [
+      {"type": "number"}, {"type": "string"}, {"type": "boolean"},
+      {"type": "array", "items": {"$ref": "#/$defs/value"}},
+      {"type": "object", "propertyNames": {"minLength": 1}, "additionalProperties": {"$ref": "#/$defs/value"}}
+    ]}
+  },
+  "$comment": "Runtime validators also require finite numbers, extension nesting <=32 and non-neutral parameters' stages present. Storage acceptance is NOT rendering support. Unknown extensions round-trip but unsupported rendering MUST reject."
+}

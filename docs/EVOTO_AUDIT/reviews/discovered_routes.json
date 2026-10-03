@@ -1,0 +1,730 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-03T01:32:24.488Z",
+  "interpretationOf": "reviews/index_reverse.json#/unresolved",
+  "routes": [
+    {
+      "url": "https://support.evoto.ai/Method%202",
+      "normalizedURL": "https://support.evoto.ai/method 2",
+      "sourceIds": [
+        "page-453",
+        "ALIAS42"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "MALFORMED_SECTION_LINK",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC0",
+      "finalURL": "https://support.evoto.ai/Method%202",
+      "canonical": "https://support.evoto.ai/Method%202",
+      "fetchedAt": "2026-10-03T01:25:24.022Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC0.html"
+    },
+    {
+      "url": "https://support.evoto.ai/Evoto%20Version%20Requirement",
+      "normalizedURL": "https://support.evoto.ai/evoto version requirement",
+      "sourceIds": [
+        "page-453",
+        "ALIAS42"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "MALFORMED_SECTION_LINK",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC1",
+      "finalURL": "https://support.evoto.ai/Evoto%20Version%20Requirement",
+      "canonical": "https://support.evoto.ai/Evoto%20Version%20Requirement",
+      "fetchedAt": "2026-10-03T01:25:24.027Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC1.html"
+    },
+    {
+      "url": "https://support.evoto.ai/security-data-protection/",
+      "normalizedURL": "https://support.evoto.ai/security-data-protection",
+      "sourceIds": [
+        "ALIAS14"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC2",
+      "finalURL": "https://support.evoto.ai/?p=2104",
+      "canonical": "https://support.evoto.ai/?p=2104",
+      "fetchedAt": "2026-10-03T01:25:24.580Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC2.html"
+    },
+    {
+      "url": "https://support.evoto.ai/error-codes-in-exporting-images/",
+      "normalizedURL": "https://support.evoto.ai/error-codes-in-exporting-images",
+      "sourceIds": [
+        "ALIAS14",
+        "ALIAS16"
+      ],
+      "anchorLabels": [
+        "Más detalles",
+        "更多詳情"
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC3",
+      "finalURL": "https://support.evoto.ai/error-codes-in-exporting-images/",
+      "canonical": "https://support.evoto.ai/error-codes-in-exporting-images/",
+      "fetchedAt": "2026-10-03T01:25:24.030Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC3.html"
+    },
+    {
+      "url": "https://support.evoto.ai/system-prompts-tips/",
+      "normalizedURL": "https://support.evoto.ai/system-prompts-tips",
+      "sourceIds": [
+        "ALIAS14",
+        "ALIAS16"
+      ],
+      "anchorLabels": [
+        "Más detalles",
+        "更多詳情"
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC4",
+      "finalURL": "https://support.evoto.ai/system-prompts-tips/",
+      "canonical": "https://support.evoto.ai/system-prompts-tips/",
+      "fetchedAt": "2026-10-03T01:25:24.163Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC4.html"
+    },
+    {
+      "url": "https://support.evoto.ai/if-i-have-any-questions-during-the-use-of-the-evoto-how-can-i-get-support/",
+      "normalizedURL": "https://support.evoto.ai/if-i-have-any-questions-during-the-use-of-the-evoto-how-can-i-get-support",
+      "sourceIds": [
+        "ALIAS16"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC5",
+      "finalURL": "https://support.evoto.ai/if-i-have-any-questions-during-the-use-of-the-evoto-how-can-i-get-support/",
+      "canonical": "https://support.evoto.ai/if-i-have-any-questions-during-the-use-of-the-evoto-how-can-i-get-support/",
+      "fetchedAt": "2026-10-03T01:25:25.117Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC5.html"
+    },
+    {
+      "url": "https://support.evoto.ai/account-deactivation-recovery/",
+      "normalizedURL": "https://support.evoto.ai/account-deactivation-recovery",
+      "sourceIds": [
+        "ALIAS32",
+        "ALIAS33",
+        "ALIAS34"
+      ],
+      "anchorLabels": [
+        "",
+        "Xem thêm",
+        "查看所有功能"
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC6",
+      "finalURL": "https://support.evoto.ai/account-deactivation-recovery/",
+      "canonical": "https://support.evoto.ai/account-deactivation-recovery/",
+      "fetchedAt": "2026-10-03T01:25:24.989Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC6.html"
+    },
+    {
+      "url": "https://support.evoto.ai/best-practices-ongoing-tips-on-your-account/",
+      "normalizedURL": "https://support.evoto.ai/best-practices-ongoing-tips-on-your-account",
+      "sourceIds": [
+        "ALIAS34"
+      ],
+      "anchorLabels": [
+        "",
+        "查看所有功能"
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC7",
+      "finalURL": "https://support.evoto.ai/best-practices-ongoing-tips-on-your-account/",
+      "canonical": "https://support.evoto.ai/best-practices-ongoing-tips-on-your-account/",
+      "fetchedAt": "2026-10-03T01:25:25.044Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC7.html"
+    },
+    {
+      "url": "https://support.evoto.ai//ko/getting-started/",
+      "normalizedURL": "https://support.evoto.ai//ko/getting-started",
+      "sourceIds": [
+        "ALIAS47"
+      ],
+      "anchorLabels": [
+        "더 보기"
+      ],
+      "status": 200,
+      "kind": "MALFORMED_LOCALIZED_ROUTE",
+      "suspectedArticleId": null,
+      "reason": "Localized navigation or unresolved destination; not new English Feature",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC8",
+      "finalURL": "https://support.evoto.ai/ko/get-start-ko/",
+      "canonical": "https://support.evoto.ai/ko/get-start-ko/",
+      "fetchedAt": "2026-10-03T01:25:25.273Z",
+      "sha256": "74d053e477ec75c8470c63f45a0a67e878f66838160e970ae877b60cf9a7cd8f",
+      "title": "시작하기 | EVOTO SUPPORT",
+      "classification": "IRRELEVANT",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN",
+      "evidencePath": "private-cache/discovered/DISC8.html"
+    },
+    {
+      "url": "https://support.evoto.ai/a-comprehensive-guide-to-using-the-sync-feature-in-evoto/",
+      "normalizedURL": "https://support.evoto.ai/a-comprehensive-guide-to-using-the-sync-feature-in-evoto",
+      "sourceIds": [
+        "ALIAS5",
+        "ALIAS9"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S12956",
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC9",
+      "finalURL": "https://support.evoto.ai/a-comprehensive-guide-to-using-the-sync-feature-in-evoto/",
+      "canonical": "https://support.evoto.ai/a-comprehensive-guide-to-using-the-sync-feature-in-evoto/",
+      "fetchedAt": "2026-10-03T01:25:25.578Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC9.html"
+    },
+    {
+      "url": "https://support.evoto.ai/ensuring-maximum-image-quality-when-exporting-in-evoto/",
+      "normalizedURL": "https://support.evoto.ai/ensuring-maximum-image-quality-when-exporting-in-evoto",
+      "sourceIds": [
+        "ALIAS5",
+        "ALIAS9"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC10",
+      "finalURL": "https://support.evoto.ai/ensuring-maximum-image-quality-when-exporting-in-evoto/",
+      "canonical": "https://support.evoto.ai/ensuring-maximum-image-quality-when-exporting-in-evoto/",
+      "fetchedAt": "2026-10-03T01:25:25.942Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC10.html"
+    },
+    {
+      "url": "https://support.evoto.ai/exporting-a-png-file-with-transparency/",
+      "normalizedURL": "https://support.evoto.ai/exporting-a-png-file-with-transparency",
+      "sourceIds": [
+        "ALIAS5"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC11",
+      "finalURL": "https://support.evoto.ai/exporting-a-png-file-with-transparency/",
+      "canonical": "https://support.evoto.ai/exporting-a-png-file-with-transparency/",
+      "fetchedAt": "2026-10-03T01:25:26.046Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC11.html"
+    },
+    {
+      "url": "https://support.evoto.ai/tether-shooting-sony/",
+      "normalizedURL": "https://support.evoto.ai/tether-shooting-sony",
+      "sourceIds": [
+        "ALIAS60",
+        "S626"
+      ],
+      "anchorLabels": [
+        "Tether Shooting Setup &#8211; Sony"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S629",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC12",
+      "finalURL": "https://support.evoto.ai/tethered-shooting-sony/",
+      "canonical": "https://support.evoto.ai/tethered-shooting-sony/",
+      "fetchedAt": "2026-10-03T01:25:26.777Z",
+      "sha256": "f4c6e619f192376a7dc7bf236d73fe82956f4274b4e04e378dfa1b5db853498e",
+      "title": "Wired Tethered Shooting - Sony | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S629",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC12.html"
+    },
+    {
+      "url": "https://support.evoto.ai/rotate-2/",
+      "normalizedURL": "https://support.evoto.ai/rotate-2",
+      "sourceIds": [
+        "ALIAS63"
+      ],
+      "anchorLabels": [
+        "더 보기"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1484",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC13",
+      "finalURL": "https://support.evoto.ai/rotate/",
+      "canonical": "https://support.evoto.ai/rotate/",
+      "fetchedAt": "2026-10-03T01:25:27.492Z",
+      "sha256": "c826f1adf97d661deff65bf1cda57335d670c6afb61aa25ec8f9a652415ad1cd",
+      "title": "Rotate | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1355",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC13.html"
+    },
+    {
+      "url": "https://support.evoto.ai/%E8%81%AF%E6%A9%9F%E6%8B%8D%E6%94%9D%E7%9A%84%E6%A0%BC%E5%BC%8F%E7%AF%A9%E9%81%B8%E5%99%A8",
+      "normalizedURL": "https://support.evoto.ai/聯機拍攝的格式篩選器",
+      "sourceIds": [
+        "ALIAS66"
+      ],
+      "anchorLabels": [
+        ""
+      ],
+      "status": 404,
+      "kind": "MALFORMED_SECTION_LINK",
+      "suspectedArticleId": null,
+      "reason": "HTTP404 preserved, never deleted or treated as no-feature proof",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC14",
+      "finalURL": "https://support.evoto.ai/%E8%81%AF%E6%A9%9F%E6%8B%8D%E6%94%9D%E7%9A%84%E6%A0%BC%E5%BC%8F%E7%AF%A9%E9%81%B8%E5%99%A8",
+      "canonical": "https://support.evoto.ai/%E8%81%AF%E6%A9%9F%E6%8B%8D%E6%94%9D%E7%9A%84%E6%A0%BC%E5%BC%8F%E7%AF%A9%E9%81%B8%E5%99%A8",
+      "fetchedAt": "2026-10-03T01:25:26.474Z",
+      "sha256": "c50d0527f7fb7b77d570a688ae655123730a7f1d68ea36ae6c22c879bf7611a5",
+      "title": "Page Not Found | EVOTO SUPPORT",
+      "classification": "404",
+      "canonicalSourceId": "UNKNOWN",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "UNKNOWN; possibly once existed, no historical body acquired",
+      "evidencePath": "private-cache/discovered/DISC14.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-canon/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-canon",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Canon Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1525",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC15",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-canon-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-canon-ipad/",
+      "fetchedAt": "2026-10-03T01:25:27.565Z",
+      "sha256": "675fd04d9d675274458b73d17c9a95a6103d9372d724704651a97e2255e0d297",
+      "title": "Wired Tethered Shooting – Canon Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1525",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC15.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-sony/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-sony",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Sony Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1527",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC16",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-sony-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-sony-ipad/",
+      "fetchedAt": "2026-10-03T01:25:27.077Z",
+      "sha256": "366d4d7ae6086d528cc45b1fc67df6d5e79881e0fe6b72793531230f9b60d32f",
+      "title": "Wired Tethered Shooting – Sony Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1527",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC16.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-nikon/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-nikon",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Nikon Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1529",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC17",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-nikon-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-nikon-ipad/",
+      "fetchedAt": "2026-10-03T01:25:27.572Z",
+      "sha256": "87914a545153fe7e5072b1f7145740b92d4640e710e99680c3a48223305e8af3",
+      "title": "Wired Tethered Shooting – Nikon Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1529",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC17.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-fuji-film/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-fuji-film",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Fujifilm Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1531",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC18",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-fujifilm-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-fujifilm-ipad/",
+      "fetchedAt": "2026-10-03T01:25:28.477Z",
+      "sha256": "cb798d6d9e066e2ba873c5f3090bead005052c9042435e97cba8d51987178b8f",
+      "title": "Wired Tethered Shooting – Leica Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1531",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC18.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-panasonic/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-panasonic",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Panasonic Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1534",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC19",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-panasonic-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-panasonic-ipad/",
+      "fetchedAt": "2026-10-03T01:25:27.924Z",
+      "sha256": "fa73c209ea23768df5cbf2be9a6782ec4775d9c16589764d0df4aa33d7784a95",
+      "title": "Wired Tethered Shooting – Panasonic Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1534",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC19.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-leica/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-leica",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Leica Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1538",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC20",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-leica-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-leica-ipad/",
+      "fetchedAt": "2026-10-03T01:25:29.093Z",
+      "sha256": "f74f8f12c03ad57fd5efaa4bd079db7ee53a7975bbefc86c5c3182718526ea01",
+      "title": "Wired Tethered Shooting – Leica Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1538",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC20.html"
+    },
+    {
+      "url": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-om-system/",
+      "normalizedURL": "https://support.evoto.ai/wired-tethered-shooting-with-ipad-om-system",
+      "sourceIds": [
+        "ALIAS80",
+        "S1523"
+      ],
+      "anchorLabels": [
+        "Olympus Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S1540",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC21",
+      "finalURL": "https://support.evoto.ai/wired-tethered-shooting-olympus-ipad/",
+      "canonical": "https://support.evoto.ai/wired-tethered-shooting-olympus-ipad/",
+      "fetchedAt": "2026-10-03T01:25:29.944Z",
+      "sha256": "ce70dc7194895f6a5416f8a01113de16b1b5be9458d168f31ae769dbed57882f",
+      "title": "Wired Tethered Shooting – Olympus Camera Setup (iPad) | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S1540",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC21.html"
+    },
+    {
+      "url": "https://support.evoto.ai/guide-to-evotos-free-features/",
+      "normalizedURL": "https://support.evoto.ai/guide-to-evotos-free-features",
+      "sourceIds": [
+        "S21313"
+      ],
+      "anchorLabels": [
+        "Guide to Evoto&#8217;s Free Features"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S16030",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC22",
+      "finalURL": "https://support.evoto.ai/how-can-i-use-credit-free-exports/",
+      "canonical": "https://support.evoto.ai/how-can-i-use-credit-free-exports/",
+      "fetchedAt": "2026-10-03T01:25:28.734Z",
+      "sha256": "e19df9bcaa759ed9b47ac799095e1754a6d49f8909e0255f443e2ec8206a69cf",
+      "title": "How Can I Use Credit-Free Exports? | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S16030",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC22.html"
+    },
+    {
+      "url": "https://support.evoto.ai/ftp-connection-with-sony-a7iiii-instant/",
+      "normalizedURL": "https://support.evoto.ai/ftp-connection-with-sony-a7iiii-instant",
+      "sourceIds": [
+        "S13941"
+      ],
+      "anchorLabels": [
+        "FTP Connection with Sony A7IV"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S15972",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC23",
+      "finalURL": "https://support.evoto.ai/ftp-connection-with-sony-a7iv-instant/",
+      "canonical": "https://support.evoto.ai/ftp-connection-with-sony-a7iv-instant/",
+      "fetchedAt": "2026-10-03T01:25:29.527Z",
+      "sha256": "ec57ac28821496a8324a7237b63cff007dc5da7a2abc863a4d6a96cf508a33e3",
+      "title": "FTP Connection with Sony A7IV | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S15972",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC23.html"
+    },
+    {
+      "url": "https://support.evoto.ai/ftp-connections-with-canon-cameras/",
+      "normalizedURL": "https://support.evoto.ai/ftp-connections-with-canon-cameras",
+      "sourceIds": [
+        "S13941"
+      ],
+      "anchorLabels": [
+        "FTP Connection with Canon Cameras"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S17777",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC24",
+      "finalURL": "https://support.evoto.ai/ftp-connections-with-canon-cameras-instant/",
+      "canonical": "https://support.evoto.ai/ftp-connections-with-canon-cameras-instant/",
+      "fetchedAt": "2026-10-03T01:25:29.582Z",
+      "sha256": "477ba2f48f4d2206c3c8e7acc4b76caea650851a845eab2ebcdeb2973cadf8be",
+      "title": "FTP Connections with Canon Cameras | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S17777",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC24.html"
+    },
+    {
+      "url": "https://support.evoto.ai/ai-culling/",
+      "normalizedURL": "https://support.evoto.ai/ai-culling",
+      "sourceIds": [
+        "S813"
+      ],
+      "anchorLabels": [
+        "Culling &amp; Organization"
+      ],
+      "status": 200,
+      "kind": "UNACQUIRED_ENGLISH_ARTICLE_ROUTE_CANDIDATE",
+      "suspectedArticleId": "S13367",
+      "reason": "Acquired final/canonical destination is an existing source; not a second independent source",
+      "nextAction": "Acquire destination canonical and full body before resolving; do not copy platform or feature availability from its referring page.",
+      "id": "DISC25",
+      "finalURL": "https://support.evoto.ai/smart-culling/",
+      "canonical": "https://support.evoto.ai/smart-culling/",
+      "fetchedAt": "2026-10-03T01:25:29.548Z",
+      "sha256": "71f0ead4aa175a0f2bb00dfcfc9182ce08e7abf12cd2a1fb35c56e7bc7695473",
+      "title": "Culling & Organization | EVOTO SUPPORT",
+      "classification": "REDIRECT_TO_EXISTING_SOURCE",
+      "canonicalSourceId": "S13367",
+      "independentEvidenceCount": 0,
+      "currentApplicability": "Existing source retained; alias gives no additional functionality",
+      "evidencePath": "private-cache/discovered/DISC25.html"
+    }
+  ],
+  "counts": {
+    "404": 12,
+    "UNIQUE_CURRENT_SOURCE": 0,
+    "ALIAS_OF_EXISTING_SOURCE": 0,
+    "REDIRECT_TO_EXISTING_SOURCE": 13,
+    "LEGACY_SOURCE": 0,
+    "ACCESS_ERROR": 0,
+    "UNCONFIRMED": 0,
+    "IRRELEVANT": 1
+  },
+  "discoveredCurrentNewArticles": 0,
+  "sourceAvailabilityUnknown": [
+    "DISC0",
+    "DISC1",
+    "DISC2",
+    "DISC3",
+    "DISC4",
+    "DISC5",
+    "DISC6",
+    "DISC7",
+    "DISC9",
+    "DISC10",
+    "DISC11",
+    "DISC14"
+  ],
+  "scope": "Classifying route retrieval is not recovering unavailable historical article text or closing feature completeness."
+}

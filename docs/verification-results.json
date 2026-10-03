@@ -1,0 +1,4494 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-02T18:21:57.262Z",
+  "platform": "win32",
+  "node": "v24.19.0",
+  "status": "PASS_SCOPED_WINDOWS_REGRESSION",
+  "summary": {
+    "executed": 34,
+    "pass": 34,
+    "fail": 0,
+    "skip": 0,
+    "nativeNotRun": 45,
+    "fullRawLoadNotRun": [
+      100,
+      500,
+      1000
+    ],
+    "scope": "Windows regression only; not Native/RAW/Release PASS"
+  },
+  "commands": [
+    {
+      "command": [
+        "node",
+        "scripts/check-spec.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "PASS: 147 sections (84 basic + 16 mobile + 23 session + 24 cloud) retained and traced; 11 minimum release checks; Mobile > Web.\nPASS: frozen canonical contract hashes unchanged; each requirement maps implementation, test and evidence (unimplemented/unverified retained).\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "dist/apps/backend/tests/failures.test.js",
+        "dist/apps/backend/tests/suite.test.js",
+        "scripts/raw-harness.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "TAP version 13\n# Subtest: shared Recipe golden JSON preserves extended intent and refuses lossy/invalid input\nok 1 - shared Recipe golden JSON preserves extended intent and refuses lossy/invalid input\n  ---\n  duration_ms: 4.486\n  type: 'test'\n  ...\n# Subtest: stream interruption never publishes incomplete Original; retry resumes by reuploading safely\nok 2 - stream interruption never publishes incomplete Original; retry resumes by reuploading safely\n  ---\n  duration_ms: 10.8842\n  type: 'test'\n  ...\n# Subtest: multipart survives closing/reopening, validates identity/tenant, finalizes only all parts and retries lost acknowledgement\nok 3 - multipart survives closing/reopening, validates identity/tenant, finalizes only all parts and retries lost acknowledgement\n  ---\n  duration_ms: 91.8142\n  type: 'test'\n  ...\n# Subtest: multipart repair fetches only the damaged part, retains old bytes and does not alter healthy parts\nok 4 - multipart repair fetches only the damaged part, retains old bytes and does not alter healthy parts\n  ---\n  duration_ms: 76.7198\n  type: 'test'\n  ...\n# Subtest: ENOSPC provider fault leaves durable multipart checkpoint; retry after capacity restored\nok 5 - ENOSPC provider fault leaves durable multipart checkpoint; retry after capacity restored\n  ---\n  duration_ms: 23.5128\n  type: 'test'\n  ...\n# Subtest: actual killed child transaction rolls back; committed Recipe is readable after process termination\nok 6 - actual killed child transaction rolls back; committed Recipe is readable after process termination\n  ---\n  duration_ms: 89.582\n  type: 'test'\n  ...\n# Subtest: ordinary browsing and editing never select Original; Final always does\nok 7 - ordinary browsing and editing never select Original; Final always does\n  ---\n  duration_ms: 0.9255\n  type: 'test'\n  ...\n# Subtest: offline or failed Original acquisition waits, never produces Proxy Final\nok 8 - offline or failed Original acquisition waits, never produces Proxy Final\n  ---\n  duration_ms: 0.8336\n  type: 'test'\n  ...\n# Subtest: Proxy eviction is separate and an unsafe Original is never eligible\nok 9 - Proxy eviction is separate and an unsafe Original is never eligible\n  ---\n  duration_ms: 0.3968\n  type: 'test'\n  ...\n# Subtest: Cloud Safe requires all seven independently verified conditions\nok 10 - Cloud Safe requires all seven independently verified conditions\n  ---\n  duration_ms: 0.3173\n  type: 'test'\n  ...\n# Subtest: actual immutable object writes reject corrupt upload and preserve previous Original\nok 11 - actual immutable object writes reject corrupt upload and preserve previous Original\n  ---\n  duration_ms: 32.2797\n  type: 'test'\n  ...\n# Subtest: durable metadata, recipe CAS and soft delete survive reopening without overwriting Original\nok 12 - durable metadata, recipe CAS and soft delete survive reopening without overwriting Original\n  ---\n  duration_ms: 28.8759\n  type: 'test'\n  ...\n# Subtest: release gate excludes Web while requiring every mobile/legacy gate; unknown/expired blocks\nok 13 - release gate excludes Web while requiring every mobile/legacy gate; unknown/expired blocks\n  ---\n  duration_ms: 0.6311\n  type: 'test'\n  ...\n# Subtest: missing auth configuration fails closed instead of accepting a tenant header\nok 14 - missing auth configuration fails closed instead of accepting a tenant header\n  ---\n  duration_ms: 0.2327\n  type: 'test'\n  ...\n# Subtest: authenticated import → upload verification → recipe → on-demand Original; tenant isolation and stale edits\nok 15 - authenticated import → upload verification → recipe → on-demand Original; tenant isolation and stale edits\n  ---\n  duration_ms: 201.1959\n  type: 'test'\n  ...\n# Subtest: Mac and each real RAW load gate stay independent from iPhone/iPad device evidence\nok 16 - Mac and each real RAW load gate stay independent from iPhone/iPad device evidence\n  ---\n  duration_ms: 0.413\n  type: 'test'\n  ...\n# Subtest: path guard rejects checkout, descendants and ancestors; sibling prefix is not a descendant\nok 17 - path guard rejects checkout, descendants and ancestors; sibling prefix is not a descendant\n  ---\n  duration_ms: 6.4846\n  type: 'test'\n  ...\n# Subtest: JPEG/PNG payload detection rejects renamed images without trusting a filename\nok 18 - JPEG/PNG payload detection rejects renamed images without trusting a filename\n  ---\n  duration_ms: 0.4719\n  type: 'test'\n  ...\n# Subtest: RAF signature is 16 bytes including the trailing space; prefix alone is not accepted\nok 19 - RAF signature is 16 bytes including the trailing space; prefix alone is not accepted\n  ---\n  duration_ms: 0.1996\n  type: 'test'\n  ...\n# Subtest: absent real RAW set has null counts and is explicitly externally blocked\nok 20 - absent real RAW set has null counts and is explicitly externally blocked\n  ---\n  duration_ms: 3.3406\n  type: 'test'\n  ...\n# Subtest: empty dataset is zero observed files, not a successful 100 RAW test\nok 21 - empty dataset is zero observed files, not a successful 100 RAW test\n  ---\n  duration_ms: 2.9919\n  type: 'test'\n  ...\n# Subtest: manifest measures arbitrary test bytes exactly but rejects them as RAW\nok 22 - manifest measures arbitrary test bytes exactly but rejects them as RAW\n  ---\n  duration_ms: 9.8455\n  type: 'test'\n  ...\n# Subtest: bounded TIFF metadata reader reports only embedded tags, not camera compatibility\nok 23 - bounded TIFF metadata reader reports only embedded tags, not camera compatibility\n  ---\n  duration_ms: 5.6463\n  type: 'test'\n  ...\n# Subtest: unsupported set size is rejected instead of turning a mechanics fixture into RAW QA\nok 24 - unsupported set size is rejected instead of turning a mechanics fixture into RAW QA\n  ---\n  duration_ms: 0.8828\n  type: 'test'\n  ...\n# Subtest: pipeline without data/native adapter returns null measurements, never zero or success\nok 25 - pipeline without data/native adapter returns null measurements, never zero or success\n  ---\n  duration_ms: 1.7145\n  type: 'test'\n  ...\n# Subtest: source presence does not make an unconnected adapter an external-environment failure or success\nok 26 - source presence does not make an unconnected adapter an external-environment failure or success\n  ---\n  duration_ms: 0.2247\n  type: 'test'\n  ...\n# Subtest: adapter protocol transports explicit input, but protocol success is not RAW QA\nok 27 - adapter protocol transports explicit input, but protocol success is not RAW QA\n  ---\n  duration_ms: 73.7232\n  type: 'test'\n  ...\n# Subtest: adapter process start failure is explicit\nok 28 - adapter process start failure is explicit\n  ---\n  duration_ms: 2.5343\n  type: 'test'\n  ...\n# Subtest: adapter timeout is recorded; no completed result is fabricated\nok 29 - adapter timeout is recorded; no completed result is fabricated\n  ---\n  duration_ms: 220.1254\n  type: 'test'\n  ...\n# Subtest: adapter cancellation is recorded distinctly from timeout/failure\nok 30 - adapter cancellation is recorded distinctly from timeout/failure\n  ---\n  duration_ms: 218.8073\n  type: 'test'\n  ...\n# Subtest: invalid adapter JSON fails closed\nok 31 - invalid adapter JSON fails closed\n  ---\n  duration_ms: 66.6972\n  type: 'test'\n  ...\n# Subtest: partial last event is rejected, not silently accepted\nok 32 - partial last event is rejected, not silently accepted\n  ---\n  duration_ms: 64.1249\n  type: 'test'\n  ...\n# Subtest: missing/invalid measured values remain unverified rather than 0\nok 33 - missing/invalid measured values remain unverified rather than 0\n  ---\n  duration_ms: 0.3003\n  type: 'test'\n  ...\n# Subtest: Mac local compute evidence cannot pass full sync/restart/Cloud Safe lifecycle\nok 34 - Mac local compute evidence cannot pass full sync/restart/Cloud Safe lifecycle\n  ---\n  duration_ms: 0.3502\n  type: 'test'\n  ...\n1..34\n# tests 34\n# suites 0\n# pass 34\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 782.9186\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": [
+        "node",
+        "scripts/raw-harness.mjs",
+        "manifest",
+        "--sets",
+        "100,500,1000"
+      ],
+      "exitCode": 2,
+      "signal": null,
+      "stdout": "{\n  \"schemaVersion\": 1,\n  \"mode\": \"manifest\",\n  \"realDeviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n  \"results\": [\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"manifest-only\",\n      \"generatedAt\": \"2026-10-02T18:21:57.167Z\",\n      \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\100\",\n      \"expectedFileCount\": 100,\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"reason\": \"RAW_SET_NOT_PLACED\",\n      \"fileCount\": null,\n      \"totalBytes\": null,\n      \"averageFileSize\": null,\n      \"minFileSize\": null,\n      \"maxFileSize\": null,\n      \"manifestChecksum\": null,\n      \"rawDecoderValidation\": \"NOT_RUN\",\n      \"files\": [],\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n    },\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"manifest-only\",\n      \"generatedAt\": \"2026-10-02T18:21:57.168Z\",\n      \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\500\",\n      \"expectedFileCount\": 500,\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"reason\": \"RAW_SET_NOT_PLACED\",\n      \"fileCount\": null,\n      \"totalBytes\": null,\n      \"averageFileSize\": null,\n      \"minFileSize\": null,\n      \"maxFileSize\": null,\n      \"manifestChecksum\": null,\n      \"rawDecoderValidation\": \"NOT_RUN\",\n      \"files\": [],\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n    },\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"manifest-only\",\n      \"generatedAt\": \"2026-10-02T18:21:57.169Z\",\n      \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\1000\",\n      \"expectedFileCount\": 1000,\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"reason\": \"RAW_SET_NOT_PLACED\",\n      \"fileCount\": null,\n      \"totalBytes\": null,\n      \"averageFileSize\": null,\n      \"minFileSize\": null,\n      \"maxFileSize\": null,\n      \"manifestChecksum\": null,\n      \"rawDecoderValidation\": \"NOT_RUN\",\n      \"files\": [],\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": [
+        "node",
+        "scripts/raw-harness.mjs",
+        "pipeline",
+        "--sets",
+        "100,500,1000"
+      ],
+      "exitCode": 2,
+      "signal": null,
+      "stdout": "{\n  \"schemaVersion\": 1,\n  \"mode\": \"pipeline\",\n  \"realDeviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n  \"results\": [\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"full-pipeline\",\n      \"generatedAt\": \"2026-10-02T18:21:57.242Z\",\n      \"manifest\": {\n        \"schemaVersion\": 1,\n        \"mode\": \"manifest-only\",\n        \"generatedAt\": \"2026-10-02T18:21:57.241Z\",\n        \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\100\",\n        \"expectedFileCount\": 100,\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"reason\": \"RAW_SET_NOT_PLACED\",\n        \"fileCount\": null,\n        \"totalBytes\": null,\n        \"averageFileSize\": null,\n        \"minFileSize\": null,\n        \"maxFileSize\": null,\n        \"manifestChecksum\": null,\n        \"rawDecoderValidation\": \"NOT_RUN\",\n        \"files\": [],\n        \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n      },\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"blockers\": [\n        \"RAW_SET_NOT_PLACED\",\n        \"NOT_CONNECTED_ADAPTER\",\n        \"WORK_DIRECTORY_NOT_CONNECTED\"\n      ],\n      \"prerequisites\": {\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"externalEnvironment\": [\n          \"RAW_SET_NOT_PLACED\"\n        ],\n        \"implementation\": [],\n        \"connection\": [\n          \"NOT_CONNECTED_ADAPTER\",\n          \"WORK_DIRECTORY_NOT_CONNECTED\"\n        ],\n        \"input\": []\n      },\n      \"metrics\": {\n        \"importTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"proxyGenerationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"peakMemoryBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"diskCacheBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"dbGrowthBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuUserMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuSystemMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"concurrency\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"failureCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"retryCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"originalFetchLatencyMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"exportPreparationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cleanupRecoveryTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        }\n      },\n      \"execution\": null,\n      \"integrityAfter\": \"NOT_RUN\",\n      \"environment\": null,\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"harnessMeasurements\": {\n        \"wallTimeMs\": 2.1781000000000006,\n        \"scope\": \"HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE\"\n      },\n      \"adapterScopeNote\": \"Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.\",\n      \"developmentRemainders\": [\n        \"CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED\",\n        \"PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED\"\n      ],\n      \"note\": \"Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence.\"\n    },\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"full-pipeline\",\n      \"generatedAt\": \"2026-10-02T18:21:57.243Z\",\n      \"manifest\": {\n        \"schemaVersion\": 1,\n        \"mode\": \"manifest-only\",\n        \"generatedAt\": \"2026-10-02T18:21:57.242Z\",\n        \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\500\",\n        \"expectedFileCount\": 500,\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"reason\": \"RAW_SET_NOT_PLACED\",\n        \"fileCount\": null,\n        \"totalBytes\": null,\n        \"averageFileSize\": null,\n        \"minFileSize\": null,\n        \"maxFileSize\": null,\n        \"manifestChecksum\": null,\n        \"rawDecoderValidation\": \"NOT_RUN\",\n        \"files\": [],\n        \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n      },\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"blockers\": [\n        \"RAW_SET_NOT_PLACED\",\n        \"NOT_CONNECTED_ADAPTER\",\n        \"WORK_DIRECTORY_NOT_CONNECTED\"\n      ],\n      \"prerequisites\": {\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"externalEnvironment\": [\n          \"RAW_SET_NOT_PLACED\"\n        ],\n        \"implementation\": [],\n        \"connection\": [\n          \"NOT_CONNECTED_ADAPTER\",\n          \"WORK_DIRECTORY_NOT_CONNECTED\"\n        ],\n        \"input\": []\n      },\n      \"metrics\": {\n        \"importTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"proxyGenerationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"peakMemoryBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"diskCacheBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"dbGrowthBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuUserMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuSystemMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"concurrency\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"failureCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"retryCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"originalFetchLatencyMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"exportPreparationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cleanupRecoveryTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        }\n      },\n      \"execution\": null,\n      \"integrityAfter\": \"NOT_RUN\",\n      \"environment\": null,\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"harnessMeasurements\": {\n        \"wallTimeMs\": 0.7365999999999993,\n        \"scope\": \"HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE\"\n      },\n      \"adapterScopeNote\": \"Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.\",\n      \"developmentRemainders\": [\n        \"CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED\",\n        \"PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED\"\n      ],\n      \"note\": \"Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence.\"\n    },\n    {\n      \"schemaVersion\": 1,\n      \"mode\": \"full-pipeline\",\n      \"generatedAt\": \"2026-10-02T18:21:57.243Z\",\n      \"manifest\": {\n        \"schemaVersion\": 1,\n        \"mode\": \"manifest-only\",\n        \"generatedAt\": \"2026-10-02T18:21:57.243Z\",\n        \"datasetRoot\": \"C:\\\\Users\\\\user\\\\Documents\\\\Codex\\\\2026-10-03\\\\SUITE_TEST_DATA\\\\RAW\\\\1000\",\n        \"expectedFileCount\": 1000,\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"reason\": \"RAW_SET_NOT_PLACED\",\n        \"fileCount\": null,\n        \"totalBytes\": null,\n        \"averageFileSize\": null,\n        \"minFileSize\": null,\n        \"maxFileSize\": null,\n        \"manifestChecksum\": null,\n        \"rawDecoderValidation\": \"NOT_RUN\",\n        \"files\": [],\n        \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"note\": \"Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA.\"\n      },\n      \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"blockers\": [\n        \"RAW_SET_NOT_PLACED\",\n        \"NOT_CONNECTED_ADAPTER\",\n        \"WORK_DIRECTORY_NOT_CONNECTED\"\n      ],\n      \"prerequisites\": {\n        \"status\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n        \"externalEnvironment\": [\n          \"RAW_SET_NOT_PLACED\"\n        ],\n        \"implementation\": [],\n        \"connection\": [\n          \"NOT_CONNECTED_ADAPTER\",\n          \"WORK_DIRECTORY_NOT_CONNECTED\"\n        ],\n        \"input\": []\n      },\n      \"metrics\": {\n        \"importTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"proxyGenerationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"peakMemoryBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"diskCacheBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"dbGrowthBytes\": {\n          \"value\": null,\n          \"unit\": \"bytes\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuUserMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cpuSystemMicros\": {\n          \"value\": null,\n          \"unit\": \"microseconds\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"concurrency\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"failureCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"retryCount\": {\n          \"value\": null,\n          \"unit\": \"count\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"originalFetchLatencyMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"exportPreparationTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        },\n        \"cleanupRecoveryTimeMs\": {\n          \"value\": null,\n          \"unit\": \"ms\",\n          \"status\": \"UNVERIFIED\",\n          \"reason\": \"MEASUREMENT_NOT_RUN\"\n        }\n      },\n      \"execution\": null,\n      \"integrityAfter\": \"NOT_RUN\",\n      \"environment\": null,\n      \"deviceQA\": \"BLOCKED_EXTERNAL_ENVIRONMENT\",\n      \"harnessMeasurements\": {\n        \"wallTimeMs\": 0.590799999999998,\n        \"scope\": \"HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE\"\n      },\n      \"adapterScopeNote\": \"Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.\",\n      \"developmentRemainders\": [\n        \"CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED\",\n        \"PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED\"\n      ],\n      \"note\": \"Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence.\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "testCatalog": [
+    {
+      "file": "apps/apple/Tests/PhotoPipelineTests.swift",
+      "name": "testImportPreviewAndFullExportPreserveOriginal",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-001"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "shared Recipe golden JSON preserves extended intent and refuses lossy/invalid input",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-001"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "stream interruption never publishes incomplete Original; retry resumes by reuploading safely",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-002"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "multipart survives closing/reopening, validates identity/tenant, finalizes only all parts and retries lost acknowledgement",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-003"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "multipart repair fetches only the damaged part, retains old bytes and does not alter healthy parts",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-004"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "ENOSPC provider fault leaves durable multipart checkpoint; retry after capacity restored",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-005"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "name": "actual killed child transaction rolls back; committed Recipe is readable after process termination",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-006"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "ordinary browsing and editing never select Original; Final always does",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-007"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "offline or failed Original acquisition waits, never produces Proxy Final",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-008"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "Proxy eviction is separate and an unsafe Original is never eligible",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-009"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "Cloud Safe requires all seven independently verified conditions",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-010"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "actual immutable object writes reject corrupt upload and preserve previous Original",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-011"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "durable metadata, recipe CAS and soft delete survive reopening without overwriting Original",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-012"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "release gate excludes Web while requiring every mobile/legacy gate; unknown/expired blocks",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-013"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "missing auth configuration fails closed instead of accepting a tenant header",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-014"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "authenticated import → upload verification → recipe → on-demand Original; tenant isolation and stale edits",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-015"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "name": "Mac and each real RAW load gate stay independent from iPhone/iPad device evidence",
+      "status": "PASS",
+      "scope": "WINDOWS_BACKEND_NOT_IOS",
+      "id": "WIN-016"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testCapabilityInventoryIsCompleteButUnconnected",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-002"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testOfflineUsesEligibleLocalRouteAndDoesNotInventCloudSuccess",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-003"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testPrivacyPreventsCloudDespiteCriticalHeat",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-004"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testHeatChangesRouteAndThrottlesConcurrency",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-005"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testMemoryAndQualityAreHardGates",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-006"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testInvalidResourceAndEstimateRejected",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-007"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testProxyRespectsConfiguredTierMemoryAndHeat",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-008"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testJobResumePreservesInputAndRejectsRegressingProgress",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-009"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testReleaseGateRejectsMissingExpiredUnknownWrongBuildAndDuplicateProof",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-010"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testRetryRetainsCheckpointAndIdempotencyIdentity",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-011"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testMobileReleaseBlocksEveryUnmeasuredMacRAWAndLifecycleGate",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-012"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "name": "testMacAndRAWProofsCannotSatisfyEitherPhysicalDeviceGate",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-013"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "name": "testLibraryNeverRequestsHighPreviewEvenOnFastLargeDevice",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-014"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "name": "testZoomAndDeviceChooseConfiguredQualityWithoutOriginalFallback",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-015"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "name": "testOfflineUsesCachedProxyAndPixelInspectionDoesNotPretendLowResolutionIsFinal",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-016"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "name": "testOnlyExplicitFinalOriginalTargetsArePromoted",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-017"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "name": "testCellularRequiresExplicitOptInAndPauseOrUnknownNeverTransfer",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-018"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testUndoRedoAndNewEditDiscardOnlyAbandonedBranch",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-019"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testExtendedRAWAndAIParametersSurviveHistoryRoundTrip",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-020"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testHistoryRejectsEmptyOrOutOfBoundsCursorAndUnknownFields",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-021"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testStoreRoundTripPreservesRedoAndOriginalBinary",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-022"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testStaleCASAndInvalidRevisionNeverReplaceSavedCheckpoint",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-023"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testTwoStoreInstancesCannotBothWinSameExpectedRevision",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-024"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testCorruptionAndUnknownSchemaAreNotEmptySuccessOrOverwritten",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-025"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "name": "testInvalidPathChecksumAndOriginalMutationAreRejected",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-026"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testOrdinaryWorkflowNeverRequestsOriginalAndFinalAlwaysDoes",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-027"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testCloudSafetyIsFailClosedAndBindsAssetRepresentationChecksumAndExpiry",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-028"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testFinalWaitsForOriginalAcrossOfflineDownloadFailureAndChecksumFailure",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-029"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testProxyEvictionCannotAuthorizeOriginalOrRecipeDeletion",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-030"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testCanonicalGenerationIsProtectedEvenIfCallerMarksItRegenerable",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-031"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testExportFreezesInputRecipeAndRejectsOriginalOverwriteDestination",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-032"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testSupportedCameraRequiresHardwareEvidence",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-033"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "name": "testOldCloudEvidenceWithoutNewGatesDecodesUnknownAndCannotEvictOriginal",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-034"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+      "name": "testGoldenFixtureRoundTripsAsIdenticalPlainJSON",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-035"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+      "name": "testPortableValueEncodingHasNoEnumEnvelopeAndRejectsNull",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-036"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+      "name": "testDocumentRejectsUnknownVersionUnknownFieldsAndUnsafeInteger",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-037"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testFiveModesAndNonDestructiveMetadataRoundTripWithoutNumericModeDefaults",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-038"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testLookUpdateOnlyAffectsFutureCaptureAndDuplicateIngestKeepsOriginalBinding",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-039"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testExplicitPastReapplyCreatesNewBindingWithoutOverwritingHistory",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-040"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testUnconnectedAndMissingAnalysisNeverClaimAppliedSuccess",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-041"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testTargetsArePersonSpecificAndBodyRequiresBackgroundProtection",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-042"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testOtherPhotoAnalysisAndFixedReferenceMasksCannotBeReused",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-043"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testAutoOffPhotoAndPersonExclusionsAndIndependentCategorySwitches",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-044"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "name": "testPersonalColorIsOptionalAndCannotSpecifyShapeOrUnacceptedAutomaticSelection",
+      "status": "NOT_RUN",
+      "reason": "BLOCKED_EXTERNAL_ENVIRONMENT: Swift/Xcode/Mac unavailable",
+      "scope": "SWIFT_NATIVE_NOT_EXECUTED",
+      "id": "NAT-045"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "path guard rejects checkout, descendants and ancestors; sibling prefix is not a descendant",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-017"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "JPEG/PNG payload detection rejects renamed images without trusting a filename",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-018"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "RAF signature is 16 bytes including the trailing space; prefix alone is not accepted",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-019"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "absent real RAW set has null counts and is explicitly externally blocked",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-020"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "empty dataset is zero observed files, not a successful 100 RAW test",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-021"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "manifest measures arbitrary test bytes exactly but rejects them as RAW",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-022"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "bounded TIFF metadata reader reports only embedded tags, not camera compatibility",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-023"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "unsupported set size is rejected instead of turning a mechanics fixture into RAW QA",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-024"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "pipeline without data/native adapter returns null measurements, never zero or success",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-025"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "source presence does not make an unconnected adapter an external-environment failure or success",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-026"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "adapter protocol transports explicit input, but protocol success is not RAW QA",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-027"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "adapter process start failure is explicit",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-028"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "adapter timeout is recorded; no completed result is fabricated",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-029"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "adapter cancellation is recorded distinctly from timeout/failure",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-030"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "invalid adapter JSON fails closed",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-031"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "partial last event is rejected, not silently accepted",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-032"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "missing/invalid measured values remain unverified rather than 0",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-033"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "name": "Mac local compute evidence cannot pass full sync/restart/Cloud Safe lifecycle",
+      "status": "PASS",
+      "scope": "HARNESS_MECHANICS_NOT_RAW",
+      "id": "WIN-034"
+    }
+  ],
+  "rawResults": [
+    {
+      "mode": "manifest",
+      "count": 100,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "manifest-only",
+        "generatedAt": "2026-10-02T18:21:57.167Z",
+        "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\100",
+        "expectedFileCount": 100,
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "reason": "RAW_SET_NOT_PLACED",
+        "fileCount": null,
+        "totalBytes": null,
+        "averageFileSize": null,
+        "minFileSize": null,
+        "maxFileSize": null,
+        "manifestChecksum": null,
+        "rawDecoderValidation": "NOT_RUN",
+        "files": [],
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    },
+    {
+      "mode": "manifest",
+      "count": 500,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "manifest-only",
+        "generatedAt": "2026-10-02T18:21:57.168Z",
+        "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\500",
+        "expectedFileCount": 500,
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "reason": "RAW_SET_NOT_PLACED",
+        "fileCount": null,
+        "totalBytes": null,
+        "averageFileSize": null,
+        "minFileSize": null,
+        "maxFileSize": null,
+        "manifestChecksum": null,
+        "rawDecoderValidation": "NOT_RUN",
+        "files": [],
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    },
+    {
+      "mode": "manifest",
+      "count": 1000,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "manifest-only",
+        "generatedAt": "2026-10-02T18:21:57.169Z",
+        "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\1000",
+        "expectedFileCount": 1000,
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "reason": "RAW_SET_NOT_PLACED",
+        "fileCount": null,
+        "totalBytes": null,
+        "averageFileSize": null,
+        "minFileSize": null,
+        "maxFileSize": null,
+        "manifestChecksum": null,
+        "rawDecoderValidation": "NOT_RUN",
+        "files": [],
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    },
+    {
+      "mode": "pipeline",
+      "count": 100,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "full-pipeline",
+        "generatedAt": "2026-10-02T18:21:57.242Z",
+        "manifest": {
+          "schemaVersion": 1,
+          "mode": "manifest-only",
+          "generatedAt": "2026-10-02T18:21:57.241Z",
+          "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\100",
+          "expectedFileCount": 100,
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "reason": "RAW_SET_NOT_PLACED",
+          "fileCount": null,
+          "totalBytes": null,
+          "averageFileSize": null,
+          "minFileSize": null,
+          "maxFileSize": null,
+          "manifestChecksum": null,
+          "rawDecoderValidation": "NOT_RUN",
+          "files": [],
+          "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+        },
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "blockers": [
+          "RAW_SET_NOT_PLACED",
+          "NOT_CONNECTED_ADAPTER",
+          "WORK_DIRECTORY_NOT_CONNECTED"
+        ],
+        "prerequisites": {
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "externalEnvironment": [
+            "RAW_SET_NOT_PLACED"
+          ],
+          "implementation": [],
+          "connection": [
+            "NOT_CONNECTED_ADAPTER",
+            "WORK_DIRECTORY_NOT_CONNECTED"
+          ],
+          "input": []
+        },
+        "metrics": {
+          "importTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "proxyGenerationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "peakMemoryBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "diskCacheBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "dbGrowthBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuUserMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuSystemMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "concurrency": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "failureCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "retryCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "originalFetchLatencyMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "exportPreparationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cleanupRecoveryTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          }
+        },
+        "execution": null,
+        "integrityAfter": "NOT_RUN",
+        "environment": null,
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "harnessMeasurements": {
+          "wallTimeMs": 2.1781000000000006,
+          "scope": "HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE"
+        },
+        "adapterScopeNote": "Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.",
+        "developmentRemainders": [
+          "CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED",
+          "PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED"
+        ],
+        "note": "Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    },
+    {
+      "mode": "pipeline",
+      "count": 500,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "full-pipeline",
+        "generatedAt": "2026-10-02T18:21:57.243Z",
+        "manifest": {
+          "schemaVersion": 1,
+          "mode": "manifest-only",
+          "generatedAt": "2026-10-02T18:21:57.242Z",
+          "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\500",
+          "expectedFileCount": 500,
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "reason": "RAW_SET_NOT_PLACED",
+          "fileCount": null,
+          "totalBytes": null,
+          "averageFileSize": null,
+          "minFileSize": null,
+          "maxFileSize": null,
+          "manifestChecksum": null,
+          "rawDecoderValidation": "NOT_RUN",
+          "files": [],
+          "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+        },
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "blockers": [
+          "RAW_SET_NOT_PLACED",
+          "NOT_CONNECTED_ADAPTER",
+          "WORK_DIRECTORY_NOT_CONNECTED"
+        ],
+        "prerequisites": {
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "externalEnvironment": [
+            "RAW_SET_NOT_PLACED"
+          ],
+          "implementation": [],
+          "connection": [
+            "NOT_CONNECTED_ADAPTER",
+            "WORK_DIRECTORY_NOT_CONNECTED"
+          ],
+          "input": []
+        },
+        "metrics": {
+          "importTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "proxyGenerationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "peakMemoryBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "diskCacheBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "dbGrowthBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuUserMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuSystemMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "concurrency": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "failureCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "retryCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "originalFetchLatencyMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "exportPreparationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cleanupRecoveryTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          }
+        },
+        "execution": null,
+        "integrityAfter": "NOT_RUN",
+        "environment": null,
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "harnessMeasurements": {
+          "wallTimeMs": 0.7365999999999993,
+          "scope": "HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE"
+        },
+        "adapterScopeNote": "Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.",
+        "developmentRemainders": [
+          "CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED",
+          "PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED"
+        ],
+        "note": "Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    },
+    {
+      "mode": "pipeline",
+      "count": 1000,
+      "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+      "result": {
+        "schemaVersion": 1,
+        "mode": "full-pipeline",
+        "generatedAt": "2026-10-02T18:21:57.243Z",
+        "manifest": {
+          "schemaVersion": 1,
+          "mode": "manifest-only",
+          "generatedAt": "2026-10-02T18:21:57.243Z",
+          "datasetRoot": "C:\\Users\\user\\Documents\\Codex\\2026-10-03\\SUITE_TEST_DATA\\RAW\\1000",
+          "expectedFileCount": 1000,
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "reason": "RAW_SET_NOT_PLACED",
+          "fileCount": null,
+          "totalBytes": null,
+          "averageFileSize": null,
+          "minFileSize": null,
+          "maxFileSize": null,
+          "manifestChecksum": null,
+          "rawDecoderValidation": "NOT_RUN",
+          "files": [],
+          "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "note": "Manifest/container inspection is not RAW decoding, load-test success, or iPhone/iPad QA."
+        },
+        "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "blockers": [
+          "RAW_SET_NOT_PLACED",
+          "NOT_CONNECTED_ADAPTER",
+          "WORK_DIRECTORY_NOT_CONNECTED"
+        ],
+        "prerequisites": {
+          "status": "BLOCKED_EXTERNAL_ENVIRONMENT",
+          "externalEnvironment": [
+            "RAW_SET_NOT_PLACED"
+          ],
+          "implementation": [],
+          "connection": [
+            "NOT_CONNECTED_ADAPTER",
+            "WORK_DIRECTORY_NOT_CONNECTED"
+          ],
+          "input": []
+        },
+        "metrics": {
+          "importTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "proxyGenerationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "peakMemoryBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "diskCacheBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "dbGrowthBytes": {
+            "value": null,
+            "unit": "bytes",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuUserMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cpuSystemMicros": {
+            "value": null,
+            "unit": "microseconds",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "concurrency": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "failureCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "retryCount": {
+            "value": null,
+            "unit": "count",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "originalFetchLatencyMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "exportPreparationTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          },
+          "cleanupRecoveryTimeMs": {
+            "value": null,
+            "unit": "ms",
+            "status": "UNVERIFIED",
+            "reason": "MEASUREMENT_NOT_RUN"
+          }
+        },
+        "execution": null,
+        "integrityAfter": "NOT_RUN",
+        "environment": null,
+        "deviceQA": "BLOCKED_EXTERNAL_ENVIRONMENT",
+        "harnessMeasurements": {
+          "wallTimeMs": 0.590799999999998,
+          "scope": "HARNESS_ONLY_NOT_DEVICE_OR_PIPELINE"
+        },
+        "adapterScopeNote": "Mac-local QA adapter source is present; source/configuration does not prove build or execution. Local compute alone cannot pass sync, recipeSave, restartRecovery and cloudSafe lifecycle requirements. Metadata reopen is not restart recovery. Cloud fetch and physical iPhone/iPad QA adapters are not implemented.",
+        "developmentRemainders": [
+          "CLOUD_FETCH_QA_ADAPTER_UNIMPLEMENTED",
+          "PHYSICAL_IPHONE_IPAD_QA_ADAPTER_UNIMPLEMENTED"
+        ],
+        "note": "Batch pipeline evidence is not complete iPhone/iPad QA. Device lock, thermal, permissions and T01–T30 require separate execution evidence."
+      },
+      "lifecycle": {
+        "import": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "proxyGeneration": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "sync": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "recipeSave": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "restartRecovery": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "cloudSafe": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        },
+        "export": {
+          "status": "NOT_RUN",
+          "reason": "実RAW未配置のため未実施。Mac未実行・full sync/device adapter未接続も独立Gate。"
+        }
+      }
+    }
+  ],
+  "sourceHashes": [
+    {
+      "file": "apps/apple/Package.swift",
+      "sha256": "743f08e0eede9daac5af5de63a013112ecda5f7e3707fbbd8e703baae38c897b"
+    },
+    {
+      "file": "apps/apple/QA/RawQAAdapter.swift",
+      "sha256": "0d05917eac09c047d9e0dfa705a70fb3cdc290f2d9d511aeb2da2be434b366ad"
+    },
+    {
+      "file": "apps/apple/Suite/EditorModel.swift",
+      "sha256": "83f0c88332aa3d003703ce8f06a2df4fae8b8b8665eafe4044fe3f7e5984c5b8"
+    },
+    {
+      "file": "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+      "sha256": "3fe6c4143c5c39e3dd65dd8955e1c1e824c267f0d2e91e97add4dec92da171a8"
+    },
+    {
+      "file": "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+      "sha256": "1b59cdeec101020858c495bf8ad177bfa41c604903f06ac89ba5a690aba711a7"
+    },
+    {
+      "file": "apps/apple/Suite/Services/CloudTransferCoordinator.swift",
+      "sha256": "f7ae44be09a5ec1ad4df4d054eb9427889cc0f48918907623f45a7ba6218d309"
+    },
+    {
+      "file": "apps/apple/Suite/Services/PhotoPipeline.swift",
+      "sha256": "9e30cc669404578bddeb781d238a077eff9ef42b0b0b23dcd251e9fe577b011f"
+    },
+    {
+      "file": "apps/apple/Suite/Services/SuiteBackendClient.swift",
+      "sha256": "84d8ee2922404c064ad181f6fca10a8334e5ab394887efaf54a190396bd66d25"
+    },
+    {
+      "file": "apps/apple/Suite/Shared/EditorComponents.swift",
+      "sha256": "a0f373ce7322b6b900eb0ef9c420e0c8feead82f98bd5922f9d7ff428658c058"
+    },
+    {
+      "file": "apps/apple/Suite/SuiteApp.swift",
+      "sha256": "361d19f43de3159a3254283486b5bfacf0aac839d5a132b4916c942902a8213e"
+    },
+    {
+      "file": "apps/apple/Tests/PhotoPipelineTests.swift",
+      "sha256": "c2379638b8d205a2f282c59af0e551fcfb7a9f6e422195854775108ce597fe59"
+    },
+    {
+      "file": "apps/apple/project.yml",
+      "sha256": "183d40d8635db8f8dce682c21bb00ee13dea52706e8dde2556888753b8467ce2"
+    },
+    {
+      "file": "apps/backend/src/auth.ts",
+      "sha256": "52af9877534c4513861fec54ccca82ac01ee86e4e38de479961f2c9cf424bb4b"
+    },
+    {
+      "file": "apps/backend/src/gates.ts",
+      "sha256": "d60f0b2cdc14e359ab46e62e06253d381710264a4fa21293927cd1e5fbdc99e3"
+    },
+    {
+      "file": "apps/backend/src/multipart.ts",
+      "sha256": "620e8ee5da87d217c89680a73043ace61933ed097deb1da955545761ef47b68e"
+    },
+    {
+      "file": "apps/backend/src/object-provider.ts",
+      "sha256": "2afa90763289da61108b050502d45a570852c53faf0de61981c1f7486d054be2"
+    },
+    {
+      "file": "apps/backend/src/photo-policy.ts",
+      "sha256": "70e4a66f013fb6f3722bf376f739078e4fa7b703753f54fcc1cc495549bbb09c"
+    },
+    {
+      "file": "apps/backend/src/repository.ts",
+      "sha256": "c0eca36394fed25638d6719ec4b28137b503dda692d09432ed01ef265ac3f3c7"
+    },
+    {
+      "file": "apps/backend/src/server.ts",
+      "sha256": "4296b771f53c5282591c59202389910c22bf945a7284f10bc6ec8ae29c46d1a0"
+    },
+    {
+      "file": "apps/backend/src/storage.ts",
+      "sha256": "018cf5d01b78e3938d0e01e1f40bac1f220901c7b71ea7e534fb3c794aaee0b9"
+    },
+    {
+      "file": "apps/backend/tests/failures.test.ts",
+      "sha256": "b632a099f98b9bed2f8b4a67134ca5e5dd0c454d8647359bb0402b1052412b77"
+    },
+    {
+      "file": "apps/backend/tests/suite.test.ts",
+      "sha256": "cc2970fb7e1c5c0f08367768e88ec26ea37a92d62b77d0ea377bc260cc777e55"
+    },
+    {
+      "file": "contracts/frozen.sha256.json",
+      "sha256": "678392c6dbf7558c87e729546c1ae43bbfad27335e50f6f448a3397de3fb01e9"
+    },
+    {
+      "file": "contracts/recipe-v1.example.json",
+      "sha256": "91313f8445a5bf4fe3e7085f00bf6ca22a9d7b427b3a218423f4434ab1ebf272"
+    },
+    {
+      "file": "contracts/recipe-v1.schema.json",
+      "sha256": "12aea532d3dbac0fb7e81e7be761a682ef6545219dea7e4d9ec392958c6e16fa"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "2f5b88395756d7a0a9945181929a3603220821d73f447957f57830acdf0a986e"
+    },
+    {
+      "file": "package.json",
+      "sha256": "4558d6156c44e9686e2ed4314e9f11dc940521acebd989ca98f3c88f2a7a6c5a"
+    },
+    {
+      "file": "packages/METISMobileCore/Package.swift",
+      "sha256": "6ee7447dca38c1df796c0005eecf56abbdc234173e8fd3f3b5c648c64ecbc8f9"
+    },
+    {
+      "file": "packages/METISMobileCore/Sources/METISMobileCore/Capabilities.swift",
+      "sha256": "e13cfa89fcc8f05667165772dcdea7d321c9ac343fb56f5475d30c1a7bebb6ab"
+    },
+    {
+      "file": "packages/METISMobileCore/Sources/METISMobileCore/ExecutionPolicy.swift",
+      "sha256": "686895226a10965f7f8a8fb572647f81582cc24ee5591efe7d9ef7a1b5be8e0f"
+    },
+    {
+      "file": "packages/METISMobileCore/Sources/METISMobileCore/JobCheckpoint.swift",
+      "sha256": "ee8640ec0a59171f8202a3dff716a0a62884d058eaf642082f4f33ba1a990a76"
+    },
+    {
+      "file": "packages/METISMobileCore/Sources/METISMobileCore/ProxyPolicy.swift",
+      "sha256": "07a451224d7853db175082947405e04aa73fb29125b6388204bf7d035e1a794b"
+    },
+    {
+      "file": "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift",
+      "sha256": "8497d4a6ed8e486b93a4e9353bcb9e42e3a1b124a1c6121b2c1e81f8f558fb45"
+    },
+    {
+      "file": "packages/METISMobileCore/Tests/METISMobileCoreTests/MobileCoreTests.swift",
+      "sha256": "eb32b62099d4eb72486437265c5b420185da5a33d8adef9935aeea9d6413efdc"
+    },
+    {
+      "file": "packages/SuiteCore/Package.swift",
+      "sha256": "b7c33fc1f28c1692012e02773c025545a39bd7781629620633d9293166f2b260"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+      "sha256": "91f2c62438d9587f0ef5f1ea89f5f5b3b193d5bd1d8ec3b60c972824e210ed0b"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+      "sha256": "189e5b38da709dbb3ebdb087447009b89f61f9890b370fd0c306462202734dfa"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Project.swift",
+      "sha256": "cac8605e97e65092e4a2745aa8686d4891e744cbad2e93e7cf4a7fc627d57c04"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+      "sha256": "9aa42eb44d1fe91293b2a60b7410af9b930a0e77422c1e68e4c9e23852d3723a"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Providers.swift",
+      "sha256": "7f1c0fcfdf1b83193beb1d851a09d6fdde768f813481720912bc8b80a0098829"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+      "sha256": "edb8e3fe98ad84819e02d45c9eb73071bf0d9da8fc279d007cfacb93446af08e"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift",
+      "sha256": "cdfd3983d74a159d0316e89bbf3ef62bf8193c31c601fe718e6e609107d35b3e"
+    },
+    {
+      "file": "packages/SuiteCore/Sources/SuiteCore/SessionLookPlanning.swift",
+      "sha256": "2ba50acda6083e4bd759f523c275df9489247dc9a14eb06ed879da89a6b2bc9c"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/CloudTransferPolicyTests.swift",
+      "sha256": "6bc4447f9ceaa4ce3d727a19257f1900d9ecd076f62999471f21d5784c272bbe"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/EditingAndStoreTests.swift",
+      "sha256": "7d6bea4e863ef824da6c5e07fdde1a5db86f22dd065ba96b0c05763d141c5b2c"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/PhotoLifecycleTests.swift",
+      "sha256": "7803df93f887061ca1f74e88f3d2150657a676d78e525a85eae8cc6f3f3e61eb"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/RecipeDocumentTests.swift",
+      "sha256": "7cde04b097205cda02afb4cb07839582c4a6bc0f2811bff35b73f906f4c48a3d"
+    },
+    {
+      "file": "packages/SuiteCore/Tests/SuiteCoreTests/SessionLookTests.swift",
+      "sha256": "bc9a3301b62346d03f2c9c37d2c5385257740070430bff0d6e4b933f6a236f66"
+    },
+    {
+      "file": "scripts/check-spec.mjs",
+      "sha256": "b505c5fead788ea1b54b3466d89985ad365bfcb6e459871d5320c13c7929ce6f"
+    },
+    {
+      "file": "scripts/final-regression.mjs",
+      "sha256": "9d6afbb90669a1f1ac1d7b346fe796aef5324ff9654f4790852465acdd3f0d69"
+    },
+    {
+      "file": "scripts/raw-harness.mjs",
+      "sha256": "a241f2953c123c1d35b5ace3018e0ebda43a23718b22f46ed0573b516ff38c17"
+    },
+    {
+      "file": "scripts/raw-harness.test.mjs",
+      "sha256": "41f24bcc63633a3f521ff65184e0b8126c913983061a5f7c4da7e014c0f13561"
+    }
+  ],
+  "requirements": {
+    "SPEC-001": {
+      "source": "SUITE_SPEC.md",
+      "section": 1,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-001"
+    },
+    "SPEC-002": {
+      "source": "SUITE_SPEC.md",
+      "section": 2,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-002"
+    },
+    "SPEC-003": {
+      "source": "SUITE_SPEC.md",
+      "section": 3,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/METISMobileCore/Sources/METISMobileCore"
+      ],
+      "testIDs": [
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-003"
+    },
+    "SPEC-004": {
+      "source": "SUITE_SPEC.md",
+      "section": 4,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-004"
+    },
+    "SPEC-005": {
+      "source": "SUITE_SPEC.md",
+      "section": 5,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-005"
+    },
+    "SPEC-006": {
+      "source": "SUITE_SPEC.md",
+      "section": 6,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-006"
+    },
+    "SPEC-007": {
+      "source": "SUITE_SPEC.md",
+      "section": 7,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-007"
+    },
+    "SPEC-008": {
+      "source": "SUITE_SPEC.md",
+      "section": 8,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-008"
+    },
+    "SPEC-009": {
+      "source": "SUITE_SPEC.md",
+      "section": 9,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-009"
+    },
+    "SPEC-010": {
+      "source": "SUITE_SPEC.md",
+      "section": 10,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-027",
+        "NAT-028",
+        "NAT-029",
+        "NAT-030",
+        "NAT-031",
+        "NAT-032",
+        "NAT-033",
+        "NAT-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-010"
+    },
+    "SPEC-011": {
+      "source": "SUITE_SPEC.md",
+      "section": 11,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-011"
+    },
+    "SPEC-012": {
+      "source": "SUITE_SPEC.md",
+      "section": 12,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-012"
+    },
+    "SPEC-013": {
+      "source": "SUITE_SPEC.md",
+      "section": 13,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-013"
+    },
+    "SPEC-014": {
+      "source": "SUITE_SPEC.md",
+      "section": 14,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-014"
+    },
+    "SPEC-015": {
+      "source": "SUITE_SPEC.md",
+      "section": 15,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-015"
+    },
+    "SPEC-016": {
+      "source": "SUITE_SPEC.md",
+      "section": 16,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-016"
+    },
+    "SPEC-017": {
+      "source": "SUITE_SPEC.md",
+      "section": 17,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-017"
+    },
+    "SPEC-018": {
+      "source": "SUITE_SPEC.md",
+      "section": 18,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-018"
+    },
+    "SPEC-019": {
+      "source": "SUITE_SPEC.md",
+      "section": 19,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-019"
+    },
+    "SPEC-020": {
+      "source": "SUITE_SPEC.md",
+      "section": 20,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-027",
+        "NAT-028",
+        "NAT-029",
+        "NAT-030",
+        "NAT-031",
+        "NAT-032",
+        "NAT-033",
+        "NAT-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-020"
+    },
+    "SPEC-021": {
+      "source": "SUITE_SPEC.md",
+      "section": 21,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-021"
+    },
+    "SPEC-022": {
+      "source": "SUITE_SPEC.md",
+      "section": 22,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-022"
+    },
+    "SPEC-023": {
+      "source": "SUITE_SPEC.md",
+      "section": 23,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-023"
+    },
+    "SPEC-024": {
+      "source": "SUITE_SPEC.md",
+      "section": 24,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-024"
+    },
+    "SPEC-025": {
+      "source": "SUITE_SPEC.md",
+      "section": 25,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-025"
+    },
+    "SPEC-026": {
+      "source": "SUITE_SPEC.md",
+      "section": 26,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-026"
+    },
+    "SPEC-027": {
+      "source": "SUITE_SPEC.md",
+      "section": 27,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-027"
+    },
+    "SPEC-028": {
+      "source": "SUITE_SPEC.md",
+      "section": 28,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-028"
+    },
+    "SPEC-029": {
+      "source": "SUITE_SPEC.md",
+      "section": 29,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-029"
+    },
+    "SPEC-030": {
+      "source": "SUITE_SPEC.md",
+      "section": 30,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-030"
+    },
+    "SPEC-031": {
+      "source": "SUITE_SPEC.md",
+      "section": 31,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-031"
+    },
+    "SPEC-032": {
+      "source": "SUITE_SPEC.md",
+      "section": 32,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-032"
+    },
+    "SPEC-033": {
+      "source": "SUITE_SPEC.md",
+      "section": 33,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-033"
+    },
+    "SPEC-034": {
+      "source": "SUITE_SPEC.md",
+      "section": 34,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-034"
+    },
+    "SPEC-035": {
+      "source": "SUITE_SPEC.md",
+      "section": 35,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-035"
+    },
+    "SPEC-036": {
+      "source": "SUITE_SPEC.md",
+      "section": 36,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-036"
+    },
+    "SPEC-037": {
+      "source": "SUITE_SPEC.md",
+      "section": 37,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/auth.ts",
+        "apps/backend/src/server.ts"
+      ],
+      "testIDs": [
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-037"
+    },
+    "SPEC-038": {
+      "source": "SUITE_SPEC.md",
+      "section": 38,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-038"
+    },
+    "SPEC-039": {
+      "source": "SUITE_SPEC.md",
+      "section": 39,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-039"
+    },
+    "SPEC-040": {
+      "source": "SUITE_SPEC.md",
+      "section": 40,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-027",
+        "NAT-028",
+        "NAT-029",
+        "NAT-030",
+        "NAT-031",
+        "NAT-032",
+        "NAT-033",
+        "NAT-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-040"
+    },
+    "SPEC-041": {
+      "source": "SUITE_SPEC.md",
+      "section": 41,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-041"
+    },
+    "SPEC-042": {
+      "source": "SUITE_SPEC.md",
+      "section": 42,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-042"
+    },
+    "SPEC-043": {
+      "source": "SUITE_SPEC.md",
+      "section": 43,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-043"
+    },
+    "SPEC-044": {
+      "source": "SUITE_SPEC.md",
+      "section": 44,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-044"
+    },
+    "SPEC-045": {
+      "source": "SUITE_SPEC.md",
+      "section": 45,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-045"
+    },
+    "SPEC-046": {
+      "source": "SUITE_SPEC.md",
+      "section": 46,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-046"
+    },
+    "SPEC-047": {
+      "source": "SUITE_SPEC.md",
+      "section": 47,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-047"
+    },
+    "SPEC-048": {
+      "source": "SUITE_SPEC.md",
+      "section": 48,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-048"
+    },
+    "SPEC-049": {
+      "source": "SUITE_SPEC.md",
+      "section": 49,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-049"
+    },
+    "SPEC-050": {
+      "source": "SUITE_SPEC.md",
+      "section": 50,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-050"
+    },
+    "SPEC-051": {
+      "source": "SUITE_SPEC.md",
+      "section": 51,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-051"
+    },
+    "SPEC-052": {
+      "source": "SUITE_SPEC.md",
+      "section": 52,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-052"
+    },
+    "SPEC-053": {
+      "source": "SUITE_SPEC.md",
+      "section": 53,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-053"
+    },
+    "SPEC-054": {
+      "source": "SUITE_SPEC.md",
+      "section": 54,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-054"
+    },
+    "SPEC-055": {
+      "source": "SUITE_SPEC.md",
+      "section": 55,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-055"
+    },
+    "SPEC-056": {
+      "source": "SUITE_SPEC.md",
+      "section": 56,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/METISMobileCore/Sources/METISMobileCore"
+      ],
+      "testIDs": [
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-056"
+    },
+    "SPEC-057": {
+      "source": "SUITE_SPEC.md",
+      "section": 57,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/METISMobileCore/Sources/METISMobileCore"
+      ],
+      "testIDs": [
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-057"
+    },
+    "SPEC-058": {
+      "source": "SUITE_SPEC.md",
+      "section": 58,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "scripts/raw-harness.mjs",
+        "apps/apple/QA/RawQAAdapter.swift"
+      ],
+      "testIDs": [
+        "WIN-017",
+        "WIN-018",
+        "WIN-019",
+        "WIN-020",
+        "WIN-021",
+        "WIN-022",
+        "WIN-023",
+        "WIN-024",
+        "WIN-025",
+        "WIN-026",
+        "WIN-027",
+        "WIN-028",
+        "WIN-029",
+        "WIN-030",
+        "WIN-031",
+        "WIN-032",
+        "WIN-033",
+        "WIN-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_HARNESS_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-058"
+    },
+    "SPEC-059": {
+      "source": "SUITE_SPEC.md",
+      "section": 59,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/auth.ts",
+        "apps/backend/src/server.ts"
+      ],
+      "testIDs": [
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-059"
+    },
+    "SPEC-060": {
+      "source": "SUITE_SPEC.md",
+      "section": 60,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-060"
+    },
+    "SPEC-061": {
+      "source": "SUITE_SPEC.md",
+      "section": 61,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-061"
+    },
+    "SPEC-062": {
+      "source": "SUITE_SPEC.md",
+      "section": 62,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-062"
+    },
+    "SPEC-063": {
+      "source": "SUITE_SPEC.md",
+      "section": 63,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-063"
+    },
+    "SPEC-064": {
+      "source": "SUITE_SPEC.md",
+      "section": 64,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-064"
+    },
+    "SPEC-065": {
+      "source": "SUITE_SPEC.md",
+      "section": 65,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-065"
+    },
+    "SPEC-066": {
+      "source": "SUITE_SPEC.md",
+      "section": 66,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-066"
+    },
+    "SPEC-067": {
+      "source": "SUITE_SPEC.md",
+      "section": 67,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-067"
+    },
+    "SPEC-068": {
+      "source": "SUITE_SPEC.md",
+      "section": 68,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-068"
+    },
+    "SPEC-069": {
+      "source": "SUITE_SPEC.md",
+      "section": 69,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-069"
+    },
+    "SPEC-070": {
+      "source": "SUITE_SPEC.md",
+      "section": 70,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-070"
+    },
+    "SPEC-071": {
+      "source": "SUITE_SPEC.md",
+      "section": 71,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-071"
+    },
+    "SPEC-072": {
+      "source": "SUITE_SPEC.md",
+      "section": 72,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "scripts/raw-harness.mjs",
+        "apps/apple/QA/RawQAAdapter.swift"
+      ],
+      "testIDs": [
+        "WIN-017",
+        "WIN-018",
+        "WIN-019",
+        "WIN-020",
+        "WIN-021",
+        "WIN-022",
+        "WIN-023",
+        "WIN-024",
+        "WIN-025",
+        "WIN-026",
+        "WIN-027",
+        "WIN-028",
+        "WIN-029",
+        "WIN-030",
+        "WIN-031",
+        "WIN-032",
+        "WIN-033",
+        "WIN-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_HARNESS_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-072"
+    },
+    "SPEC-073": {
+      "source": "SUITE_SPEC.md",
+      "section": 73,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "scripts/raw-harness.mjs",
+        "apps/apple/QA/RawQAAdapter.swift"
+      ],
+      "testIDs": [
+        "WIN-017",
+        "WIN-018",
+        "WIN-019",
+        "WIN-020",
+        "WIN-021",
+        "WIN-022",
+        "WIN-023",
+        "WIN-024",
+        "WIN-025",
+        "WIN-026",
+        "WIN-027",
+        "WIN-028",
+        "WIN-029",
+        "WIN-030",
+        "WIN-031",
+        "WIN-032",
+        "WIN-033",
+        "WIN-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_HARNESS_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-073"
+    },
+    "SPEC-074": {
+      "source": "SUITE_SPEC.md",
+      "section": 74,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/gates.ts",
+        "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+      ],
+      "testIDs": [
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-074"
+    },
+    "SPEC-075": {
+      "source": "SUITE_SPEC.md",
+      "section": 75,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-075"
+    },
+    "SPEC-076": {
+      "source": "SUITE_SPEC.md",
+      "section": 76,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-076"
+    },
+    "SPEC-077": {
+      "source": "SUITE_SPEC.md",
+      "section": 77,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-077"
+    },
+    "SPEC-078": {
+      "source": "SUITE_SPEC.md",
+      "section": 78,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-078"
+    },
+    "SPEC-079": {
+      "source": "SUITE_SPEC.md",
+      "section": 79,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/gates.ts",
+        "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+      ],
+      "testIDs": [
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-079"
+    },
+    "SPEC-080": {
+      "source": "SUITE_SPEC.md",
+      "section": 80,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-080"
+    },
+    "SPEC-081": {
+      "source": "SUITE_SPEC.md",
+      "section": 81,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-081"
+    },
+    "SPEC-082": {
+      "source": "SUITE_SPEC.md",
+      "section": 82,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-082"
+    },
+    "SPEC-083": {
+      "source": "SUITE_SPEC.md",
+      "section": 83,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-083"
+    },
+    "SPEC-084": {
+      "source": "SUITE_SPEC.md",
+      "section": 84,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/SPEC-084"
+    },
+    "MOBILE-01": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 1,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-01"
+    },
+    "MOBILE-02": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 2,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-02"
+    },
+    "MOBILE-03": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 3,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-03"
+    },
+    "MOBILE-04": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 4,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-04"
+    },
+    "MOBILE-05": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 5,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-05"
+    },
+    "MOBILE-06": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 6,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Features/iPhone/IPhoneEditorView.swift",
+        "apps/apple/Suite/Features/iPad/IPadEditorView.swift",
+        "apps/apple/Suite/EditorModel.swift"
+      ],
+      "testIDs": [
+        "NAT-001"
+      ],
+      "declaredTestScope": "NOT_RUN_DEVICE",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-06"
+    },
+    "MOBILE-07": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 7,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-07"
+    },
+    "MOBILE-08": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 8,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-08"
+    },
+    "MOBILE-09": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 9,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-09"
+    },
+    "MOBILE-10": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 10,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-10"
+    },
+    "MOBILE-11": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 11,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-11"
+    },
+    "MOBILE-12": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 12,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-12"
+    },
+    "MOBILE-13": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 13,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-13"
+    },
+    "MOBILE-14": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 14,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-14"
+    },
+    "MOBILE-15": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 15,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/gates.ts",
+        "packages/METISMobileCore/Sources/METISMobileCore/ReleaseGate.swift"
+      ],
+      "testIDs": [
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-002",
+        "NAT-003",
+        "NAT-004",
+        "NAT-005",
+        "NAT-006",
+        "NAT-007",
+        "NAT-008",
+        "NAT-009",
+        "NAT-010",
+        "NAT-011",
+        "NAT-012",
+        "NAT-013"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_LOGIC_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-15"
+    },
+    "MOBILE-16": {
+      "source": "MOBILE_OVERRIDE.md",
+      "section": 16,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/MOBILE-16"
+    },
+    "CLOUD-01": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 1,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-01"
+    },
+    "CLOUD-02": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 2,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-02"
+    },
+    "CLOUD-03": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 3,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-03"
+    },
+    "CLOUD-04": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 4,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-04"
+    },
+    "CLOUD-05": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 5,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-05"
+    },
+    "CLOUD-06": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 6,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/Recipe.swift",
+        "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-019",
+        "NAT-020",
+        "NAT-021",
+        "NAT-022",
+        "NAT-023",
+        "NAT-024",
+        "NAT-025",
+        "NAT-026",
+        "NAT-035",
+        "NAT-036",
+        "NAT-037"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-06"
+    },
+    "CLOUD-07": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 7,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-07"
+    },
+    "CLOUD-08": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 8,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-08"
+    },
+    "CLOUD-09": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 9,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-09"
+    },
+    "CLOUD-10": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 10,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-10"
+    },
+    "CLOUD-11": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 11,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/apple/Suite/Services/PhotoPipeline.swift",
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-027",
+        "NAT-028",
+        "NAT-029",
+        "NAT-030",
+        "NAT-031",
+        "NAT-032",
+        "NAT-033",
+        "NAT-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_WAIT_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-11"
+    },
+    "CLOUD-12": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 12,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-12"
+    },
+    "CLOUD-13": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 13,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-13"
+    },
+    "CLOUD-14": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 14,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/PhotoLifecycle.swift",
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/PhotoPipeline.swift"
+      ],
+      "testIDs": [
+        "NAT-001",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016",
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_POLICY_ONLY_NATIVE_NOT_RUN",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-14"
+    },
+    "CLOUD-15": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 15,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-15"
+    },
+    "CLOUD-16": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 16,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-16"
+    },
+    "CLOUD-17": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 17,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-17"
+    },
+    "CLOUD-18": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 18,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "apps/backend/src/storage.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/repository.ts"
+      ],
+      "testIDs": [
+        "WIN-001",
+        "WIN-002",
+        "WIN-003",
+        "WIN-004",
+        "WIN-005",
+        "WIN-006",
+        "WIN-007",
+        "WIN-008",
+        "WIN-009",
+        "WIN-010",
+        "WIN-011",
+        "WIN-012",
+        "WIN-013",
+        "WIN-014",
+        "WIN-015",
+        "WIN-016"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_PARTIAL",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-18"
+    },
+    "CLOUD-19": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 19,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-19"
+    },
+    "CLOUD-20": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 20,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-20"
+    },
+    "CLOUD-21": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 21,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-21"
+    },
+    "CLOUD-22": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 22,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/CloudTransferPolicy.swift",
+        "apps/apple/Suite/Services/SuiteBackendClient.swift",
+        "apps/apple/Suite/Services/CloudTransferCoordinator.swift"
+      ],
+      "testIDs": [
+        "NAT-014",
+        "NAT-015",
+        "NAT-016",
+        "NAT-017",
+        "NAT-018"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-22"
+    },
+    "CLOUD-23": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 23,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "scripts/raw-harness.mjs",
+        "apps/apple/QA/RawQAAdapter.swift"
+      ],
+      "testIDs": [
+        "WIN-017",
+        "WIN-018",
+        "WIN-019",
+        "WIN-020",
+        "WIN-021",
+        "WIN-022",
+        "WIN-023",
+        "WIN-024",
+        "WIN-025",
+        "WIN-026",
+        "WIN-027",
+        "WIN-028",
+        "WIN-029",
+        "WIN-030",
+        "WIN-031",
+        "WIN-032",
+        "WIN-033",
+        "WIN-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_HARNESS_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-23"
+    },
+    "CLOUD-24": {
+      "source": "CLOUD_STORAGE_OVERRIDE.md",
+      "section": 24,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/CLOUD-24"
+    },
+    "ADD-01": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 1,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-01"
+    },
+    "ADD-02": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 2,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-02"
+    },
+    "ADD-03": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 3,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-03"
+    },
+    "ADD-04": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 4,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-04"
+    },
+    "ADD-05": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 5,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-05"
+    },
+    "ADD-06": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 6,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-06"
+    },
+    "ADD-07": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 7,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-07"
+    },
+    "ADD-08": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 8,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-08"
+    },
+    "ADD-09": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 9,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-09"
+    },
+    "ADD-10": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 10,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-10"
+    },
+    "ADD-11": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 11,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-11"
+    },
+    "ADD-12": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 12,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-12"
+    },
+    "ADD-13": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 13,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-13"
+    },
+    "ADD-14": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 14,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-14"
+    },
+    "ADD-15": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 15,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-15"
+    },
+    "ADD-16": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 16,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-16"
+    },
+    "ADD-17": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 17,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-17"
+    },
+    "ADD-18": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 18,
+      "implementationStatus": "未実装",
+      "implementationPaths": [],
+      "testIDs": [],
+      "declaredTestScope": "NOT_IMPLEMENTED_NO_EXECUTION",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-18"
+    },
+    "ADD-19": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 19,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-19"
+    },
+    "ADD-20": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 20,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-20"
+    },
+    "ADD-21": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 21,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "packages/SuiteCore/Sources/SuiteCore/SessionLook.swift"
+      ],
+      "testIDs": [
+        "NAT-038",
+        "NAT-039",
+        "NAT-040",
+        "NAT-041",
+        "NAT-042",
+        "NAT-043",
+        "NAT-044",
+        "NAT-045"
+      ],
+      "declaredTestScope": "NOT_RUN_MAC",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-21"
+    },
+    "ADD-22": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 22,
+      "implementationStatus": "一部コードあり（範囲限定）",
+      "implementationPaths": [
+        "scripts/raw-harness.mjs",
+        "apps/apple/QA/RawQAAdapter.swift"
+      ],
+      "testIDs": [
+        "WIN-017",
+        "WIN-018",
+        "WIN-019",
+        "WIN-020",
+        "WIN-021",
+        "WIN-022",
+        "WIN-023",
+        "WIN-024",
+        "WIN-025",
+        "WIN-026",
+        "WIN-027",
+        "WIN-028",
+        "WIN-029",
+        "WIN-030",
+        "WIN-031",
+        "WIN-032",
+        "WIN-033",
+        "WIN-034"
+      ],
+      "declaredTestScope": "PASS_WINDOWS_HARNESS_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-22"
+    },
+    "ADD-23": {
+      "source": "ADDITIONAL_SPEC.md",
+      "section": 23,
+      "implementationStatus": "文書反映",
+      "implementationPaths": [
+        "docs/MOBILE_RELEASE_FIRST.md"
+      ],
+      "testIDs": [],
+      "declaredTestScope": "PASS_DOCUMENT_ONLY",
+      "featureAcceptance": "NOT_PASSED",
+      "evidence": "verification-results.json#/requirements/ADD-23"
+    }
+  },
+  "mobileRelease": {
+    "decision": "BLOCK",
+    "failures": [],
+    "unknowns": [
+      "iphone-device",
+      "ipad-device",
+      "import",
+      "raw-jpeg",
+      "editing",
+      "ai-processing",
+      "batch",
+      "before-after",
+      "save",
+      "export",
+      "background-resume",
+      "offline",
+      "permissions",
+      "memory-pressure",
+      "thermal",
+      "battery",
+      "error-recovery",
+      "human-factors",
+      "accessibility",
+      "performance",
+      "rendered-reality",
+      "recipe-preserved",
+      "history",
+      "original-protected",
+      "main-routes",
+      "production-backend",
+      "commercial-v1",
+      "app-store-requirements",
+      "requirements-audit",
+      "mac-build-tests",
+      "real-raw-load-100",
+      "real-raw-load-500",
+      "real-raw-load-1000",
+      "full-lifecycle-sync-recovery"
+    ],
+    "assurance_required": true,
+    "registry_version": "suite-mobile-v0.2"
+  },
+  "disclaimer": "No product gate passed. Contract hashes prove frozen texts unchanged only. Native/source review is not compilation or runtime evidence."
+}

@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "scope": "28 business-baseline sections; does not change frozen 147",
+  "requirements": [
+    {
+      "id": "PRICE-01",
+      "section": 1,
+      "title": "SUITEの収益構造",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-02",
+      "section": 2,
+      "title": "SUITE MOBILE 基本料金",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-03",
+      "section": 3,
+      "title": "STANDARD CLOUD",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-04",
+      "section": 4,
+      "title": "1契約目から黒字",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "SCENARIO_TOOL_ONLY_NOT_BILLING",
+      "implementationPaths": [
+        "scripts/pricing-model.mjs"
+      ],
+      "testFiles": [
+        "scripts/pricing-model.test.mjs"
+      ],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-05",
+      "section": 5,
+      "title": "SAFE COST ASSUMPTION",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "SCENARIO_TOOL_ONLY_NOT_BILLING",
+      "implementationPaths": [
+        "scripts/pricing-model.mjs"
+      ],
+      "testFiles": [
+        "scripts/pricing-model.test.mjs"
+      ],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-06",
+      "section": 6,
+      "title": "1,980円試算",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "SCENARIO_TOOL_ONLY_NOT_BILLING",
+      "implementationPaths": [
+        "scripts/pricing-model.mjs"
+      ],
+      "testFiles": [
+        "scripts/pricing-model.test.mjs"
+      ],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-07",
+      "section": 7,
+      "title": "CLOUD STORAGE ADD-ON",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-08",
+      "section": 8,
+      "title": "STORAGE PRICE PRINCIPLE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-09",
+      "section": 9,
+      "title": "EVOTO CLOUD BENCHMARK",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-10",
+      "section": 10,
+      "title": "MONTHLY STORAGE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-11",
+      "section": 11,
+      "title": "ANNUAL CONTRACT",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-12",
+      "section": 12,
+      "title": "ANNUAL DISCOUNT",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-13",
+      "section": 13,
+      "title": "WORKSPACE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-14",
+      "section": 14,
+      "title": "WORKSPACE FREE TRIAL",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-15",
+      "section": 15,
+      "title": "WORKSPACE VALUE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-16",
+      "section": 16,
+      "title": "GENERATIVE AI",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-17",
+      "section": 17,
+      "title": "GENERATIVE CREDIT PURCHASE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-18",
+      "section": 18,
+      "title": "AI ENGINE SELECTION",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-19",
+      "section": 19,
+      "title": "AI CREDIT PRICE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-20",
+      "section": 20,
+      "title": "AI MARGIN",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-21",
+      "section": 21,
+      "title": "EVOTO MOBILE BENCHMARK",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-22",
+      "section": 22,
+      "title": "PRICING MESSAGE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-23",
+      "section": 23,
+      "title": "PRODUCT REVENUE LAYERS",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-24",
+      "section": 24,
+      "title": "DO NOT HARD CODE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "SCENARIO_TOOL_ONLY_NOT_BILLING",
+      "implementationPaths": [
+        "scripts/pricing-model.mjs"
+      ],
+      "testFiles": [
+        "scripts/pricing-model.test.mjs"
+      ],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-25",
+      "section": 25,
+      "title": "COST DASHBOARD",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-26",
+      "section": 26,
+      "title": "ONE CUSTOMER PROFIT GATE",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "SCENARIO_TOOL_ONLY_NOT_BILLING",
+      "implementationPaths": [
+        "scripts/pricing-model.mjs"
+      ],
+      "testFiles": [
+        "scripts/pricing-model.test.mjs"
+      ],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-27",
+      "section": 27,
+      "title": "RELEASE BEFORE PRICE CHECK",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    },
+    {
+      "id": "PRICE-28",
+      "section": 28,
+      "title": "STATUS",
+      "source": "docs/PRICING_BASELINE_2026-10-03.md",
+      "design": [
+        "docs/PRICING_REVIEW.md"
+      ],
+      "status": "BUSINESS_BASELINE_NOT_PRODUCT_IMPLEMENTED",
+      "implementationPaths": [],
+      "testFiles": [],
+      "evidence": "docs/evidence/integrated-2026-10-03/pricing-scenario.json",
+      "acceptance": "NOT_PASSED",
+      "limits": "候補保存。公開価格・実原価・Apple契約/IAP・本番提供は未確定／未接続。"
+    }
+  ]
+}

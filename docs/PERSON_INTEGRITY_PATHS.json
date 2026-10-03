@@ -1,0 +1,192 @@
+{
+  "documentKind": "NORMATIVE_GATE_AND_SOURCE_MAP",
+  "schemaVersion": 1,
+  "gate": {
+    "name": "COMMON_PERSON_GEOMETRY_INTEGRITY",
+    "definitionStatus": "DEFINED",
+    "decision": "BLOCK",
+    "scope": "All person corrections; currently bridged to the Face Brightness source candidate only",
+    "identityScope": "PHOTO_LOCAL_NOT_BIOMETRIC_NOT_CROSS_PHOTO",
+    "invariant": ["asset UUID", "original SHA-256", "person UUID", "expected geometry", "complete target inventory"],
+    "futureAdapterRequirement": "Every person correction must use the shared binding and continuity gate; a generic helper is not an implemented correction adapter.",
+    "releaseBlockers": ["Native execution and real-person visual evidence NOT_RUN", "Windows 12 path tests cover data boundaries only, not Native operations", "Native rejection Evidence collector and complete visual path verification not connected", "Skin/Eyes/Contacts/FaceShape/Makeup/Hair/Body/PersonBatch NOT_IMPLEMENTED", "Recovery chain NOT_IMPLEMENTED"],
+    "noStorageContractChange": true
+  },
+  "evidenceAuthority": {
+    "owner": "parent final integration",
+    "finalEvidenceReference": "docs/evidence/face-brightness-2026-10-03/windows-03/regression.json",
+    "status": "MEASURED_WINDOWS_DATA_BOUNDARY_ONLY",
+    "measuredPassCount": 14,
+    "measuredFailCount": 0,
+    "fullWindowsRegressionPassCount": 154,
+    "buildID": "uncommitted-source-sha256:6ae183017e27a424ad0d44e2b864c7ebd8e873c0279dc203f6ae405fe807d6d3",
+    "note": "14 = 12 path data tests + inventory + diagnostic geometry ID. Source review, Windows data boundaries, Apple execution, visual evidence and actual RAW remain separate. Native 112 NOT_RUN; no Native operation or mask/Export PASS."
+  },
+  "sharedSource": [
+    {"path": "apps/backend/src/person-geometry.ts", "symbols": ["validatePersonGeometryInventory", "validatePersonGeometryBinding", "validatePersonGeometryContinuity", "geometryIdentifier"], "status": "SOURCE_IMPLEMENTED", "limit": "Data/identity safety only; no detector, mask, control or renderer"},
+    {"path": "apps/backend/src/portrait-recipe.ts", "symbols": ["validatePortraitRecipe", "validatePortraitBinding", "validatePortraitContinuity"], "status": "SOURCE_IMPLEMENTED", "limit": "Face Brightness typed bridge; additional adapters are not enabled"},
+    {"path": "packages/SuiteCore/Sources/SuiteCore/PersonGeometryIntegrity.swift", "symbols": ["PersonGeometryInventory", "PersonGeometryIntegrity.validate"], "status": "SOURCE_IMPLEMENTED", "limit": "Direct geometry comparison; TS diagnostic hash generation not connected"},
+    {"path": "packages/SuiteCore/Sources/SuiteCore/PortraitRecipe.swift", "symbols": ["personGeometryInventory", "validate(asset:)", "validate(against:)"], "status": "SOURCE_IMPLEMENTED", "limit": "Current adjustment type is face_brightness only"}
+  ],
+  "rejectionEvidenceContract": {
+    "status": "WINDOWS_SAVE_REOPEN_DIAGNOSTICS_12_COMPLETE; NATIVE_COLLECTOR_NOT_IMPLEMENTED",
+    "evidence": "docs/evidence/face-brightness-2026-10-03/windows-03/PERSON_INTEGRITY_DENIALS.json",
+    "requiredFields": ["asset_id", "person_id", "recipe_version", "expected_geometry_identifier", "actual_geometry_identifier", "raw_checksum", "reason", "timestamp", "test_id"],
+    "fieldRules": {
+      "asset_id": "Operation asset UUID; explicit UNKNOWN with reason if unavailable",
+      "person_id": "Target UUID, affected UUID list for inventory-level rejection, or explicit UNKNOWN with reason",
+      "recipe_version": "Pinned revision/version; not the Recipe schemaVersion",
+      "expected_geometry_identifier": "Reference geometry identifier/coordinates, or NOT_AVAILABLE with reason",
+      "actual_geometry_identifier": "Actual rejected input or newly detected geometry identifier/coordinates; distinguish absent, ambiguous and not detected",
+      "raw_checksum": "Record expected original SHA-256, actual byte SHA-256 and measurement status; NOT_MEASURED if unread. RAW name means Original bytes even for non-RAW assets.",
+      "reason": "Actual rejection code and concise meaning",
+      "timestamp": "Actual execution UTC ISO-8601 timestamp, not source-review time",
+      "test_id": "Executed harness test ID linked to path ID; a defined path is not an executed test"
+    },
+    "geometryIdentifier": {
+      "typescript": "face-geometry-v1-sha256: + SHA256(JSON.stringify(['face-geometry-v1',x,y,width,height]))",
+      "swift": "DIRECT_RECTANGLE_COMPARISON; DIAGNOSTIC_HASH_NOT_CONNECTED",
+      "scope": "Diagnostic only; never replaces asset/checksum/UUID binding, geometry comparison or real-person validation"
+    },
+    "preserveOnReject": ["Original bytes", "persisted Recipe", "conflict versions", "unsaved draft", "recoverable history"],
+    "forbiddenFallbacks": ["different person", "whole image", "proxy Final", "silent UUID replacement", "geometry overwrite", "history removal to bypass rejection", "guessed Cloud Safe"]
+  },
+  "paths": [
+    {
+      "pathId": "PGI01", "name": "Save",
+      "requiredPositive": "Same asset/SHA and complete UUID-to-geometry mapping; permitted correction values may change.",
+      "requiredNegative": "Reject asset/checksum mismatch, UUID/geometry mutation, overlap or inventory loss before committing.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/backend/src/repository.ts", "symbols": ["saveRecipe", "portraitReference"]}, {"path": "apps/backend/src/workspace.ts", "symbols": ["commitRecipe"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["save", "portraitInventoryLoss"]}],
+      "sourceLimit": "Data-boundary guards; Native persistence and all correction adapters are not proven.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-143", "operation_id": "PGI-SAVE", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI02", "name": "Reload",
+      "requiredPositive": "Reload and validate every stored version/history entry against the asset and first inventory reference.",
+      "requiredNegative": "Reject corrupt hidden/non-current version even when current version is valid; preserve stored rows/files.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/backend/src/repository.ts", "symbols": ["latestRecipe", "portraitReference"]}, {"path": "apps/backend/src/workspace.ts", "symbols": ["validatedRecipeHistory"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/Project.swift", "symbols": ["ProjectCheckpoint.validate"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["load"]}],
+      "sourceLimit": "Semantic reload guards are not Native restart/visual verification.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-144", "operation_id": "PGI-RELOAD", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI03", "name": "Restart",
+      "requiredPositive": "New process/store instance restores persisted asset/SHA/UUID/geometry without depending on prior memory.",
+      "requiredNegative": "Reject persisted mismatch after restart; never synthesize an empty project or guess an identity.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/backend/src/repository.ts", "symbols": ["latestRecipe"]}, {"path": "apps/backend/src/workspace.ts", "symbols": ["validatedRecipeHistory"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["load", "list"]}, {"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["load", "select", "invalidatePortraitSelection"]}],
+      "sourceLimit": "Source load boundary only; actual application termination/relaunch and restored selection NOT_RUN.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-145", "operation_id": "PGI-RESTART", "status": "PASS", "scope": "WINDOWS_SQLITE_REOPEN_NOT_APP_RELAUNCH"}]
+    },
+    {
+      "pathId": "PGI04", "name": "Conflict Version",
+      "requiredPositive": "Valid stale-base conflict versions preserve same inventory and remain separate from the current head.",
+      "requiredNegative": "Reject mismatched person/geometry/asset/SHA before inserting a conflict branch; preserve existing branches.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/backend/src/workspace.ts", "symbols": ["commitRecipe", "validatedRecipeHistory", "getRecipeVersion"]}],
+      "sourceLimit": "Workspace version storage only; not a completed Native conflict UI.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-146", "operation_id": "PGI-CONFLICT-VERSION", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI05", "name": "Conflict Resolution",
+      "requiredPositive": "Resolution submits through the same validated commit/CAS path using explicit current version.",
+      "requiredNegative": "Reject resolution that rebinds identity or bypasses CAS; choosing a branch grants no identity exemption.",
+      "sourceStatus": "SOURCE_BOUNDARY_GUARD_PRESENT_OPERATION_UI_NOT_IMPLEMENTED",
+      "sourceRefs": [{"path": "apps/backend/src/workspace.ts", "symbols": ["saveRecipe", "commitRecipe"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["save"]}],
+      "sourceLimit": "Shared commit boundary exists; Native person-conflict resolution UI is not implemented/proven.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-147", "operation_id": "PGI-CONFLICT-RESOLUTION", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI06", "name": "Undo",
+      "requiredPositive": "Move history cursor without silently regenerating UUIDs; reuse the remembered inventory when reanalyzing before the first portrait entry.",
+      "requiredNegative": "Reject rebound targets or a save that removes the last remembered inventory; preserve rejected draft.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "packages/SuiteCore/Sources/SuiteCore/Recipe.swift", "symbols": ["EditHistory.undo"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/Project.swift", "symbols": ["ProjectCheckpoint.validate"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["portraitInventoryLoss"]}, {"path": "apps/apple/Suite/Services/PortraitPipeline.swift", "symbols": ["neutralPortrait(from:asset:)"]}, {"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["undo", "preparePortraitTargets"]}],
+      "sourceLimit": "Fork after Undo can become an unsavable draft when inventory would be lost; safe resolution UI/persistent inventory redesign is not implemented.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-148", "operation_id": "PGI-UNDO", "status": "PASS", "scope": "WINDOWS_SNAPSHOT_SAVE_NOT_SWIFT_UNDO"}]
+    },
+    {
+      "pathId": "PGI07", "name": "Redo",
+      "requiredPositive": "Restore the saved Recipe values for the same UUID/geometry inventory after moving the cursor forward.",
+      "requiredNegative": "Reject hidden restored targets with changed binding; do not apply old values to another target.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "packages/SuiteCore/Sources/SuiteCore/Recipe.swift", "symbols": ["EditHistory.redo", "EditHistory.validate"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/Project.swift", "symbols": ["ProjectCheckpoint.validate"]}, {"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["redo", "commit"]}, {"path": "apps/apple/Suite/Services/PortraitPipeline.swift", "symbols": ["apply", "resolveTargets"]}],
+      "sourceLimit": "Cursor/source guards only; rendered Undo/Redo coherence on Native remains unexecuted.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-149", "operation_id": "PGI-REDO", "status": "PASS", "scope": "WINDOWS_SNAPSHOT_SAVE_NOT_SWIFT_REDO"}]
+    },
+    {
+      "pathId": "PGI08", "name": "Hidden History",
+      "requiredPositive": "Validate all history entries and all backend versions, not only visible current/head; retain the identity reference across cursor changes.",
+      "requiredNegative": "Reject a mismatched hidden entry or whole-checkpoint replacement that loses all portrait inventory.",
+      "sourceStatus": "SOURCE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/backend/src/repository.ts", "symbols": ["portraitReference"]}, {"path": "apps/backend/src/workspace.ts", "symbols": ["validatedRecipeHistory"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/Project.swift", "symbols": ["ProjectCheckpoint.validate"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/ProjectStore.swift", "symbols": ["portraitInventoryLoss"]}],
+      "sourceLimit": "The current saved-history guard is not a new persistent person-inventory schema or completed recovery UI.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-150", "operation_id": "PGI-HIDDEN-HISTORY", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI09", "name": "Asset Switch",
+      "requiredPositive": "Invalidate old person selection/reference before switching and load the new asset's validated inventory.",
+      "requiredNegative": "Reject old portrait on another asset/SHA; a failed switch/load must not leave the prior person active.",
+      "sourceStatus": "SOURCE_CANDIDATE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["load", "select", "importFile", "invalidatePortraitSelection"]}, {"path": "apps/backend/src/portrait-recipe.ts", "symbols": ["validatePortraitBinding"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/PortraitRecipe.swift", "symbols": ["validate(asset:)"]}],
+      "sourceLimit": "Windows can inspect data-boundary mismatch but cannot execute Native selection/UI reset.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-151", "operation_id": "PGI-ASSET-SWITCH", "status": "PASS", "scope": "WINDOWS_ASSET_LOOKUP_NOT_NATIVE_UI"}]
+    },
+    {
+      "pathId": "PGI10", "name": "Person Reselect",
+      "requiredPositive": "Explicitly select a known UUID only after fresh proxy validation against the saved inventory.",
+      "requiredNegative": "Unknown UUID, failed verification or ambiguous detection clears the earlier selection and stops correction.",
+      "sourceStatus": "SOURCE_CANDIDATE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["preparePortraitTargets", "selectPortraitTarget", "invalidatePortraitSelection", "setFaceBrightness"]}, {"path": "apps/apple/Suite/Services/PhotoPipeline.swift", "symbols": ["validatePortraitTargets"]}, {"path": "apps/apple/Suite/Services/PortraitPipeline.swift", "symbols": ["resolveTargets", "personMask"]}],
+      "sourceLimit": "Synthetic UUID/geometry tests do not prove the reselected real person or mask is correct.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-153", "operation_id": "PGI-PERSON-RESELECT", "status": "PASS", "scope": "WINDOWS_UUID_LOOKUP_NOT_NATIVE_SELECTION"}]
+    },
+    {
+      "pathId": "PGI11", "name": "Recipe Copy",
+      "requiredPositive": "A same-photo copy may preserve inventory and change supported values only through validated save boundaries.",
+      "requiredNegative": "Reject a bound portrait recipe copied to a different asset/SHA, or same-photo UUID/geometry mutation; do not auto-retarget.",
+      "sourceStatus": "SOURCE_BOUNDARY_GUARD_PRESENT_OPERATION_UI_NOT_IMPLEMENTED",
+      "sourceRefs": [{"path": "apps/backend/src/repository.ts", "symbols": ["saveRecipe"]}, {"path": "apps/backend/src/workspace.ts", "symbols": ["commitRecipe", "applyPreset"]}, {"path": "packages/SuiteCore/Sources/SuiteCore/PortraitRecipe.swift", "symbols": ["validate(asset:)", "validate(against:)"]}],
+      "sourceLimit": "Copy rejection at existing save/preset boundaries is not a generic Recipe Copy UI or cross-photo person batch implementation.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-152", "operation_id": "PGI-RECIPE-COPY", "status": "PASS", "scope": "WINDOWS_DATA_ONLY"}]
+    },
+    {
+      "pathId": "PGI12", "name": "Export Fixed Recipe",
+      "requiredPositive": "For portrait-bearing export, pin Recipe/revision and asset/SHA; reload trusted ProjectStore checkpoint and require its exact revision/current parameters/resolved Original URL and first inventory continuity, then use Original with fresh person analysis and before/after checksum.",
+      "requiredNegative": "Reject missing/mismatched Original, rebound UUID/geometry, ambiguous masks or unsupported correction; never publish proxy/partial Final.",
+      "sourceStatus": "SOURCE_CANDIDATE_GUARD_PRESENT",
+      "sourceRefs": [{"path": "apps/apple/Suite/EditorModel.swift", "symbols": ["export", "exportAllSaved"]}, {"path": "apps/apple/Suite/Services/PhotoPipeline.swift", "symbols": ["export", "validate", "render", "validatePortraitBinding"]}, {"path": "apps/apple/Suite/Services/PortraitPipeline.swift", "symbols": ["apply", "resolveTargets", "personMask", "faceMask"]}],
+      "sourceLimit": "Persisted checkpoint verification applies to portrait-bearing plans only. A newer saved revision causes old plan rejection, never substitution with latest Recipe; durable historical job-snapshot retry NOT_IMPLEMENTED. Pinned guards do not verify actual RAW/pixels/Proxy-Final/Native execution.",
+      "windowsDataBoundary": "PASS_DATA_BOUNDARY_ONLY", "appleExecution": "NOT_RUN", "nativeVisual": "NOT_RUN", "decision": "BLOCK", "results": [{"test_id": "WIN-154", "operation_id": "PGI-EXPORT-RECIPE", "status": "PASS", "scope": "WINDOWS_FIXED_INPUT_DATA_NOT_FINAL_RENDER"}]
+    }
+  ],
+  "correctionAdapters": [
+    {"name": "Face Brightness", "status": "SOURCE_CANDIDATE_PRESENT", "nativeExecution": "NOT_RUN", "visual": "NOT_RUN", "scope": "CUSTOM EV on explicitly selected photo-local target; no full retouch completion claim"},
+    {"name": "Skin", "status": "NOT_IMPLEMENTED"},
+    {"name": "Eyes", "status": "NOT_IMPLEMENTED"},
+    {"name": "Contacts", "status": "NOT_IMPLEMENTED"},
+    {"name": "FaceShape", "status": "NOT_IMPLEMENTED"},
+    {"name": "Makeup", "status": "NOT_IMPLEMENTED"},
+    {"name": "Hair", "status": "NOT_IMPLEMENTED"},
+    {"name": "Body", "status": "NOT_IMPLEMENTED"},
+    {"name": "PersonBatch", "status": "NOT_IMPLEMENTED"}
+  ],
+  "originalRecovery": {
+    "sourceDocument": "docs/ORIGINAL_RECOVERY_DESIGN.md",
+    "overallRecoveryChain": "DESIGN_DEFINED_NOT_IMPLEMENTED",
+    "items": [
+      {"name": "original preservation design", "status": "IMPLEMENTED", "scope": "Existing source preserves copied Original on subsequent import/proxy/checkpoint failure; not implemented orphan recovery", "nativeExecution": "NOT_RUN"},
+      {"name": "prohibitions", "status": "IMPLEMENTED", "scope": "Normative no-overwrite/no-unverified-original-delete/no-proxy-Final/no-guessed-Cloud-Safe policy plus existing guards, not every future automated workflow", "nativeExecution": "NOT_RUN"},
+      {"name": "startup detection and durable import journal", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"},
+      {"name": "asset candidate reconciliation", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"},
+      {"name": "recovery checksum verification and re-registration", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"},
+      {"name": "explicit recovery UI", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"},
+      {"name": "Recovery Recipe association with asset/checksum/person validation", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"},
+      {"name": "Cloud Safe re-evaluation after recovery", "status": "NOT_IMPLEMENTED", "nativeExecution": "NOT_RUN"}
+    ],
+    "limit": "Existing import/export checksum validation is not an orphan Recovery re-registration implementation. File existence is not Cloud Safe."
+  },
+  "requiredFinalEvidenceLayers": ["source revision and links", "Windows data-boundary execution", "Core/Apple compile and execution", "Native interaction and visual evidence", "real-person target/mask evidence", "actual Original/RAW and fixed-Recipe export evidence", "all rejection fields completeness"],
+  "frozenEvidencePolicy": "No original audit review, fixed specification, original RAW, shared API, DB schema or Recipe envelope was edited by this documentation task."
+}

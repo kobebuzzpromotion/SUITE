@@ -1,0 +1,42 @@
+name: SUITE
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  SuiteCore:
+    path: ../../packages/SuiteCore
+  METISMobileCore:
+    path: ../../packages/METISMobileCore
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+targets:
+  SUITE:
+    type: application
+    platform: iOS
+    sources: [Suite]
+    dependencies:
+      - package: SuiteCore
+      - package: METISMobileCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.suite
+        INFOPLIST_FILE: Suite/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+  SUITETests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: SUITE
+schemes:
+  SUITE:
+    build:
+      targets:
+        SUITE: all
+        SUITETests: [test]
+    test:
+      targets: [SUITETests]

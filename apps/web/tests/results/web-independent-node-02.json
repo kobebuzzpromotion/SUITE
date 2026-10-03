@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runID": "web-independent-node-02",
+  "command": "node --test apps/web/tests/*.test.mjs",
+  "startedAt": "2026-10-03 07:05:33 UTC",
+  "endedAt": "2026-10-03 07:05:35 UTC",
+  "exitCode": 0,
+  "scope": {
+    "syntheticPixels": 17,
+    "mockSession": 19,
+    "mockWorker": 6,
+    "realLoopbackHTTPNonRAW": 6,
+    "realRAW": "NOT_RUN",
+    "realPhotoQuality": "NOT_RUN",
+    "browser": "NOT_RUN_BY_THIS_REVIEWER",
+    "apple": "112_NOT_RUN_UNCHANGED",
+    "baseline154": "NOT_PART_OF_THIS_RUN"
+  },
+  "sourceStableDuringRun": true,
+  "sourceHashes": [
+    {
+      "file": "apps/backend/src/crop-export.ts",
+      "sha256": "b12660313f22b3423a1c0f7c0444310a94a6008f7a6c5d35b71d0bc09848d03a"
+    },
+    {
+      "file": "apps/backend/src/person-geometry-validation.ts",
+      "sha256": "de5338ae1d3d0b5cfe0b04a4e5692bbe44ed57e65fde58f41c30f14675121050"
+    },
+    {
+      "file": "apps/backend/src/photo-policy.ts",
+      "sha256": "6672bbcc113e0938449aded1a095a7832f18dceb5c522ba20e4060a08621298d"
+    },
+    {
+      "file": "apps/backend/src/portrait-recipe.ts",
+      "sha256": "4b8754a788495dbcec8a24db565c026e1000322bf8ba9781c3e7f95610510318"
+    },
+    {
+      "file": "apps/web/local-server.mjs",
+      "sha256": "07a6ae5d1b485fc52cbc738e9725849d29da3d2a74e29413751d8ec640023e55"
+    },
+    {
+      "file": "apps\\web\\src\\api-client.mjs",
+      "sha256": "f2b8fb78a883de64be07ea109926dcc6db9aafd404b9af160eca7e45dee495ae"
+    },
+    {
+      "file": "apps\\web\\src\\bootstrap.mjs",
+      "sha256": "8b2d7e24f0a293feec62ae9354dbb2b15d63c70fb0ddc8f6de1247863c6aae22"
+    },
+    {
+      "file": "apps\\web\\src\\editor-ui.mjs",
+      "sha256": "1b96f3b3e1a60a73accb26fd5de18c1b090a80955e1fe84d5cd99b23f8a746fb"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\encode.mjs",
+      "sha256": "9b5df0e9782d7d169b93b96f3ac808f3fa1267220540fa8bdf8c6a1ca32db240"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\faces.mjs",
+      "sha256": "799d7f6cbf67d665819912a4fa84c5e69855c189ac7bef6314cefe54c220b775"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\index.mjs",
+      "sha256": "f4c6af764c951a8128bf219ead822662ce463049fee6d5b2d4099e96c43d5b74"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\pure.mjs",
+      "sha256": "73c991d5722f9d1d3d5900b16bbf3a74afbce8abe943a460decbdf25a9bb0f0f"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\raw.mjs",
+      "sha256": "f8a047885451dde3297aecbdd55881453c8f77e85f71cd5e345c800802a96f3d"
+    },
+    {
+      "file": "apps\\web\\src\\processing\\worker.mjs",
+      "sha256": "19d580a22781bf4e070991ec4a17e688fd4e60ab62b5fa9354a9810c4eb5c383"
+    },
+    {
+      "file": "apps\\web\\src\\session.mjs",
+      "sha256": "7d14a64a03a214770dae23650654720a431ac873f2ec9eaf003c4895ac6b8d62"
+    },
+    {
+      "file": "apps\\web\\tests\\fixtures.mjs",
+      "sha256": "5f67ac64a6433ec264caf3ec62dc9ae2f95559b2ab857bbea91fdc96faf9799d"
+    },
+    {
+      "file": "apps\\web\\tests\\local-http-safety.test.mjs",
+      "sha256": "ba81456d6134e7807ca88c1a0ded29879c3081883aaf8fb3f99ab4311ff794e3"
+    },
+    {
+      "file": "apps\\web\\tests\\processing-safety.test.mjs",
+      "sha256": "a1e93fe70c2d84904044f384596637448090953697a5f2546659754d38171020"
+    },
+    {
+      "file": "apps\\web\\tests\\session-safety.test.mjs",
+      "sha256": "9ba803fab570c9360c8833b774b4023aa90df2eec639cf04b754876402199912"
+    },
+    {
+      "file": "apps\\web\\tests\\worker-lifecycle.test.mjs",
+      "sha256": "f9b75aaafbda72277dc0ded68829fbfc84cc3d8020ca66f73e46865ef160d6d9"
+    }
+  ],
+  "output": "✔ WEB-HTTP01 / LOCAL_QA: Host, Origin, QA header and cookie are required; no production auth claim (53.2107ms)\n✔ WEB-HTTP02 / LOCAL_QA: cross-origin mutation and preflight refuse without inserting an asset (19.128ms)\n✔ WEB-HTTP03 / NON_RAW: verified Original is immutable and explicit-purpose download returns exact bytes (33.4374ms)\n✔ WEB-HTTP04 / NON_RAW: actual server/SQLite close and reopen retains saved revision and Original (37.8377ms)\n✔ WEB-HTTP05 / LOCAL_QA: CAS and person-geometry reassignment refusals preserve saved current body (22.1199ms)\n✔ WEB-HTTP06 / NON_RAW: wrong first upload checksum never yields a downloadable verified Original (31.7202ms)\n✔ WEB-PX01 / SYNTHETIC: complete inventory resolves by geometry, not detector order (1.2649ms)\n✔ WEB-PX02 / SYNTHETIC: missing, extra, incomplete and overlapping detections fail closed (0.3341ms)\n✔ WEB-PX03 / SYNTHETIC: malformed/out-of-frame/mismatched mask polygons are rejected (0.1716ms)\n✔ WEB-PX04 / SYNTHETIC: neutral rendering preserves every base pixel and original input (3.3283ms)\n✔ WEB-PX05 / SYNTHETIC: selected face changes; unselected person and background remain byte-identical (16.4326ms)\n✔ WEB-PX06 / SYNTHETIC: lower-left anchor maps to upper-left pixel polygon without vertical inversion (0.7288ms)\n✔ WEB-PX07 / SYNTHETIC: rendering twice from base is deterministic and target/detection ordering cannot compound (2.6826ms)\n✔ WEB-PX08 / SYNTHETIC: zero person controls require valid inventory but do not modify pixels (0.4664ms)\n✔ WEB-PX09 / SYNTHETIC: pre-aborted render refuses output and preserves base bytes (0.3909ms)\n✔ WEB-PX10 / SYNTHETIC: malformed dimensions and byte counts fail rather than reading partial image (0.4558ms)\n✔ WEB-PX11 / SYNTHETIC: proxy is bounded and never enlarges the original base (1.796ms)\n✔ WEB-PX12 / SYNTHETIC: rotation preserves all samples and a full turn restores original image (0.2392ms)\n✔ WEB-PX13 / SYNTHETIC: saturated eight-face output cannot establish a complete inventory (0.4378ms)\n✔ WEB-PX14 / SYNTHETIC: self-intersecting polygon is rejected before numerical rendering (0.1443ms)\n✔ WEB-PX15 / SYNTHETIC: crop uses upper-left coordinates after one counterclockwise rotation (0.8364ms)\n✔ WEB-PX16 / SYNTHETIC: unsupported engine/control and global limits cannot silently render (0.4184ms)\n✔ WEB-PX17 / SYNTHETIC: physical print crop cannot silently succeed at an insufficient output resolution (1.647ms)\n✔ WEB-ST01 / MOCK_STATE: snapshots are isolated from observer mutation (11.607ms)\n✔ WEB-ST02 / MOCK_STATE: global edit undo redo and reload retain exact saved values (17.1932ms)\n✔ WEB-ST03 / MOCK_STATE: save conflict keeps unsaved recipe and does not mark clean (5.7073ms)\n✔ WEB-ST04 / MOCK_STATE: quota failure does not overwrite already durable unsaved draft (5.7842ms)\n✔ WEB-ST05 / MOCK_STATE: unknown person selection clears previous selected UUID (12.1475ms)\n✔ WEB-ST06 / MOCK_STATE: missing face during revalidation clears previous selection without recipe replacement (3.1748ms)\n✔ WEB-ST07 / MOCK_STATE: same-asset hidden history UUID tamper is refused on reload (2.1907ms)\n✔ WEB-ST08 / MOCK_STATE: export refuses changed server revision without adopting it (2.8209ms)\n✔ WEB-ST09 / MOCK_STATE: corrupted Original checksum prevents decode and output (1.3693ms)\n✔ WEB-ST10 / MOCK_STATE: cancellation during decode refuses publish even if decoder resolves later (1.9495ms)\n✔ WEB-ST11 / MOCK_STATE: concurrent edits are gated before pending persistence to prevent lost update (3.5077ms)\n✔ WEB-ST12 / MOCK_STATE: mismatched dirty cache revision cannot silently discard the draft (0.944ms)\n✔ WEB-ST13 / MOCK_STATE: import calls agreed proxy decoder mode with explicitly NON_RAW fake decoder (4.2019ms)\n✔ WEB-ST14 / MOCK_STATE: cold-cache reopen uses the agreed proxy decoder mode (2.1798ms)\n✔ WEB-ST15 / MOCK_STATE: source-copy mutation by decoder cannot change retained Original bytes (2.3042ms)\n✔ WEB-ST16 / MOCK_STATE: decode failure after immutable upload keeps uploaded bytes and prior asset (1.6877ms)\n✔ WEB-ST17 / MOCK_STATE: failed new-asset preview cannot display prior-asset pixels as the new asset (1.4165ms)\n✔ WEB-ST18 / MOCK_STATE: failed edited preview clears stale pixels but retains the new durable draft (1.6545ms)\n✔ WEB-ST19 / MOCK_STATE: self-consistent corrupted cache inventory cannot override authoritative saved person geometry (3.6304ms)\n✔ WEB-WK01 / MOCK_WORKER: transferred decoder input is an owned copy; Original remains readable (2.6383ms)\n✔ WEB-WK02 / MOCK_WORKER: pixel transfer never detaches or mutates unedited base (0.4116ms)\n✔ WEB-WK03 / MOCK_WORKER: cancellation terminates active worker and ignores late output (0.6005ms)\n✔ WEB-WK04 / MOCK_WORKER: timeout rejects and terminates, never returning partial success (15.8059ms)\n✔ WEB-WK05 / MOCK_WORKER: dispose aborts every pending operation and prohibits reuse (0.5843ms)\n✔ WEB-WK06 / MOCK_WORKER: unrelated response ID cannot finish the pending operation (0.3877ms)\nℹ tests 48\nℹ suites 0\nℹ pass 48\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 343.2536\n"
+}

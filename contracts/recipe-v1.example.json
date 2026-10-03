@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "parameters": {
+    "exposure": 0.25,
+    "contrast": 1.1,
+    "saturation": 0.9,
+    "rotationDegrees": 90,
+    "extendedParameters": {
+      "suite.test.preservedIntent": {"enabled": true, "label": "保持のみ・未対応描画を拒否", "strength": 20, "values": [1, false, "x"]}
+    },
+    "processingOrder": ["exposure", "contrast", "saturation", "rotation"]
+  }
+}

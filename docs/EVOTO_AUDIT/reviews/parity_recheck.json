@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-03",
+  "status": "CHECKPOINT_INTERIM_REGISTRY_REVIEWED_NOT_PARITY_PASS",
+  "scope": "Independent recheck only; writes confined to parity_recheck.json/md. Frozen parity_validation and all source reviews unchanged.",
+  "inputs": {
+    "semanticRulesSHA256": "B019B3C09A2CF0151B7AD0B4611C6F44759DBE55A9A4CE1E35AC0632E294A1AA",
+    "canonicalRegistrySHA256": "115E8465F9E9F7EC710E5B2AC563124A0853D4C24CBAFE0D06D6EAC41C0E66C6",
+    "integratorObservedSHA256": "4DD9CB959EFB7D05B1926B0CAF5DF48074C1E6711627308097628BC45EE54F6E",
+    "webFeaturePages": 111,
+    "webSourceBoundFacts": 1535,
+    "webHeadings": 4369,
+    "registry01SHA256": "D1E08975B98C827129C343169EB291D4EF44C86986BEC2712A282298F6612840"
+  },
+  "executedChecks": [
+    {
+      "command": "node --test docs/EVOTO_AUDIT/tools/semantic-rules.test.mjs",
+      "pass": 19,
+      "fail": 0,
+      "scope": "UNIT_TOOL_RULES_ONLY; no image/device/product verification"
+    },
+    {
+      "command": "read-only JSON selection vs normalization equality",
+      "selected": 163,
+      "normalized": 163,
+      "missing": 0,
+      "duplicateKeys": 0,
+      "rawRuleMismatch": 0,
+      "scope": "CREDIT_NORMALIZATION_STRUCTURE_ONLY"
+    }
+  ],
+  "originalFindings": [
+    {
+      "id": "PV01",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Six iPad-only FAQ operations, including tether-credit, explicitly narrowed to iPad."
+    },
+    {
+      "id": "PV02",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "All S21313 purchase/upgrade/renewal/trial rows narrowed to Mobile storefront scope; portability and benefit-conflict rows separately retained."
+    },
+    {
+      "id": "PV03",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Floor Reflection preset/sync/batch flags, person-mask global-only preset/sync, and RAW→JPEG export flags corrected with targeted keys."
+    },
+    {
+      "id": "PV04",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Integrator emits seven-enum status rather than raw workflow availability enum. Existence and terms remain separate."
+    },
+    {
+      "id": "PV05",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "selectCredit filters explicit unknown sentinels and preserves multiple known clauses;163-row event normalization separately supplied. Generic completeness caveat RC01 remains."
+    },
+    {
+      "id": "PV06",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "recordType honors category WORKFLOW before availability INFORMATION; test passes."
+    },
+    {
+      "id": "PV07",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Normalized text-body hash and exact operation reprint merge used; frozen source hashes remain preserved."
+    },
+    {
+      "id": "PV08",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Registry01 gate retains severe CC01/04/05/06/07 and 163 current-terms unknown; BLOCK."
+    },
+    {
+      "id": "PV09",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Six iPad dependent makeup controls carry Amount prerequisite; Mobile not changed."
+    },
+    {
+      "id": "PV10",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Four Favorites/Undo records reclassified as WORKFLOW."
+    },
+    {
+      "id": "PV11",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "Exact old Desktop-only Mobile benefit plus two old export-credit keys link CC04; tether facts unaffected."
+    },
+    {
+      "id": "PV12",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "AI Iris operation family now carries strong-side-profile limitation with numerical range UNKNOWN."
+    },
+    {
+      "id": "PV13",
+      "status": "RESOLVED_TARGETED_REGISTRY01_SCOPE_ONLY",
+      "scope": "Specific defect corrected in additive helper/overlay; not full feature/policy/product acceptance",
+      "evidence": "All26 routes classified while12 HTTP404 availability unknown IDs remain separate; no historical-absence inference."
+    }
+  ],
+  "newFindings": [
+    {
+      "id": "RC01",
+      "severity": "HIGH",
+      "status": "PARTIAL_ROW_LAYER_RESOLVED_AGGREGATE_LABEL_OPEN",
+      "records": [
+        "WEBF49-OP001",
+        "WEBF71-OP001",
+        "WEBF13-OP001"
+      ],
+      "defect": "Nonempty credit text can describe a trial grant/free-to-try claim while explicitly omitting exact export charges. known()/selectCredit classifies the text as known, and the observed integrator creditRuleUnknownRows only checks that lexical condition.",
+      "impact": "Unknown event/rate/post-trial/current applicability can disappear from the credit-unknown denominator without any new official evidence.",
+      "correction": "Separate known existence of grant/promotion from event-specific usage-rule completeness and current entitlement. Add UNKNOWN terms fields/counts for absent event/rate/post-trial conditions; do not erase known allowance.",
+      "acceptance": "WEBF49 App7day/50credit grant must not mark Web export or generation rate known. WEBF71 free-to-try must not imply free final export. WEBF13 three freeHD exports must not imply post-trial price known.",
+      "checkpoint": "All observation/canonical-condition credit applicability remains UNKNOWN in Registry01; misleading documentedCreditRuleRecords1298/unknown3916 still denotes lexical text presence, not complete rules."
+    },
+    {
+      "id": "RC02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "records": [
+        "S965:tether-credit:wired-wireless-free",
+        "WEBF13-OP001"
+      ],
+      "defect": "Fallback source_credit_status UNKNOWN overwrites known event-local source credit conditions outside the163 normalized subset.",
+      "impact": "Source-known free tether or quota allowance indistinguishable from genuinely undocumented consumption even though raw prose preserved.",
+      "correction": "Classify source-rule event/quota independently; keep current account/plan/region applicability UNKNOWN.",
+      "acceptance": "Explicit free iPad tether remains source-local NO_CREDIT; three freeHD exports remain conditional source quota, not global/current free."
+    }
+  ],
+  "webReview": {
+    "status": "SUPPLEMENT_REVIEWED_WITH_UNRESOLVED_TERMS",
+    "method": "Read complete web review report and structurally traverse111article JSON; targeted record-level checks, not a second111-page full-text certification.",
+    "checks": [
+      "Hosted Web upload does not imply native OS availability.",
+      "Contacts11styles/Color/Amount tutorial keeps platform ambiguity; no blanket per-eye identity guarantees.",
+      "Background Fusion scene composer distinct from prompt background generation.",
+      "Local-browser claims only source-explicit operations; inverter conflict retained.",
+      "Online3freeHD exports are trial quota, not Desktop free-feature entitlement.",
+      "PHOTO_ADVERTISED/UNKNOWN controls not promoted to verified native pixels.",
+      "App Store combinediPhone/iPad listing is not individual-device control proof."
+    ]
+  },
+  "creditNormalization": {
+    "path": "reviews/credit_normalization.json",
+    "records": 163,
+    "consumption": {
+      "NO_CREDIT": 36,
+      "CREDIT_REQUIRED": 18,
+      "CONDITIONAL": 94,
+      "UNKNOWN": 15
+    },
+    "currentTermsUnknown": 163,
+    "acceptance": "STRUCTURAL_163_OF_163; event/source conditions retained, no global free or current-account assertion",
+    "additionalFindings": [
+      "S16030 Spot Healing Brush Tool is one operation across W016/W017.",
+      "Old Auto Color Corrections exemption excludes Look/Match/Multi-Image; newer Japan offer separate.",
+      "Online Toolkit low-quality-free not automatically inherited from AI Recognition rule."
+    ]
+  },
+  "unresolvedAcceptance": [
+    "Registry02 with workflow458 and Web alias interpretation not reviewed; task redirected to product diagnosis at parent request.",
+    "RC01 aggregate labels and RC02 source-rule normalization unresolved.",
+    "Semantic alias closure, image-only controls and twelve-month history gaps remain unknown.",
+    "Mobile color account/region/plan/platform/effective-date entitlement remains unresolved; no account spending or product PASS."
+  ],
+  "gate": {
+    "audit": "BLOCK",
+    "featureParity": "BLOCK",
+    "mobileRelease": "BLOCK",
+    "baseline": "124Windows evidence unchanged; native82/Mac/realRAW/iPhone/iPad NOT_RUN",
+    "formalPriority": "NONE",
+    "note": "Resolved means the named tool/data defect only; does not resolve official uncertainty or product parity."
+  },
+  "registry01Checks": {
+    "sourceBoundRecords": 6136,
+    "canonicalEntities": 5360,
+    "canonicalVideoEntities": 165,
+    "videoProductScopeMissing": 0,
+    "canonicalInformationEntities": 0,
+    "identityMerges": 19,
+    "leicaReprintMerges": 11,
+    "credit163Applied": 163,
+    "canonicalConditionCreditLayerMissing": 0,
+    "invalidConfirmationEnums": 0,
+    "emptySourceEvidence": 0,
+    "uniqueFeatureCount": "UNKNOWN_NOT_FINAL",
+    "baselineSourcesUnchanged": 78
+  },
+  "checkpointReason": "Parent requested transition to read-only Mobile product defect review; audit checkpoint only."
+}

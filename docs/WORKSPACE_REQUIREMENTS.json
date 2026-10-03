@@ -1,0 +1,946 @@
+{
+  "schemaVersion": 1,
+  "existing147Unchanged": true,
+  "requirements": [
+    {
+      "id": "WS-01",
+      "title": "WORKSPACE",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 1,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-01"
+    },
+    {
+      "id": "WS-02",
+      "title": "MEMBER / ROLE",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 2,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-02"
+    },
+    {
+      "id": "WS-03",
+      "title": "WORKSPACE INVITATION",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 3,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-03"
+    },
+    {
+      "id": "WS-04",
+      "title": "SHARED PROJECT",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 4,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-04"
+    },
+    {
+      "id": "WS-05",
+      "title": "NON-DESTRUCTIVE TEAM EDITING",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 5,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-05"
+    },
+    {
+      "id": "WS-06",
+      "title": "EDIT CONFLICT",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 6,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-06"
+    },
+    {
+      "id": "WS-07",
+      "title": "EDIT HISTORY",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 7,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-07"
+    },
+    {
+      "id": "WS-08",
+      "title": "SHARED PRESET",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 8,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-08"
+    },
+    {
+      "id": "WS-09",
+      "title": "PRESET PERMISSION",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 9,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-09"
+    },
+    {
+      "id": "WS-10",
+      "title": "SHARED CLIENT GALLERY",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 10,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-10"
+    },
+    {
+      "id": "WS-11",
+      "title": "WORKSPACE AUDIT LOG",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 11,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-11"
+    },
+    {
+      "id": "WS-12",
+      "title": "TEAM MOBILE UX",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 12,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/apple/Suite/Services/WorkspaceClient.swift",
+        "apps/apple/Suite/Shared/WorkspaceBrowser.swift",
+        "packages/SuiteCore/Sources/SuiteCore/Workspace.swift"
+      ],
+      "testFiles": [
+        "packages/SuiteCore/Tests/SuiteCoreTests/WorkspaceTests.swift"
+      ],
+      "status": "NATIVE_CODE_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-12"
+    },
+    {
+      "id": "WS-13",
+      "title": "WORKSPACE RELEASE GATE",
+      "source": "docs/WORKSPACE_SPEC_PART_1.md",
+      "section": 13,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-13"
+    },
+    {
+      "id": "WS-14",
+      "title": "CLOUD-FIRST PRINCIPLE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 14,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-14"
+    },
+    {
+      "id": "WS-15",
+      "title": "RAW ORIGINAL",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 15,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-15"
+    },
+    {
+      "id": "WS-16",
+      "title": "PROXY",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 16,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-16"
+    },
+    {
+      "id": "WS-17",
+      "title": "ON-DEMAND RAW FETCH",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 17,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-17"
+    },
+    {
+      "id": "WS-18",
+      "title": "STORAGE PLAN",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 18,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-18"
+    },
+    {
+      "id": "WS-19",
+      "title": "STORAGE IS SEPARATE PRODUCT",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 19,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-19"
+    },
+    {
+      "id": "WS-20",
+      "title": "WORKSPACE STORAGE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 20,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-20"
+    },
+    {
+      "id": "WS-21",
+      "title": "STORAGE USAGE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 21,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-21"
+    },
+    {
+      "id": "WS-22",
+      "title": "CACHE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 22,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-22"
+    },
+    {
+      "id": "WS-23",
+      "title": "OFFLINE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 23,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-23"
+    },
+    {
+      "id": "WS-24",
+      "title": "CLOUD SAFE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 24,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-24"
+    },
+    {
+      "id": "WS-25",
+      "title": "MULTIPART",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 25,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-25"
+    },
+    {
+      "id": "WS-26",
+      "title": "PROVIDER ABSTRACTION",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 26,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/STORAGE_PROVIDER_COMPARISON.md",
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_UNDECIDED_EXTERNAL_MEASUREMENTS_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-26"
+    },
+    {
+      "id": "WS-27",
+      "title": "STORAGE PROVIDER RESEARCH",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 27,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/STORAGE_PROVIDER_COMPARISON.md",
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_UNDECIDED_EXTERNAL_MEASUREMENTS_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-27"
+    },
+    {
+      "id": "WS-28",
+      "title": "DATABASE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 28,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-28"
+    },
+    {
+      "id": "WS-29",
+      "title": "CLOUD COST OBSERVABILITY",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 29,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-29"
+    },
+    {
+      "id": "WS-30",
+      "title": "HARDWARE-INDEPENDENT VALUE",
+      "source": "docs/WORKSPACE_SPEC_PART_2.md",
+      "section": 30,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/STORAGE_PROVIDER_COMPARISON.md",
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_UNDECIDED_EXTERNAL_MEASUREMENTS_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-30"
+    },
+    {
+      "id": "WS-31",
+      "title": "PLAN STRUCTURE",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 31,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-31"
+    },
+    {
+      "id": "WS-32",
+      "title": "TEAM BILLING",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 32,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-32"
+    },
+    {
+      "id": "WS-33",
+      "title": "STORAGE BILLING SAFETY",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 33,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-33"
+    },
+    {
+      "id": "WS-34",
+      "title": "DOWNGRADE",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 34,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-34"
+    },
+    {
+      "id": "WS-35",
+      "title": "TRASH / RECOVERY",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 35,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-35"
+    },
+    {
+      "id": "WS-36",
+      "title": "OWNERSHIP",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 36,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/STORAGE_PROVIDER_COMPARISON.md",
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_UNDECIDED_EXTERNAL_MEASUREMENTS_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-36"
+    },
+    {
+      "id": "WS-37",
+      "title": "MOBILE RELEASE PRIORITY",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 37,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/apple/Suite/Services/WorkspaceClient.swift",
+        "apps/apple/Suite/Shared/WorkspaceBrowser.swift",
+        "packages/SuiteCore/Sources/SuiteCore/Workspace.swift"
+      ],
+      "testFiles": [
+        "packages/SuiteCore/Tests/SuiteCoreTests/WorkspaceTests.swift"
+      ],
+      "status": "NATIVE_CODE_NOT_RUN",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-37"
+    },
+    {
+      "id": "WS-38",
+      "title": "SECURITY",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 38,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-38"
+    },
+    {
+      "id": "WS-39",
+      "title": "CONCURRENCY TEST",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 39,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-39"
+    },
+    {
+      "id": "WS-40",
+      "title": "STORAGE SCALE TEST",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 40,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace-storage.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace-storage.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-40"
+    },
+    {
+      "id": "WS-41",
+      "title": "EXISTING REGRESSION",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 41,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/photo-policy.ts",
+        "apps/backend/src/repository.ts",
+        "apps/backend/src/multipart.ts",
+        "apps/backend/src/workspace-server.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/suite.test.ts",
+        "apps/backend/tests/failures.test.ts",
+        "apps/backend/tests/workspace-server.test.ts"
+      ],
+      "status": "EXISTING_CONTRACT_RETAINED_FULL_LIFECYCLE_NOT_PASSED",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-41"
+    },
+    {
+      "id": "WS-42",
+      "title": "NEW TESTS",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 42,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "apps/backend/src/workspace.ts",
+        "apps/backend/src/workspace-server.ts",
+        "apps/backend/src/workspace-access.ts"
+      ],
+      "testFiles": [
+        "apps/backend/tests/workspace.test.ts",
+        "apps/backend/tests/workspace-server.test.ts",
+        "apps/backend/tests/workspace-access.test.ts"
+      ],
+      "status": "WINDOWS_LOCAL_SUBSET_ONLY",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-42"
+    },
+    {
+      "id": "WS-43",
+      "title": "NOT RUN",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 43,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/WORKSPACE_INTEGRATION.md",
+        "docs/HANDOFF.md"
+      ],
+      "testFiles": [
+        "scripts/raw-harness.test.mjs"
+      ],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-43"
+    },
+    {
+      "id": "WS-44",
+      "title": "TRACEABILITY",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 44,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/WORKSPACE_INTEGRATION.md",
+        "docs/HANDOFF.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-44"
+    },
+    {
+      "id": "WS-45",
+      "title": "COMPLETION REPORT",
+      "source": "docs/WORKSPACE_SPEC_PART_3.md",
+      "section": 45,
+      "design": [
+        "docs/WORKSPACE_INTEGRATION.md"
+      ],
+      "implementationPaths": [
+        "docs/WORKSPACE_INTEGRATION.md",
+        "docs/HANDOFF.md"
+      ],
+      "testFiles": [],
+      "status": "DOCUMENTED_NOT_PRODUCT_GATE",
+      "limitations": "実Cloud/Billing/通知配送/認証UI/Cloud Proxy同期/実機接続は未実装または未接続。NOT_RUNと分離。",
+      "evidence": "docs/evidence/integrated-2026-10-03/regression.json#/workspaceRequirements/WS-45"
+    }
+  ]
+}
