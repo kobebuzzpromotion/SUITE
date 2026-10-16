@@ -45,7 +45,8 @@ test('public ASSETS contain only browser assets and no private data, deployment 
   const client=new URL('../dist-cloudflare/client/',import.meta.url);
   const names=await files(fileURLToPath(client));
   assert.ok(names.includes('index.html')&&names.includes('app.js')&&names.includes('styles.css'));
-  const allowed=name=>/^(index\.html|app\.js|styles\.css|processing-worker\.js)$/.test(name)||
+  const allowed=name=>/^(index\.html|app\.js|styles\.css|editorial-landing\.css|editorial-editor\.css|processing-worker\.js)$/.test(name)||
+    /^assets\/[A-Za-z0-9/_.,-]+\.png$/.test(name)||
     /^vendor\/[A-Za-z0-9/_.,-]+$/.test(name)||
     /^licenses\/[A-Za-z0-9/_.,-]+$/.test(name)||
     /^runtime_assets\/[A-Za-z0-9/_.,-]+$/.test(name);
@@ -54,6 +55,19 @@ test('public ASSETS contain only browser assets and no private data, deployment 
     const content=await readFile(new URL('../dist-cloudflare/client/'+name,import.meta.url),'utf8');
     assert.doesNotMatch(content,/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\bsk_(?:live|test)_[A-Za-z0-9]{12,}|\b(?:SUITE_ADMIN_PASSWORD|SUITE_SESSION_SECRET|SUITE_ADMIN_SESSION_SECRET|CF_ACCESS_AUD|CF_ACCESS_TEAM_DOMAIN)\b|\bCREATE TABLE\s+(?:site_members|assets)\b/i,`sensitive material in ${name}`);
   }
+});
+
+test('anonymous preview serves every editorial UI asset needed by the landing and editor',async()=>{
+  const entry=await import(server.href+'?editorial-assets-test='+Date.now());
+  const origin='https://suite-artifact.test',seen=[];
+  const env={SUITE_ALLOWED_ORIGIN:origin,ASSETS:{fetch:async request=>{seen.push(new URL(request.url).pathname);return new Response('asset',{status:200});}}};
+  for(const path of ['/editorial-landing.css','/editorial-editor.css','/assets/suite-editorial-hero-clean.png']){
+    const response=await entry.default.fetch(new Request(origin+path),env);
+    assert.equal(response.status,200,path);
+  }
+  assert.deepEqual(seen,['/editorial-landing.css','/editorial-editor.css','/assets/suite-editorial-hero-clean.png']);
+  const denied=await entry.default.fetch(new Request(origin+'/assets/private-secret.png'),env);
+  assert.equal(denied.status,404);
 });
 
 test('template has exact ASSETS/DB/BUCKET bindings and cannot be mistaken for connected production resources',async()=>{

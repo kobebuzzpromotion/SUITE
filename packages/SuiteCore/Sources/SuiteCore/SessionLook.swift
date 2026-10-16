@@ -222,6 +222,8 @@ public enum LookApplicationKind: String, Codable, Sendable { case newCapture, ex
 
 public struct SessionImageBinding: Codable, Equatable, Sendable, Identifiable {
     public let id: UUID
+    /// Absent for legacy arrival-time bindings and explicit past-photo operations.
+    public let captureID: UUID?
     public let sessionID: UUID
     public let assetID: UUID
     public let originalSHA256: String
@@ -232,9 +234,9 @@ public struct SessionImageBinding: Codable, Equatable, Sendable, Identifiable {
     public let controls: SessionApplyControls
 
     init(sessionID: UUID, checkpoint: ProjectCheckpoint, look: SessionLook,
-         kind: LookApplicationKind, controls: SessionApplyControls) throws {
+         kind: LookApplicationKind, controls: SessionApplyControls, captureID: UUID? = nil) throws {
         try checkpoint.validate(); try look.validate()
-        id = UUID(); self.sessionID = sessionID
+        id = UUID(); self.sessionID = sessionID; self.captureID = captureID
         assetID = checkpoint.asset.id; originalSHA256 = checkpoint.asset.sha256
         inputRecipeRevision = checkpoint.revision; lookID = look.id; lookRevision = look.revision
         self.kind = kind; self.controls = controls
@@ -257,6 +259,7 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
     public private(set) var lookRevisions: [SessionLook]
     public private(set) var controls: SessionApplyControls
     public private(set) var bindings: [SessionImageBinding]
+    public private(set) var captureContexts: [CaptureContext]
     public private(set) var excludedPhotoIDs: Set<UUID>
     public private(set) var excludedPersonIDs: Set<UUID>
     public private(set) var photoPersonExclusions: Set<PhotoPersonExclusion>
@@ -265,7 +268,7 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
     public init(id: UUID = UUID(), look: SessionLook, controls: SessionApplyControls) throws {
         try look.validate()
         self.id = id; lookRevisions = [look]; self.controls = controls
-        bindings = []; excludedPhotoIDs = []; excludedPersonIDs = []; photoPersonExclusions = []
+        bindings = []; captureContexts = []; excludedPhotoIDs = []; excludedPersonIDs = []; photoPersonExclusions = []
     }
 
     public mutating func updateLook(_ next: SessionLook, expectedRevision: Int) throws {
@@ -279,6 +282,41 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
     }
 
     public mutating func setControls(_ controls: SessionApplyControls) { self.controls = controls }
+
+    /// Host must persist the returned context before triggering camera/ingest.
+    /// Repeated notification of the same capture preserves its original snapshot.
+    public mutating func beginCapture(id captureID: UUID = UUID()) throws -> CaptureContext {
+        if let existing = captureContexts.first(where: { $0.id == captureID }) { return existing }
+        let context = try CaptureContext(id: captureID, sessionID: id, look: currentLook, controls: controls)
+        try registerCapture(context)
+        return context
+    }
+
+    /// Imports an already persisted snapshot, never substitutes current settings.
+    public mutating func registerCapture(_ context: CaptureContext) throws {
+        try context.validate()
+        guard context.sessionID == id, lookRevisions.contains(context.look) else { throw SessionLookError.invalidBinding }
+        if let existing = captureContexts.first(where: { $0.id == context.id }) {
+            guard existing == context else { throw SessionLookError.invalidBinding }
+            return
+        }
+        captureContexts.append(context)
+    }
+
+    public mutating func bindNewPhoto(_ checkpoint: ProjectCheckpoint, capture: CaptureContext) throws -> SessionImageBinding {
+        try checkpoint.validate(); try capture.validate()
+        guard capture.sessionID == id, captureContexts.contains(capture) else { throw SessionLookError.invalidBinding }
+        if let previous = bindings.first(where: { $0.kind == .newCapture && ($0.assetID == checkpoint.asset.id || $0.captureID == capture.id) }) {
+            guard previous.captureID == capture.id, previous.assetID == checkpoint.asset.id,
+                  previous.originalSHA256.lowercased() == checkpoint.asset.sha256.lowercased(),
+                  previous.inputRecipeRevision == checkpoint.revision else { throw SessionLookError.invalidBinding }
+            return previous
+        }
+        let binding = try SessionImageBinding(sessionID: id, checkpoint: checkpoint, look: capture.look,
+                                             kind: .newCapture, controls: capture.controls, captureID: capture.id)
+        bindings.append(binding)
+        return binding
+    }
     public mutating func excludePhoto(_ assetID: UUID) { excludedPhotoIDs.insert(assetID) }
     public mutating func includePhoto(_ assetID: UUID) { excludedPhotoIDs.remove(assetID) }
     public mutating func excludePerson(_ personID: UUID) { excludedPersonIDs.insert(personID) }
@@ -324,9 +362,21 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
             }
         }
         guard Set(bindings.map(\.id)).count == bindings.count else { throw SessionLookError.invalidBinding }
+        guard Set(captureContexts.map(\.id)).count == captureContexts.count else { throw SessionLookError.invalidBinding }
+        for capture in captureContexts {
+            try capture.validate()
+            guard capture.sessionID == id, lookRevisions.contains(capture.look) else { throw SessionLookError.invalidBinding }
+        }
         let originals = bindings.filter { $0.kind == .newCapture }
         guard Set(originals.map(\.assetID)).count == originals.count else { throw SessionLookError.invalidBinding }
+        let captureIDs = bindings.compactMap(\.captureID)
+        guard Set(captureIDs).count == captureIDs.count else { throw SessionLookError.invalidBinding }
         for binding in bindings {
+            if let captureID = binding.captureID {
+                guard binding.kind == .newCapture, let capture = captureContexts.first(where: { $0.id == captureID }),
+                      capture.look.id == binding.lookID, capture.look.revision == binding.lookRevision,
+                      capture.controls == binding.controls else { throw SessionLookError.invalidBinding }
+            }
             guard binding.sessionID == id, isSHA256(binding.originalSHA256), binding.inputRecipeRevision >= 0,
                   lookRevisions.contains(where: { $0.id == binding.lookID && $0.revision == binding.lookRevision }) else {
                 throw SessionLookError.invalidBinding
@@ -335,7 +385,7 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
     }
 
     private enum CodingKeys: String, CodingKey, CaseIterable {
-        case id, lookRevisions, controls, bindings, excludedPhotoIDs, excludedPersonIDs, photoPersonExclusions
+        case id, lookRevisions, controls, bindings, captureContexts, excludedPhotoIDs, excludedPersonIDs, photoPersonExclusions
     }
 
     public init(from decoder: any Decoder) throws {
@@ -345,6 +395,7 @@ public struct TetherSessionState: Codable, Equatable, Sendable {
         lookRevisions = try c.decode([SessionLook].self, forKey: .lookRevisions)
         controls = try c.decode(SessionApplyControls.self, forKey: .controls)
         bindings = try c.decode([SessionImageBinding].self, forKey: .bindings)
+        captureContexts = try c.decodeIfPresent([CaptureContext].self, forKey: .captureContexts) ?? []
         excludedPhotoIDs = try c.decode(Set<UUID>.self, forKey: .excludedPhotoIDs)
         excludedPersonIDs = try c.decode(Set<UUID>.self, forKey: .excludedPersonIDs)
         photoPersonExclusions = try c.decode(Set<PhotoPersonExclusion>.self, forKey: .photoPersonExclusions)

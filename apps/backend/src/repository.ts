@@ -60,10 +60,18 @@ export class AssetRepository {
     } catch (error) {this.db.exec('ROLLBACK'); throw error;}
   }
   saveRecipe(tenantId: string, id: string, editor: string, expectedRevision: number, body: unknown) {
-    const asset = this.get(tenantId, id); this.validateBoundRecipe(body, asset);
     if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0) throw new Error('INVALID_REVISION');
     this.db.exec('BEGIN IMMEDIATE');
     try {
+      // Keep both Asset bindings, previous history and revision CAS inside one
+      // SQLite write transaction; a separate process cannot trash a backdrop
+      // between validation and Recipe commit.
+      const asset = this.get(tenantId, id);
+      this.validateBoundRecipe(body, asset);
+      const extra = ((body as Record<string, unknown>).parameters as Record<string, unknown>)
+        .extendedParameters as Record<string, unknown>;
+      if (Object.hasOwn(extra, 'originalShadowManual') && expectedRevision === 0)
+        throw new Error('INVALID_ORIGINAL_SHADOW_MANUAL_SAVED_BASE');
       const latest = this.latestRecipe(tenantId, id);
       if ((latest?.revision ?? 0) !== expectedRevision) throw new Error('REVISION_CONFLICT');
       const incoming = this.portrait(body);
@@ -88,10 +96,150 @@ export class AssetRepository {
     this.portraitReference(asset);
     return {revision: Number(row.revision), editor: String(row.editor), updatedAt: String(row.updated_at), body};
   }
+  /** Complete committed main history, bounded before loading bodies. No branch rows exist in this schema. */
+  listRecipeHistory(tenantId: string, id: string): {revision: number; body: unknown}[] {
+    // One read snapshot keeps the size preflight, bindings and rows coherent
+    // if another backend process saves or trashes an Asset concurrently.
+    this.db.exec('BEGIN');
+    try {
+      const asset = this.get(tenantId, id);
+      const maximum = 1000, byteLimit = 16 * 1024 * 1024;
+      const size = this.db.prepare('SELECT COUNT(*) AS count,COALESCE(SUM(length(CAST(body AS BLOB))),0) AS bytes FROM recipes WHERE asset_id=?').get(id);
+      if (!size || typeof size.count !== 'number' || typeof size.bytes !== 'number' ||
+          !Number.isSafeInteger(size.count) || !Number.isSafeInteger(size.bytes) || size.count < 0 || size.bytes < 0)
+        throw new Error('CORRUPT_RECIPE_HISTORY');
+      if (size.count > maximum || size.bytes > byteLimit) throw new Error('RECIPE_HISTORY_LIMIT');
+      const rows = this.db.prepare('SELECT revision,body FROM recipes WHERE asset_id=? ORDER BY revision LIMIT ?').all(id, maximum + 1);
+      if (rows.length > maximum) throw new Error('RECIPE_HISTORY_LIMIT');
+      if (rows.length !== size.count) throw new Error('CORRUPT_RECIPE_HISTORY');
+      const history: {revision: number; body: unknown}[] = [];
+      let previous = 0, bytes = 0, reference: unknown;
+      for (const row of rows) {
+        if (typeof row.revision !== 'number' || !Number.isSafeInteger(row.revision) ||
+            row.revision !== previous + 1 || typeof row.body !== 'string')
+          throw new Error('CORRUPT_RECIPE_HISTORY');
+        bytes += Buffer.byteLength(row.body, 'utf8');
+        if (bytes > byteLimit) throw new Error('RECIPE_HISTORY_LIMIT');
+        const body: unknown = JSON.parse(row.body);
+        this.validateBoundRecipe(body, asset);
+        const portrait = this.portrait(body);
+        if (portrait !== undefined) {
+          if (reference === undefined) reference = portrait;
+          else validatePortraitContinuity(reference, portrait);
+        }
+        history.push({revision: row.revision, body});previous = row.revision;
+      }
+      this.db.exec('COMMIT');
+      return history;
+    } catch (error) {this.db.exec('ROLLBACK'); throw error;}
+  }
   private validateBoundRecipe(body: unknown, asset: Asset): void {
     validateRecipe(body);
     const extra = (body.parameters as Record<string, unknown>).extendedParameters as Record<string, unknown>;
     if (Object.hasOwn(extra, 'portrait')) validatePortraitBinding(extra.portrait, asset.id, asset.sha256);
+    if (Object.hasOwn(extra, 'bwEdgeManual')) {
+      const manual = extra.bwEdgeManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // The typed Recipe validator checks shape and the 8 MP source-size cap.
+      // Asset rows do not attest decoded dimensions; Final must check those.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_BW_EDGE_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'clothingSpotManual')) {
+      const manual = extra.clothingSpotManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // The authenticated tenant lookup supplies the real, non-trashed Asset.
+      // Recipe binding strings are untrusted until compared with that row.
+      // Asset metadata does not prove decoded Original width/height.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_CLOTHING_SPOT_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'contactsIrisManual')) {
+      const manual = extra.contactsIrisManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // The JWT-scoped tenant lookup supplies the current non-trashed Asset.
+      // JSON person/eye/dimensions are not authenticated privacy or decode proof.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_CONTACTS_IRIS_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'faceDecorationsManual')) {
+      const manual = extra.faceDecorationsManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // Tenant-scoped current Asset/SHA is real registration evidence.
+      // JSON person, authored face location and dimensions are not.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_FACE_DECORATIONS_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'handToneManual')) {
+      const manual = extra.handToneManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // The JWT-scoped tenant lookup supplied this real, non-trashed Asset.
+      // The photo-bound JSON is not permission evidence or decoded dimensions.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_HAND_TONE_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'eyelinerManual')) {
+      const manual = extra.eyelinerManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // Tenant-scoped, non-trashed registration is the current Asset/SHA
+      // evidence. JSON person/eye claims and dimensions are not authority.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_EYELINER_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'eyeshadowManual')) {
+      const manual = extra.eyeshadowManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // The JWT-scoped tenant lookup supplies the registered, non-trashed
+      // Asset/SHA. JSON person, eye and dimensions do not prove consent or
+      // decoded Original identity and require a separate product host gate.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_EYESHADOW_MANUAL_BINDING');
+    }
+    if (Object.hasOwn(extra, 'addShadowManual')) {
+      const manual = extra.addShadowManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // Shape, stroke limits and dimensions were checked by validateRecipe.
+      // These identifiers are untrusted until compared with current rows in
+      // this tenant. Original bytes and decoded dimensions are separate gates.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_ADD_SHADOW_MANUAL_BINDING');
+      let backdrop: Asset;
+      try {backdrop = this.get(asset.tenantId, String(binding.backdropID));}
+      catch (error) {
+        if ((error as Error).message === 'NOT_FOUND')
+          throw new Error('INVALID_ADD_SHADOW_MANUAL_BACKDROP');
+        throw error;
+      }
+      if (String(binding.backdropSHA256).toLowerCase() !== backdrop.sha256.toLowerCase())
+        throw new Error('INVALID_ADD_SHADOW_MANUAL_BACKDROP');
+    }
+    if (Object.hasOwn(extra, 'originalShadowManual')) {
+      const manual = extra.originalShadowManual as Record<string, unknown>;
+      const binding = manual.binding as Record<string, unknown>;
+      // Shape/capacity are typed in validateRecipe; real target and backdrop
+      // rows are checked within the same transaction as Recipe CAS. Decoded
+      // dimensions and Original bytes are separate gates at Final.
+      if (String(binding.assetID).toLowerCase() !== asset.id.toLowerCase() ||
+          String(binding.originalSHA256).toLowerCase() !== asset.sha256.toLowerCase())
+        throw new Error('INVALID_ORIGINAL_SHADOW_MANUAL_BINDING');
+      let backdrop: Asset;
+      try {backdrop = this.get(asset.tenantId, String(binding.backdropID));}
+      catch (error) {
+        if ((error as Error).message === 'NOT_FOUND')
+          throw new Error('INVALID_ORIGINAL_SHADOW_MANUAL_BACKDROP');
+        throw error;
+      }
+      if (String(binding.backdropSHA256).toLowerCase() !== backdrop.sha256.toLowerCase())
+        throw new Error('INVALID_ORIGINAL_SHADOW_MANUAL_BACKDROP');
+    }
   }
   private portrait(body: unknown): unknown {
     const parameters = (body as Record<string, unknown>).parameters as Record<string, unknown>;

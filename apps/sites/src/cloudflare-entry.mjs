@@ -1,15 +1,16 @@
 import {handleRequest} from './worker.mjs';
 import {adminLogoutCookie} from './admin-auth.mjs';
 import {verifyAccessAssertion,issueSession,readSession,revokeSession,clearSessionCookie} from './cloudflare-identity.mjs';
+import {personProcessingStatus} from '../../web/src/person-privacy.mjs';
 
 const json = (body,status=200) => new Response(JSON.stringify(body), {status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
 const redirect = () => new Response(null,{status:303,headers:{Location:'/', 'Cache-Control':'no-store'}});
 const adminConfigured = env => typeof env.SUITE_ADMIN_USER_ID === 'string' && !!env.SUITE_ADMIN_USER_ID &&
   typeof env.SUITE_ADMIN_PASSWORD === 'string' && !!env.SUITE_ADMIN_PASSWORD &&
   typeof env.SUITE_ADMIN_SESSION_SECRET === 'string' && env.SUITE_ADMIN_SESSION_SECRET.length >= 32;
-const anonymousSession = () => json({mode:'SITES',principal:null,anonymousLocal:true,adminPasswordAuthenticated:false,
+const anonymousSession = env => json({mode:'SITES',principal:null,anonymousLocal:true,adminPasswordAuthenticated:false,
   adminCandidate:false,endedReason:'ADMIN_AUTH_NOT_CONFIGURED',signInURL:null,
-  personProcessingStatus:'PRIVACY_REVIEW_REQUIRED'});
+  personProcessingStatus:personProcessingStatus(env)});
 
 function returnPath(url) {
   if (url.hash || url.searchParams.size > 1 || [...url.searchParams.keys()].some(key => key !== 'return_to') ||
@@ -30,7 +31,7 @@ export async function fetchCloudflare(request,env) {
   const url = new URL(request.url);
   if (url.origin !== env.SUITE_ALLOWED_ORIGIN) return json({error:'RUNTIME_NOT_CONFIGURED'},503);
   if (!adminConfigured(env)) {
-    if (url.pathname === '/trial/session' && request.method === 'GET') return anonymousSession();
+    if (url.pathname === '/trial/session' && request.method === 'GET') return anonymousSession(env);
     if (url.pathname.startsWith('/v1/') || url.pathname.startsWith('/trial/') ||
         url.pathname === '/auth/complete' || url.pathname === '/auth/whoami')
       return json({error:'ADMIN_AUTH_NOT_CONFIGURED'},503);

@@ -3,6 +3,7 @@ import {validatePortraitBinding,validatePortraitContinuity} from '../../../dist/
 import {portableParameters,checkParameters,checkVersion,adoptionTransition} from '../../web/preset-policy.mjs';
 import {reserveAssetStatement,reserveObject,persistedObject,measureRequest} from './usage.mjs';
 import {adminLogin,adminAuthenticated,requireAdmin,adminLogoutCookie} from './admin-auth.mjs';
+import {personProcessingStatus,PERSON_PRIVACY_APPROVED} from '../../web/src/person-privacy.mjs';
 const PART=8*1024*1024,MAX=128*1024*1024,ID=/^[a-f0-9-]{36}$/i;
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const hex=b=>Array.from(new Uint8Array(b),n=>n.toString(16).padStart(2,'0')).join('');
@@ -47,11 +48,46 @@ async function ensureOwnerMember(env,user,email){
   if(!bound||bound.role!=='admin'||bound.active!==1||bound.user_id!==user)throw Error('FORBIDDEN');
 }
 async function asset(env,actor,id){const r=await first(env,'SELECT * FROM assets WHERE id=? AND tenant_id=? AND deleted_at IS NULL',id,actor.tenantId);if(!r)throw Error('NOT_FOUND');return {id:r.id,tenantId:r.tenant_id,name:r.name,originalKey:r.original_key,sha256:r.sha256,size:r.size,cloudSafe:r.cloud_safe===1,deletedAt:null};}
-async function bound(recipe,a){validateRecipe(recipe);const p=recipe.parameters.extendedParameters.portrait;if(p)validatePortraitBinding(p,a.id,a.sha256);}
+async function bound(recipe,a){
+  validateRecipe(recipe);
+  const extra=recipe.parameters.extendedParameters,p=extra.portrait;
+  if(p)validatePortraitBinding(p,a.id,a.sha256);
+  if(Object.hasOwn(extra,'bwEdgeManual')){
+    const b=extra.bwEdgeManual.binding;
+    // D1 Asset metadata proves id/SHA, not decoded full-source dimensions.
+    // Preview/Final decoding must check the latter before rasterizing masks.
+    if(b.assetID.toLowerCase()!==a.id.toLowerCase()||
+       b.originalSHA256.toLowerCase()!==a.sha256.toLowerCase())
+      throw Error('INVALID_BW_EDGE_MANUAL_BINDING');
+  }
+}
 async function latest(env,actor,id){
   const a=await asset(env,actor,id),history=await rows(env,'SELECT * FROM recipes WHERE asset_id=? ORDER BY revision',id);let reference;
   for(const row of history){const recipe=JSON.parse(row.body);await bound(recipe,a);const p=recipe.parameters.extendedParameters.portrait;if(p){if(reference)validatePortraitContinuity(reference,p);else reference=p;}}
   const last=history.at(-1);return last?{revision:last.revision,editor:last.editor,updatedAt:last.updated_at,body:JSON.parse(last.body)}:null;
+}
+// Explicit bounded full-history read. This schema stores only committed main
+// revisions (no branch column). Oversize histories fail, never masquerade as complete.
+async function recipeHistory(env,actor,id){
+  const a=await asset(env,actor,id),maximum=1000,byteLimit=16*1024*1024;
+  const size=await first(env,'SELECT COUNT(*) AS count,COALESCE(SUM(length(CAST(body AS BLOB))),0) AS bytes FROM recipes WHERE asset_id=?',id);
+  if(!size||!Number.isSafeInteger(size.count)||!Number.isSafeInteger(size.bytes)||size.count<0||size.bytes<0)
+    throw Error('CORRUPT_RECIPE_HISTORY');
+  if(size.count>maximum||size.bytes>byteLimit)throw Error('RECIPE_HISTORY_LIMIT');
+  const history=await rows(env,'SELECT revision,body FROM recipes WHERE asset_id=? ORDER BY revision LIMIT ?',id,maximum+1);
+  if(history.length>maximum)throw Error('RECIPE_HISTORY_LIMIT');
+  const output=[];let reference,previous=0,bytes=0;
+  for(const row of history){
+    if(!Number.isSafeInteger(row.revision)||row.revision!==previous+1||typeof row.body!=='string')
+      throw Error('CORRUPT_RECIPE_HISTORY');
+    bytes+=new TextEncoder().encode(row.body).byteLength;
+    if(bytes>byteLimit)throw Error('RECIPE_HISTORY_LIMIT');
+    const recipe=JSON.parse(row.body);await bound(recipe,a);
+    const portrait=recipe.parameters.extendedParameters.portrait;
+    if(portrait){if(reference)validatePortraitContinuity(reference,portrait);else reference=portrait;}
+    output.push({revision:row.revision,body:recipe});previous=row.revision;
+  }
+  return output;
 }
 async function upload(env,actor,id){const u=await first(env,'SELECT * FROM site_uploads WHERE id=? AND author_id=?',id,actor.id);if(!u)throw Error('NOT_FOUND');const a=await asset(env,actor,u.asset_id);return {u,a};}
 const uploadJSON=(u,a)=>({id:u.id,assetID:a.id,size:a.size,sha256:a.sha256,partSize:u.part_size,partCount:u.part_count,status:u.status});
@@ -130,7 +166,7 @@ async function routeRequest(request,env){
       }
       const adminPasswordAuthenticated=actor?.role==='admin'?await adminAuthenticated(request,env,actor).catch(()=>false):false;
       const principal=actor?{id:actor.id,authorName:actor.authorName,role:actor.role,tenantId:actor.tenantId,trialEndsAt:actor.trialEndsAt}:null;
-      return json({mode:'SITES',principal,adminPasswordAuthenticated,adminCandidate:request.headers.get('oai-authenticated-user-id')===env.SUITE_ADMIN_USER_ID,anonymousLocal:true,endedReason,signInURL:'/signin-with-chatgpt?return_to=/',personProcessingStatus:'PRIVACY_REVIEW_REQUIRED'});
+      return json({mode:'SITES',principal,adminPasswordAuthenticated,adminCandidate:request.headers.get('oai-authenticated-user-id')===env.SUITE_ADMIN_USER_ID,anonymousLocal:true,endedReason,signInURL:'/signin-with-chatgpt?return_to=/',personProcessingStatus:personProcessingStatus(env)});
     }
     if(url.pathname==='/trial/admin/login'&&request.method==='POST'){
       if(env.SUITE_TRUST_SITES_DISPATCH!=='1')throw Error('DISPATCH_NOT_CONFIGURED');
@@ -145,7 +181,7 @@ async function routeRequest(request,env){
     if(!api){
       if(!actor&&url.pathname==='/'||actor){if(!env.ASSETS)throw Error('ASSETS_NOT_CONFIGURED');const served=await env.ASSETS.fetch(request),response=new Response(served.body,served);response.headers.set('Cache-Control','no-store');response.headers.set('X-Content-Type-Options','nosniff');response.headers.set('Referrer-Policy','no-referrer');response.headers.set('Content-Security-Policy',"default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'");return response;}
       // Anonymous login UI needs its self-hosted static assets; no private blobs are served here.
-      if(/^\/(app\.js|styles\.css|vendor\/|licenses\/|runtime_assets\/|processing-worker\.js)/.test(url.pathname))return env.ASSETS.fetch(request);
+      if(/^\/(app\.js|styles\.css|editorial-landing\.css|editorial-editor\.css|assets\/suite-editorial-hero-clean\.png|vendor\/|licenses\/|runtime_assets\/|processing-worker\.js)/.test(url.pathname))return env.ASSETS.fetch(request);
       return json({error:'UNAUTHORIZED'},401);
     }
     if(!actor)throw Error('UNAUTHORIZED');
@@ -167,12 +203,14 @@ async function routeRequest(request,env){
       const b=await payload(request);exact(b,['name','sha256','size']);if(typeof b.name!=='string'||!b.name||b.name.length>255||!Number.isSafeInteger(b.size)||b.size<=0||b.size>MAX||typeof b.sha256!=='string'||!/^[a-f0-9]{64}$/.test(b.sha256))throw Error('INVALID_ASSET');
       const id=crypto.randomUUID();const reserved=await env.DB.batch([reserveAssetStatement(env,id,b.size),stmt(env,'INSERT INTO assets(id,tenant_id,name,original_key,sha256,size) SELECT ?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM site_storage_reservations WHERE asset_id=?)',id,actor.tenantId,b.name,'original-'+crypto.randomUUID(),b.sha256,b.size,id)]);if(changes(reserved[0])!==1||changes(reserved[1])!==1)throw Error('TRIAL_STORAGE_LIMIT');return json(await asset(env,actor,id),201);
     }
+    const historyMatch=/^\/v1\/assets\/([a-f0-9-]{36})\/recipe\/history$/.exec(url.pathname);
+    if(historyMatch&&request.method==='GET')return json({history:await recipeHistory(env,actor,historyMatch[1])});
     const am=/^\/v1\/assets\/([a-f0-9-]{36})\/(recipe|original|uploads)$/.exec(url.pathname);
     if(am){const a=await asset(env,actor,am[1]);
       if(am[2]==='recipe'&&request.method==='GET')return json({recipe:await latest(env,actor,a.id)});
       if(am[2]==='recipe'&&request.method==='PUT'){
         const b=await payload(request);exact(b,['expectedRevision','recipe']);await bound(b.recipe,a);if(!Number.isSafeInteger(b.expectedRevision)||b.expectedRevision<0)throw Error('INVALID_REVISION');
-        if(b.recipe.parameters.extendedParameters.portrait)throw Error('PERSON_PROCESSING_DISABLED');
+        if(b.recipe.parameters.extendedParameters.portrait&&personProcessingStatus(env)!==PERSON_PRIVACY_APPROVED)throw Error('PERSON_PROCESSING_DISABLED');
         const prior=await latest(env,actor,a.id);if((prior?.revision||0)!==b.expectedRevision)throw Error('REVISION_CONFLICT');const revision=b.expectedRevision+1,now=iso(env),serialized=JSON.stringify(b.recipe);
         const result=await env.DB.batch([stmt(env,'INSERT INTO recipes SELECT ?,?,?,?,? WHERE COALESCE((SELECT MAX(revision) FROM recipes WHERE asset_id=?),0)=?',a.id,revision,actor.id,now,serialized,a.id,b.expectedRevision),stmt(env,'INSERT INTO audit(tenant_id,asset_id,action,created_at) SELECT ?,?,?,? WHERE changes()=1',actor.tenantId,a.id,'recipe-committed',now)]);if(changes(result[0])!==1)throw Error('REVISION_CONFLICT');return json({revision,editor:actor.id,updatedAt:now,body:b.recipe});
       }
@@ -212,7 +250,7 @@ async function routeRequest(request,env){
     const author=await authorRoutes(request,env,actor,url);return author||json({error:'NOT_FOUND'},404);
   }catch(e){const message=e.message,status=message==='TRIAL_LIMITS_NOT_CONFIGURED'?503:/TRIAL_.*LIMIT|ADMIN_LOGIN_RATE_LIMIT/.test(message)?429:message==='UNAUTHORIZED'?401:['INVITATION_REQUIRED','TRIAL_EXPIRED','TRIAL_REVOKED','TRIAL_END_NOT_CONFIGURED','FORBIDDEN','SELF_APPROVAL_FORBIDDEN','ORIGIN_REQUIRED','TRIAL_REQUEST_REQUIRED','ADMIN_PASSWORD_REQUIRED','ADMIN_PASSWORD_INVALID'].includes(message)?403:message==='NOT_FOUND'?404:/CONFLICT|ALREADY|WAITING|IN_PROGRESS|IMMUTABLE/.test(message)?409:/INVALID|CORRUPT|CHECKSUM|PAYLOAD|SOURCE_|NON_PORTABLE|PHOTO_LOCAL|PERSON_PROCESSING|PARTS_INCOMPLETE|UNSUPPORTED/.test(message)?400:503;return json({error:status===503?'OPERATION_UNAVAILABLE':message,...(status===503?{message:'原本・編集・提出版は保持しています。'}:{})},status);}
 }
-const publicAssetPath=path=>path==='/'||path==='/index.html'||path==='/app.js'||path==='/styles.css'||path==='/processing-worker.js'||/^\/(vendor|licenses|runtime_assets)\/[A-Za-z0-9/_.,-]+$/.test(path);
+const publicAssetPath=path=>path==='/'||path==='/index.html'||path==='/app.js'||path==='/styles.css'||path==='/editorial-landing.css'||path==='/editorial-editor.css'||path==='/assets/suite-editorial-hero-clean.png'||path==='/processing-worker.js'||path==='/local-personal-look-training-worker.mjs'||/^\/(vendor|licenses|runtime_assets)\/[A-Za-z0-9/_.,-]+$/.test(path);
 async function publicAsset(request,env,url){
   if(!env.SUITE_ALLOWED_ORIGIN||url.origin!==env.SUITE_ALLOWED_ORIGIN||!env.ASSETS)return json({error:'RUNTIME_NOT_CONFIGURED'},503);
   if(!publicAssetPath(url.pathname))return json({error:'NOT_FOUND'},404);
@@ -226,7 +264,7 @@ export function handleRequest(request,env){
   if(!api&&['GET','HEAD'].includes(request.method))return publicAsset(request,env,url);
   if(url.pathname==='/trial/session'&&request.method==='GET'&&!request.headers.get('oai-authenticated-user-id')){
     if(!env.SUITE_ALLOWED_ORIGIN||url.origin!==env.SUITE_ALLOWED_ORIGIN)return json({error:'RUNTIME_NOT_CONFIGURED'},503);
-    return json({mode:'SITES',principal:null,anonymousLocal:true,adminPasswordAuthenticated:false,signInURL:'/signin-with-chatgpt?return_to=/',personProcessingStatus:'PRIVACY_REVIEW_REQUIRED'});
+    return json({mode:'SITES',principal:null,anonymousLocal:true,adminPasswordAuthenticated:false,signInURL:'/signin-with-chatgpt?return_to=/',personProcessingStatus:personProcessingStatus(env)});
   }
   if(api&&!request.headers.get('oai-authenticated-user-id'))return json({error:'UNAUTHORIZED'},401);
   return measureRequest(request,env,routeRequest);

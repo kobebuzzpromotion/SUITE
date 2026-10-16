@@ -107,8 +107,8 @@ test('WH04 shared preset CAS, apply snapshot, delete retention and selection con
     await f.json(`${f.path}/presets/${preset.id}`,'editor','PATCH',{baseVersion:1,name:'Denied',body:recipe()},403);
     const updates=await Promise.all(['owner','admin'].map((user,index)=>f.request(`${f.path}/presets/${preset.id}`,user,'PATCH',{baseVersion:1,name:`Update ${index}`,body:recipe(index+0.5)})));
     assert.deepEqual(updates.map(r=>r.status).sort(),[200,409]);for(const response of updates)await response.json();
-    const applied=await f.json(`${f.assetPath}/preset`,'editor','POST',{baseVersion:0,presetId:preset.id});
-    await f.json(`${f.assetPath}/preset`,'viewer','POST',{baseVersion:1,presetId:preset.id},403);
+    const applied=await f.json(`${f.assetPath}/preset`,'editor','POST',{baseVersion:0,presetId:preset.id,expectedPresetVersion:2});
+    await f.json(`${f.assetPath}/preset`,'viewer','POST',{baseVersion:1,presetId:preset.id,expectedPresetVersion:2},403);
     await f.json(`${f.path}/presets/${preset.id}`,'admin','DELETE');
     await f.json(`${f.path}/presets/${preset.id}`,'editor','GET',undefined,404);
     assert.deepEqual((await f.json(`${f.assetPath}/recipe`,'editor')).recipe,applied.version);

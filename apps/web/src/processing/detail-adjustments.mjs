@@ -1,20 +1,20 @@
 import {assertPixels,checkAbort,sourceDimensions} from './pure.mjs';
 
 export const DETAIL_ALGORITHM_VERSION='suite-srgb8-detail-1';
-export const DETAIL_LIMITS=Object.freeze({clarity:Object.freeze([-100,100]),texture:Object.freeze([-100,100]),sharpness:Object.freeze([0,100])});
+export const DETAIL_LIMITS=Object.freeze({denoise:Object.freeze([-100,100]),clarity:Object.freeze([-100,100]),texture:Object.freeze([-100,100]),sharpness:Object.freeze([0,100]),sharpenRadius:Object.freeze([0,100]),sharpenDetail:Object.freeze([0,100]),sharpenMasking:Object.freeze([0,100])});
 const REFERENCE_LONG_EDGE=3000;
-const BASE_RADII=Object.freeze({clarity:16,textureFine:1,textureCoarse:4,sharpness:1.5});
+const BASE_RADII=Object.freeze({denoise:2,clarity:16,textureFine:1,textureCoarse:4,sharpness:1.5});
 const clampIndex=(i,size)=>Math.max(0,Math.min(size-1,i));
 
 /** Actual representation pixels, not sensor dimensions. Fractions are retained, never rounded to a minimum radius. */
 export function detailRadiiFor(pixels){
   assertPixels(pixels);const source=sourceDimensions(pixels),longEdge=Math.max(pixels.width,pixels.height),scale=longEdge/REFERENCE_LONG_EDGE;
-  return Object.freeze({referenceLongEdge:REFERENCE_LONG_EDGE,actualLongEdge:longEdge,sourceLongEdge:Math.max(source.width,source.height),representationScale:longEdge/Math.max(source.width,source.height),clarity:BASE_RADII.clarity*scale,textureFine:BASE_RADII.textureFine*scale,textureCoarse:BASE_RADII.textureCoarse*scale,sharpness:BASE_RADII.sharpness*scale});
+  return Object.freeze({referenceLongEdge:REFERENCE_LONG_EDGE,actualLongEdge:longEdge,sourceLongEdge:Math.max(source.width,source.height),representationScale:longEdge/Math.max(source.width,source.height),denoise:BASE_RADII.denoise*scale,clarity:BASE_RADII.clarity*scale,textureFine:BASE_RADII.textureFine*scale,textureCoarse:BASE_RADII.textureCoarse*scale,sharpness:BASE_RADII.sharpness*scale});
 }
 
 function checkedParameters(parameters){
   if(!parameters||typeof parameters!=='object'||Array.isArray(parameters)||Object.keys(parameters).some(key=>!Object.hasOwn(DETAIL_LIMITS,key)))throw Error('INVALID_DETAIL_PARAMETERS');
-  const result={};for(const [key,[minimum,maximum]] of Object.entries(DETAIL_LIMITS)){const value=Object.hasOwn(parameters,key)?parameters[key]:0;if(typeof value!=='number'||!Number.isFinite(value)||value<minimum||value>maximum)throw Error('DETAIL_RANGE_'+key.toUpperCase());result[key]=value;}return result;
+  const result={};for(const [key,[minimum,maximum]] of Object.entries(DETAIL_LIMITS)){const value=Object.hasOwn(parameters,key)?parameters[key]:key==='sharpenRadius'?50:0;if(typeof value!=='number'||!Number.isFinite(value)||value<minimum||value>maximum)throw Error('DETAIL_RANGE_'+key.toUpperCase());result[key]=value;}return result;
 }
 
 /**
@@ -58,7 +58,9 @@ function fillLuma(data,luma,signal){for(let k=0;k<luma.length;k++){if(k%16384===
 function addLumaDelta(data,count,delta,signal){for(let k=0;k<count;k++){if(k%16384===0)checkAbort(signal);const i=k*4;if(data[i+3]===0)continue;const amount=delta(k);for(let c=0;c<3;c++)data[i+c]=Math.round(data[i+c]+amount);}}
 
 /**
- * Distinct sRGB8 post-color stages, in fixed order: clarity -> texture -> sharpness, before rotation/Crop.
+ * Distinct sRGB8 post-color stages, in fixed order: denoise -> clarity -> texture -> sharpness, before rotation/Crop.
+ * Denoise: alpha-aware local luminance smoothing (positive); negative values mildly emphasize local grain.
+ * It is NOT RAW sensor-noise reduction, chroma denoising, or AI restoration.
  * Clarity: broad luminance local contrast, bounded signed residual to limit extreme halos.
  * Texture: signed difference of fine/coarse low-pass luminance (a middle-frequency band, not sharpening).
  * Sharpness: positive high-frequency unsharp residual; 0 neutral, lower values reduce enhancement, no invented negative range.
@@ -76,18 +78,39 @@ export function applyDetailAdjustments(pixels,parameters={}, {signal}={}){
   assertPixels(pixels);checkAbort(signal);const settings=checkedParameters(parameters),radii=detailRadiiFor(pixels),data=pixels.data.slice(),count=pixels.width*pixels.height;
   const output={width:pixels.width,height:pixels.height,data};
   if(Object.hasOwn(pixels,'sourceWidth')){output.sourceWidth=pixels.sourceWidth;output.sourceHeight=pixels.sourceHeight;}
-  output.detailProvenance={algorithmVersion:DETAIL_ALGORITHM_VERSION,colorSpace:'sRGB8 encoded luminance',order:['clarity','texture','sharpness'],appliedStages:['clarity','texture','sharpness'].filter(stage=>settings[stage]!==0),parameters:{...settings},radii:{...radii},edgeMode:'clamp',axisRadiusCap:'dimension-1',alpha:'unchanged; coverage-normalized neighbors',visualVerification:'NOT_RUN'};
-  if(settings.clarity===0&&settings.texture===0&&settings.sharpness===0)return output;
+  output.detailProvenance={algorithmVersion:DETAIL_ALGORITHM_VERSION,colorSpace:'sRGB8 encoded luminance',order:['denoise','clarity','texture','sharpness'],appliedStages:['denoise','clarity','texture','sharpness'].filter(stage=>settings[stage]!==0),parameters:{...settings},radii:{...radii},edgeMode:'clamp',axisRadiusCap:'dimension-1',alpha:'unchanged; coverage-normalized neighbors',visualVerification:'NOT_RUN'};
+  if(settings.denoise===0&&settings.clarity===0&&settings.texture===0&&settings.sharpness===0)return output;
   let nonopaque=false;for(let i=3;i<data.length;i+=4){if(i%65536===3)checkAbort(signal);if(data[i]!==255){nonopaque=true;break;}}
   const luma=new Float32Array(count),workspace={horizontal:new Float32Array(count),coverageHorizontal:nonopaque?new Float32Array(count):null};
-  const broad=new Float32Array(count),fine=settings.texture!==0?new Float32Array(count):null;
+  const advanced=Object.hasOwn(parameters,'sharpenRadius')||Object.hasOwn(parameters,'sharpenDetail')||Object.hasOwn(parameters,'sharpenMasking');
+  const broad=new Float32Array(count),fine=settings.texture!==0||advanced&&settings.sharpenDetail!==0?new Float32Array(count):null;
   const current={width:pixels.width,height:pixels.height,data};
+  if(settings.denoise!==0){fillLuma(data,luma,signal);blurLuma(luma,current,radii.denoise,workspace,broad,signal);const gain=settings.denoise>0?.8*settings.denoise/100:.25*settings.denoise/100;addLumaDelta(data,count,k=>gain*(broad[k]-luma[k]),signal);}
   if(settings.clarity!==0){fillLuma(data,luma,signal);blurLuma(luma,current,radii.clarity,workspace,broad,signal);const gain=1.5*settings.clarity/100;addLumaDelta(data,count,k=>{const residual=luma[k]-broad[k];return gain*residual/(1+Math.abs(residual)/32);},signal);}
   if(settings.texture!==0){fillLuma(data,luma,signal);blurLuma(luma,current,radii.textureFine,workspace,fine,signal);blurLuma(luma,current,radii.textureCoarse,workspace,broad,signal);const gain=1.25*settings.texture/100;addLumaDelta(data,count,k=>gain*(fine[k]-broad[k]),signal);}
-  if(settings.sharpness!==0){fillLuma(data,luma,signal);blurLuma(luma,current,radii.sharpness,workspace,broad,signal);const gain=settings.sharpness/100;addLumaDelta(data,count,k=>gain*(luma[k]-broad[k]),signal);}
+  if(settings.sharpness!==0){
+    fillLuma(data,luma,signal);
+    // The old branch is intentionally unchanged: old Sharpness-only Recipes must render bit-for-bit identically.
+    if(!advanced){blurLuma(luma,current,radii.sharpness,workspace,broad,signal);const gain=settings.sharpness/100;addLumaDelta(data,count,k=>gain*(luma[k]-broad[k]),signal);}
+    else{
+      // 50 is the legacy radius; 0 narrows to 1/4 and 100 widens to 1.75x.
+      const radius=radii.sharpness*(.25+1.5*settings.sharpenRadius/100);
+      blurLuma(luma,current,radius,workspace,broad,signal);
+      if(settings.sharpenDetail!==0)blurLuma(luma,current,Math.max(0,radii.sharpness*.35),workspace,fine,signal);
+      const gain=settings.sharpness/100,detailGain=settings.sharpenDetail/100,mask=settings.sharpenMasking/100;
+      addLumaDelta(data,count,k=>{
+        const residual=luma[k]-broad[k];
+        const high=detailGain===0?0:luma[k]-fine[k];
+        // At 100 masking, low-contrast residuals are excluded and strong edges remain.
+        const edge=Math.max(0,Math.min(1,(Math.abs(residual)-2)/30));
+        return gain*(residual+.75*detailGain*high)*(1-mask*(1-edge));
+      },signal);
+    }
+  }
   checkAbort(signal);return output;
 }
 
 export const applyClarity=(pixels,value,options)=>applyDetailAdjustments(pixels,{clarity:value},options);
 export const applyTexture=(pixels,value,options)=>applyDetailAdjustments(pixels,{texture:value},options);
 export const applySharpness=(pixels,value,options)=>applyDetailAdjustments(pixels,{sharpness:value},options);
+export const applyDenoise=(pixels,value,options)=>applyDetailAdjustments(pixels,{denoise:value},options);

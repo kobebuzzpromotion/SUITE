@@ -6,6 +6,14 @@ export function mountAdminLogin(client,{principal=null,adminCandidate=false,sign
   const title=document.createElement('h1');title.textContent='SUITE 管理者';card.append(title);
   const help=document.createElement('p');help.className='login-intro';card.append(help);
   const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');card.append(status);
+  const navigation=document.createElement('nav');navigation.className='login-navigation';navigation.setAttribute('aria-label','管理者画面の移動');
+  const home=document.createElement('a');home.href='/';home.textContent='トップへ';navigation.append(home);
+  if(principal||adminCandidate){
+    const signOutPath=signInURL==='/auth/complete?return_to=/'?'/auth/logout?return_to=/':
+      signInURL==='/signin-with-chatgpt?return_to=/'?'/signout-with-chatgpt?return_to=/':null;
+    if(signOutPath){const signOut=document.createElement('a');signOut.href=signOutPath;signOut.textContent='ログアウト';navigation.append(signOut);}
+  }
+  card.append(navigation);
   if(!principal&&!adminCandidate){
     help.textContent='管理者本人として認証してください。一般の写真編集はログイン不要で、トップページから使えます。';
     const link=document.createElement('a');link.className='button primary full';link.textContent='管理者本人確認へ';

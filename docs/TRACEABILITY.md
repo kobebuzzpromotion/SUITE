@@ -1,5 +1,7 @@
 # 要件→実装→テスト→Evidence（全147節）
 
+2026-10-11追記: B0倍300dpiのApple大判TIFF導線をPhotoPipeline.swift / Delta66LargePrint.swift / EditorModel.swift / CropExportControls.swift / iPhone・iPad EditorViewへ接続。保存版固定・原本照合・一回限り補間同意・共通native描画。コードのみ、テスト/ビルド/配備未実行。Web全補正の移植や全RAW対応の証明ではない。制約はHANDOFF同日節。
+
 4原文147節を省略せず保持。各節の細目は原文全文に従う。表のPASSは限定したWindows試験であり、その節全体やMobile Releaseの合格ではない。詳細scope・複数実装先・複数test先は機械正本 requirements.json に全件記録。
 
 共通Evidenceは `verification-results.json`（実コマンド/終了値）、`TEST_CATALOG.md`（全試験名/結果）、`FAILURE_MATRIX.md`（T01–T30）、`FINAL_AUDIT.md`（欠落監査）。Mac/iPhone/iPadは未実行、Mobile Release BLOCK。

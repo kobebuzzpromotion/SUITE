@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-03T14:59:12Z",
+  "mode": "commitSnapshot",
+  "commitSHA": "31dd52bc74cce16d88e4922e7a55fcb71d35fe7d",
+  "branch": "main",
+  "remoteAtInspection": "NONE",
+  "publishedOnGitHub": "NOT_VERIFIED",
+  "gitChecks": {
+    "gitDiffCachedCheck": "PASS_EMPTY_INDEX",
+    "commitWhitespaceCheck": "WARN_BLANK_LINE_AT_EOF_IN_THREE_SQL_MIGRATIONS",
+    "indexModified": false
+  },
+  "trackedTree": {
+    "files": 377,
+    "totalBlobBytes": 36870036,
+    "largestBlobBytes": 6284436,
+    "over10MiB": 0,
+    "over100MiB": 0
+  },
+  "trackedSensitivePathCounts": {
+    "actualEnv": 0,
+    "realRAWExtensions": 0,
+    "databaseFiles": 0,
+    "privateKeyFiles": 0,
+    "devVarsWranglerOrRawDataDirectory": 0,
+    "envExampleTemplate": 1
+  },
+  "contentPatternScan": {
+    "scope": "Committed text at HEAD, high-confidence token/private-key signatures only",
+    "matchedFileCount": 0,
+    "secretValuesEmitted": false,
+    "limitations": "Pattern absence cannot rule out every credential. GitHub remote state and any subsequent commits need a separate scan."
+  },
+  "ignoreRuleProbe": {
+    "ignoredSyntheticPaths": [".env", ".env.local", "test.db", "test.sqlite", "sample.NEF", "sample.CR3"],
+    "notIgnoredSyntheticCredentialPaths": ["id_rsa", "secret.pem"],
+    "note": "These are names passed to git check-ignore --no-index, not files created or secrets found. Current committed tree contains no matching private-key files."
+  },
+  "assessment": "COMMIT_TREE_NO_OBSERVED_SECRET_OR_RAW_OR_DB; IGNORE_GAP_FOR_GENERIC_CREDENTIAL_FILENAMES; PUBLICATION_NOT_VERIFIED",
+  "next": ["GitHub push and remote main SHA confirmation", "Scan exact remote main tree and build that SHA", "After actual Workers URL and deployment ID, execute qa-smoke-plan-01; do not treat absent D1/secret as old-cookie revocation PASS"],
+  "mutations": "QA_EVIDENCE_FILE_ONLY"
+}

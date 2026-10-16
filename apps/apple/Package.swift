@@ -9,5 +9,5 @@ let package = Package(
     dependencies: [.package(path: "../../packages/SuiteCore")],
     targets: [.executableTarget(name: "SuiteRawQAAdapter", dependencies: ["SuiteCore"], path: ".",
         exclude: ["Tests", "project.yml", "Suite/Features", "Suite/Shared", "Suite/Info.plist", "Suite/SuiteApp.swift", "Suite/EditorModel.swift", "Suite/Services/SuiteBackendClient.swift", "Suite/Services/CloudTransferCoordinator.swift"],
-        sources: ["Suite/Services/PhotoPipeline.swift", "Suite/Services/PortraitPipeline.swift", "QA/RawQAAdapter.swift"])]
+        sources: ["Suite/Services/PhotoPipeline.swift", "Suite/Services/PortraitPipeline.swift", "Suite/Services/Delta66LargePrint.swift", "QA/RawQAAdapter.swift"])]
 )

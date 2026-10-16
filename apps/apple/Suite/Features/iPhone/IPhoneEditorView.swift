@@ -8,6 +8,7 @@ struct IPhoneEditorView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var activeSheet: IPhoneEditorSheet?
     @State private var showsExportFormats = false
+    @State private var showsLargePrint = false
 
     private let background = Color(red: 0.045, green: 0.05, blue: 0.055)
     private let panel = Color(red: 0.09, green: 0.095, blue: 0.105)
@@ -48,7 +49,9 @@ struct IPhoneEditorView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
+        .sheet(isPresented: $showsLargePrint) { LargePrintExportSheet(model: model) }
         .confirmationDialog("書き出し形式", isPresented: $showsExportFormats, titleVisibility: .visible) {
+            Button("大判TIFF（明示設定）") { showsLargePrint = true }.disabled(!canExport)
             Button("Crop・印刷・Export設定") { model.showCropExport = true }
             Button("保存済み設定で書き出す") { model.exportConfigured() }.disabled(!canExport)
             Button("JPEGで書き出す") { model.exportJPEG() }

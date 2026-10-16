@@ -4,6 +4,9 @@ import {EditorSession, checksum} from '../src/session.mjs';
 import {validateRecipe} from '../../../dist/apps/backend/src/photo-policy.js';
 import {resolutionAssessment, defaultCropSettings} from '../../../dist/apps/backend/src/crop-export.js';
 import {renderPixels, makeProxyPixels} from '../src/processing/pure.mjs';
+import {expandCanvasPixels} from '../src/processing/canvas-expand.mjs';
+import {projectCanvasExpansion} from '../src/processing/canvas-expand-projection.mjs';
+import {resizeExportPixels} from '../src/export-size.mjs';
 import {ASSET_A, ASSET_B, PERSON_A, WHEN, detection, portrait, recipe, syntheticPixels, deferred} from './fixtures.mjs';
 
 // Fake API/storage/decoder for deterministic state faults ONLY. No actual RAW decode/backend/browser claim.
@@ -28,8 +31,12 @@ async function fixture({withPortrait = false, pixels = syntheticPixels(), sessio
       if (!['proxy', 'final'].includes(mode)) throw Error('INVALID_DECODE_MODE');
       return {pixels: structuredClone(pixels), provenance: {fixture: 'NON_RAW_SYNTHETIC'}, metadata: {fixture: true}};},
     makeProxy: async (p, edge) => makeProxyPixels(p, edge), detectPeople: async () => {calls.push(['detectPeople']); return [detection(), detection(0.6)];},
-    render: async (p, doc, options) => {calls.push(['render', !!doc.parameters.extendedParameters.portrait]); return renderPixels(p, doc, {...options, validateRecipe, resolutionAssessment});},
-    encode: async (p, options) => {calls.push(['encode', options.format]); return new Blob([p.data], {type: `image/${options.format}`});}
+    render: async (p, doc, options) => {calls.push(['render', !!doc.parameters.extendedParameters.portrait]);
+      const rendered=renderPixels(p,doc,{...options,validateRecipe,resolutionAssessment});
+      const expand=doc.parameters.extendedParameters.canvasExpand;
+      return expand?expandCanvasPixels(rendered,projectCanvasExpansion(rendered,expand)):rendered;},
+    resizeForExport: async (p, settings, options) => {calls.push(['resizeForExport',settings.kind]);return resizeExportPixels(p,settings,options);},
+    encode: async (p, options) => {calls.push(['encode', options.format,p.width,p.height]); return new Blob([p.data], {type: `image/${options.format}`});}
   };
   let urls = 0; const urlAPI = {createObjectURL: () => `blob:synthetic-${++urls}`, revokeObjectURL() {}};
   const session = new EditorSession({api, processing, storage, urlAPI, clock: () => WHEN,
@@ -376,4 +383,458 @@ test('WEB-ST34 / PRIVACY_MOCK_STATE: default block does not disable nonportrait 
   const output = await session.exportFinal({format: 'png'}); assert.ok(output.size > 0);
   assert.equal(calls.some(c => c[0] === 'detectPeople' || (c[0] === 'render' && c[1])), false);
   assert.equal(session.state.personProcessingStatus, 'PRIVACY_REVIEW_REQUIRED'); assert.deepEqual(new Uint8Array(bytes), original);
+});
+
+test('WEB-ST35 / ARTIFICIAL_ONLY: explicit production approval reaches portrait edit, save, reload and fixed Final', async () => {
+  const {session,calls,remote,asset,bytes}=await fixture({withPortrait:true,sessionOptions:{personProcessingStatus:'PRODUCTION_PERSON_APPROVED'}});
+  await session.detectPeople();await session.selectPerson(PERSON_A);
+  await session.setAdjustment('faceBrightness',1);await session.save();await session.reload();
+  const output=await session.exportFinal({format:'png'});
+  assert.ok(output.size>0);assert.equal(session.state.personProcessingStatus,'PRODUCTION_PERSON_APPROVED');
+  assert.ok(calls.some(c=>c[0]==='detectPeople'));assert.ok(calls.some(c=>c[0]==='render'&&c[1]));
+  assert.equal(remote.get(asset.id).body.parameters.extendedParameters.portrait.targets.find(t=>t.id===PERSON_A).value,1);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST36 / ARTIFICIAL_ONLY: tone curve pixel output survives Undo/Redo, save/reload and fixed Final',async()=>{
+  const {session,bytes}=await fixture();
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('curve.shadows',70);
+  assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.toneCurve.shadows,70);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments,undefined);
+  await session.redo();await session.save();await session.reload();
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.toneCurve.shadows,70);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST37 / ARTIFICIAL_ONLY: temperature, tint and denoise survive CAS save/reload and fixed Final',async()=>{
+  const {session,bytes,remote,asset}=await fixture();
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('color.temperature',35);
+  await session.setAdjustment('color.tint',-20);
+  await session.setAdjustment('detail.denoise',40);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.detail,undefined);
+  await session.redo();await session.save();await session.reload();
+  const extra=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments;
+  assert.equal(extra.color.temperature,35);assert.equal(extra.color.tint,-20);assert.equal(extra.detail.denoise,40);
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments,extra);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST38 / ARTIFICIAL_ONLY: grain is an actual saved and repeatable Final effect',async()=>{
+  const {session,bytes,remote,asset}=await fixture();
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('detail.grain',80);
+  const first=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.detail.grain;
+  assert.equal(first.amount,80);assert.ok(Number.isSafeInteger(first.seed));
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.detail.grain,first);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  const repeated=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);assert.deepEqual(repeated,changed);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST39 / ARTIFICIAL_ONLY: RGB Levels survives Undo/Redo, save/reload and fixed Final',async()=>{
+  const {session,bytes,remote,asset}=await fixture();
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('levels.master.inputBlack',20);
+  await session.setAdjustment('levels.red.gamma',1.5);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.levels.red,undefined);
+  await session.redo();await session.save();await session.reload();
+  const levels=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.levels;
+  assert.equal(levels.master.inputBlack,20);assert.equal(levels.red.gamma,1.5);
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.levels,levels);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST40 / ARTIFICIAL_ONLY: export sizing changes Final bytes without changing Recipe or Original',async()=>{
+  const {session,bytes,calls}=await fixture({pixels:syntheticPixels(8,6)});
+  const prior=session.state.recipe;
+  const original=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  const reduced=new Uint8Array(await (await session.exportFinal({format:'png',size:{kind:'percentage',value:50}})).arrayBuffer());
+  assert.equal(original.byteLength,8*6*4);assert.equal(reduced.byteLength,4*3*4);
+  assert.deepEqual(calls.filter(call=>call[0]==='resizeForExport'),[['resizeForExport','percentage']]);
+  assert.deepEqual(calls.at(-1),['encode','png',4,3]);
+  assert.deepEqual(session.state.recipe,prior);assert.equal(session.state.dirty,false);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+  const again=new Uint8Array(await (await session.exportFinal({format:'png',size:{kind:'percentage',value:50}})).arrayBuffer());
+  assert.deepEqual(again,reduced);
+});
+
+test('WEB-ST41 / ARTIFICIAL_ONLY: invalid export size rejects without encoding or mutating state',async()=>{
+  const {session,calls}=await fixture({pixels:syntheticPixels(8,6)});const prior=session.state.recipe,encodesBefore=calls.filter(call=>call[0]==='encode').length;
+  await assert.rejects(session.exportFinal({format:'png',size:{kind:'width',value:10}}),/EXPORT_SIZE_WIDTH_INVALID/);
+  assert.equal(calls.filter(call=>call[0]==='encode').length,encodesBefore);assert.deepEqual(session.state.recipe,prior);
+  assert.equal(session.state.exporting,false);
+});
+
+test('WEB-ST42 / ARTIFICIAL_ONLY: Glow affects pixels and survives Undo/Redo, save/reload and fixed Final',async()=>{
+  const {session,remote,asset,bytes}=await fixture({pixels:syntheticPixels(8,8,200)});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('glow.intensity',70);
+  await session.setAdjustment('glow.radius',3);
+  await session.setAdjustment('glow.threshold',100);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.glow.threshold,undefined);
+  await session.redo();await session.save();await session.reload();
+  const glow=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.glow;
+  assert.deepEqual(glow,{intensity:70,radius:3,threshold:100});
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.glow,glow);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  assert.deepEqual(new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer()),changed);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST43 / ARTIFICIAL_ONLY: RGB point curve affects Final and survives history and durable reload',async()=>{
+  const {session,remote,asset,bytes}=await fixture({pixels:syntheticPixels(8,8,64)});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  const points=[{x:0,y:0},{x:128,y:200},{x:255,y:255}];
+  await session.setPointCurve('master',points);
+  assert.deepEqual(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.pointCurves.master,points);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.pointCurves.master,points);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  assert.deepEqual(new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer()),changed);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+});
+
+test('WEB-ST44 / ARTIFICIAL_ONLY: invalid point curve rejects before history or Final mutation',async()=>{
+  const {session}=await fixture();const before=session.state;
+  await assert.rejects(session.setPointCurve('master',[{x:1,y:1},{x:255,y:255}]),/INVALID_POST_DECODE_ADJUSTMENTS/);
+  await assert.rejects(session.setPointCurve('cyan',[{x:0,y:0},{x:255,y:255}]),/POINT_CURVE_CHANNEL_UNSUPPORTED/);
+  assert.deepEqual(session.state.recipe,before.recipe);assert.equal(session.state.canUndo,before.canUndo);assert.equal(session.state.dirty,before.dirty);
+});
+
+test('WEB-ST45 / ARTIFICIAL_ONLY: post-crop vignette changes Final and survives history and durable reload',async()=>{
+  const {session,remote,asset,bytes}=await fixture({pixels:syntheticPixels(8,8,160)});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('vignette.amount',-75);
+  assert.equal(session.state.recipe.parameters.extendedParameters.postCropAdjustments.vignette.amount,-75);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postCropAdjustments,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.equal(remote.get(asset.id).body.parameters.extendedParameters.postCropAdjustments.vignette.amount,-75);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  assert.deepEqual(new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer()),changed);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+  await session.setAdjustment('vignette.amount',0);
+  assert.equal(session.state.recipe.parameters.extendedParameters.postCropAdjustments,undefined);
+});
+
+test('WEB-ST46 / ARTIFICIAL_ONLY: invalid vignette rejects without mutating Recipe or history',async()=>{
+  const {session}=await fixture();const before=session.state;
+  await assert.rejects(session.setAdjustment('vignette.amount',101),/ADJUSTMENT_RANGE/);
+  await assert.rejects(session.setAdjustment('vignette.amount',Number.NaN),/ADJUSTMENT_RANGE/);
+  assert.deepEqual(session.state.recipe,before.recipe);assert.equal(session.state.canUndo,before.canUndo);
+});
+
+test('WEB-ST47 / ARTIFICIAL_ONLY: manual canvas expansion changes Final dimensions and survives history and reload',async()=>{
+  const {session,remote,asset,bytes}=await fixture({pixels:syntheticPixels(8,8,160)});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('canvas.left',25);
+  const margins=session.state.recipe.parameters.extendedParameters.canvasExpand.margins;
+  assert.deepEqual(margins,{left:.25,right:0,top:0,bottom:0});
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.canvasExpand,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.canvasExpand.margins,margins);
+  const expanded=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.equal(expanded.byteLength,10*8*4);assert.equal(base.byteLength,8*8*4);
+  assert.deepEqual([...expanded.slice(0,4)],[255,255,255,255]);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+  await session.setCanvasExpansion(null);assert.equal(session.state.recipe.parameters.extendedParameters.canvasExpand,undefined);
+});
+
+test('WEB-ST48 / ARTIFICIAL_ONLY: invalid canvas percentages reject before Recipe or history mutation',async()=>{
+  const {session}=await fixture();const before=session.state;
+  await assert.rejects(session.setAdjustment('canvas.left',201),/ADJUSTMENT_RANGE/);
+  await assert.rejects(session.setAdjustment('canvas.unknown',25),/CANVAS_EDGE_UNSUPPORTED/);
+  await assert.rejects(session.setCanvasExpansion({margins:{left:0,right:0,top:0,bottom:0},background:[256,0,0,255]}),/INVALID_CANVAS_EXPAND_BACKGROUND/);
+  assert.deepEqual(session.state.recipe,before.recipe);assert.equal(session.state.canUndo,before.canUndo);
+});
+
+test('WEB-ST49 / ARTIFICIAL_ONLY: all post-crop vignette controls persist and affect fixed Final',async()=>{
+  const {session,remote,asset}=await fixture({pixels:syntheticPixels(15,15,200)});
+  await session.setAdjustment('vignette.amount',-80);
+  await session.save();
+  const amountOnly=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('vignette.midpoint',75);
+  await session.setAdjustment('vignette.roundness',-60);
+  await session.setAdjustment('vignette.feather',80);
+  await session.setAdjustment('vignette.highlights',65);
+  const controls=session.state.recipe.parameters.extendedParameters.postCropAdjustments.vignette;
+  assert.deepEqual(controls,{amount:-80,midpoint:75,roundness:-60,feather:80,highlights:65});
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postCropAdjustments.vignette.highlights,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postCropAdjustments.vignette,controls);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,amountOnly);
+  await assert.rejects(session.setAdjustment('vignette.midpoint',101),/ADJUSTMENT_RANGE/);
+});
+
+test('WEB-ST50 / ARTIFICIAL_ONLY: RGB primary calibration changes Final and survives save/reload and history',async()=>{
+  const pixels=syntheticPixels(8,8);for(let i=0;i<pixels.data.length;i+=4){pixels.data[i]=180;pixels.data[i+1]=80;pixels.data[i+2]=40;}
+  const {session,remote,asset,bytes}=await fixture({pixels});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('calibration.red.hue',50);
+  await session.setAdjustment('calibration.green.saturation',-30);
+  const expected={red:{hue:50},green:{saturation:-30}};
+  assert.deepEqual(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.calibration,expected);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.calibration.green,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.calibration,expected);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  assert.deepEqual(new Uint8Array(bytes),new TextEncoder().encode('NON_RAW session state-only bytes'));
+  await assert.rejects(session.setAdjustment('calibration.red.hue',101),/ADJUSTMENT_RANGE/);
+});
+
+test('WEB-ST51 / ARTIFICIAL_ONLY: selective color group, ink and method change fixed Final and survive reload',async()=>{
+  const pixels=syntheticPixels(8,8);for(let i=0;i<pixels.data.length;i+=4){pixels.data[i]=210;pixels.data[i+1]=40;pixels.data[i+2]=35;}
+  const {session,remote,asset}=await fixture({pixels});
+  const base=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setAdjustment('selective.reds.cyan',65);
+  await session.setSelectiveColorMethod('absolute');
+  const selective=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.selectiveColor;
+  assert.deepEqual(selective,{ranges:{reds:{cyan:65}},method:'absolute'});
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.selectiveColor.method,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.selectiveColor,selective);
+  const changed=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(changed,base);
+  await assert.rejects(session.setAdjustment('selective.reds.cyan',101),/ADJUSTMENT_RANGE/);
+  await assert.rejects(session.setAdjustment('selective.invalid.cyan',10),/UNSUPPORTED_ADJUSTMENT/);
+  await assert.rejects(session.setSelectiveColorMethod('invalid'),/SELECTIVE_COLOR_METHOD_UNSUPPORTED/);
+});
+
+test('WEB-ST52 / ARTIFICIAL_ONLY: tonal grain settings are saved, reversible and change fixed Final',async()=>{
+  const {session,remote,asset}=await fixture({pixels:syntheticPixels(20,20,128)});
+  await session.setAdjustment('detail.grain',60);await session.save();
+  const old=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  for(const [key,value] of [['shadows',30],['midtones',40],['highlights',50],['size',55],['roughness',70],['colorVariation',80]])await session.setAdjustment(`grain.${key}`,value);
+  const grain=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.detail.grain;
+  assert.equal(grain.amount,60);assert.equal(grain.shadows,30);assert.equal(grain.midtones,40);assert.equal(grain.highlights,50);
+  assert.equal(grain.size,55);assert.equal(grain.roughness,70);assert.equal(grain.colorVariation,80);
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.detail.grain.colorVariation,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.detail.grain,grain);
+  const updated=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(updated,old);
+  await assert.rejects(session.setAdjustment('grain.size',101),/ADJUSTMENT_RANGE/);
+});
+
+test('WEB-ST53 / MOCK_STATE: batch applies a saved recipe only to an explicitly selected authorized asset',async()=>{
+  const {session,api,asset,other,remote,bytes}=await fixture();
+  assert.equal(session.batchAvailable,false);
+  await assert.rejects(session.batchApplyCurrentRecipe([other.id]),/BATCH_PERMISSION_ADAPTER_REQUIRED/);
+  api.assertPermission=async (id,action)=>({authorized:[asset.id,other.id].includes(id)&&action==='edit'});
+  assert.equal(session.batchAvailable,true);
+  await session.setAdjustment('exposure',1.5);
+  await assert.rejects(session.batchApplyCurrentRecipe([other.id]),/SAVE_REQUIRED/);
+  await session.save();
+  const sourceBefore=structuredClone(remote.get(asset.id));
+  const result=await session.batchApplyCurrentRecipe([other.id]);
+  assert.equal(result.status,'complete');assert.equal(result.saved,1);
+  assert.equal(result.results[0].assetId,other.id);
+  assert.deepEqual(remote.get(other.id).body,sourceBefore.body);
+  assert.deepEqual(remote.get(asset.id),sourceBefore);
+  assert.equal(new TextDecoder().decode(bytes),'NON_RAW session state-only bytes');
+  assert.equal(session.state.busy,null);
+});
+
+test('WEB-ST54 / MOCK_STATE: denied batch target is refused before reading its Recipe',async()=>{
+  const {session,api,other,remote}=await fixture();
+  const get=api.getRecipe;let targetRead=false;
+  api.getRecipe=async id=>{if(id===other.id)targetRead=true;return get(id);};
+  api.assertPermission=async()=>({authorized:false});
+  await assert.rejects(session.batchApplyCurrentRecipe([other.id]),/BATCH_PERMISSION_DENIED/);
+  assert.equal(targetRead,false);assert.equal(remote.has(other.id),false);
+  assert.equal(session.state.busy,null);
+});
+
+test('WEB-ST55 / ARTIFICIAL_ONLY: added long, short and dimensions export sizing reach fixed Final',async()=>{
+  const {session,bytes}=await fixture({pixels:syntheticPixels(8,6)});
+  const prior=session.state.recipe;
+  for(const size of [{kind:'long-edge',value:4},{kind:'short-edge',value:3},{kind:'dimensions',width:4,height:3}]){
+    const blob=await session.exportFinal({format:'png',size});
+    assert.equal(blob.size,4*3*4);
+  }
+  assert.deepEqual(session.state.recipe,prior);
+  assert.equal(session.state.dirty,false);
+  assert.equal(new TextDecoder().decode(bytes),'NON_RAW session state-only bytes');
+});
+
+test('WEB-ST56 / MOCK_STATE: physical resolution option reaches only fixed Final encoder',async()=>{
+  const {session,processing,bytes}=await fixture({pixels:syntheticPixels(8,6)});
+  const prior=session.state.recipe,originalEncode=processing.encode,seen=[];
+  processing.encode=async (pixels,options)=>{seen.push(options.resolution??null);return originalEncode(pixels,options);};
+  await session.exportFinal({format:'png',resolution:{unit:'ppi',value:300}});
+  assert.deepEqual(seen.at(-1),{unit:'ppi',value:300});
+  assert.deepEqual(session.state.recipe,prior);
+  assert.equal(new TextDecoder().decode(bytes),'NON_RAW session state-only bytes');
+  const before=seen.length;
+  await assert.rejects(session.exportFinal({format:'png',resolution:{unit:'ppi',value:0}}),/EXPORT_RESOLUTION_SETTINGS_INVALID/);
+  assert.equal(seen.length,before);
+});
+
+test('WEB-ST56B / MOCK_STATE: TIFF8 reaches fixed Final only with its supported quality',async()=>{
+  const {session,processing,bytes,asset}=await fixture({pixels:syntheticPixels(8,6)});
+  const prior=session.state.recipe,originalEncode=processing.encode,seen=[];
+  processing.encode=async (pixels,options)=>{seen.push(options);return originalEncode(pixels,options);};
+  const blob=await session.exportFinal({format:'tiff',resolution:{unit:'ppi',value:300}});
+  assert.equal(blob.type,'image/tiff');
+  assert.equal(seen.at(-1).format,'tiff');assert.equal(seen.at(-1).quality,0.95);
+  assert.deepEqual(seen.at(-1).resolution,{unit:'ppi',value:300});
+  assert.equal(await checksum(bytes),asset.sha256);assert.deepEqual(session.state.recipe,prior);
+  const count=seen.length;
+  await assert.rejects(session.exportFinal({format:'tiff',quality:0.8}),/EXPORT_SETTINGS_UNSUPPORTED/);
+  await assert.rejects(session.exportFinal({format:'tiff',quality:null}),/EXPORT_SETTINGS_UNSUPPORTED/);
+  assert.equal(seen.length,count);
+});
+
+test('WEB-ST57 / ARTIFICIAL_ONLY: clipping overlay is preview-only and stale overlay URLs are revoked',async()=>{
+  const pixels=syntheticPixels(2,1,0);pixels.data.set([255,255,255,255],4);
+  const blobs=new Map(),revoked=[];let next=0;
+  const urlAPI={createObjectURL(blob){const url=`blob:clip-${++next}`;blobs.set(url,blob);return url;},revokeObjectURL(url){revoked.push(url);}};
+  const {session}=await fixture({pixels,sessionOptions:{urlAPI}});
+  const first=session.state.clippingOverlayURL;
+  assert.ok(first);assert.equal(Object.hasOwn(session.state.histogram,'mask'),false);
+  const overlay=new Uint8Array(await blobs.get(first).arrayBuffer());
+  assert.equal(overlay[2],255);assert.equal(overlay[4],255);assert.equal(overlay[6],48);
+  const final=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.deepEqual([...final],[...pixels.data]);
+  await session.setAdjustment('contrast',1.1);
+  assert.notEqual(session.state.clippingOverlayURL,first);
+  assert.ok(revoked.includes(first));
+});
+
+test('WEB-ST58 / ARTIFICIAL_ONLY: extended Glow mode and controls survive history, save and fixed Final',async()=>{
+  const pixels=syntheticPixels(8,8,210);
+  const {session,remote,asset}=await fixture({pixels});
+  await session.setAdjustment('glow.intensity',75);await session.save();
+  const legacy=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.setGlowMode('halation');
+  await session.setAdjustment('glow.exposure',20);
+  await session.setAdjustment('glow.diffusion',40);
+  await session.setAdjustment('glow.tint',-30);
+  const glow=session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.glow;
+  assert.deepEqual(glow,{intensity:75,mode:'halation',exposure:20,diffusion:40,tint:-30});
+  await session.undo();assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.glow.tint,undefined);
+  await session.redo();await session.save();await session.reload();
+  assert.deepEqual(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.glow,glow);
+  const extended=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(extended,legacy);
+  await assert.rejects(session.setAdjustment('glow.diffusion',101),/ADJUSTMENT_RANGE/);
+  await assert.rejects(session.setGlowMode('unknown'),/GLOW_MODE_UNSUPPORTED/);
+  await session.setGlowMode('legacy');
+  assert.deepEqual(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.glow,{intensity:75});
+});
+
+test('WEB-ST59 / ARTIFICIAL_ONLY: Glow mask is preview-only and stale mask URLs are revoked',async()=>{
+  const pixels=syntheticPixels(8,8,210),blobs=new Map(),revoked=[];let next=0;
+  const urlAPI={createObjectURL(blob){const url=`blob:glow-mask-${++next}`;blobs.set(url,blob);return url;},revokeObjectURL(url){revoked.push(url);}};
+  const {session}=await fixture({pixels,sessionOptions:{urlAPI}});
+  assert.equal(session.state.glowMaskURL,null);
+  await session.setAdjustment('glow.intensity',80);
+  assert.equal(session.state.glowMaskURL,null,'legacy Glow must not show an unapproved mode mask');
+  await session.setGlowMode('whiteMist');
+  const first=session.state.glowMaskURL;
+  assert.ok(first,'explicit Glow mode with positive intensity has a mask');
+  const mask=new Uint8Array(await blobs.get(first).arrayBuffer());
+  assert.equal(mask.length,pixels.data.length);
+  assert.ok(mask.some((value,index)=>index%4===3&&value>0),'mask identifies affected pixels');
+  await session.save();
+  const finalBefore=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  await session.refreshPreview();
+  const finalAfter=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.deepEqual(finalAfter,finalBefore,'preview mask generation never changes Final pixels');
+  assert.notEqual(session.state.glowMaskURL,first);
+  assert.ok(revoked.includes(first));
+  const second=session.state.glowMaskURL;
+  await session.setGlowMode('legacy');
+  assert.equal(session.state.glowMaskURL,null);
+  assert.ok(revoked.includes(second));
+});
+
+test('WEB-ST60 / ARTIFICIAL_ONLY: Levels eyedropper samples current After pixels and saves only the selected endpoint',async()=>{
+  const pixels=syntheticPixels(2,1,0);
+  pixels.data.set([20,20,20,255,235,235,235,255]);
+  const {session,remote,asset}=await fixture({pixels});
+  const original=pixels.data.slice();
+  const black=await session.sampleLevelsAt({x:0,y:0,channel:'master',endpoint:'black'});
+  assert.deepEqual({key:black.key,value:black.value},{key:'levels.master.inputBlack',value:20});
+  assert.equal(session.state.recipe.parameters.extendedParameters.postDecodeAdjustments.color.levels.master.inputBlack,20);
+  const white=await session.sampleLevelsAt({x:1,y:0,channel:'red',endpoint:'white'});
+  assert.equal(white.key,'levels.red.inputWhite');
+  assert.ok(white.value>20&&white.value<=255);
+  await session.save();
+  assert.equal(remote.get(asset.id).body.parameters.extendedParameters.postDecodeAdjustments.color.levels.red.inputWhite,white.value);
+  const final=new Uint8Array(await (await session.exportFinal({format:'png'})).arrayBuffer());
+  assert.notDeepEqual(final,original);
+  assert.deepEqual(pixels.data,original,'the source pixels are never edited by sampling');
+  await assert.rejects(session.sampleLevelsAt({x:0,y:0,channel:'master',endpoint:'white'}),/LEVELS_ENDPOINT_ORDER/);
+  assert.equal(session.state.dirty,false);
+});
+
+test('WEB-ST61 / ARTIFICIAL_ONLY: Levels histogram is tied to After preview and cleared on invalidation',async()=>{
+  const pixels=syntheticPixels(2,1,0);
+  pixels.data.set([20,40,60,255,200,180,160,0]);
+  const {session}=await fixture({pixels});
+  const histogram=session.state.levelsHistogram;
+  assert.equal(histogram.includedPixels,1);
+  assert.equal(histogram.bins.master[20],1);
+  assert.equal(histogram.bins.red[200],0,'transparent pixels are excluded');
+  assert.equal(Object.hasOwn(histogram,'mask'),false);
+  session.invalidatePreview();
+  assert.equal(session.state.levelsHistogram,null);
+  assert.equal(session.previewPixels,null);
+});
+
+test('WEB-ST62 / ARTIFICIAL_ONLY: explicit output sharpening runs after Final resize and before encoding without changing Recipe',async()=>{
+  const {session,processing,calls}=await fixture();
+  const saved=structuredClone(session.state.recipe);
+  const settings={kind:'manual',gain:0.8,radiusPx:1.2,thresholdLuma:2};
+  processing.applyExportOutputSharpening=async(pixels,received,{signal})=>{
+    assert.equal(signal.aborted,false);
+    assert.deepEqual(received,settings);
+    calls.push(['outputSharpen',pixels.width,pixels.height]);
+    const data=pixels.data.slice();data[0]=data[0]===0?1:0;
+    return {...pixels,data};
+  };
+  const normal=new Uint8Array(await (await session.exportFinal({format:'png',size:{kind:'percentage',value:50}})).arrayBuffer());
+  calls.length=0;
+  const adjusted=new Uint8Array(await (await session.exportFinal({format:'png',size:{kind:'percentage',value:50},outputSharpening:settings})).arrayBuffer());
+  assert.notDeepEqual(adjusted,normal);
+  assert.deepEqual(calls.filter(item=>['resizeForExport','outputSharpen','encode'].includes(item[0])).map(item=>item[0]),
+    ['resizeForExport','outputSharpen','encode']);
+  assert.deepEqual(session.state.recipe,saved,'export-only settings must never enter the saved Recipe');
+});
+
+test('WEB-ST63 / ARTIFICIAL_ONLY: unsupported output sharpening fails closed before Final work',async()=>{
+  const {session,processing,calls}=await fixture();
+  await assert.rejects(session.exportFinal({format:'png',outputSharpening:{kind:'screen',strength:'high'}}),
+    /OUTPUT_SHARPENING_PRESET_UNSUPPORTED/);
+  assert.equal(calls.some(item=>item[0]==='decode'),false);
+  await assert.rejects(session.exportFinal({format:'png',outputSharpening:{kind:'manual',gain:1,radiusPx:1,thresholdLuma:0}}),
+    /OUTPUT_SHARPENING_PROCESSOR_UNAVAILABLE/);
+  assert.equal(processing.applyExportOutputSharpening,undefined);
+});
+
+test('WEB-ST64 / MOCK_STATE: unauthenticated adapter cannot author a bound B/W Edge Recipe',async()=>{
+  const {session,storage,asset,calls}=await fixture();
+  const before=session.state;
+  assert.equal(session.bwEdgeManualAvailable,false);
+  await assert.rejects(session.setBWEdgeManualStrokes({subjectStrokes:[],correctionStrokes:[]}),
+    /BW_EDGE_AUTHENTICATED_TRIAL_REQUIRED/);
+  assert.deepEqual(session.state.recipe,before.recipe);
+  assert.equal(session.state.dirty,false);
+  assert.equal((await storage.get(asset.id)).revision,before.revision);
+  assert.equal(calls.some(item=>item[0]==='putOriginal'),false);
 });

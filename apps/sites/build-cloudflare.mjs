@@ -9,8 +9,8 @@ const web=resolve(root,'dist/web');
 const out=resolve(here,'dist-cloudflare');
 const client=resolve(out,'client');
 const server=resolve(out,'server/index.js');
-const files=['index.html','app.js','styles.css','processing-worker.js'];
-const dirs=['vendor','runtime_assets','licenses'];
+const files=['index.html','app.js','styles.css','editorial-landing.css','editorial-editor.css','processing-worker.js','local-personal-look-training-worker.mjs'];
+const dirs=['assets','vendor','runtime_assets','licenses'];
 function list(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?list(resolve(dir,entry.name)):[resolve(dir,entry.name)]);}
 const expected=new Set([
   ...files,

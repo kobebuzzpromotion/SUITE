@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "observedAtUTC": "2026-10-03T15:06:16Z",
+  "scope": "Local fresh build and Cloudflare test doubles only; no deploy or external resource operation",
+  "source": {
+    "gitHEAD": "53631a162f3c29536b5b298c20cc7bd339333bfb",
+    "previewConfigChangedByParentSinceHEAD": true,
+    "previewConfigName": "suite-preview",
+    "previewConfigOrigin": "https://suite-preview.bals-enter.workers.dev",
+    "previewConfigSHA256": "e49bec04d0181b62650049dedb7bf60fff6e1c2fb4ef9b562d5c5c1f9f5657aa"
+  },
+  "build": [
+    {
+      "command": "npm run web:build",
+      "exitCode": 0,
+      "result": "BUILT_NOT_REAL_RAW_VERIFIED"
+    },
+    {
+      "command": "node apps/sites/build-cloudflare.mjs",
+      "exitCode": 0,
+      "entry": "cloudflare-entry.mjs",
+      "result": "BUILT_NOT_DEPLOYED",
+      "staticAssetCount": 20,
+      "workerSHA256": "c2b4c4031c2652f022f3e985ab666125169daeafefa05291bd81aeb71a09507c"
+    }
+  ],
+  "tests": {
+    "command": "node --test apps/sites/tests/*.test.mjs",
+    "runtime": "Node v24.19.0",
+    "exitCode": 0,
+    "count": 16,
+    "pass": 16,
+    "fail": 0,
+    "skipped": 0,
+    "testFiles": [
+      "apps/sites/tests/cloudflare-artifact.test.mjs",
+      "apps/sites/tests/cloudflare-auth.test.mjs",
+      "apps/sites/tests/cloudflare-integration.test.mjs",
+      "apps/sites/tests/cloudflare-storage.test.mjs"
+    ],
+    "providerStatus": "MOCK_OR_LOCAL_SQLITE_ONLY"
+  },
+  "notRun": [
+    "Cloudflare deployment",
+    "Live workers.dev URL",
+    "Real Cloudflare Access",
+    "Real D1 and R2",
+    "Real RAW and mobile device",
+    "Deployed old-cookie SESSION_INVALID 401"
+  ],
+  "releaseGate": "Rebuild and rerun tests after the parent commits suite-preview config and verifies pushed main SHA; never upload an older bundle."
+}

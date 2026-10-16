@@ -1,4 +1,5 @@
 import {validateRecipe} from '../../../dist/apps/backend/src/photo-policy.js';
+import {validatePortraitBinding,validatePortraitContinuity} from '../../../dist/apps/backend/src/portrait-recipe.js';
 
 const DATABASE_VERSION = 1;
 const MAX_ORIGINAL_BYTES = 128 * 1024 * 1024;
@@ -59,6 +60,7 @@ function transact(database, storeNames, mode, enqueue) {
 
 /** Anonymous, same-browser storage only. No account, Cloud Safe, sync or eviction. */
 export class BrowserLocalAPI {
+  get supportsRecipeHistory(){return true;}
   constructor({indexedDB = globalThis.indexedDB, crypto = globalThis.crypto,
     databaseName = 'suite-browser-local-v1', clock = () => new Date().toISOString()} = {}) {
     this.factory = indexedDB;
@@ -221,6 +223,63 @@ export class BrowserLocalAPI {
     try {body = JSON.parse(stored.body); validateRecipe(body);}
     catch {throw error('LOCAL_RECIPE_CORRUPT');}
     return {revision: stored.revision, body};
+  }
+
+  async getRecipeHistory(id,{signal}={}) {
+    if(typeof id!=='string'||!id)throw error('INVALID_ASSET');
+    const check=()=>{if(signal?.aborted)throw error('OPERATION_ABORTED');};
+    check();const database=await this.database();check();
+    const snapshot=await transact(database,['assets','originals','recipeHeads','recipeVersions'],'readonly',(tx,finish,fail)=>{
+      const a=tx.objectStore('assets').get(id),o=tx.objectStore('originals').get(id),h=tx.objectStore('recipeHeads').get(id);
+      let asset,original,head,completed=0;
+      const ready=()=>{
+        if(++completed!==3)return;
+        if(!asset||asset.id!==id||asset.state!=='READY'||!original||original.id!==id||
+            original.sha256!==asset.sha256||original.size!==asset.size){fail(error('LOCAL_ORIGINAL_MISSING'));return;}
+        const count=head?.revision??0;
+        if(head&&head.id!==id||!Number.isSafeInteger(count)||count<0){fail(error('LOCAL_RECIPE_CORRUPT'));return;}
+        if(count>1000){fail(error('RECIPE_HISTORY_LIMIT'));return;}
+        if(!count){finish({asset,rows:[]});return;}
+        const rows=new Array(count);let remaining=count,total=0;
+        for(let revision=1;revision<=count;revision++){
+          const r=tx.objectStore('recipeVersions').get(versionKey(id,revision));
+          r.onsuccess=()=>{
+            const row=r.result;
+            if(!row||row.id!==versionKey(id,revision)||row.assetID!==id||row.revision!==revision||
+                row.branch===true||typeof row.body!=='string'||typeof row.sha256!=='string'){
+              fail(error('LOCAL_RECIPE_CORRUPT'));return;
+            }
+            if(row.body.length>16*1024*1024){fail(error('RECIPE_HISTORY_LIMIT'));return;}
+            total+=new TextEncoder().encode(row.body).byteLength;
+            if(total>16*1024*1024){fail(error('RECIPE_HISTORY_LIMIT'));return;}
+            rows[revision-1]=row;if(--remaining===0)finish({asset,rows});
+          };
+        }
+      };
+      a.onsuccess=()=>{asset=a.result;ready();};o.onsuccess=()=>{original=o.result;ready();};h.onsuccess=()=>{head=h.result;ready();};
+    });
+    check();const history=[];let portraitReference;
+    for(const row of snapshot.rows){
+      check();if(await this.digest(new TextEncoder().encode(row.body))!==row.sha256)throw error('LOCAL_RECIPE_CORRUPT');
+      check();let body;
+      try{
+        body=JSON.parse(row.body);validateRecipe(body);
+        const extra=body.parameters.extendedParameters;
+        if(extra.portrait){
+          validatePortraitBinding(extra.portrait,id,snapshot.asset.sha256);
+          if(portraitReference)validatePortraitContinuity(portraitReference,extra.portrait);
+          portraitReference=extra.portrait;
+        }
+        for(const value of Object.values(extra)){
+          const binding=value?.binding;if(!binding)continue;
+          if(Object.hasOwn(binding,'assetID')&&binding.assetID!==id||
+              Object.hasOwn(binding,'originalSHA256')&&binding.originalSHA256!==snapshot.asset.sha256)
+            throw error('LOCAL_RECIPE_BINDING');
+        }
+      }catch{throw error('LOCAL_RECIPE_CORRUPT');}
+      history.push({revision:row.revision,body});
+    }
+    check();return history;
   }
 
   async saveRecipe(id, expectedRevision, recipe) {

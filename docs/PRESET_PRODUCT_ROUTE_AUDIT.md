@@ -1,0 +1,30 @@
+# Preset product-route audit (2026-10-04)
+
+## Scope and evidence level
+
+This is a read-only route/tenant audit, plus `apps/web/tests/preset-product-route.test.mjs` against the **shipped loopback Trial HTTP server and isolated SQLite**. It is not a test of the deployed Cloudflare account, real RAW, or a production Workspace login. In particular, `grain-preset-http.test.mjs` mounts `WorkspaceHTTP` into the Trial server *inside a test*; that arrangement is not a shipped Trial route and is not counted as product PASS here.
+
+The actual web bootstrap (`apps/web/src/bootstrap.mjs`) chooses `TrialClient`, `SitesClient`, or `BrowserLocalAPI`, then calls `mountEditor` with `authorAPI`. It never creates a Workspace client or calls `createPresetFacade`. `apps/web/src/editor-ui.mjs` mounts `mountAuthor` and `mountPresetLibrary` for a connected Trial/Sites actor. `apps/web/src/author-ui.mjs` saves the author's source-backed draft via Trial APIs and applies a fetched published preset with `session.applyPortablePreset`; that apply changes the current Recipe **in memory** and requires a separate normal Recipe save. It is not an atomic, server-persisted Preset Apply.
+
+| Kind | Current Trial product route | Public Cloud Worker route | Separate Node Workspace route | Current Editor Save / Apply / Reload |
+| --- | --- | --- | --- | --- |
+| Personal | None: shipped `apps/web/trial-server.mjs` does not mount `WorkspaceHTTP`; `/v1/workspaces/.../presets` is 404 | None in `apps/sites/src/worker.mjs` | `ws_presets` supports owner-only `PERSONAL` list/get/create/update and asset apply in `apps/backend/src/workspace.ts` + `workspace-server.ts` | **Not connected**; `preset-facade.mjs` has an adapter contract but bootstrap does not construct it |
+| Workspace | None in shipped Trial | None in current Cloud Worker/D1 schema | Node `ws_presets` supports member list/get, privileged create/update, and project/asset apply; requires live workspace membership/role | **Not connected** to current Editor |
+| Community | None | None | `COMMUNITY` enum is reserved but `WorkspaceRepository.createPreset` and web facade explicitly reject `COMMUNITY_NOT_IMPLEMENTED` | **Not implemented**, not a shared Author-published alias |
+| Author draft | `/trial/drafts` create/update/read, source-backed; `/submit` and admin `/review` | Matching draft, submission, review routes in `apps/sites/src/worker.mjs` | Not a Workspace preset | Trial UI Save/Reload connected; applying draft through `preset-facade.mjs` is an unmounted abstraction, not a product UI route |
+| Author published | `/trial/presets` GET after separate admin acceptance | `/trial/presets` GET from accepted `site_presets`; source integrity checked | Not a Workspace preset | UI Reload and **in-memory** Apply connected for authenticated Trial/Sites actor; no direct Save (publication is review-gated) |
+
+## Identity, permission, and tenant boundary
+
+- Loopback Trial: `InviteAuth` session cookie and trial expiry/revocation are checked before `/trial/*` and `/v1/*`; Asset/Recipe are scoped to `actor.tenantId`. Draft creation/revision requires the actor's verified, current saved source Asset/Recipe. A second author cannot read/update another's draft; an author cannot self-accept. Accepted Author presets become readable to eligible signed-in members. The new real-HTTP/SQLite test exercises these boundaries and confirms an ended session cannot reload.
+- Public Cloud: `apps/sites/src/worker.mjs` requires authenticated identity for API paths, scopes draft/source access to the Cloud actor/tenant, and only returns independently accepted, integrity-checked `site_presets` through `/trial/presets`. This was **source audited, not exercised against deployed D1/Cloudflare** in this task.
+- Node Workspace: `WorkspaceRepository` stores immutable version rows per workspace, filters `PERSONAL` to owner, requires `edit` for Personal and `manage-presets` for shared creation/edit, and snapshots an applied preset into a Recipe version. This is a separate SQLite/service boundary; its route is only mounted when a `WorkspaceHTTP` instance is supplied to `suiteServer` (the standalone backend startup supplies one; the shipped loopback Trial server does not). A Node Workspace account is not automatically a Cloud/Trial principal or tenant.
+
+## Minimal missing product integration (not performed)
+
+1. Choose and explicitly authorize the target product backend for Personal/Workspace. For the public Cloud product, add tenant/workspace membership and versioned Preset persistence to its D1 schema and authenticated Worker routes; **do not** treat Node SQLite `ws_presets` as already deployed or expose it without a workspace identity model. For a local-only feature, instead intentionally run and authenticate the standalone Node Workspace service.
+2. Add a bound Workspace client implementing the `preset-facade.mjs` contract (especially server-atomic `applyPresetVersioned` with expected preset version, current Recipe base version, and membership check). Bind it from `bootstrap.mjs` into Editor only for a valid Workspace principal. Provide Save/Reload/Apply UI for Personal and Workspace. Avoid using `TrialClient`'s author endpoints for those scopes.
+3. Decide Community governance/visibility and implement its backend publication/moderation and tenant rules before enabling the currently rejected scope. Do not silently relabel Author-published presets as Community.
+4. Add end-to-end regression through the *real selected product route* for Save→Reload→Apply→Recipe save/reload, two users/tenants, role loss, expiry, CAS conflicts, and persistence restart. Existing mock-facade or test-only Workspace mount checks are narrower and cannot close this gate.
+
+Status: Author local Trial HTTP Save/accepted Reload = tested; Author Editor apply = source-connected but not newly browser-tested; Cloud live route = NOT_RUN; Personal/Workspace current Editor route = NOT_CONNECTED; Community = NOT_IMPLEMENTED. No source, schema, deployed resource, or preset data was changed by this audit.

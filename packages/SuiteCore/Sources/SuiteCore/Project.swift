@@ -77,6 +77,11 @@ public struct ProjectCheckpoint: Codable, Equatable, Sendable {
         // resurrect a portrait adjustment bound to a different photo or Original.
         var portraitReference: PortraitRecipe?
         for entry in history.entries {
+            // Include undo/redo branches; a hidden branch must not restore
+            // another photograph's local correction at a later cursor change.
+            try entry.parameters.localRetouchRecipe()?.validate(asset: asset)
+            try entry.parameters.localWarpRecipe()?.validate(asset: asset)
+            try entry.parameters.localBackdropRecipe()?.validate(asset: asset)
             if let portrait = try entry.parameters.portraitRecipe() {
                 try portrait.validate(asset: asset)
                 if let portraitReference { try portrait.validate(against: portraitReference) }

@@ -1,6 +1,42 @@
 import {applyColorAdjustments} from './color-adjustments.mjs';
+import {applyColorCalibration} from './color-calibration.mjs';
+import {applySelectiveColor} from './selective-color.mjs';
 import {applyDetailAdjustments} from './detail-adjustments.mjs';
+import {applyLevels} from './levels.mjs';
+import {applyGrain} from './grain.mjs';
+import {applyPointCurves} from './point-curves.mjs';
+import {applyGlow} from './glow.mjs';
+import {applyColorGrading} from './lr-color-grading.mjs';
+import {applyPointColorForRender} from './point-color-render.mjs';
+import {applyExtendedCurves} from './delta66-color-curves.mjs';
+import {applyColorProfile} from './delta66-color-profile.mjs';
+import {applySceneBasic,estimateWhiteBalance,applyWhiteBalance,applySceneMatch} from './delta66-scene-color.mjs';
+import {applyVignette} from './vignette.mjs';
+import {rasterizeLocalBrushMask} from './local-mask-brush.mjs';
+import {warpScene} from './delta66-scene-geometry.mjs';
+import {sceneGeometryInverse} from './scene-geometry-contract.mjs';
+import {applyLocalLevels} from './local-levels.mjs';
+import {applyManualMakeup} from './manual-makeup-brush.mjs';
+import {applyManualClone} from './manual-clone.mjs';
+import {applyManualSkin} from './manual-skin.mjs';
+import {applyManualRedEye} from './manual-red-eye.mjs';
+import {applyManualHair} from './manual-hair.mjs';
+import {applyWebManualTeeth} from './web-manual-teeth.mjs';
+import {applyWebManualClothing} from './web-manual-clothing.mjs';
+import {applyWebManualBackground} from './web-manual-background.mjs';
+import {applyWebManualSpot} from './web-manual-spot.mjs';
+import {applyWebDepthRange} from './web-depth-range.mjs';
+import {applyWebLensShading,applyWebLensGeometry} from './web-connected-lens.mjs';
+import {applyWebManualLiquify} from './web-manual-liquify.mjs';
+import {blendLocalLUTMask} from './local-lut-mask.mjs';
+import {applyManualEyes} from './manual-eyes.mjs';
+import {applyColorRangeLevels} from './color-range-levels.mjs';
+import {applySavedPersonalLook} from './personal-look-render.mjs';
 export const MAX_PIXELS = 24_000_000;
+// Original geometry is metadata. It must not raise the allocation budget for
+// decoded/proxy pixels, masks or Final output. Large RAWs require the native
+// geometry bridge before their reduced pixels may carry these dimensions.
+export const MAX_SOURCE_PIXELS = 96_000_000;
 export const MAX_INPUT_BYTES = 128 * 1024 * 1024;
 export const MAX_FACES = 8;
 export const WEB_ENGINE = 'web-libraw-mediapipe-face-exposure-1';
@@ -9,7 +45,7 @@ export function assertPixels(p) {
   if (!p || !Number.isSafeInteger(p.width) || !Number.isSafeInteger(p.height) || p.width < 1 || p.height < 1 || p.width*p.height > MAX_PIXELS || !(p.data instanceof Uint8ClampedArray) || p.data.length !== p.width*p.height*4) throw Error('INVALID_OR_OVERSIZE_PIXELS');
   const hasWidth=Object.hasOwn(p,'sourceWidth'),hasHeight=Object.hasOwn(p,'sourceHeight');
   if(hasWidth!==hasHeight)throw Error('INVALID_SOURCE_FRAME');
-  if(hasWidth && (!Number.isSafeInteger(p.sourceWidth)||!Number.isSafeInteger(p.sourceHeight)||p.sourceWidth<p.width||p.sourceHeight<p.height||p.sourceWidth*p.sourceHeight>MAX_PIXELS))throw Error('INVALID_SOURCE_FRAME');
+  if(hasWidth && (!Number.isSafeInteger(p.sourceWidth)||!Number.isSafeInteger(p.sourceHeight)||p.sourceWidth<p.width||p.sourceHeight<p.height||!Number.isSafeInteger(p.sourceWidth*p.sourceHeight)||p.sourceWidth*p.sourceHeight>MAX_SOURCE_PIXELS))throw Error('INVALID_SOURCE_FRAME');
   return p;
 }
 /** Upright unedited-base reference dimensions, not dimensions of a rotated/cropped output. */
@@ -63,7 +99,14 @@ const clamp = v => Math.max(0,Math.min(1,v));
 export function makeProxyPixels(p,maxEdge=1600) {
   assertPixels(p); if(!Number.isSafeInteger(maxEdge)||maxEdge<1||maxEdge>8192) throw Error('INVALID_PROXY_EDGE');
   const source=sourceDimensions(p);
-  const scale=Math.min(1,maxEdge/Math.max(p.width,p.height)),width=Math.max(1,Math.round(p.width*scale)),height=Math.max(1,Math.round(p.height*scale)),data=new Uint8ClampedArray(width*height*4);
+  // Reusing a rounded Proxy must not shrink it one pixel on each pass.
+  if(p.width<=maxEdge&&p.height<=maxEdge)return {width:p.width,height:p.height,data:p.data.slice(),sourceWidth:source.width,sourceHeight:source.height};
+  // Normalize from the canonical Original ratio. Half-size RAW dimensions can
+  // round odd edges independently; they are a sampling surface, not a new crop
+  // coordinate system. Never enlarge beyond the available decoded raster.
+  const scale=Math.min(1,p.width/source.width,p.height/source.height,maxEdge/Math.max(source.width,source.height));
+  const width=Math.max(1,Math.min(p.width,Math.round(source.width*scale))),height=Math.max(1,Math.min(p.height,Math.round(source.height*scale)));
+  const data=new Uint8ClampedArray(width*height*4);
   for(let y=0;y<height;y++) for(let x=0;x<width;x++) {const sx=Math.min(p.width-1,Math.floor((x+.5)*p.width/width)),sy=Math.min(p.height-1,Math.floor((y+.5)*p.height/height));data.set(p.data.subarray((sy*p.width+sx)*4,(sy*p.width+sx)*4+4),(y*width+x)*4);}
   return {width,height,data,sourceWidth:source.width,sourceHeight:source.height};
 }
@@ -85,11 +128,24 @@ export function rotateCropPixels(p,rotation=0,crop, {resolutionAssessment,signal
   const out=new Uint8ClampedArray(w*h*4);for(let y=0;y<h;y++)out.set(data.subarray(((top+y)*width+left)*4,((top+y)*width+left+w)*4),y*w*4);
   return {width:w,height:h,data:out};
 }
-export function renderPixels(p,recipe,{detections=[],signal,validateRecipe,resolutionAssessment}={}) {
+export function renderPixels(p,recipe,{detections=[],signal,validateRecipe,resolutionAssessment,
+  applyBWEdgeManual,bwEdgeRuntime,bwEdgeTarget,applyLocalSavedBW,localSavedBW,addShadowApplied=false,localLUT}={}) {
   assertPixels(p);checkAbort(signal);if(typeof validateRecipe!=='function')throw Error('SHARED_RECIPE_VALIDATOR_REQUIRED');validateRecipe(recipe);
   const source=sourceDimensions(p);
   const r=recipe.parameters,extra=r.extendedParameters;
-  if(Object.keys(extra).some(k=>!['crop','export','portrait','postDecodeAdjustments'].includes(k))||r.processingOrder.some(k=>!['exposure','contrast','saturation','postDecodeAdjustments','rotation','crop'].includes(k)))throw Error('UNSUPPORTED_WEB_ADJUSTMENT');
+  if(localLUT!==undefined&&extra.postDecodeAdjustments?.color?.profile?.kind!=='local-lut')
+    throw Error('LOCAL_LUT_RUNTIME_UNEXPECTED');
+  if(Object.keys(extra).some(k=>!['webDepthRange','crop','export','portrait','postDecodeAdjustments','postCropAdjustments','canvasExpand','localLevels','manualMakeup','manualClone','manualSkin','manualRedEye','manualHair','manualEyes','webManualTeeth','webManualClothing','webManualBackground','webManualSpot','webLensShading','webManualLiquify','localLUTMask','colorRangeLevels','personalLook','bwEdgeManual','addShadowManual','sceneGeometry'].includes(k))||r.processingOrder.some(k=>!['exposure','contrast','saturation','postDecodeAdjustments','rotation','crop'].includes(k)))throw Error('UNSUPPORTED_WEB_ADJUSTMENT');
+  if(extra.localLUTMask&&extra.postDecodeAdjustments?.color?.profile?.kind!=='local-lut')throw Error('LOCAL_LUT_MASK_PROFILE_REQUIRED');
+  // The async Worker must first apply the freshly bound shadow composite to
+  // its Original-equivalent frame. Pure rendering alone may never ignore a
+  // saved Add Shadow document or silently render unshadowed pixels.
+  if(Boolean(extra.addShadowManual)!==Boolean(addShadowApplied))
+    throw Error('ADD_SHADOW_MANUAL_RUNTIME_REQUIRED');
+  const hasBWEdgeManual=Object.hasOwn(extra,'bwEdgeManual');
+  if(localSavedBW!==undefined&&(!hasBWEdgeManual||bwEdgeRuntime!==undefined||bwEdgeTarget!==undefined||typeof applyLocalSavedBW!=='function'))throw Error('LOCAL_SAVED_BW_RUNTIME_CONFLICT');
+  if(hasBWEdgeManual&&localSavedBW===undefined&&(typeof applyBWEdgeManual!=='function'||!bwEdgeRuntime||
+      !['proxy','source'].includes(bwEdgeTarget)))throw Error('BW_EDGE_MANUAL_RUNTIME_REQUIRED');
   const fixedOrder=['exposure','contrast','saturation','postDecodeAdjustments','rotation','crop'];
   if(r.processingOrder.some((stage,index)=>index>0&&fixedOrder.indexOf(stage)<fixedOrder.indexOf(r.processingOrder[index-1])))throw Error('UNSUPPORTED_WEB_PROCESSING_ORDER');
   if(Math.abs(r.exposure)>4||r.contrast>4||r.saturation>4)throw Error('WEB_ADJUSTMENT_LIMIT');
@@ -99,6 +155,12 @@ export function renderPixels(p,recipe,{detections=[],signal,validateRecipe,resol
     if(target.adjustmentType!=='face_brightness'||!finite(target.value)||Math.abs(target.value)>4)throw Error('UNSUPPORTED_PERSON_ADJUSTMENT');
     return {detection,delta:2**target.value-1};
   });
+  // Fixed transform estimated from the unedited Proxy: apply before the other
+  // controls at either resolution, never re-estimate from the Final image.
+  const rangeSource=p;
+  if(extra.personalLook)p=applySavedPersonalLook(p,extra.personalLook,{signal});
+  if(extra.postDecodeAdjustments?.color?.sceneMatch)
+    p=applySceneMatch(p,extra.postDecodeAdjustments.color.sceneMatch,{signal});
   const data=p.data.slice(),globalFactor=2**r.exposure;
   for(let y=0;y<p.height;y++){if(y%32===0)checkAbort(signal);for(let x=0;x<p.width;x++){const i=(y*p.width+x)*4,nx=(x+.5)/p.width,ny=(y+.5)/p.height;
     let factor=1;for(const {delta,detection} of matches){const a=detection.anchor;if(delta!==0&&nx>=a.x&&nx<=a.x+a.width&&ny>=1-a.y-a.height&&ny<=1-a.y)factor+=delta*polygonWeight(nx,ny,detection.mask,Math.min(a.width,a.height)*.08);}
@@ -113,8 +175,101 @@ export function renderPixels(p,recipe,{detections=[],signal,validateRecipe,resol
   let pixels={width:p.width,height:p.height,data,sourceWidth:source.width,sourceHeight:source.height};
   if(extra.postDecodeAdjustments){
     if(!r.processingOrder.includes('postDecodeAdjustments')||extra.postDecodeAdjustments.schemaVersion!==1||extra.postDecodeAdjustments.engineVersion!=='suite-srgb8-color-detail-1')throw Error('INVALID_POST_DECODE_ADJUSTMENTS');
-    pixels=applyColorAdjustments(pixels,extra.postDecodeAdjustments.color||{},{signal});
-    pixels=applyDetailAdjustments(pixels,extra.postDecodeAdjustments.detail||{},{signal});
+    const {illuminant,whiteBalance,profile,sceneBasic,sceneMatch,calibration,selectiveColor,pointColor,levels,pointCurves,tonalBands,lumaCurve,grading,glow,...color}=extra.postDecodeAdjustments.color||{};
+    const {grain,...detail}=extra.postDecodeAdjustments.detail||{};
+    if(illuminant&&whiteBalance)throw Error('WHITE_BALANCE_ILLUMINANT_CONFLICT');
+    // Auto/selector gains were estimated once from the original Proxy. The
+    // normal Preview and original-resolution Final apply the saved values;
+    // neither pass performs a new gray-world or neutral-patch estimate.
+    if(whiteBalance)pixels=applyWhiteBalance(pixels,whiteBalance,{signal});
+    if(illuminant)pixels=applyWhiteBalance(pixels,estimateWhiteBalance(pixels,{mode:illuminant},{signal}),{signal});
+    if(profile?.kind==='local-lut'){
+      if(!localLUT?.lut||!localLUT.lutRef)throw Error('LOCAL_LUT_RUNTIME_REQUIRED');
+      if(localLUT.lutRef.sha256!==profile.lutRef.sha256||
+          localLUT.lutRef.byteLength!==profile.lutRef.byteLength)throw Error('LOCAL_LUT_RUNTIME_MISMATCH');
+      const graded=applyColorProfile(pixels,{kind:'lut',intensity:profile.intensity,lut:localLUT.lut},{signal});
+      pixels=extra.localLUTMask?blendLocalLUTMask(pixels,graded,extra.localLUTMask,{signal}):graded;
+    }else if(profile)pixels=applyColorProfile(pixels,profile,{signal});
+    if(sceneBasic)pixels=applySceneBasic(pixels,sceneBasic,{signal});
+    pixels=applyColorAdjustments(pixels,color,{signal});
+    // Primary calibration follows global color controls, before per-channel
+    // Levels/curves, so those later controls grade the calibrated result.
+    if(calibration)pixels=applyColorCalibration(pixels,calibration,{signal});
+    // Selective Color works from the globally adjusted/calibrated RGB. Tone
+    // remapping (Levels/Point Curves) grades its output afterward.
+    if(selectiveColor)pixels=applySelectiveColor(pixels,selectiveColor,{signal});
+    if(pointColor)pixels=applyPointColorForRender(pixels,pointColor.selections,{amount:pointColor.amount,signal});
+    if(levels)pixels=applyLevels(pixels,levels,{signal});
+    if(pointCurves)pixels=applyPointCurves(pixels,pointCurves,{signal});
+    if(tonalBands||lumaCurve){
+      if(Object.values(tonalBands??{}).some(v=>v!==0)&&Object.values(color.toneCurve??{}).some(v=>v!==0))throw Error('TONAL_BANDS_LEGACY_CURVE_CONFLICT');
+      // RGB/master curves were already applied above. Pass no rgb here:
+      // tonal bands and optional luminance curve share exactly one evaluation.
+      pixels=applyExtendedCurves(pixels,{...(tonalBands?{tonalBands}:{}),...(lumaCurve?{luma:lumaCurve}:{})},{signal});
+    }
+    if(grading)pixels=applyColorGrading(pixels,grading,{signal});
+    // Pass the complete saved control object to Glow. The processor preserves
+    // the legacy three-control branch byte-for-byte; extended controls select
+    // the new mode renderer. The preview-only Glow Mask is never composited
+    // into Final pixels here.
+    if(glow)pixels=applyGlow(pixels,glow,{signal});
+    pixels=applyDetailAdjustments(pixels,detail,{signal});
+    if(grain){
+      const {seed,...grainSettings}=grain;
+      // Keep old Amount+Seed Recipes on the numeric API byte-for-byte. Only
+      // Recipes carrying tonal/texture controls enter the object API.
+      const extended=Object.keys(grainSettings).some(key=>key!=='amount');
+      pixels=applyGrain(pixels,extended?grainSettings:grain.amount,{seed,signal});
+    }
   }else if(r.processingOrder.includes('postDecodeAdjustments'))throw Error('INVALID_POST_DECODE_ADJUSTMENTS');
-  checkAbort(signal);return rotateCropPixels(pixels,r.rotationDegrees,extra.crop,{resolutionAssessment,signal});
+  if(extra.colorRangeLevels)pixels=applyColorRangeLevels(pixels,rangeSource,extra.colorRangeLevels,{signal});
+  if(extra.webDepthRange)pixels=applyWebDepthRange(pixels,extra.webDepthRange,{signal});
+  if(extra.manualClone)pixels=applyManualClone(pixels,extra.manualClone,{signal});
+  if(extra.manualSkin)pixels=applyManualSkin(pixels,extra.manualSkin,{signal});
+  if(extra.manualRedEye)pixels=applyManualRedEye(pixels,extra.manualRedEye,{signal});
+  if(extra.manualEyes)pixels=applyManualEyes(pixels,extra.manualEyes,{signal});
+  if(extra.manualHair)pixels=applyManualHair(pixels,extra.manualHair,{signal});
+  if(extra.webManualTeeth)pixels=applyWebManualTeeth(pixels,extra.webManualTeeth,{signal});
+  if(extra.webManualClothing)pixels=applyWebManualClothing(pixels,extra.webManualClothing,{signal});
+  if(extra.webManualBackground)pixels=applyWebManualBackground(pixels,extra.webManualBackground,{signal});
+  if(extra.webManualSpot)pixels=applyWebManualSpot(pixels,extra.webManualSpot,{signal});
+  if(extra.webLensShading)pixels=applyWebLensShading(pixels,extra.webLensShading,{signal});
+  if(extra.manualMakeup)pixels=applyManualMakeup(pixels,extra.manualMakeup,{signal});
+  if(extra.localLevels){
+    const local=extra.localLevels;
+    if(local.schemaVersion!==1||local.engineVersion!=='suite-srgb8-local-levels-coverage-1'||
+        local.brushVersion!=='suite-normalized-coverage-brush-1')throw Error('INVALID_LOCAL_LEVELS');
+    const mask=rasterizeLocalBrushMask({width:pixels.width,height:pixels.height,strokes:local.strokes,signal});
+    pixels=applyLocalLevels(pixels,mask,local.levels,{signal});
+  }
+  // The saved two-role stroke document is an implicit pre-rotation/crop stage.
+  // Keep the legacy processingOrder and all legacy pixels unchanged. The Worker
+  // checks binding/provenance; actual authority must come from an authenticated
+  // Session/API caller, never from this hook or a claimed allowed flag.
+  if(hasBWEdgeManual)pixels=localSavedBW!==undefined?
+    applyLocalSavedBW({...pixels,sourceWidth:source.width,sourceHeight:source.height},extra.bwEdgeManual,localSavedBW,{signal}):
+    applyBWEdgeManual(pixels,extra.bwEdgeManual,bwEdgeRuntime,{target:bwEdgeTarget,signal});
+  // Deform all source-space brush results together, before projective geometry.
+  // Retain the actual applied field separately: later spatial stages must not
+  // reinterpret it as a field over their cropped/expanded output dimensions.
+  let liquifyField;
+  if(extra.webManualLiquify){
+    const warped=applyWebManualLiquify(pixels,extra.webManualLiquify,{signal});
+    pixels=warped.pixels;liquifyField=warped.field;
+  }
+  if(extra.webLensShading)pixels=applyWebLensGeometry(pixels,extra.webLensShading,{signal});
+  if(extra.sceneGeometry){
+    const inverse=sceneGeometryInverse(extra.sceneGeometry,source.width/source.height);
+    // All face and source-normalized manual masks have already been applied.
+    // Preserve canonical dimensions even if a manual processor omits metadata.
+    pixels=warpScene({...pixels,sourceWidth:source.width,sourceHeight:source.height},inverse,{signal});
+  }
+  checkAbort(signal);
+  const composed=rotateCropPixels(pixels,r.rotationDegrees,extra.crop,{resolutionAssessment,signal});
+  const postCrop=extra.postCropAdjustments;
+  if(!postCrop)return liquifyField?{...composed,liquifyField}:composed;
+  if(postCrop.schemaVersion!==1||postCrop.engineVersion!=='suite-srgb8-manual-vignette-1'||!postCrop.vignette)
+    throw Error('INVALID_POST_CROP_ADJUSTMENTS');
+  const finished=applyVignette(composed,postCrop.vignette,{signal});
+  return liquifyField?{...finished,liquifyField}:finished;
 }

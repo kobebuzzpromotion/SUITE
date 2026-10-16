@@ -1,0 +1,23 @@
+body.editorial-home-page{background:#fff;color:#211d1c;font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif}
+.editorial-home{position:relative;aspect-ratio:1680/941;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.editorial-home__photograph{position:absolute;inset:0;z-index:-1;background:#e5e2de}
+.editorial-home__photograph img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.editorial-home__copy{text-align:center;width:min(600px,47vw);padding:5vh 0 4vh;display:flex;align-items:center;flex-direction:column;text-shadow:0 1px 12px #ede9e5a8}
+.editorial-home__copy h1{font-family:Didot,"Bodoni MT","Times New Roman",serif;font-size:clamp(72px,7.8vw,142px);font-weight:400;letter-spacing:.145em;line-height:.98;margin:0 0 .18em .145em}
+.editorial-home__english{font-family:Georgia,"Times New Roman",serif;font-size:clamp(12px,1.25vw,19px);letter-spacing:.17em;white-space:nowrap}
+.editorial-home__headline{font-size:clamp(17px,1.7vw,27px);line-height:1.6;letter-spacing:.12em;margin-top:clamp(28px,4vh,48px)}
+.editorial-home__headline span{display:block;white-space:nowrap}
+.editorial-home__body{font-size:clamp(12px,1.05vw,16px);letter-spacing:.08em;line-height:1.75;margin-top:clamp(22px,3.6vh,42px)}
+.editorial-home__ai-note{font-size:clamp(11px,.85vw,14px);letter-spacing:.05em;margin-top:clamp(15px,2.5vh,28px)}
+.editorial-home__availability{font-family:Arial,"Noto Sans JP",sans-serif;font-size:12px;line-height:1.55;letter-spacing:0;margin-top:9px;max-width:440px;color:#252423}
+.editorial-home__cta{font-size:clamp(16px,1.3vw,21px);text-decoration:none;border-bottom:1px solid currentColor;min-height:44px;display:inline-flex;align-items:center;margin-top:clamp(17px,2.5vh,30px);padding:4px 10px}
+.editorial-home__cta:hover{border-bottom-width:2px}.editorial-home__cta:focus-visible{outline:2px solid #171717;outline-offset:5px}
+.editorial-home__logout{border:0;border-bottom:1px solid currentColor;background:transparent;color:inherit;min-height:44px;padding:5px 10px;margin-top:7px;font:12px Arial,"Noto Sans JP",sans-serif;letter-spacing:.04em}.editorial-home__logout:hover{border-bottom-width:2px}.editorial-home__logout:focus-visible{outline:2px solid #171717;outline-offset:5px}.editorial-home__account-status{font:12px/1.5 Arial,"Noto Sans JP",sans-serif;color:#6d2929;margin-top:8px}
+.editorial-home__origin{font-size:clamp(11px,.85vw,14px);line-height:1.65;letter-spacing:.06em;margin-top:clamp(28px,5vh,56px)}
+.editorial-home__origin span{display:block;font-family:Georgia,"Times New Roman",serif}
+.editorial-trial-notice{font-family:Arial,"Noto Sans JP",sans-serif;border-top:1px solid #d6d4d1;color:#31312f;background:#fff;padding:20px clamp(18px,4vw,64px);font-size:13px;line-height:1.8}
+.editorial-trial-notice p+p{margin-top:5px}
+@media(max-width:1250px){.editorial-home{aspect-ratio:auto;display:flex;flex-direction:column;overflow:visible}.editorial-home__photograph{position:relative;inset:auto;z-index:auto;width:100%;background:#e5e2de}.editorial-home__photograph img{width:100%;height:auto;object-fit:contain}.editorial-home__copy{width:100%;padding:44px 24px 52px;background:#fff;text-shadow:none}.editorial-home__copy h1{font-size:clamp(68px,11vw,108px)}.editorial-home__headline span{white-space:normal}.editorial-home__body{font-size:15px}.editorial-home__origin{font-size:13px;margin-top:32px}}
+@media(max-width:760px){.editorial-home__copy{padding:36px 18px 48px}.editorial-home__copy h1{font-size:clamp(59px,15vw,94px)}.editorial-home__english{font-size:12px;white-space:normal}.editorial-home__headline{font-size:clamp(17px,4.5vw,24px);letter-spacing:.025em;margin-top:30px}.editorial-home__headline span{text-wrap:balance}.editorial-home__body{font-size:14px;letter-spacing:.015em;margin-top:26px}.editorial-home__body p{text-wrap:balance}.editorial-home__body p:first-child span{display:block}.editorial-home__ai-note{font-size:12px;letter-spacing:.01em}.editorial-home__origin{font-size:12px;letter-spacing:.01em;margin-top:32px}.editorial-trial-notice{font-size:12px}}
+@media(max-width:360px){.editorial-home__headline .editorial-home__small-break{display:block}}
+@media(prefers-reduced-motion:reduce){.editorial-home *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}

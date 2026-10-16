@@ -2,6 +2,55 @@ import Foundation
 import SwiftUI
 import SuiteCore
 
+/// Explicit, one-shot large-print entry. Does not rewrite the saved export configuration.
+@MainActor
+struct LargePrintExportSheet: View {
+    @ObservedObject var model: EditorModel
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("保存済み設定から大判TIFF") {
+                    Text(model.selectedAsset?.originalFilename ?? "写真未選択")
+                    if let crop = try? model.parameters.cropSettings(),
+                       let width = crop.widthMM, let height = crop.heightMM {
+                        Text("実寸: \(width.formatted()) × \(height.formatted()) mm / \(crop.requestedDPI.formatted()) dpi")
+                    } else {
+                        Text("先にCrop・印刷設定で実寸とdpiを保存してください。")
+                    }
+                    if let settings = try? model.parameters.exportSettings() {
+                        Text("保存設定: \(settings.format.rawValue) / \(settings.bitDepth)bit / \(settings.colorSpace.rawValue) / \(settings.requestedDPI.formatted()) dpi")
+                        Text("圧縮: \(settings.tiffCompression.rawValue) / Alpha: \(settings.preserveAlpha ? "保持" : "なし") / Metadata: \(settings.metadata.rawValue)")
+                    }
+                    Text("TIFF・8/16bit・非圧縮・Alphaなし・Metadata除去が必要です。sRGB / Adobe RGBは実pixel変換します。実寸と整数dpiを一致させてください。設定を自動で上書きしません。")
+                    Text("変更する場合はこの画面を閉じ、Crop・印刷設定で『大判TIFF用設定』を選択するか各設定を個別に指定し、Recipeへ保存してください。")
+                    Text("B0倍判を含め、必要な画素数を実寸から計算します。通常補間は新しい細部を復元するAI処理ではありません。")
+                }
+                Section("今回だけの許可") {
+                    Toggle("画素不足の場合の通常補間を許可", isOn: $model.allowLargePrintResampling)
+                        .accessibilityIdentifier("largePrint.resamplingConsent")
+                    Text("初期値はOFF。写真切替・実行後に解除されます。OFFでは画素不足を拒否し、dpiタグだけ変更した画像は出しません。")
+                        .font(.footnote)
+                }
+                Section {
+                    Button("保存完了を待って大判TIFFを書き出す") {
+                        model.exportLargePrint()
+                        dismiss()
+                    }
+                    .disabled(model.isBusy || model.selectedAsset == nil)
+                    .accessibilityIdentifier("largePrint.export")
+                    Text("原本から処理し、終了後は既存の共有画面で「ファイルに保存」等を選べます。取消は処理状況画面から行えます。Macビルド・実機動作は未確認です。")
+                        .font(.footnote)
+                }
+            }
+            .navigationTitle("大判出力")
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("閉じる") { dismiss() } } }
+            .onDisappear { model.allowLargePrintResampling = false }
+        }
+    }
+}
+
 /// Shared controls only. iPhone/iPad keep their existing, separate outer layouts.
 /// Bind to a parent-owned draft; onConfirm commits Crop + Export together into the existing Recipe.
 /// sourcePixels is EXIF-oriented Original dimensions BEFORE the Recipe's user rotation, never Proxy dimensions.
@@ -297,6 +346,15 @@ struct CropExportControls: View {
                         .font(.footnote).foregroundStyle(.secondary)
                 }
                 if export.format == .tiff {
+                    Button("大判TIFF用設定: 非圧縮・Alphaなし・Metadata除去") {
+                        export.tiffCompression = .none
+                        export.preserveAlpha = false
+                        export.metadata = .remove
+                    }
+                    .frame(minHeight: 44)
+                    .accessibilityIdentifier("export.largePrintSettings")
+                    Text("この明示操作は実寸・dpi・bit depth・色空間を変更しません。大判出力には整数dpiを指定してください。")
+                        .font(.footnote).foregroundStyle(.secondary)
                     Picker("TIFF bit depth", selection: $export.bitDepth) {
                         Text("8bit").tag(8)
                         Text("16bit").tag(16)

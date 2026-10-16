@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "scope": "SUITE dedicated Cloudflare anonymous preview, read-only smoke after actual Workers URL is confirmed",
+  "basis": {
+    "previewConfig": "apps/sites/cloudflare/wrangler.preview.jsonc",
+    "entry": "apps/sites/src/cloudflare-entry.mjs",
+    "webBootstrap": "apps/web/src/bootstrap.mjs",
+    "declaredBindings": ["ASSETS"],
+    "declaredOrigin": "https://suite-cloudflare-preview.bals-enter.workers.dev",
+    "absentInPreviewConfig": ["DB", "BUCKET", "Cloudflare Access", "administrator secrets"],
+    "note": "The config declares an intended URL. It is not evidence that a Worker is deployed there."
+  },
+  "prerequisites": [
+    "GitHub main initial commit SHA received and checked against the public source to be built.",
+    "Cloudflare owner reports the actual Workers URL and successful deployment ID; verify the URL equals SUITE_ALLOWED_ORIGIN.",
+    "Use a fresh browser profile or isolated tab without personal/customer data; no RAW import, payment or account creation."
+  ],
+  "testsAfterURL": [
+    {
+      "id": "CF-PREVIEW-01",
+      "name": "Top route and static shell",
+      "steps": ["GET actual / with no cookie", "Check HTTP status, document title, SUITE wordmark and bundled /app.js and /styles.css availability"],
+      "expected": "HTTP 200; title SUITE — Photograph workspace; SUITE Editor shell rather than ÉCLAT INTIME or a Cloudflare error page",
+      "status": "NOT_RUN_AWAITING_URL"
+    },
+    {
+      "id": "CF-PREVIEW-02",
+      "name": "Primary anonymous screens",
+      "steps": ["Open / and inspect Editor, empty photo preview, library, adjustment controls and photo strip without importing a file", "Open /?view=author and verify author preview is visible without cloud submission", "Open /?view=admin and verify it shows an administrator gate rather than an authenticated dashboard"],
+      "expected": "Editor has 写真を、意図した一枚に。 and empty-photo state; Author shows 作者ワークスペース; Admin displays SUITE 管理者 gate with no member or submission data",
+      "status": "NOT_RUN_AWAITING_URL"
+    },
+    {
+      "id": "CF-PREVIEW-03",
+      "name": "Anonymous session contract",
+      "steps": ["GET actual /trial/session with no cookie", "Inspect status and JSON fields without entering account data"],
+      "expected": "HTTP 200; mode SITES, principal null, anonymousLocal true, adminPasswordAuthenticated false, endedReason ADMIN_AUTH_NOT_CONFIGURED, signInURL null",
+      "status": "NOT_RUN_AWAITING_URL"
+    },
+    {
+      "id": "CF-PREVIEW-04",
+      "name": "Private Cloud routes fail closed",
+      "steps": ["GET /v1/assets and /trial/drafts without a cookie", "GET /trial/members and /trial/submissions without a cookie", "GET /auth/complete and /auth/whoami without an assertion"],
+      "expected": "Every route returns HTTP 503 with error ADMIN_AUTH_NOT_CONFIGURED; no asset, draft, member or submission data is returned",
+      "status": "NOT_RUN_AWAITING_URL"
+    }
+  ],
+  "separateNotRunnableTest": {
+    "id": "CF-REAL-AUTH-01",
+    "name": "Old signed cookie is refused after logout",
+    "stepsWhenFullEnvironmentExists": ["Issue an authentic SUITE session through Cloudflare Access on the dedicated full environment", "Log out and preserve the former cookie only inside the authorized test client", "Retry /trial/session with the former cookie"],
+    "expectedWhenRunnable": "HTTP 401 with error SESSION_INVALID and no principal",
+    "currentPreviewStatus": "NOT_RUN_NO_DB_OR_SESSION_SECRET",
+    "reason": "The preview has no D1 session ledger, Access assertion verification or signing secret. A fabricated cookie cannot prove revocation of a real issued session."
+  },
+  "recordingRules": {
+    "newEvidenceOnly": true,
+    "capture": ["timestamp", "GitHub commit SHA", "deployment ID", "actual URL", "test ID", "status", "sanitized response excerpt", "browser and OS"],
+    "forbiddenInputs": ["source secrets", "real RAW", "customer data", "payment data", "real billing"],
+    "oldEvidenceOverwrite": false
+  },
+  "overallStatus": "PLAN_ONLY_NOT_RUN"
+}

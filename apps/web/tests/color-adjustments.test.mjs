@@ -29,7 +29,8 @@ test('CA02 / SYNTHETIC: validation defaults are detached and unknown controls in
   const input = {hsl: {red: {hue: 2}}}, normalized = validateColorAdjustments(input);
   normalized.hsl.red.hue = 90; assert.equal(input.hsl.red.hue, 2);
   assert.equal(normalized.shadows, 0); assert.equal(Object.keys(normalized.hsl).length, 8);
-  for (const bad of [null, [], new Date(), {temperature: 5200}, {tint: 1}, {hsl: {skin: {hue: 1}}}, {hsl: {red: {lightness: 1}}}, {hsl: undefined}, {hsl: {red: null}}]) assert.throws(() => validateColorAdjustments(bad));
+  assert.equal(validateColorAdjustments({temperature: 1, tint: 1}).temperature, 1);
+  for (const bad of [null, [], new Date(), {temperature: 5200}, {tint: 101}, {hsl: {skin: {hue: 1}}}, {hsl: {red: {lightness: 1}}}, {hsl: undefined}, {hsl: {red: null}}]) assert.throws(() => validateColorAdjustments(bad));
 });
 test('CA03 / SYNTHETIC: every scalar and all 24 HSL values reject illegal type/range before changing input', () => {
   const p = grey(128), before = p.data.slice();

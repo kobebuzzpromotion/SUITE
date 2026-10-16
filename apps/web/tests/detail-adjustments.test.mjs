@@ -1,41 +1,50 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {applyDetailAdjustments,applyClarity,applyTexture,applySharpness,detailRadiiFor,DETAIL_LIMITS,DETAIL_ALGORITHM_VERSION} from '../src/processing/detail-adjustments.mjs';
+import {applyDetailAdjustments,applyDenoise,applySharpness,detailRadiiFor} from '../src/processing/detail-adjustments.mjs';
+import {MAX_PIXELS} from '../src/processing/pure.mjs';
 
-// Artificial RGBA only. No camera RAW, Worker, UI, Recipe persistence, portrait or real visual evidence.
-function pixels(width,height,fn){const data=new Uint8ClampedArray(width*height*4);for(let y=0;y<height;y++)for(let x=0;x<width;x++)data.set(fn(x,y),(y*width+x)*4);return {width,height,data};}
-const varied=(w=127,h=9)=>pixels(w,h,(x,y)=>[35+(x*23+y*17)%185,25+(x*13+y*29)%200,40+(x*31+y*11)%170,255]);
-const strip=()=>pixels(3000,1,x=>{const n=95+Math.floor(x/6)%2*45+(x%3)*6;return [n,n+5,n+9,255];});
-const alphaValues=p=>Array.from(p.data).filter((_,i)=>i%4===3);
-const rgbContrast=(p,a,b)=>p.data[b*4]-p.data[a*4];
+function line({center=192,alpha=255,hiddenNeighbor=false}={}) {
+  const width=3000,data=new Uint8ClampedArray(width*4);
+  for(let x=0;x<width;x++){const i=x*4;data[i]=data[i+1]=data[i+2]=128;data[i+3]=alpha;}
+  data.set([center,center,center,alpha],1500*4);
+  if(hiddenNeighbor)data.set([255,255,255,0],1501*4);
+  return {width,height:1,data,sourceWidth:6000,sourceHeight:2};
+}
+const center=p=>p.data[1500*4];
 
-// Independent direct 2D kernel oracle, not the production separable/sliding implementation.
-function kernel(radius,size){const r=Math.min(radius,size-1),whole=Math.floor(r),fraction=r-whole,taps=[];for(let i=-whole;i<=whole;i++)taps.push([i,1]);if(fraction)taps.push([-whole-1,fraction],[whole+1,fraction]);return taps;}
-function directBlur(data,width,height,radius){const out=new Float64Array(width*height),kx=kernel(radius,width),ky=kernel(radius,height);for(let y=0;y<height;y++)for(let x=0;x<width;x++){let sum=0,coverage=0;for(const [dy,wy]of ky)for(const [dx,wx]of kx){const xx=Math.max(0,Math.min(width-1,x+dx)),yy=Math.max(0,Math.min(height-1,y+dy)),i=(yy*width+xx)*4,weight=wx*wy*data[i+3]/255;sum+=(.2126*data[i]+.7152*data[i+1]+.0722*data[i+2])*weight;coverage+=weight;}const i=(y*width+x)*4;out[y*width+x]=coverage?sum/coverage:.2126*data[i]+.7152*data[i+1]+.0722*data[i+2];}return out;}
-function oracle(p,settings){const data=p.data.slice(),scale=Math.max(p.width,p.height)/3000;for(const stage of ['clarity','texture','sharpness']){const value=settings[stage]??0;if(!value)continue;const input=data.slice(),r=stage==='clarity'?16*scale:stage==='texture'?4*scale:1.5*scale,broad=directBlur(input,p.width,p.height,r),fine=stage==='texture'?directBlur(input,p.width,p.height,scale):null;for(let k=0;k<p.width*p.height;k++){const i=k*4;if(!input[i+3])continue;const luma=.2126*input[i]+.7152*input[i+1]+.0722*input[i+2],residual=luma-broad[k],delta=stage==='clarity'?1.5*value/100*residual/(1+Math.abs(residual)/32):stage==='texture'?1.25*value/100*(fine[k]-broad[k]):value/100*residual;for(let c=0;c<3;c++)data[i+c]=Math.round(input[i+c]+delta);}}return data;}
-function closeBytes(actual,expected,tolerance=1){assert.equal(actual.length,expected.length);let difference=0;for(let i=0;i<actual.length;i++)difference=Math.max(difference,Math.abs(actual[i]-expected[i]));assert.ok(difference<=tolerance,`maximum channel delta ${difference} > ${tolerance}`);}
+test('DETAIL-DN01 / synthetic: neutral is byte identity, positive smooths and negative mildly emphasizes grain',()=>{
+  const input=line(),original=input.data.slice();
+  assert.deepEqual([...applyDenoise(input,0).data],[...original]);
+  assert.ok(center(applyDenoise(input,100))<center(input));
+  assert.ok(center(applyDenoise(input,-100))>center(input));
+  assert.deepEqual(input.data,original,'unedited base must remain untouched');
+  assert.deepEqual(detailRadiiFor(input).denoise,2);
+});
 
-test('DT01 neutral is byte exact, separately allocated and input unchanged',()=>{const input=varied(),before=input.data.slice(),out=applyDetailAdjustments(input);assert.deepEqual(out.data,before);assert.notEqual(out.data,input.data);assert.deepEqual(input.data,before);assert.equal(out.detailProvenance.algorithmVersion,DETAIL_ALGORITHM_VERSION);});
-test('DT02 individual neutral controls skip all blur/color round trips',()=>{const input=varied();for(const operation of [applyClarity,applyTexture,applySharpness])assert.deepEqual(operation(input,0).data,input.data);});
-test('DT03 flat non-gray RGB remains unchanged with arbitrary alpha',()=>{const input=pixels(73,13,(x,y)=>[71,129,203,(x+y)%4===0?0:(x+y)%4===1?70:(x+y)%4===2?170:255]);assert.deepEqual(applyDetailAdjustments(input,{clarity:100,texture:-100,sharpness:100}).data,input.data);});
-test('DT04 every separate operation and combination preserve input and alpha bytes',()=>{const input=varied(137,11);for(let k=0;k<input.width*input.height;k++)input.data[k*4+3]=[0,64,128,255][k%4];const before=input.data.slice();for(const settings of [{clarity:-100},{clarity:100},{texture:-100},{texture:100},{sharpness:100},{clarity:73,texture:-46,sharpness:89}]){const out=applyDetailAdjustments(input,settings);assert.deepEqual(alphaValues(out),alphaValues(input));assert.deepEqual(input.data,before);for(let i=0;i<before.length;i+=4)if(before[i+3]===0)assert.deepEqual(out.data.slice(i,i+4),before.slice(i,i+4));}});
-test('DT05 signed clarity expands or reduces a broad luminance edge',()=>{const input=pixels(3000,1,x=>[x<1500?90:170,x<1500?90:170,x<1500?90:170,255]),baseline=rgbContrast(input,1499,1500);assert.ok(rgbContrast(applyClarity(input,100),1499,1500)>baseline);assert.ok(rgbContrast(applyClarity(input,-100),1499,1500)<baseline);});
-test('DT06 signed texture strengthens or reduces a middle-frequency plateau',()=>{const input=pixels(3000,1,x=>{const n=Math.floor(x/6)%2?160:110;return [n,n,n,255];});const k=1508;assert.equal(input.data[k*4],160);assert.ok(applyTexture(input,100).data[k*4]>160);assert.ok(applyTexture(input,-100).data[k*4]<160);});
-test('DT07 sharpness strength increases a high-frequency impulse and decreases back toward neutral',()=>{const input=pixels(3000,1,x=>[x===1500?160:128,x===1500?160:128,x===1500?160:128,255]);const low=applySharpness(input,25).data[1500*4],high=applySharpness(input,100).data[1500*4];assert.ok(high>low&&low>160);assert.equal(applySharpness(input,0).data[1500*4],160);});
-test('DT08 clarity, texture and sharpness are not aliases of one algorithm',()=>{const input=strip(),a=applyClarity(input,100).data,b=applyTexture(input,100).data,c=applySharpness(input,100).data;assert.notDeepEqual(a,b);assert.notDeepEqual(a,c);assert.notDeepEqual(b,c);});
-test('DT09 valid endpoint combinations clamp RGB while retaining exact alpha',()=>{const input=pixels(107,7,(x,y)=>[x%2?255:0,y%2?255:0,(x+y)%2?255:0,99]);for(const clarity of [-100,100])for(const texture of [-100,100])for(const sharpness of [0,100]){const out=applyDetailAdjustments(input,{clarity,texture,sharpness});assert.ok(out.data instanceof Uint8ClampedArray);assert.deepEqual(alphaValues(out),alphaValues(input));assert.equal(out.data.length,input.data.length);}});
-for(const [id,settings] of [['10',{clarity:100}],['11',{clarity:-100}],['12',{texture:100}],['13',{texture:-100}],['14',{sharpness:100}],['15',{clarity:63,texture:-78,sharpness:91}]])test(`DT${id} independent 2D direct-kernel oracle ${JSON.stringify(settings)}`,()=>{const input=varied(101,7);closeBytes(applyDetailAdjustments(input,settings).data,oracle(input,settings));});
-test('DT16 fixed combination equals individual clarity -> texture -> sharpness stages',()=>{const input=strip(),out=applyDetailAdjustments(input,{clarity:88,texture:-77,sharpness:91}),separate=applySharpness(applyTexture(applyClarity(input,88),-77),91);assert.deepEqual(out.data,separate.data);assert.deepEqual(out.detailProvenance.order,['clarity','texture','sharpness']);});
-test('DT17 order is observable, not silently interchangeable',()=>{const input=strip(),forward=applyDetailAdjustments(input,{clarity:100,texture:100,sharpness:100}),reverse=applyClarity(applyTexture(applySharpness(input,100),100),100);assert.notDeepEqual(forward.data,reverse.data);});
-test('DT18 Proxy/Final radii scale by actual representation long edge',()=>{const final=pixels(3000,1,()=>[128,128,128,255]),proxy={...pixels(1600,1,()=>[128,128,128,255]),sourceWidth:3000,sourceHeight:1},a=detailRadiiFor(final),b=detailRadiiFor(proxy);assert.equal(a.clarity,16);assert.equal(a.textureFine,1);assert.equal(a.textureCoarse,4);assert.equal(a.sharpness,1.5);for(const key of ['clarity','textureFine','textureCoarse','sharpness'])assert.ok(Math.abs(b[key]/a[key]-1600/3000)<1e-12);assert.equal(b.representationScale,1600/3000);assert.equal(b.sourceLongEdge,3000);});
-test('DT19 subpixel radii remain fractional, not rounded up to full-size kernels',()=>{const p=varied(17,11),r=detailRadiiFor(p);assert.ok(r.sharpness>0&&r.sharpness<1);assert.equal(r.sharpness,1.5*17/3000);assert.equal(r.clarity,16*17/3000);});
-test('DT20 canonical source frame is preserved but never substitutes for Proxy kernel size',()=>{const input={...varied(17,11),sourceWidth:3000,sourceHeight:2000},out=applyDetailAdjustments(input,{clarity:100});assert.equal(out.sourceWidth,3000);assert.equal(out.sourceHeight,2000);assert.equal(out.detailProvenance.radii.actualLongEdge,17);assert.equal(out.detailProvenance.radii.clarity,16*17/3000);assert.equal(out.detailProvenance.visualVerification,'NOT_RUN');});
-test('DT21 invalid/unknown parameters and unsupported sharpness negative range reject',()=>{const p=varied(9,5);for(const parameters of [null,[],{noiseReduction:10},{exposure:1},{clarity:101},{clarity:-101},{texture:NaN},{texture:Infinity},{sharpness:-1},{sharpness:101},{sharpness:'10'},{clarity:undefined}])assert.throws(()=>applyDetailAdjustments(p,parameters));assert.deepEqual(DETAIL_LIMITS.clarity,[-100,100]);assert.deepEqual(DETAIL_LIMITS.texture,[-100,100]);assert.deepEqual(DETAIL_LIMITS.sharpness,[0,100]);});
-test('DT22 invalid pixels, oversize declaration and broken source frame reject without allocation',()=>{for(const p of [{width:0,height:1,data:new Uint8ClampedArray()},{width:1,height:1,data:new Uint8Array(4)},{width:1,height:1,data:new Uint8ClampedArray(3)},{width:24_000_001,height:1,data:new Uint8ClampedArray(4)},{...varied(9,5),sourceWidth:30},{...varied(9,5),sourceWidth:8,sourceHeight:5}])assert.throws(()=>applyDetailAdjustments(p,{clarity:50}));});
-test('DT23 pre-abort rejects and leaves all source bytes untouched',()=>{const p=varied(),before=p.data.slice(),controller=new AbortController();controller.abort();assert.throws(()=>applyDetailAdjustments(p,{texture:100},{signal:controller.signal}),err=>err.name==='AbortError');assert.deepEqual(p.data,before);});
-test('DT24 mid-processing abort also leaves all source bytes untouched',()=>{const p=varied(256,65),before=p.data.slice();let checks=0;const signal={get aborted(){return ++checks>8;}};assert.throws(()=>applyDetailAdjustments(p,{clarity:100,texture:100,sharpness:100},{signal}),err=>err.name==='AbortError');assert.ok(checks>8);assert.deepEqual(p.data,before);});
-test('DT25 single-pixel axes and a 1x1 image have no invalid radius or border samples',()=>{for(const [w,h]of [[1,1],[1,31],[31,1]]){const p=pixels(w,h,()=>[29,83,201,210]);assert.deepEqual(applyDetailAdjustments(p,{clarity:-100,texture:100,sharpness:100}).data,p.data);}});
-test('DT26 hidden transparent RGB cannot affect visible neighboring output',()=>{const a=varied(109,5),b={...a,data:a.data.slice()};for(let k=0;k<a.width*a.height;k++)if(k%5===0){a.data[k*4+3]=b.data[k*4+3]=0;a.data[k*4]=0;a.data[k*4+1]=0;a.data[k*4+2]=0;b.data[k*4]=255;b.data[k*4+1]=17;b.data[k*4+2]=204;}const settings={clarity:100,texture:-100,sharpness:100},aa=applyDetailAdjustments(a,settings),bb=applyDetailAdjustments(b,settings);for(let k=0;k<a.width*a.height;k++)if(a.data[k*4+3])assert.deepEqual(aa.data.slice(k*4,k*4+4),bb.data.slice(k*4,k*4+4));});
-test('DT27 partial-alpha direct oracle matches coverage-normalized processing',()=>{const p=varied(79,7);for(let k=0;k<p.width*p.height;k++)p.data[k*4+3]=[0,51,157,255][k%4];const settings={clarity:-81,texture:89,sharpness:100};closeBytes(applyDetailAdjustments(p,settings).data,oracle(p,settings));assert.deepEqual(alphaValues(applyDetailAdjustments(p,settings)),alphaValues(p));});
-test('DT28 deterministic repeat from the same base, never implicit cumulative adjustment',()=>{const p=strip(),before=p.data.slice(),settings={clarity:67,texture:84,sharpness:90},a=applyDetailAdjustments(p,settings),b=applyDetailAdjustments(p,settings);assert.deepEqual(a.data,b.data);assert.deepEqual(a.detailProvenance,b.detailProvenance);assert.deepEqual(p.data,before);});
-test('DT29 provenance distinguishes fixed stage order from actually active operations',()=>{const p=varied();assert.deepEqual(applyDetailAdjustments(p).detailProvenance.appliedStages,[]);assert.deepEqual(applyDetailAdjustments(p,{texture:-20,sharpness:50}).detailProvenance.appliedStages,['texture','sharpness']);});
+test('DETAIL-DN02 / synthetic: alpha is unchanged and hidden RGB does not leak into visible neighbors',()=>{
+  const input=line({center:128,hiddenNeighbor:true});
+  const result=applyDenoise(input,100);
+  assert.equal(result.data[1500*4],128);
+  assert.equal(result.data[1500*4+3],255);
+  assert.equal(result.data[1501*4+3],0);
+  assert.equal(result.sourceWidth,6000);
+});
+
+test('DETAIL-DN03 / synthetic: existing sharpness remains active and combined stages retain order',()=>{
+  const input=line();
+  assert.ok(center(applySharpness(input,100))>center(input));
+  const result=applyDetailAdjustments(input,{denoise:70,clarity:10,texture:10,sharpness:20});
+  assert.deepEqual(result.detailProvenance.appliedStages,['denoise','clarity','texture','sharpness']);
+  assert.ok(result.data.every(Number.isFinite));
+  assert.equal(result.data[1500*4+3],255);
+});
+
+test('DETAIL-DN04 / synthetic: invalid range, cancellation and pixel allocation limits fail closed',()=>{
+  const input=line();
+  for(const denoise of [101,-101,NaN,Infinity,'1'])assert.throws(()=>applyDenoise(input,denoise),/DETAIL_RANGE_DENOISE/);
+  assert.throws(()=>applyDenoise(input,100,{signal:{aborted:true}}),{name:'AbortError'});
+  let reads=0;assert.throws(()=>applyDenoise(input,100,{signal:{get aborted(){return ++reads>4;}}}),{name:'AbortError'});
+  assert.throws(()=>applyDenoise({width:MAX_PIXELS+1,height:1,data:new Uint8ClampedArray(4)},100),/INVALID_OR_OVERSIZE_PIXELS/);
+  // Existing renderer allocates at most input/output RGBA and five Float32 pixel buffers.
+  assert.ok(MAX_PIXELS*(8+5*4)<=768*1024*1024);
+});

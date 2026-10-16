@@ -58,6 +58,9 @@ actor SuiteBackendClient {
         request.cachePolicy = .reloadIgnoringLocalCacheData
         return request
     }
+    func generationClient() throws -> ServerGenerationClient {
+        try ServerGenerationClient(baseURL: endpoint, token: accessToken)
+    }
     private func check(_ response: URLResponse, original: Bool = false) throws {
         guard let response = response as? HTTPURLResponse else { throw BackendFailure.invalidResponse }
         if original && [404, 409, 503].contains(response.statusCode) {throw BackendFailure.originalUnavailable}

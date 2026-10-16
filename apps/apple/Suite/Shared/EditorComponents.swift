@@ -41,6 +41,8 @@ struct AdjustmentControls: View {
             control("彩度", value: model.parameters.saturation, range: 0...2, set: model.setSaturation)
             VStack(alignment: .leading, spacing: 12) {
                 Text("顔の明るさ（CUSTOM EV）").font(.headline)
+                Button(model.isPreparingLocalPeople ? "人物登録の写真を準備中" : "端末内の人物登録・照合", action: model.openLocalPeople)
+                    .frame(minHeight: 44).disabled(model.isPreparingLocalPeople)
                 Button(model.portraitTargets.isEmpty ? "この写真の顔を検出" : "対象の顔を表示", action: model.preparePortraitTargets)
                     .frame(minHeight: 44)
                 if !model.portraitTargets.isEmpty {
@@ -76,6 +78,28 @@ struct AdjustmentControls: View {
             Text("認証・本番接続は未設定。自動クラウド同期は未完成です。")
                 .font(.footnote).foregroundStyle(.secondary)
         }.disabled(model.selectedAsset == nil || model.isBusy)
+            .sheet(isPresented: $model.showLocalPeople, onDismiss: model.closeLocalPeople) {
+                if let people = model.localPeople {
+                    LocalPeoplePanel(model: people, referenceImage: model.localPeopleReference,
+                                     onApplyBrightness: model.applyLocalPeopleBrightness,
+                                     onApplyManualRetouch: model.applyLocalManualRetouch,
+                                     onApplyManualWarp: model.applyLocalManualWarp,
+                                     onRemoveManualWarp: model.removeLocalManualWarp,
+                                     backdropStore: model.localBackdropStore,
+                                     backdropRecipeStore: model.localBackdropRecipeStore,
+                                     onApplyBackdrop: model.applyLocalBackdrop,
+                                     onRemoveBackdrop: model.canRemoveLocalBackdrop ? model.removeLocalBackdrop : nil,
+                                     generationStore: model.localGenerationCandidateStore,
+                                     generationRecipeRevision: model.localGenerationRecipeRevision,
+                                     onApplyGeneration: model.applyGenerationBackdrop,
+                                     authorizationStore: model.generationAuthorizationStore,
+                                       responseAdapter: model.generationResponseAdapter,
+                                       partialLookContext: model.partialLookContext,
+                                       tetherRecoveryContext: model.tetherRecoveryContext,
+                                     authorizationValidation: model.generationAuthorizationValidation,
+                                     serverGenerationPreparation: model.canConnectServerGeneration ? model.prepareServerGeneration : nil)
+                }
+            }
     }
     private func control(_ name: String, value: Double, range: ClosedRange<Double>, set: @escaping (Double) -> Void) -> some View {
         VStack(alignment: .leading, spacing: 8) {

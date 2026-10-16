@@ -49,4 +49,19 @@ actor CloudTransferCoordinator {
         defer {try? FileManager.default.removeItem(at: temporary)}
         try await pipeline.installDownloadedOriginal(temporary, asset: asset)
     }
+    /// Read-only binding admission. Never creates an asset, uploads an Original,
+    /// or overwrites a remote Recipe merely to enable paid generation.
+    func generationBinding(for checkpoint: ProjectCheckpoint) async throws -> ServerGenerationClient.Binding {
+        try checkpoint.validate()
+        guard let link = try load(checkpoint.asset.id), link.remote.deletedAt == nil,
+              link.remote.sha256.lowercased() == checkpoint.asset.sha256.lowercased(),
+              let latest = try await client.latestRecipe(remoteID: link.remote.id),
+              latest.revision == link.recipeRevision,
+              latest.body == (try RecipeDocument(parameters: checkpoint.history.current)) else { throw BackendFailure.conflict }
+        guard let current = try load(checkpoint.asset.id), current.remote.id == link.remote.id,
+              current.recipeRevision == link.recipeRevision,
+              current.remote.sha256 == link.remote.sha256 else { throw BackendFailure.conflict }
+        try Task.checkCancellation()
+        return .init(assetID: link.remote.id.uuidString.lowercased(), originalSHA256: checkpoint.asset.sha256.lowercased(), recipeRevision: latest.revision)
+    }
 }

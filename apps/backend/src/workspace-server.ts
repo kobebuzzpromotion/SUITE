@@ -10,6 +10,7 @@ import {WorkspaceRepository, type WorkspacePermission} from './workspace.js';
 import {WorkspaceStorageLedger, type RemoteStorageConfiguration, type StorageAction, type UsageEvent} from './workspace-storage.js';
 import {WorkspaceAccessGrants} from './workspace-access.js';
 import {originalIntents, type PhotoIntent} from './photo-policy.js';
+import {WorkspaceProxyStore, type ProxyInput} from './workspace-proxy.js';
 
 async function body(req: IncomingMessage): Promise<Record<string, any>> {
   const chunks: Buffer[]=[]; let size=0;
@@ -19,6 +20,10 @@ async function body(req: IncomingMessage): Promise<Record<string, any>> {
   return value as Record<string,any>;
 }
 function reply(res:ServerResponse,status:number,data:unknown) {res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(data));}
+function exportPresetRequest(value:Record<string,any>,keys:readonly string[]):Record<string,any>{
+  if(Object.keys(value).length!==keys.length||Object.keys(value).some(key=>!keys.includes(key)))throw Error('INVALID_EXPORT_PRESET_INPUT');
+  return value;
+}
 const absentConfiguration:RemoteStorageConfiguration={revision:'unconfigured',storagePlans:[],studio:null,
   tariffs:{currency:null,storageGBMonthMinor:null,uploadGBMinor:null,downloadGBMinor:null,put1000Minor:null,get1000Minor:null,list1000Minor:null,other1000Minor:null}};
 const storagePermission:Record<StorageAction,WorkspacePermission>={
@@ -29,6 +34,7 @@ export class WorkspaceHTTP {
   readonly workspaces:WorkspaceRepository;
   readonly ledger:WorkspaceStorageLedger;
   readonly grants:WorkspaceAccessGrants;
+  readonly proxies:WorkspaceProxyStore;
   private recordingMeasuredUsage=false;
   constructor(directory:string,private readonly assets:AssetRepository,private readonly storage:StorageProvider,
     configuration:()=>RemoteStorageConfiguration=()=>absentConfiguration, now:()=>number=Date.now) {
@@ -44,8 +50,9 @@ export class WorkspaceHTTP {
       this.workspaces.authorize({userId:scope.userId},scope.workspaceId,'export');
       this.assets.get(scope.workspaceId,scope.assetId);
     },now);
+    this.proxies=new WorkspaceProxyStore(join(directory,'workspace-proxy.sqlite'),storage,this.ledger);
   }
-  close(){this.grants.close();this.ledger.close();this.workspaces.close();}
+  close(){this.proxies.close();this.grants.close();this.ledger.close();this.workspaces.close();}
   isManagedTenant(tenantId:string){return this.workspaces.hasWorkspace(tenantId);}
   async handle(req:IncomingMessage,res:ServerResponse,url:URL,principal:Principal):Promise<boolean> {
     if(!/^\/v1\/workspaces(?:\/|$)/.test(url.pathname))return false;
@@ -62,8 +69,12 @@ export class WorkspaceHTTP {
         const b=await body(req);if(!principal.verifiedEmail)throw new Error('VERIFIED_EMAIL_REQUIRED');
         reply(res,200,{member:this.workspaces.acceptInvitation(actor,wid,b.token,principal.verifiedEmail)});return true;
       }
-      this.workspaces.authorize(actor,wid,'read');
+      const member=this.workspaces.authorize(actor,wid,'read');
       if(tail.length===0&&method==='GET'){reply(res,200,{workspace:this.workspaces.getWorkspace(actor,wid)});return true;}
+      if(section==='session'&&tail.length===1&&method==='GET'){
+        reply(res,200,{session:{subject:principal.subject,tenantId:principal.tenantId,workspaceId:wid,
+          membership:{userId:member.userId,role:member.role,joinedAt:member.joinedAt}}});return true;
+      }
       if(section==='session'&&tail.length===1&&method==='POST'){this.workspaces.recordEvent(actor,wid,'login',principal.subject);reply(res,200,{authenticated:true});return true;}
       if(section==='audit'&&tail.length===1&&method==='GET'){reply(res,200,{events:this.workspaces.listAudit(actor,wid)});return true;}
       if(section==='presets'){
@@ -72,6 +83,18 @@ export class WorkspaceHTTP {
         if(id&&tail.length===2&&method==='GET'){reply(res,200,{preset:this.workspaces.getPreset(actor,wid,id)});return true;}
         if(id&&tail.length===2&&method==='PATCH'){const b=await body(req);reply(res,200,{preset:this.workspaces.updatePreset(actor,wid,id,{baseVersion:b.baseVersion,name:b.name,body:b.body})});return true;}
         if(id&&tail.length===2&&method==='DELETE'){this.workspaces.deletePreset(actor,wid,id);reply(res,200,{deleted:true,recipeSnapshotsRetained:true});return true;}
+      }
+      if(section==='export-presets'){
+        if(tail.length===1&&method==='GET'){reply(res,200,{presets:this.workspaces.listExportPresets(actor,wid)});return true;}
+        if(tail.length===1&&method==='POST'){
+          const b=exportPresetRequest(await body(req),['scope','name','settings']);
+          reply(res,201,{preset:this.workspaces.createExportPreset(actor,wid,{scope:b.scope,name:b.name,settings:b.settings})});return true;
+        }
+        if(id&&tail.length===2&&method==='GET'){reply(res,200,{preset:this.workspaces.getExportPreset(actor,wid,id)});return true;}
+        if(id&&tail.length===2&&method==='PATCH'){
+          const b=exportPresetRequest(await body(req),['baseVersion','name','settings']);
+          reply(res,200,{preset:this.workspaces.updateExportPreset(actor,wid,id,{baseVersion:b.baseVersion,name:b.name,settings:b.settings})});return true;
+        }
       }
       if(section==='members'){
         if(tail.length===1&&method==='GET'){reply(res,200,{members:this.workspaces.listMembers(actor,wid)});return true;}
@@ -91,6 +114,24 @@ export class WorkspaceHTTP {
         if(tail.length===1&&method==='GET'){reply(res,200,{projects:this.workspaces.listProjects(actor,wid)});return true;}
         if(tail.length===1&&method==='POST'){const b=await body(req);reply(res,201,{project:this.workspaces.createProject(actor,wid,b.name)});return true;}
         if(id&&tail.length===2&&method==='GET'){reply(res,200,{project:this.workspaces.getProject(actor,wid,id)});return true;}
+        if(id&&action==='culling'){
+          if(tail.length===3&&method==='GET'){
+            const rawLimit=url.searchParams.get('limit');const limit=rawLimit===null?100:Number(rawLimit);
+            reply(res,200,{culling:this.workspaces.getCullingPage(actor,wid,id,limit,url.searchParams.get('after'))});return true;
+          }
+          if(tail[3]==='export-preflight'&&tail.length===4&&method==='POST'){
+            reply(res,200,{preflight:this.workspaces.preflightCullingExport(actor,wid,id,await body(req))});return true;
+          }
+          if(tail[3]==='segments'&&tail.length===4&&method==='POST'){
+            reply(res,201,{culling:this.workspaces.createCullingSegment(actor,wid,id,await body(req))});return true;
+          }
+          if(tail[3]==='segments'&&tail[4]==='order'&&tail.length===5&&method==='PUT'){
+            reply(res,200,{culling:this.workspaces.reorderCullingSegments(actor,wid,id,await body(req))});return true;
+          }
+          if(tail[3]==='segments'&&tail[4]&&tail.length===5&&method==='PATCH'){
+            reply(res,200,{culling:this.workspaces.renameCullingSegment(actor,wid,id,decodeURIComponent(tail[4]),await body(req))});return true;
+          }
+        }
         if(id&&tail.length===3&&action==='trash'&&method==='POST'){
           const project=this.workspaces.getProject(actor,wid,id,true);this.workspaces.authorize(actor,wid,'manage-projects');
           if(project.deletedAt===null)this.workspaces.trashProject(actor,wid,id);
@@ -110,6 +151,39 @@ export class WorkspaceHTTP {
             reply(res,201,{asset:this.workspaces.registerAsset(actor,wid,id,asset.id)});return true;
           }
           const aid=tail[3],operation=tail[4];
+          if(aid&&operation==='proxies'){
+            const scope={workspaceId:wid,projectId:id,assetId:aid},storageActor={...actor,workspaceId:wid};
+            const guard=(input?:{originalSHA256:string;recipeVersion:number})=>{
+              this.workspaces.authorize(actor,wid,method==='GET'?'read':'edit');
+              const original=this.workspaces.getAsset(actor,wid,id,aid),recipe=this.workspaces.latestRecipe(actor,wid,id,aid);
+              if(input&&(original.sha256!==input.originalSHA256||recipe?.version!==input.recipeVersion))throw Error('PROXY_SOURCE_CONFLICT');
+            };
+            guard();
+            if(tail.length===5&&method==='GET'){
+              const recipe=this.workspaces.latestRecipe(actor,wid,id,aid);
+              reply(res,200,{proxies:this.proxies.list(scope).filter(r=>r.recipeVersion===recipe?.version),resumeMode:'WHOLE_BLOB_RETRY',maxBytes:16*1024*1024});return true;
+            }
+            if(tail.length===5&&method==='POST'){
+              const input=await body(req) as unknown as ProxyInput;
+              reply(res,201,{proxy:this.proxies.begin(storageActor,scope,input,()=>guard(input))});return true;
+            }
+            const proxyId=tail[5];
+            if(proxyId&&(tail.length===6||tail.length===7&&tail[6]==='content')){
+              const record=this.proxies.get(scope,proxyId);guard(record);
+              if(tail.length===6&&method==='GET'){reply(res,200,{proxy:record});return true;}
+              if(tail.length===7&&method==='PUT'){
+                if(req.headers['content-type']!==record.mimeType)throw Error('INVALID_PROXY_MIME');
+                let transferred=0;const measured=async function*(){for await(const chunk of req){transferred+=chunk.length;yield chunk;}};
+                try{const proxy=await this.proxies.upload(storageActor,scope,proxyId,measured(),()=>guard(record));reply(res,200,{proxy});}
+                finally{this.recordMeasuredTraffic(actor,wid,{uploadBytes:transferred,downloadBytes:0,exportBytes:0,put:1,get:0,list:0,other:0});}return true;
+              }
+              if(tail.length===7&&method==='GET'){
+                const {bytes}=await this.proxies.download(scope,proxyId,()=>guard(record));guard(record);
+                res.writeHead(200,{'Content-Type':record.mimeType,'Content-Length':bytes.length,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(bytes);
+                this.recordMeasuredTraffic(actor,wid,{uploadBytes:0,downloadBytes:bytes.length,exportBytes:0,put:0,get:1,list:0,other:0});return true;
+              }
+            }
+          }
           if(aid&&tail.length===5){
             if(operation==='restore'&&method==='POST'){this.workspaces.restoreAsset(actor,wid,id,aid);this.accountTrash(actor,wid,aid,false);reply(res,200,{restored:true,physicallyDeleted:false});return true;}
             if(operation==='trash'&&method==='POST'){
@@ -123,10 +197,69 @@ export class WorkspaceHTTP {
               if(method==='PUT'){const b=await body(req);const result=this.workspaces.saveRecipe(actor,wid,id,aid,{baseVersion:b.baseVersion,body:b.recipe,...(b.presetId===undefined?{}:{presetId:b.presetId})});reply(res,result.outcome==='conflict'?409:200,result);return true;}
             }
             if(operation==='versions'&&method==='GET'){reply(res,200,{versions:this.workspaces.recipeHistory(actor,wid,id,aid)});return true;}
-            if(operation==='preset'&&method==='POST'){const b=await body(req);const result=this.workspaces.applyPreset(actor,wid,id,aid,b.baseVersion,b.presetId);reply(res,result.outcome==='conflict'?409:200,result);return true;}
+            if(operation==='preset'&&method==='POST'){
+              const b=await body(req);
+              if(!Number.isSafeInteger(b.expectedPresetVersion)||b.expectedPresetVersion<1||
+                  b.expectedPresetVersion>=Number.MAX_SAFE_INTEGER)throw new Error('INVALID_PRESET_VERSION');
+              const result=this.workspaces.applyPreset(actor,wid,id,aid,b.baseVersion,b.presetId,
+                b.expectedPresetVersion,b.expectedOriginalSHA256);
+              reply(res,result.outcome==='conflict'?409:200,result);return true;
+            }
+            if(operation==='glow-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applyGlowPresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
+            if(operation==='grain-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applyGrainPresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
+            if(operation==='calibration-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applyCalibrationPresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
+            if(operation==='levels-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applyLevelsPresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
+            if(operation==='selective-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applySelectivePresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
+            if(operation==='vignette-preset'&&method==='POST'){
+              const b=await body(req);
+              const result=this.workspaces.applyVignettePresetVersioned(actor,wid,id,aid,{
+                baseVersion:b.baseVersion,presetId:b.presetId,
+                expectedPresetVersion:b.expectedPresetVersion,
+                expectedOriginalSHA256:b.expectedOriginalSHA256});
+              reply(res,200,result);return true;
+            }
             if(operation==='selection'){
               if(method==='GET'){reply(res,200,{selection:this.workspaces.getSelection(actor,wid,id,aid)});return true;}
               if(method==='PUT'){const b=await body(req);reply(res,200,{selection:this.workspaces.saveSelection(actor,wid,id,aid,{baseVersion:b.baseVersion,selected:b.selected})});return true;}
+            }
+            if(operation==='culling'){
+              if(method==='GET'){reply(res,200,{version:this.workspaces.getCullingVersion(actor,wid,id),mark:this.workspaces.getCullingMark(actor,wid,id,aid)});return true;}
+              if(method==='PUT'){reply(res,200,{culling:this.workspaces.saveCullingMark(actor,wid,id,aid,await body(req))});return true;}
             }
             if(operation==='access'&&method==='POST'){
               const b=await body(req);const grant=this.grants.issue({...actor,workspaceId:wid,assetId:aid,purpose:b.purpose},b.lifetimeSeconds);
@@ -185,7 +318,7 @@ export class WorkspaceHTTP {
     }catch(error){
       if(res.headersSent){res.destroy();return true;}
       const message=(error as Error).message;
-      const status=/FORBIDDEN|VERIFIED_EMAIL_REQUIRED|ACCESS_GRANT_REJECTED/.test(message)?403:/NOT_FOUND/.test(message)?404:/CONFLICT|ALREADY|EXISTS|LAST_OWNER|QUOTA|ENTITLEMENT|EXPIRED|IMMUTABLE|ORIGINAL_REQUIRES/.test(message)?409:/^(INVALID|PAYLOAD|CHECKSUM|SIZE|RECIPE_TOO_LARGE)/.test(message)||error instanceof SyntaxError?400:503;
+      const status=/FORBIDDEN|VERIFIED_EMAIL_REQUIRED|ACCESS_GRANT_REJECTED/.test(message)?403:/NOT_FOUND/.test(message)?404:/CONFLICT|ALREADY|EXISTS|LAST_OWNER|QUOTA|ENTITLEMENT|EXPIRED|IMMUTABLE|ORIGINAL_REQUIRES|CULLING_SEGMENT_LIMIT/.test(message)?409:/^(INVALID|PAYLOAD|CHECKSUM|SIZE|RECIPE_TOO_LARGE)/.test(message)||error instanceof SyntaxError?400:503;
       reply(res,status,{error:status===503?'OPERATION_UNAVAILABLE':message});return true;
     }
   }

@@ -52,6 +52,106 @@ struct PortraitPipeline {
     private let adapters: [any PortraitAdjustmentAdapter] = [FaceBrightnessAdapter()]
     init(context: CIContext) { self.context = context }
 
+    // Actor-local DTOs. Do not send CIImage/Vision objects across actor boundaries;
+    // the caller rasterizes masks within the same owning service actor.
+    struct LandmarkRegion {
+        let name: String
+        /// Image-normalized bottom-left, not face-relative or MediaPipe indices.
+        let points: [CGPoint]
+    }
+    struct DetailedFace {
+        let anchor: PortraitFaceAnchor
+        let regions: [LandmarkRegion]
+        /// Transient instance ID for this exact analysis only, not a PersonID.
+        let personInstanceID: Int
+        let personMask: CIImage
+    }
+    struct DetailedAnalysis {
+        let faces: [DetailedFace]
+        let requestRevision: Int
+        let topologyID: String
+        let extent: CGRect
+    }
+
+    /// Separate detailed path: existing analyze/apply behavior is unchanged.
+    /// Input must already be upright and unmirrored. Revision/constellation and
+    /// per-region point counts are explicit; five YuNet points are never substituted.
+    func detailedAnalysis(image: CIImage, asset: AssetRecord) throws -> DetailedAnalysis {
+        try asset.validate()
+        guard image.extent.width <= 1600, image.extent.height <= 1600,
+              image.extent.width * image.extent.height <= 2_560_000 else {
+            throw PortraitPipelineError.resourcesUnavailable
+        }
+        let analysis = try detect(image)
+        try Self.validateSeparatedFaces(analysis.faces)
+        let request = VNDetectFaceLandmarksRequest()
+        request.revision = VNDetectFaceLandmarksRequestRevision3
+        request.constellation = .constellation76Points
+        try analysis.handler.perform([request])
+        try Task.checkCancellation()
+        guard let observations = request.results, observations.count == analysis.faces.count else {
+            throw PortraitPipelineError.ambiguousTarget
+        }
+        let anchors = try observations.map { observation in
+            let b = observation.boundingBox
+            return try PortraitFaceAnchor(x: Double(b.minX), y: Double(b.minY),
+                                          width: Double(b.width), height: Double(b.height))
+        }
+        try Self.validateSeparatedFaces(anchors)
+        var usedFaces = Set<Int>(), usedPeople = Set<Int>()
+        let faces = try analysis.faces.map { face -> DetailedFace in
+            try Task.checkCancellation()
+            // Same-image engine-v1 association policy, not an identity threshold.
+            let candidates = anchors.indices.filter { face.intersectionOverUnion(anchors[$0]) >= 0.5 }
+            guard candidates.count == 1, let index = candidates.first,
+                  usedFaces.insert(index).inserted, let landmarks = observations[index].landmarks,
+                  let all = landmarks.allPoints, all.pointCount > 0 else {
+                throw PortraitPipelineError.ambiguousTarget
+            }
+            let regions: [(String, VNFaceLandmarkRegion2D?)] = [
+                ("allPoints", all), ("faceContour", landmarks.faceContour),
+                ("leftEye", landmarks.leftEye), ("rightEye", landmarks.rightEye),
+                ("leftEyebrow", landmarks.leftEyebrow), ("rightEyebrow", landmarks.rightEyebrow),
+                ("nose", landmarks.nose), ("noseCrest", landmarks.noseCrest),
+                ("medianLine", landmarks.medianLine), ("outerLips", landmarks.outerLips),
+                ("innerLips", landmarks.innerLips), ("leftPupil", landmarks.leftPupil),
+                ("rightPupil", landmarks.rightPupil)
+            ]
+            let box = observations[index].boundingBox
+            let mapped = try regions.compactMap { name, region -> LandmarkRegion? in
+                guard let region else { return nil } // Missing region is not a fabricated empty success.
+                let points = region.normalizedPoints
+                guard points.count == region.pointCount, !points.isEmpty, points.count <= 256 else {
+                    throw PortraitPipelineError.ambiguousTarget
+                }
+                let converted = try points.map { point -> CGPoint in
+                    guard point.x.isFinite, point.y.isFinite,
+                          (0...1).contains(point.x), (0...1).contains(point.y) else {
+                        throw PortraitPipelineError.ambiguousTarget
+                    }
+                    let result = CGPoint(x: box.minX + point.x * box.width,
+                                         y: box.minY + point.y * box.height)
+                    guard result.x.isFinite, result.y.isFinite,
+                          (0...1).contains(result.x), (0...1).contains(result.y) else {
+                        throw PortraitPipelineError.ambiguousTarget
+                    }
+                    return result
+                }
+                return LandmarkRegion(name: name, points: converted)
+            }
+            let person = try personMask(for: face, analysis: analysis)
+            guard usedPeople.insert(person.instance).inserted else {
+                throw PortraitPipelineError.ambiguousPersonMask
+            }
+            return DetailedFace(anchor: face, regions: mapped,
+                                personInstanceID: person.instance, personMask: person.mask)
+        }
+        try Task.checkCancellation()
+        return DetailedAnalysis(faces: faces, requestRevision: request.revision,
+            topologyID: "apple-vision-face-landmarks-revision3-constellation76-regions-v1",
+            extent: analysis.extent)
+    }
+
     /// Pure matching seam for independent tests. Array positions are transient results, never target IDs.
     static func resolveTargets(_ targets: [PortraitFaceTarget], detected: [PortraitFaceAnchor]) throws -> [Int] {
         guard !targets.isEmpty, targets.count == detected.count, Set(targets.map(\.id)).count == targets.count else {

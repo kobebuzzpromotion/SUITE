@@ -1,0 +1,4 @@
+module SuiteFaceCore {
+    header "SuiteFaceCore.h"
+    export *
+}

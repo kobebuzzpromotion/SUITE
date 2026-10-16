@@ -37,7 +37,7 @@ actor PhotoPipeline: RAWProvider {
     private let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
     init(root: URL) {
         self.root = root
-        let context = CIContext(options: [.cacheIntermediates: false])
+        let context = CIContext(options: [.cacheIntermediates: false, .outputPremultiplied: true])
         self.context = context
         self.portraitPipeline = PortraitPipeline(context: context)
     }
@@ -92,16 +92,126 @@ actor PhotoPipeline: RAWProvider {
             proxyGenerationTimeMs: (ProcessInfo.processInfo.systemUptime - copied) * 1000)
     }
 
-    func preview(asset: AssetRecord, parameters: RecipeParameters) throws -> Data {
+    /// Proxy-only entry for an Original already committed by TetherIngestStore.
+    /// Reuses the existing candidate decoder, never imports/copies/edits the Original.
+    /// The caller chooses the device-appropriate edge; 16384 is a defensive ceiling,
+    /// not a claim that this size is safe on every mobile device. No Cloud Safe state
+    /// or ProjectCheckpoint is created here. Unsupported camera RAW fails explicitly.
+    func generateProxyForStoredAsset(asset: AssetRecord, proxyLongEdge: Int) throws -> URL {
+        try asset.validate()
+        try Task.checkCancellation()
+        guard proxyLongEdge > 0, proxyLongEdge <= 16_384, root.isFileURL,
+              asset.originalRelativePath.hasPrefix("Originals/") else { throw PhotoPipelineError.resourcesUnavailable }
+        let base = root.standardizedFileURL
+        guard base.resolvingSymlinksInPath().path == base.path else { throw PhotoPipelineError.integrityMismatch }
+        let original = base.appendingPathComponent(asset.originalRelativePath).standardizedFileURL
+        guard original.path.hasPrefix(base.appendingPathComponent("Originals").path + "/"),
+              original.resolvingSymlinksInPath().path == original.path else { throw PhotoPipelineError.integrityMismatch }
+        let values = try original.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey, .fileSizeKey])
+        guard values.isRegularFile == true, values.isSymbolicLink != true,
+              let bytes = values.fileSize, bytes > 0,
+              try digest(original) == asset.sha256.lowercased() else { throw PhotoPipelineError.integrityMismatch }
+
+        let decoded = try decodeOriginal(original, proxyLongEdge: proxyLongEdge)
+        guard !decoded.extent.isInfinite, !decoded.extent.isNull,
+              decoded.extent.width.isFinite, decoded.extent.height.isFinite,
+              decoded.extent.width > 0, decoded.extent.height > 0 else { throw PhotoPipelineError.proxyUnavailable }
+        let bounded = normalized(downscale(decoded, maxEdge: proxyLongEdge))
+        guard let data = context.jpegRepresentation(of: bounded, colorSpace: colorSpace, options: [:]),
+              let source = CGImageSourceCreateWithData(data as CFData, nil),
+              let sourceType = CGImageSourceGetType(source) as String?, sourceType == UTType.jpeg.identifier,
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+              let width = properties[kCGImagePropertyPixelWidth] as? NSNumber,
+              let height = properties[kCGImagePropertyPixelHeight] as? NSNumber,
+              width.intValue > 0, height.intValue > 0,
+              max(width.intValue, height.intValue) <= proxyLongEdge else { throw PhotoPipelineError.proxyUnavailable }
+        // Core Image evaluation is lazy: check after actual JPEG encoding as well.
+        guard try digest(original) == asset.sha256.lowercased() else { throw PhotoPipelineError.integrityMismatch }
+        try Task.checkCancellation()
+        let destination = proxyURL(asset).standardizedFileURL
+        let directory = base.appendingPathComponent("Proxies")
+        guard directory.resolvingSymlinksInPath().path == directory.path,
+              destination.path == directory.appendingPathComponent("\(asset.id.uuidString).jpg").path,
+              destination.resolvingSymlinksInPath().path == destination.path else { throw PhotoPipelineError.integrityMismatch }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        // Proxy replacement is intentional and atomic; an old usable proxy survives
+        // failures before publication. No Original or other asset's proxy is replaced.
+        #if os(iOS)
+        try data.write(to: destination, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+        #else
+        try data.write(to: destination, options: .atomic)
+        #endif
+        let file = try FileHandle(forWritingTo: destination)
+        defer { try? file.close() }
+        try file.synchronize()
+        let expectedProxySHA = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+        guard try digest(destination) == expectedProxySHA else { throw PhotoPipelineError.proxyUnavailable }
+        return destination
+    }
+
+    func preview(asset: AssetRecord, parameters: RecipeParameters) async throws -> Data {
         try Task.checkCancellation()
         try asset.validate()
         // Ordinary edit/compare reads only this proxy path.
-        guard let image = CIImage(contentsOf: proxyURL(asset), options: [.applyOrientationProperty: true]) else { throw PhotoPipelineError.proxyUnavailable }
-        let output = try apply(parameters, to: image, assetID: asset.id, originalSHA256: asset.sha256)
+        let image: CIImage
+        if let backdrop = try parameters.localBackdropRecipe() {
+            let reference = try localPeopleProxyImage(asset: asset)
+            try backdrop.validateInputDimensions(width: reference.width, height: reference.height)
+            image = CIImage(cgImage: reference)
+        } else {
+            guard let proxy = CIImage(contentsOf: proxyURL(asset), options: [.applyOrientationProperty: true]) else { throw PhotoPipelineError.proxyUnavailable }
+            image = proxy
+        }
+        let output = try await apply(parameters, to: image, assetID: asset.id, originalSHA256: asset.sha256, backdropPurpose: .preview)
         guard let data = context.jpegRepresentation(of: output, colorSpace: colorSpace, options: [:]) else { throw PhotoPipelineError.proxyUnavailable }
         try Task.checkCancellation()
         return data
     }
+
+    /// Shared proxy-only sizing/orientation path for editing and saved backdrop
+    /// preview. Final rendering does not use this helper or resize a saved mask.
+    private func localPeopleProxyImage(asset: AssetRecord) throws -> CGImage {
+        try asset.validate()
+        try Task.checkCancellation()
+        switch ProcessInfo.processInfo.thermalState {
+        case .serious, .critical: throw PhotoPipelineError.resourcesUnavailable
+        default: break
+        }
+        let url = proxyURL(asset).standardizedFileURL
+        guard url.resolvingSymlinksInPath().path == url.path else { throw PhotoPipelineError.integrityMismatch }
+        let attributes = try url.resourceValues(forKeys: [.fileSizeKey, .isRegularFileKey, .isSymbolicLinkKey])
+        guard attributes.isRegularFile == true, attributes.isSymbolicLink != true,
+              let size = attributes.fileSize, size > 0, size <= 32 * 1024 * 1024,
+              let source = CGImageSourceCreateWithURL(url as CFURL,
+                  [kCGImageSourceShouldCache: false] as CFDictionary),
+              let image = CGImageSourceCreateThumbnailAtIndex(source, 0, [
+                  kCGImageSourceCreateThumbnailFromImageAlways: true,
+                  kCGImageSourceCreateThumbnailWithTransform: true,
+                  kCGImageSourceThumbnailMaxPixelSize: 1600,
+                  kCGImageSourceShouldCacheImmediately: true
+              ] as CFDictionary) else { throw PhotoPipelineError.proxyUnavailable }
+        try Task.checkCancellation()
+        return image
+    }
+
+    #if os(iOS)
+    /// Standalone identity UI receives the exact same upright, unedited proxy
+    /// pixels as the local analyzer. No Original hydration or Recipe mutation.
+    func prepareLocalPeople(asset: AssetRecord) throws -> (pixels: LocalFacePixels.Prepared, referencePNG: Data) {
+        let image = try localPeopleProxyImage(asset: asset)
+        let pixels = try LocalFacePixels.prepare(uprightUnmirrored: image,
+                                                assetID: asset.id, originalSHA256: asset.sha256)
+        let data = NSMutableData()
+        guard let destination = CGImageDestinationCreateWithData(data, UTType.png.identifier as CFString, 1, nil) else {
+            throw PhotoPipelineError.proxyUnavailable
+        }
+        // No EXIF orientation is copied: pixels already have their final orientation.
+        CGImageDestinationAddImage(destination, image, nil)
+        guard CGImageDestinationFinalize(destination) else { throw PhotoPipelineError.proxyUnavailable }
+        try Task.checkCancellation()
+        return (pixels, data as Data)
+    }
+    #endif
 
     /// User-requested ordinary analysis reads this photo's proxy only, never hydrates an Original.
     func analyzePortrait(asset: AssetRecord) throws -> PortraitRecipe {
@@ -148,13 +258,79 @@ actor PhotoPipeline: RAWProvider {
         return try await render(RAWRenderRequest(plan: plan, originalURL: original, destinationURL: destination))
     }
 
+    /// Explicit tiled TIFF route. It never substitutes a Proxy, changes the saved
+    /// encoding, or silently enlarges. Ordinary export keeps its existing behavior.
+    func exportLargePrint(checkpoint: ProjectCheckpoint, allowResampling: Bool) async throws -> URL {
+        try checkpoint.validate()
+        let plan = try ExportPlan(checkpoint: checkpoint, format: .tiff)
+        guard let crop = try plan.parameters.cropSettings(),
+              let width = crop.widthMM, let height = crop.heightMM,
+              let settings = try plan.parameters.exportSettings(),
+              settings.requestedDPI.isFinite,
+              (1...10000).contains(settings.requestedDPI),
+              settings.requestedDPI.rounded() == settings.requestedDPI,
+              crop.requestedDPI == settings.requestedDPI else {
+            throw Delta66LargePrint.Failure.invalidOptions
+        }
+        guard settings.format == .tiff, settings.tiffCompression == .none,
+              !settings.preserveAlpha, [8, 16].contains(settings.bitDepth) else {
+            throw Delta66LargePrint.Failure.unsupportedEncoding
+        }
+        guard settings.metadata == .remove else { throw Delta66LargePrint.Failure.unsupportedMetadata }
+        let base = URL(fileURLWithPath: checkpoint.asset.originalFilename).deletingPathExtension().lastPathComponent
+        let candidate = settings.fileNameTemplate.replacingOccurrences(of: "{original}", with: base)
+            .replacingOccurrences(of: "{sequence}", with: "1")
+        let safeName = String(candidate.unicodeScalars.map {
+            CharacterSet.alphanumerics.contains($0) || "-_ ".unicodeScalars.contains($0) ? String($0) : "_"
+        }.joined().prefix(120))
+        let request = RAWRenderRequest(plan: plan,
+            originalURL: root.appendingPathComponent(checkpoint.asset.originalRelativePath),
+            destinationURL: root.appendingPathComponent("Exports")
+                .appendingPathComponent("\(safeName)-large-\(plan.id.uuidString).tiff"))
+        var options = Delta66LargePrint.Options()
+        options.widthMM = width; options.heightMM = height; options.dpi = Int(settings.requestedDPI)
+        options.upscale = allowResampling ? .resampleAcknowledged : .rejectInsufficient
+        // The saved crop already defines composition. Do not add a second crop.
+        options.placement = .requireMatchingAspect
+        let receipt = try await Delta66LargePrint().render(request, validatingWith: self, options: options)
+        return receipt.file
+    }
+
+    /// A large job is bound to a real persisted revision, including non-portrait
+    /// recipes. Called again immediately before publishing. This is an optimistic
+    /// revision check, not a transaction locking subsequent edits. The filename
+    /// identifies the fixed ExportPlan, never a promise of the latest live edit.
+    func validateLargePrintSnapshot(_ request: RAWRenderRequest) async throws {
+        guard try request.plan.parameters.localBackdropRecipe() == nil else {
+            throw PhotoPipelineError.unsupportedRecipe
+        }
+        try await validate(request)
+        let store = try ProjectStore(directory: root.appendingPathComponent("Recipes"))
+        guard let saved = try await store.load(id: request.plan.assetID),
+              saved.revision == request.plan.recipeRevision,
+              saved.history.current == request.plan.parameters,
+              saved.asset.sha256.lowercased() == request.plan.originalSHA256.lowercased(),
+              root.appendingPathComponent(saved.asset.originalRelativePath).standardizedFileURL.resolvingSymlinksInPath()
+                == request.originalURL.standardizedFileURL.resolvingSymlinksInPath() else {
+            throw PhotoPipelineError.unsupportedRecipe
+        }
+        try saved.validate()
+        try Task.checkCancellation()
+    }
+
     func validate(_ request: RAWRenderRequest) async throws {
         try Task.checkCancellation()
         try request.plan.validate()
-        guard Set(request.plan.parameters.extendedParameters.keys).isSubset(of: ["crop", "export", "portrait"]),
+        guard Set(request.plan.parameters.extendedParameters.keys).isSubset(of: ["crop", "export", "portrait", "localRetouch", "localWarp", "localBackdrop"]),
               request.plan.canonicalGeneratedAssetIDs.isEmpty,
               Set(request.plan.parameters.processingOrder).isSubset(of: supportedAdjustments) else { throw PhotoPipelineError.unsupportedRecipe }
         try validatePortraitBinding(request.plan.parameters, assetID: request.plan.assetID, originalSHA256: request.plan.originalSHA256)
+        if let retouch = try request.plan.parameters.localRetouchRecipe() {
+            guard retouch.assetID == request.plan.assetID,
+                  retouch.originalSHA256 == request.plan.originalSHA256.lowercased() else {
+                throw PhotoPipelineError.unsupportedRecipe
+            }
+        }
         let original = request.originalURL
         guard FileManager.default.fileExists(atPath: original.path) else { throw PhotoPipelineError.waitingForOriginal }
         guard try digest(original) == request.plan.originalSHA256.lowercased() else { throw PhotoPipelineError.integrityMismatch }
@@ -181,8 +357,8 @@ actor PhotoPipeline: RAWProvider {
         try await validate(request)
         // Never fall back to proxy if Original decode/fetch fails.
         let full = try decodeOriginal(request.originalURL, proxyLongEdge: nil)
-        var output = try apply(request.plan.parameters, to: full, assetID: request.plan.assetID,
-                               originalSHA256: request.plan.originalSHA256)
+        var output = try await apply(request.plan.parameters, to: full, assetID: request.plan.assetID,
+                               originalSHA256: request.plan.originalSHA256, backdropPurpose: .final)
         var settings = try request.plan.parameters.exportSettings() ?? ExportSettings()
         // Explicit format buttons may override the stored format, but not quality/color/crop settings.
         guard let requestedFormat = CropExportFormat(rawValue: request.plan.format.rawValue) else { throw PhotoPipelineError.unsupportedRecipe }
@@ -315,13 +491,84 @@ actor PhotoPipeline: RAWProvider {
         return image.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
     }
 
-    private func apply(_ p: RecipeParameters, to image: CIImage, assetID: UUID, originalSHA256: String) throws -> CIImage {
+    /// Loads immutable permission bytes; renderers still verify hash and exact dimensions.
+    /// Final never enlarges a proxy segmentation to pretend it is an original mask.
+    func localWarpBodyMaskBytes(for parameters: RecipeParameters) async throws -> Data? {
+        guard let reference = try parameters.localWarpRecipe()?.bodyMask else { return nil }
+        let store = try LocalBackdropRecipeStore(root: root)
+        return try await store.bytes(sha256: reference.sha256, expectedCount: reference.byteCount)
+    }
+
+    private func apply(_ p: RecipeParameters, to image: CIImage, assetID: UUID, originalSHA256: String,
+                       backdropPurpose: LocalBackdropRecipeRenderer.Purpose) async throws -> CIImage {
+        let resources: LocalBackdropRecipeRenderer.Resources?
+        if let backdrop = try p.localBackdropRecipe() {
+            resources = try await LocalBackdropRecipeRenderer.prepare(backdrop, root: root, purpose: backdropPurpose)
+        } else { resources = nil }
+        let warpMask = try await localWarpBodyMaskBytes(for: p)
+        return try Self.applyNativeRecipe(p, to: image, assetID: assetID,
+            originalSHA256: originalSHA256, portraitPipeline: portraitPipeline,
+            localRetouchRenderer: LocalRetouchRecipeRenderer(context: context),
+            localWarpRenderer: LocalWarpRecipeRenderer(context: context),
+            backdropRenderer: LocalBackdropRecipeRenderer(context: CIContext(options: [
+                .cacheIntermediates: false, .outputPremultiplied: true,
+                .workingColorSpace: CGColorSpace(name: CGColorSpace.extendedLinearSRGB)!])),
+            backdropResources: resources, warpBodyMaskBytes: warpMask)
+    }
+
+    /// Shared arithmetic for Preview, ordinary Final and tiled large Final.
+    /// Nonisolated and synchronous: a writer-owned CI graph never crosses actors.
+    nonisolated static func applyNativeRecipe(_ p: RecipeParameters, to image: CIImage,
+        assetID: UUID, originalSHA256: String, portraitPipeline: PortraitPipeline,
+        localRetouchRenderer: LocalRetouchRecipeRenderer? = nil,
+        tiledRetouchRenderer: LocalRetouchTiledRenderer? = nil,
+        localWarpRenderer: LocalWarpRecipeRenderer? = nil,
+        tiledWarpRenderer: LocalWarpTiledRenderer? = nil,
+        backdropRenderer: LocalBackdropRecipeRenderer? = nil,
+        backdropResources: LocalBackdropRecipeRenderer.Resources? = nil,
+        warpBodyMaskBytes: Data? = nil) throws -> CIImage {
         try p.validate()
-        guard Set(p.extendedParameters.keys).isSubset(of: ["crop", "export", "portrait"]) else { throw PhotoPipelineError.unsupportedRecipe }
-        try validatePortraitBinding(p, assetID: assetID, originalSHA256: originalSHA256)
-        var output = normalized(image)
+        guard Set(p.extendedParameters.keys).isSubset(of: ["crop", "export", "portrait", "localRetouch", "localWarp", "localBackdrop"]) else { throw PhotoPipelineError.unsupportedRecipe }
+        if try p.localWarpRecipe() != nil, localWarpRenderer == nil, tiledWarpRenderer == nil {
+            throw PhotoPipelineError.unsupportedRecipe
+        }
+        if let portrait = try p.portraitRecipe() {
+            try portrait.validate()
+            guard portrait.assetID == assetID, portrait.originalSHA256 == originalSHA256.lowercased() else {
+                throw PhotoPipelineError.unsupportedRecipe
+            }
+        }
+        var output = image.transformed(by: CGAffineTransform(translationX: -image.extent.minX, y: -image.extent.minY))
+        if let retouch = try p.localRetouchRecipe() {
+            if let tiledRetouchRenderer {
+                output = try tiledRetouchRenderer.apply(retouch, to: output,
+                    assetID: assetID, originalSHA256: originalSHA256)
+            } else if let localRetouchRenderer {
+                output = try localRetouchRenderer.apply(retouch, to: output,
+                    assetID: assetID, originalSHA256: originalSHA256)
+            } else {
+                throw PhotoPipelineError.unsupportedRecipe
+            }
+        }
         // Fixed engine-v1 portrait stage: upright photo-local coordinates, once, before global/rotate/crop.
         if let portrait = try p.portraitRecipe() { output = try portraitPipeline.apply(portrait, to: output) }
+        if let backdrop = try p.localBackdropRecipe() {
+            guard let backdropRenderer, let backdropResources,
+                  backdropResources.recipe == backdrop else { throw PhotoPipelineError.unsupportedRecipe }
+            output = try backdropRenderer.apply(backdropResources, to: output,
+                assetID: assetID, originalSHA256: originalSHA256)
+        }
+        // Source-space local masks are applied before geometry so their visible
+        // corrections travel with the pixels. Persisted masks remain source-space.
+        if let warp = try p.localWarpRecipe() {
+            if let tiledWarpRenderer {
+                output = try tiledWarpRenderer.apply(warp, to: output,
+                    assetID: assetID, originalSHA256: originalSHA256, bodyMaskBytes: warpBodyMaskBytes)
+            } else if let localWarpRenderer {
+                output = try localWarpRenderer.apply(warp, to: output,
+                    assetID: assetID, originalSHA256: originalSHA256, bodyMaskBytes: warpBodyMaskBytes)
+            } else { throw PhotoPipelineError.unsupportedRecipe }
+        }
         for stage in p.processingOrder {
             switch stage {
             case .exposure: output = output.applyingFilter("CIExposureAdjust", parameters: [kCIInputEVKey: p.exposure])

@@ -1,0 +1,28 @@
+# EV3-0243 Facial Expression — completion audit
+
+Status (2026-10-04): **NOT_IMPLEMENTED** as a SUITE expression-changing product feature. This is a read-only comparison; no Recipe, UI, renderer, person permission or completion count was changed. `EV3-0243` is the frozen parent candidate, while `EV3-0244`–`EV3-0253` name distinct controls or platform-specific variants. Similar names are not proof of identical behavior or pixels.
+
+## Official operation boundary
+
+The primary [Desktop guide](https://support.evoto.ai/facial-expression/), [Mobile guide](https://support.evoto.ai/portrait-retouching-facial-expression/) and [iPad guide](https://support.evoto.ai/facial-expression-ipad/) were compared with `docs/EVOTO_AUDIT/EVOTO_FEATURE_TREE.md` and `SUITE_feature_types_2026-10-03.txt`. Desktop documents the first four groups; Mobile adds explicit Neutral, None and auto-disable behavior. The iPad article documents Gummy Smile, Gentle Smile and five-level Smile Generation, but does **not** by itself establish Mobile Neutral on iPad. None of the guides publishes a model, deterministic pixel formula, exact geometry, interoperable Recipe format or sample-quality threshold.
+
+| Frozen item | Documented meaning | SUITE relation / missing boundary |
+| --- | --- | --- |
+| EV3-0243 Desktop Gummy Smile; EV3-0247 Mobile variant | Upper-lip/gum exposure, independently adjustable left and right | Face Brightness changes luminance over a face oval. No upper-lip landmarks, two-sided geometric control or gum-specific output. **NOT_IMPLEMENTED**. |
+| EV3-0244 Gentle Smile; EV3-0248 Mobile variant | Subtle mouth-corner shape change, leaving other features alone | No mouth-corner warp/control. Global exposure or face EV is not a smile. **NOT_IMPLEMENTED**. |
+| EV3-0245 Smile Generation; EV3-0249 Mobile Toothy | Face-adaptive, five intensity levels from slight smile to laugh | No expression synthesis, five-level UI, dental generation or identity/quality evaluation. **NOT_IMPLEMENTED**. |
+| EV3-0246 Manual Tuning Pen | Repair incorrectly affected areas after expression generation | Existing Local Levels brush edits tone, and B/W/subject strokes edit other masks; neither is a mouth-expression repair pen. **NOT_IMPLEMENTED**. |
+| EV3-0250 Mobile Neutral (Smile Reversal), EV3-0251 default 3, EV3-0252 None | Mobile guide gives 0–3, describes levels 1–3, default 3 and explicit removal via None. Desktop guide mentions three levels but does not name the same Mobile control. | No smile reversal, closed-mouth synthesis, default/None or expression-effect state. **NOT_IMPLEMENTED**. |
+| EV3-0253 Mobile auto-disable | Pouting, overly open mouth, unusual expression, large side profile or severely obstructed mouth disables the feature | SUITE rejects missing/partial face inventory and gates privacy, but does not classify these expression suitability conditions. **NOT_IMPLEMENTED**. |
+
+## Actual SUITE boundary
+
+`apps/web/src/processing/faces.mjs` loads a SHA-pinned MediaPipe FaceLandmarker and derives a face-**oval** detection. Its current public detection is not a mouth/gum/teeth segmentation or a facial-expression score; blendshape output is disabled. `apps/backend/src/portrait-recipe.ts` permits only `adjustmentType:'face_brightness'` with a bounded EV value, a same-Asset Original SHA and same-photo target inventory. `apps/web/src/processing/pure.mjs` reconciles the face oval and multiplies linear-light RGB inside it; it neither moves lip landmarks nor replaces mouth pixels. `apps/web/src/editor-ui.mjs` exposes only person selection and a Face Brightness slider. `apps/web/src/session.mjs` provides Undo/Redo, CAS save/reload and Final export for supported adjustments, subject to its person-privacy gate, but those shared mechanisms do not implement expression editing.
+
+The dedicated [audit regression](../apps/web/tests/facial-expression-completion-audit.test.mjs) checks this distinction: expression target aliases fail typed Portrait validation, a fabricated expression Recipe key cannot silently become a rendered effect, and the UI/detector still lack product smile or lip controls. These are **absence and safety** assertions, not a likeness, generated-smile, live-person or cross-platform quality PASS. Existing manual Teeth/Makeup pure components also are not expression generators and remain separate incomplete candidates.
+
+## Smallest safe next connection
+
+First, behind the existing person-consent and fresh authenticated Asset/person/revision gate, define a bounded **manual mouth-corner/upper-lip landmark inventory** tied to the actual Original SHA, model SHA, full dimensions and explicit selected face. Fail closed on side profile, occlusion, absent or ambiguous mouth landmarks and model/version drift. Then a separate SUITE-only opt-in geometric mouth control could be evaluated with left/right bounds, identity preservation, visible Before/After, Undo/Redo, typed non-destructive Recipe, CAS save/reload and Proxy/Final projection. A user-confirmed corrective mask/pen would need its own provenance and tests; do not reuse a face oval or Local Levels brush as a mouth mask. Test on consented representative real photos and RAW at multiple sizes and profiles, including teeth/gum/occlusion artifacts and unaffected pixels, before claiming even that limited manual operation. This would **not** implement adaptive five-level smile generation, Neutral closed-mouth synthesis or the official auto-disable behavior; those need separate model, privacy, quality and failure gates.
+
+The `44` independent-candidate completion count remains unchanged. No live iPad, real RAW, Cloud or official pixel-equivalence evidence was obtained here.

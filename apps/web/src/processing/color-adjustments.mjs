@@ -2,16 +2,18 @@ import {assertPixels, checkAbort, srgbToLinear, linearToSrgb} from './pure.mjs';
 
 /**
  * CUSTOM 8-bit, straight-alpha sRGB post-decode adjustments, not RAW development.
- * No Kelvin WB, camera matrix, lost-highlight recovery, skin detection or Evoto parity.
+ * Temperature/tint are display-referred color casts, not Kelvin RAW WB.
+ * No camera matrix, lost-highlight recovery, skin detection or Evoto parity.
  * All controls: finite [-100,100], neutral 0. HSL hue 100 means +30 degrees;
  * HSL "luminance" adjusts HSL lightness, not measured scene luminance.
- * Integration slot: existing globals -> tone -> vibrance -> HSL -> rotation/crop.
+ * Integration slot: existing globals -> temperature/tint -> tone -> vibrance -> HSL -> rotation/crop.
  * The caller must rerender from the unedited base, never from an edited output.
  */
 export const HSL_COLORS = Object.freeze(['red', 'orange', 'yellow', 'green', 'aqua', 'blue', 'purple', 'magenta']);
 export const HUE_CENTERS = Object.freeze([0, 30, 60, 120, 180, 240, 270, 300]);
-export const COLOR_ADJUSTMENT_ORDER = Object.freeze(['highlights', 'shadows', 'whites', 'blacks', 'vibrance', 'hsl']);
-const SCALARS = COLOR_ADJUSTMENT_ORDER.slice(0, -1), CHANNELS = ['hue', 'saturation', 'luminance'];
+export const COLOR_ADJUSTMENT_ORDER = Object.freeze(['temperature', 'tint', 'highlights', 'shadows', 'whites', 'blacks', 'toneCurve', 'vibrance', 'hsl']);
+const SCALARS = ['temperature', 'tint', 'highlights', 'shadows', 'whites', 'blacks', 'vibrance'], CHANNELS = ['hue', 'saturation', 'luminance'];
+const CURVE_FIELDS = ['shadows','midtones','highlights'];
 const clamp = x => Math.max(0, Math.min(1, x));
 const wrapHue = h => ((h % 360) + 360) % 360;
 const smooth = x => { const t = clamp(x); return t * t * (3 - 2 * t); };
@@ -28,8 +30,11 @@ function control(value) {
 }
 /** Local adapter input check, not a replacement for the shared Recipe validator. */
 export function validateColorAdjustments(input = {}) {
-  allowedKeys(input, [...SCALARS, 'hsl']);
+  allowedKeys(input, [...SCALARS, 'toneCurve', 'hsl']);
   const out = Object.fromEntries(SCALARS.map(k => [k, Object.hasOwn(input, k) ? control(input[k]) : 0]));
+  const curve=Object.hasOwn(input,'toneCurve')?input.toneCurve:{};
+  allowedKeys(curve,CURVE_FIELDS);
+  out.toneCurve=Object.fromEntries(CURVE_FIELDS.map(k=>[k,Object.hasOwn(curve,k)?control(curve[k]):0]));
   const hsl = Object.hasOwn(input, 'hsl') ? input.hsl : {};
   allowedKeys(hsl, HSL_COLORS);
   out.hsl = Object.fromEntries(HSL_COLORS.map(color => {
@@ -71,26 +76,45 @@ function rangeCurve(value, left, right, amount) {
   if (amount === 0 || value <= left || value >= right) return value;
   return left + (right - left) * ((value - left) / (right - left)) ** (2 ** -amount);
 }
+export function parametricToneCurve(value, curve) {
+  if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>1)throw Error('INVALID_TONE_CURVE_INPUT');
+  const c=Object.fromEntries(CURVE_FIELDS.map(k=>[k,control(curve?.[k]??0)]));
+  const levels=[0,clamp(.25+c.shadows*.0025),clamp(.5+c.midtones*.0025),clamp(.75+c.highlights*.0025),1];
+  for(let i=1;i<levels.length;i++)levels[i]=Math.max(levels[i-1],levels[i]);
+  if(value===1)return 1;
+  const segment=Math.floor(value*4),fraction=value*4-segment;
+  return levels[segment]*(1-fraction)+levels[segment+1]*fraction;
+}
 function tone(value, p) {
   // Each monotone curve moves its selected range toward brighter/darker values.
   let y = rangeCurve(value, .4, 1, p.highlights / 100);
   y = rangeCurve(y, 0, .6, p.shadows / 100);
   y = clamp(y + .125 * (p.whites / 100) * smooth((y - .75) / .25));
   y = clamp(y + .125 * (p.blacks / 100) * (1 - smooth(y / .25)));
-  return y;
+  return parametricToneCurve(y,p.toneCurve);
 }
 export function applyColorAdjustments(pixels, input = {}, {signal} = {}) {
   assertPixels(pixels); checkAbort(signal);
   const p = validateColorAdjustments(input);
-  const hasTone = SCALARS.slice(0, 4).some(k => p[k] !== 0);
+  const hasWhiteBalance = p.temperature !== 0 || p.tint !== 0;
+  const hasTone = ['highlights', 'shadows', 'whites', 'blacks'].some(k => p[k] !== 0)||CURVE_FIELDS.some(k=>p.toneCurve[k]!==0);
   const hasHsl = HSL_COLORS.some(color => CHANNELS.some(k => p.hsl[color][k] !== 0));
   const data = pixels.data.slice();
-  if (hasTone || p.vibrance !== 0 || hasHsl) {
+  if (hasWhiteBalance || hasTone || p.vibrance !== 0 || hasHsl) {
     for (let y = 0; y < pixels.height; y++) {
       if (y % 32 === 0) checkAbort(signal);
       for (let x = 0; x < pixels.width; x++) {
         const i = (y * pixels.width + x) * 4;
         let r = pixels.data[i] / 255, g = pixels.data[i + 1] / 255, b = pixels.data[i + 2] / 255;
+        if (hasWhiteBalance) {
+          // Bounded linear-light channel gains. Warmth shifts red/blue in opposite
+          // directions; positive tint shifts green toward magenta. This is not
+          // camera-space white balance and cannot recover clipped RAW channels.
+          const warmth = p.temperature / 500, magenta = p.tint / 500;
+          r = clamp(linearToSrgb(clamp(srgbToLinear(r) * (1 + warmth + magenta / 2))));
+          g = clamp(linearToSrgb(clamp(srgbToLinear(g) * (1 - magenta))));
+          b = clamp(linearToSrgb(clamp(srgbToLinear(b) * (1 - warmth + magenta / 2))));
+        }
         if (hasTone) {
           const lr = srgbToLinear(r), lg = srgbToLinear(g), lb = srgbToLinear(b), luma = .2126 * lr + .7152 * lg + .0722 * lb, target = tone(luma, p);
           if (target !== luma) {

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "observedAtUTC": "2026-10-03T15:04:05Z",
+  "task": "SUITE dedicated Cloudflare workers.dev preview preparation",
+  "status": "NOT_DEPLOYED_WAITING_FOR_GITHUB_PUBLIC_REPOSITORY_AND_MAIN_PUSH",
+  "localGit": {
+    "head": "53631a162f3c29536b5b298c20cc7bd339333bfb",
+    "remoteConfigured": false,
+    "pushedMainSHA": null,
+    "previewConfigIncludedInInitialCommit": "31dd52bc74cce16d88e4922e7a55fcb71d35fe7d"
+  },
+  "previewConfig": {
+    "file": "apps/sites/cloudflare/wrangler.preview.jsonc",
+    "sha256": "68d1afc0f90182ff297a787c212997fbad528491ebb1fc415e6ab41287b24b17",
+    "workerName": "suite-cloudflare-preview",
+    "intendedURL": "https://suite-cloudflare-preview.bals-enter.workers.dev",
+    "urlVerified": false,
+    "bindingNames": ["ASSETS"],
+    "runtimeVars": ["SUITE_ALLOWED_ORIGIN"],
+    "d1Bound": false,
+    "r2Bound": false,
+    "accessConfigured": false,
+    "administratorSecretsConfigured": false,
+    "customDomainConfigured": false,
+    "sitesChanged": false
+  },
+  "existingAccountReadOnlyObservation": {
+    "workersAndPages": "No projects found",
+    "workersDevSubdomain": "bals-enter.workers.dev",
+    "access": "Dashboard says Set up Zero Trust before requiring Access sign-in",
+    "billingOrContractPromptSeen": false
+  },
+  "localSourceSmoke": {
+    "environment": "synthetic ASSETS response and intended origin only; no DB, R2, Access or administrator secrets",
+    "routes": {
+      "/": 200,
+      "/trial/session": 200,
+      "/auth/complete": 503,
+      "/v1/assets": 503,
+      "/trial/admin/login": 503
+    },
+    "meaning": "Anonymous screen and session respond while authentication and private/administrator APIs fail closed. This is not a deployed Worker test or successful login."
+  },
+  "githubIntegrationReadOnlyObservation": {
+    "application": "Cloudflare Workers and Pages GitHub App",
+    "initialRepositorySelection": "All repositories",
+    "alternativeShown": "Only select repositories",
+    "requestedPermissions": {
+      "metadata": "read",
+      "administration": "read+write",
+      "checks": "read+write",
+      "code": "read+write",
+      "deployments": "read+write",
+      "pullRequests": "read+write"
+    },
+    "installAuthorized": false,
+    "singleSuiteRepositorySelectable": "NOT_RUN_REPOSITORY_NOT_YET_CREATED"
+  },
+  "deploymentGate": {
+    "requires": [
+      "GitHub public repository creation confirmation and remote main push SHA",
+      "fresh Web and Cloudflare build from exactly that pushed SHA",
+      "artifact allowlist and fail-closed regression tests on the fresh bundle",
+      "review of repository-limited GitHub App permission request or alternative scoped CLI authentication"
+    ],
+    "mustNotClaim": [
+      "live workers.dev URL",
+      "connected D1/R2/Access",
+      "login success",
+      "old-cookie SESSION_INVALID 401 on deployed preview",
+      "Cloud Safe"
+    ]
+  }
+}

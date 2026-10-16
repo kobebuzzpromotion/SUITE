@@ -105,6 +105,9 @@ public struct RecipeParameters: Codable, Equatable, Sendable {
         try extendedParameters.values.forEach { try $0.validate() }
         try validateCropExportExtensions()
         try validatePortraitExtension()
+        try validateLocalRetouchExtension()
+        try validateLocalWarpExtension()
+        try validateLocalBackdropExtension()
     }
 
     private enum CodingKeys: String, CodingKey, CaseIterable {

@@ -266,6 +266,26 @@ public struct ExportPlan: Codable, Equatable, Sendable {
             throw SuiteValidationError.invalidValue("exportPlan")
         }
         try parameters.validate()
+        if let backdrop = try parameters.localBackdropRecipe() {
+            try backdrop.validate()
+            guard backdrop.assetID == assetID, backdrop.originalSHA256 == originalSHA256.lowercased() else {
+                throw SuiteValidationError.invalidValue("exportLocalBackdropAssetBinding")
+            }
+        }
+        if let localWarp = try parameters.localWarpRecipe() {
+            try localWarp.validate()
+            guard localWarp.assetID == assetID,
+                  localWarp.originalSHA256 == originalSHA256.lowercased() else {
+                throw SuiteValidationError.invalidValue("exportLocalWarpAssetBinding")
+            }
+        }
+        if let localRetouch = try parameters.localRetouchRecipe() {
+            try localRetouch.validate()
+            guard localRetouch.assetID == assetID,
+                  localRetouch.originalSHA256 == originalSHA256.lowercased() else {
+                throw SuiteValidationError.invalidValue("exportLocalRetouchAssetBinding")
+            }
+        }
         if let portrait = try parameters.portraitRecipe() {
             try PersonGeometryIntegrity.validate(portrait.personGeometryInventory)
             guard portrait.assetID == assetID, portrait.originalSHA256 == originalSHA256.lowercased() else {

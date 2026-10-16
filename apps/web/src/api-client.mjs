@@ -1,5 +1,7 @@
+import {validateRecipe} from '../../../dist/apps/backend/src/photo-policy.js';
 /** Existing backend protocol only. No production provider or authentication claim. */
 export class APIClient {
+  get supportsRecipeHistory(){return true;}
   constructor({baseURL='',fetcher=(...args)=>globalThis.fetch(...args),requestHeader='X-Suite-QA'}={}){this.baseURL=baseURL;this.fetcher=fetcher;this.requestHeader=requestHeader;}
   async request(path,{method='GET',body,signal,headers={}}={}) {
     const binary=body instanceof Blob||body instanceof ArrayBuffer;
@@ -13,6 +15,25 @@ export class APIClient {
   putOriginal(id,body){return this.request('/v1/assets/'+id+'/original',{method:'PUT',body});}
   getOriginal(id,{signal}={}){return this.request('/v1/assets/'+id+'/original?purpose=high-precision',{signal});}
   async getRecipe(id){return (await this.request('/v1/assets/'+id+'/recipe')).recipe;}
+  async getRecipeHistory(id,{signal}={}){
+    if(typeof id!=='string'||!id)throw Error('INVALID_ASSET');
+    if(signal?.aborted)throw new DOMException('Recipe history cancelled','AbortError');
+    const response=await this.request('/v1/assets/'+encodeURIComponent(id)+'/recipe/history',{signal});
+    if(signal?.aborted)throw new DOMException('Recipe history cancelled','AbortError');
+    if(!Array.isArray(response?.history))throw Error('RECIPE_HISTORY_INVALID');
+    if(response.history.length>1000)throw Error('RECIPE_HISTORY_LIMIT');
+    let prior=0,bytes=0;
+    for(const row of response.history){
+      if(!row||Array.isArray(row)||Object.keys(row).some(key=>!['revision','body'].includes(key))||
+          !Number.isSafeInteger(row.revision)||row.revision!==prior+1||!row.body)
+        throw Error('RECIPE_HISTORY_INVALID');
+      validateRecipe(row.body);
+      bytes+=new TextEncoder().encode(JSON.stringify(row.body)).byteLength;
+      if(bytes>16*1024*1024)throw Error('RECIPE_HISTORY_LIMIT');
+      prior=row.revision;
+    }
+    return response.history;
+  }
   saveRecipe(id,expectedRevision,recipe){return this.request('/v1/assets/'+id+'/recipe',{method:'PUT',body:{expectedRevision,recipe}});}
 }
 

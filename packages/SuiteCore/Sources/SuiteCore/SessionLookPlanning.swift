@@ -6,6 +6,9 @@ public enum LookAdapterCapability: String, Codable, CaseIterable, Sendable {
 public enum PhotoAnalysisRequirement: String, Codable, CaseIterable, Sendable {
     case exposure, whiteBalance, faceDetection, faceLandmarks, personSegmentation, bodyLandmarks
     case skinRegion, pose, orientation, scale, subjectDistance, background, multiplePeople, identityMatch, backgroundProtection
+    // Additive vocabulary: old evidence stays readable. Older readers explicitly
+    // reject new values rather than treating detailed regions as generic landmarks.
+    case eyeRegion, teethRegion, hairRegion, underEyeRegion, nasolabialRegion, localSkinFeatures
 }
 
 /// A mask/region reference belongs to the newly analysed photo, never to fixed reference-photo coordinates.
@@ -76,12 +79,23 @@ public struct SessionLookApplicationPlan: Equatable, Sendable {
 extension TetherSessionState {
     public func applicationPlan(for binding: SessionImageBinding,
                                 capabilities: Set<LookAdapterCapability> = [],
-                                analysis: PhotoAnalysisEvidence? = nil) throws -> SessionLookApplicationPlan {
+                                analysis: PhotoAnalysisEvidence? = nil,
+                                correctionEvidence: [PersonCorrectionAnalysisEvidence] = []) throws -> SessionLookApplicationPlan {
+        try scopedApplicationPlan(for: binding, capabilities: capabilities, analysis: analysis,
+                                  correctionEvidence: correctionEvidence, scope: nil)
+    }
+
+    // Internal only: the public partial planner constructs subsets from the validated snapshot.
+    func scopedApplicationPlan(for binding: SessionImageBinding,
+                               capabilities: Set<LookAdapterCapability>, analysis: PhotoAnalysisEvidence?,
+                               correctionEvidence: [PersonCorrectionAnalysisEvidence],
+                               scope: SessionLook?) throws -> SessionLookApplicationPlan {
         try validate()
         guard bindings.contains(binding), binding.sessionID == id,
-              let look = lookRevisions.first(where: { $0.id == binding.lookID && $0.revision == binding.lookRevision }) else {
+              let originalLook = lookRevisions.first(where: { $0.id == binding.lookID && $0.revision == binding.lookRevision }) else {
             throw SessionLookError.invalidBinding
         }
+        let look = scope ?? originalLook
         func skipped(_ reason: LookPlanSkipReason) -> SessionLookApplicationPlan {
             SessionLookApplicationPlan(binding: binding, lookSnapshot: look, people: [], personalColorTargetIDs: [],
                                        globalColorEnabled: false, state: .skipped(reason), missingAnalysis: [], unsupportedCapabilities: [])
@@ -107,15 +121,10 @@ extension TetherSessionState {
             required.formUnion([.skinRegion, .personSegmentation, .identityMatch, .exposure, .whiteBalance, .orientation])
         }
         for person in people {
-            required.formUnion([.exposure, .whiteBalance, .faceDetection, .faceLandmarks, .personSegmentation,
-                                .bodyLandmarks, .skinRegion, .pose, .orientation, .scale, .subjectDistance,
-                                .background, .multiplePeople, .identityMatch])
             for setting in person.settings {
-                switch setting.control.category {
-                case .face: needed.insert(.adaptiveFace)
-                case .skin: needed.insert(.adaptiveSkin)
-                case .body: needed.insert(.adaptiveBody); required.insert(.backgroundProtection)
-                }
+                let dependencies = CorrectionAnalysisRequirements.forControl(setting.control)
+                needed.insert(dependencies.capability)
+                required.formUnion(dependencies.analysis)
             }
         }
         if needed.isEmpty { return skipped(.noEnabledIntent) }
@@ -132,12 +141,23 @@ extension TetherSessionState {
             for personID in targetIDs {
                 guard let observation = analysis.people.first(where: { $0.personID == personID }),
                       observation.identityMatch == .passed else { missing.insert(.identityMatch); continue }
-                let categories = Set(people.first(where: { $0.personID == personID })?.settings.map { $0.control.category } ?? [])
-                if categories.contains(.face) && observation.faceRegion?.belongsTo(analysis) != true { missing.insert(.faceLandmarks) }
-                if (categories.contains(.skin) || personalTargets.contains(personID)) && observation.skinRegion?.belongsTo(analysis) != true { missing.insert(.skinRegion) }
-                if categories.contains(.body) {
+                let settings = people.first(where: { $0.personID == personID })?.settings ?? []
+                let dependencies = settings.map { CorrectionAnalysisRequirements.forControl($0.control) }
+                let personRequirements = dependencies.reduce(into: Set<PhotoAnalysisRequirement>()) { $0.formUnion($1.analysis) }
+                if personRequirements.contains(.faceLandmarks) && observation.faceRegion?.belongsTo(analysis) != true { missing.insert(.faceLandmarks) }
+                if (personRequirements.contains(.skinRegion) || personalTargets.contains(personID)) && observation.skinRegion?.belongsTo(analysis) != true { missing.insert(.skinRegion) }
+                if personRequirements.contains(.bodyLandmarks) {
                     if observation.bodyRegion?.belongsTo(analysis) != true { missing.insert(.bodyLandmarks) }
                     if observation.protectedBackgroundRegion?.belongsTo(analysis) != true { missing.insert(.backgroundProtection) }
+                }
+                for setting in settings {
+                    guard let detail = CorrectionAnalysisRequirements.forControl(setting.control).detailRequirement else { continue }
+                    let candidates = correctionEvidence.filter { $0.personID == personID && $0.control == setting.control }
+                    // Multiple or unknown observations are ambiguous, never first/nearest fallback.
+                    guard candidates.count == 1, let evidence = candidates.first,
+                          evidence.status == .passed, evidence.region.belongsTo(analysis) else {
+                        missing.insert(detail); continue
+                    }
                 }
             }
         }

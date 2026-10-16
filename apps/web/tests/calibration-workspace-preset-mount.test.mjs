@@ -1,0 +1,213 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp, rm} from 'node:fs/promises';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {createHash} from 'node:crypto';
+import {build} from 'esbuild-wasm';
+import {generateKeyPair, exportJWK, createLocalJWKSet, SignJWT} from 'jose';
+import {AssetRepository} from '../../../dist/apps/backend/src/repository.js';
+import {LocalObjectStorage} from '../../../dist/apps/backend/src/storage.js';
+import {WorkspaceHTTP} from '../../../dist/apps/backend/src/workspace-server.js';
+import {suiteServer} from '../../../dist/apps/backend/src/server.js';
+import {jwtAuthenticator} from '../../../dist/apps/backend/src/auth.js';
+import {mountCalibrationWorkspacePreset} from '../src/calibration-workspace-preset-mount.mjs';
+
+const calibration = {red: {hue: 24, saturation: -30}, green: {hue: -15, saturation: 45},
+  blue: {hue: 9, saturation: 60}};
+const recipe = ({exposure = 0, calibrationValue} = {}) => ({schemaVersion: 1,
+  parameters: {exposure, contrast: 1, saturation: 1, rotationDegrees: 0,
+    extendedParameters: calibrationValue ? {postDecodeAdjustments: {schemaVersion: 1,
+      engineVersion: 'suite-srgb8-color-detail-1', color: {calibration: calibrationValue}}} : {},
+    processingOrder: calibrationValue ? ['exposure', 'contrast', 'saturation',
+      'postDecodeAdjustments', 'rotation'] : ['exposure', 'contrast', 'saturation', 'rotation']}});
+const calibrationOf = body => body.parameters.extendedParameters.postDecodeAdjustments.color.calibration;
+
+function dom() {
+  const handlers = new Map();
+  const node = () => ({value: '', textContent: '', disabled: false,
+    addEventListener(type, handler) {this[`on${type}`] = handler;},
+    replaceChildren() {this.children = [];}, append(item) {(this.children ??= []).push(item);}});
+  const buttons = ['save', 'refresh', 'apply'].map(key => {
+    const button = node(); handlers.set(`[data-calibration-preset-${key}]`, button); return button;
+  });
+  for (const key of ['scope', 'name', 'list', 'status'])
+    handlers.set(`[data-calibration-preset-${key}]`, node());
+  handlers.get('[data-calibration-preset-scope]').value = 'PERSONAL';
+  const panel = {className: '', innerHTML: '', querySelector: key => handlers.get(key),
+    querySelectorAll: key => key === 'button' ? buttons : []};
+  const documentRef = {createElement: tag => tag === 'section' ? panel : node()};
+  const container = {children: [], replaceChildren(...items) {this.children = items;}};
+  return {documentRef, container, controls: handlers};
+}
+
+async function fixture() {
+  const root = await mkdtemp(join(tmpdir(), 'suite-calibration-ws-mount-'));
+  const assets = new AssetRepository(join(root, 'assets.sqlite'));
+  const storage = new LocalObjectStorage(join(root, 'objects'));
+  const workspace = new WorkspaceHTTP(root, assets, storage);
+  const {privateKey, publicKey} = await generateKeyPair('RS256');
+  const jwk = await exportJWK(publicKey); jwk.kid = 'calibration-mount-test';
+  const authenticate = jwtAuthenticator({issuer: 'https://issuer.example', audience: 'suite',
+    jwks: createLocalJWKSet({keys: [jwk]})});
+  const server = suiteServer(assets, storage, authenticate, workspace);
+  await new Promise((resolve, reject) => {server.once('error', reject); server.listen(0, '127.0.0.1', resolve);});
+  const baseURL = `http://127.0.0.1:${server.address().port}`;
+  const tenant = {'owner-a': 'tenant-a', 'owner-b': 'tenant-b'};
+  const token = (user, expiry = '5m') => new SignJWT({tenant_id: tenant[user],
+    email: `${user}@example.test`, email_verified: true})
+    .setProtectedHeader({alg: 'RS256', kid: 'calibration-mount-test'})
+    .setIssuer('https://issuer.example').setAudience('suite').setSubject(user)
+    .setIssuedAt().setExpirationTime(expiry).sign(privateKey);
+  async function request(path, {method = 'GET', body, user = 'owner-a'} = {}) {
+    const response = await fetch(baseURL + path, {method, headers: {
+      Authorization: `Bearer ${await token(user)}`,
+      ...(body === undefined ? {} : {'Content-Type': 'application/json'}),
+    }, ...(body === undefined ? {} : {body: JSON.stringify(body)})});
+    return {status: response.status, body: await response.json()};
+  }
+  const workspaceId = (await request('/v1/workspaces', {method: 'POST', body: {name: 'Calibration'}})).body.workspace.id;
+  const projectId = (await request(`/v1/workspaces/${workspaceId}/projects`, {method: 'POST',
+    body: {name: 'Synthetic'}})).body.project.id;
+  assert.match(workspaceId, /^[0-9a-f-]{36}$/iu);
+  assert.match(projectId, /^[0-9a-f-]{36}$/iu);
+  async function asset(name, body) {
+    const bytes = Buffer.from(`SYNTHETIC_NON_RAW_${name}`);
+    const registered = (await request(`/v1/workspaces/${workspaceId}/projects/${projectId}/assets`,
+      {method: 'POST', body: {name, size: bytes.length,
+        sha256: createHash('sha256').update(bytes).digest('hex')}})).body.asset;
+    const saved = await request(`/v1/workspaces/${workspaceId}/projects/${projectId}/assets/${registered.id}/recipe`,
+      {method: 'PUT', body: {baseVersion: 0, recipe: body}});
+    assert.equal(saved.status, 200);
+    return registered;
+  }
+  const source = await asset('source.nonraw', recipe({calibrationValue: calibration}));
+  const target = await asset('target.nonraw', recipe({exposure: .65}));
+  let selectedAssetId = source.id;
+  const selectionProvider = () => ({workspaceId, projectId, assetId: selectedAssetId});
+  const mount = (overrides = {}) => {
+    const ui = dom();
+    assert.equal(typeof ui.container.replaceChildren, 'function');
+    assert.equal(typeof ui.documentRef.createElement, 'function');
+    assert.equal(typeof selectionProvider, 'function');
+    assert.match(workspaceId, /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu);
+    assert.match(projectId, /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu);
+    const instance = mountCalibrationWorkspacePreset({...ui, baseURL, workspaceId, projectId,
+      expectedSubject: 'owner-a', expectedTenantId: tenant['owner-a'],
+      tokenProvider: () => token('owner-a'), selectionProvider, ...overrides});
+    return {instance, ui};
+  };
+  return {request, token, workspaceId, projectId, source, target, mount,
+    select(id) {selectedAssetId = id;},
+    async close() {
+      await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+      workspace.close(); assets.close(); await rm(root, {recursive: true, force: true});
+    }};
+}
+
+test('CALIBRATION-MOUNT-01 / REAL_JWT_HTTP_SQLITE_SYNTHETIC_NON_RAW: Personal/Workspace host Save, Reload, Calibration-only Apply retain other edits', async () => {
+  const f = await fixture();
+  try {
+    const {instance, ui} = f.mount();
+    assert.equal(ui.container.children.length, 1);
+    for (const kind of ['PERSONAL', 'WORKSPACE']) {
+      f.select(f.source.id);
+      const saved = await instance.save({kind, name: `${kind} Calibration`});
+      assert.deepEqual(calibrationOf(saved.recipe), calibration);
+      assert.deepEqual(calibrationOf((await instance.reload({kind, id: saved.id})).recipe), calibration);
+      assert.ok((await instance.list({kind})).some(item => item.id === saved.id));
+      f.select(f.target.id);
+      const result = await instance.apply({kind, id: saved.id, version: saved.version});
+      assert.equal(result.outcome, 'saved');
+      assert.deepEqual(calibrationOf(result.recipe), calibration);
+      assert.equal(result.recipe.parameters.exposure, .65);
+      const remote = (await f.request(`/v1/workspaces/${f.workspaceId}/projects/${f.projectId}/assets/${f.target.id}/recipe`)).body.recipe;
+      assert.equal(remote.version, result.version);
+      assert.deepEqual(calibrationOf(remote.body), calibration);
+      assert.equal(remote.body.parameters.exposure, .65);
+    }
+    const assets = (await f.request(`/v1/workspaces/${f.workspaceId}/projects/${f.projectId}/assets`)).body.assets;
+    assert.equal(assets.find(asset => asset.id === f.source.id).sha256, f.source.sha256);
+    assert.equal(assets.find(asset => asset.id === f.target.id).sha256, f.target.sha256);
+    instance.dispose();
+    assert.equal(ui.container.children.length, 0);
+    await assert.rejects(instance.list({kind: 'PERSONAL'}), /CALIBRATION_PRESET_MOUNT_DISPOSED/);
+  } finally {await f.close();}
+});
+
+test('CALIBRATION-MOUNT-02 / REAL_JWT_HTTP_SQLITE: selection swap, stale Preset, wrong identity and membership revoke fail closed', async () => {
+  const f = await fixture();
+  try {
+    const {instance} = f.mount();
+    const preset = await instance.save({kind: 'PERSONAL', name: 'Pinned Calibration'});
+    f.select(f.target.id);
+    await assert.rejects(instance.apply({kind: 'PERSONAL', id: preset.id,
+      version: preset.version + 1}), /CALIBRATION_PRESET_VERSION_CONFLICT/);
+    const changed = await f.request(`/v1/workspaces/${f.workspaceId}/presets/${preset.id}`,
+      {method: 'PATCH', body: {baseVersion: preset.version,
+        name: 'Updated Calibration', body: preset.recipe}});
+    assert.equal(changed.status, 200);
+    await assert.rejects(instance.apply({kind: 'PERSONAL', id: preset.id,
+      version: preset.version}), /CALIBRATION_PRESET_VERSION_CONFLICT/);
+    const wrong = f.mount({expectedSubject: 'owner-b'}).instance;
+    await assert.rejects(wrong.list({kind: 'WORKSPACE'}),
+      /WORKSPACE_SESSION_IDENTITY_CHANGED|WORKSPACE_SESSION_EDIT_FORBIDDEN|HTTP_403/);
+    const missing = f.mount({selectionProvider: () => ({workspaceId: f.workspaceId,
+      projectId: crypto.randomUUID(), assetId: f.target.id})}).instance;
+    await assert.rejects(missing.apply({kind: 'PERSONAL', id: preset.id, version: 1}),
+      /CALIBRATION_PRESET_SELECTION_CHANGED/);
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/projects/${f.projectId}/assets/${f.target.id}/recipe`)).body.recipe.version, 1);
+    const invite = await f.request(`/v1/workspaces/${f.workspaceId}/invitations`, {method: 'POST',
+      body: {email: 'owner-b@example.test', role: 'VIEWER', expiresAt: '2099-01-01T00:00:00.000Z'}});
+    assert.equal(invite.status, 201);
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/invitations/accept`,
+      {user: 'owner-b', method: 'POST', body: {token: invite.body.token}})).status, 200);
+    const viewer = f.mount({expectedSubject: 'owner-b', expectedTenantId: 'tenant-b',
+      tokenProvider: () => f.token('owner-b')}).instance;
+    await assert.rejects(viewer.apply({kind: 'WORKSPACE', id: preset.id, version: 1}),
+      /WORKSPACE_SESSION_EDIT_FORBIDDEN/);
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/members/owner-b`, {method: 'DELETE'})).status, 200);
+    await assert.rejects(viewer.list({kind: 'WORKSPACE'}), error => error.status === 403);
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/projects/${f.projectId}/assets/${f.target.id}/recipe`)).body.recipe.version, 1);
+  } finally {await f.close();}
+});
+
+test('CALIBRATION-MOUNT-03: host rejects forged scope/selection and keeps credentials outside URL and state', async () => {
+  const f = await fixture();
+  try {
+    const requests = [];
+    const {instance} = f.mount({fetchImpl: (url, init) => {
+      requests.push({url, init}); return fetch(url, init);
+    }});
+    await assert.rejects(instance.save({kind: 'COMMUNITY', name: 'No'}), /CALIBRATION_PRESET_SCOPE_INVALID/);
+    assert.equal((await instance.list({kind: 'PERSONAL'})).length, 0);
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/presets`, {method: 'POST',
+      body: {scope: 'PERSONAL', name: 'Full Recipe',
+        body: recipe({exposure: .4, calibrationValue: calibration})}})).status, 201);
+    assert.equal((await instance.list({kind: 'PERSONAL'})).length, 0,
+      'full-Recipe presets are not shown as safe Calibration-only candidates');
+    assert.equal((await f.request(`/v1/workspaces/${f.workspaceId}/presets`, {method: 'POST',
+      body: {scope: 'PERSONAL', name: 'Legacy Partial',
+        body: recipe({calibrationValue: {red: {hue: 5}}})}})).status, 201);
+    assert.equal((await instance.list({kind: 'PERSONAL'})).length, 0,
+      'partial legacy Calibration cannot masquerade as six-value only');
+    assert.ok(requests.length > 0);
+    assert.ok(requests.every(({url, init}) => !url.includes('eyJ') &&
+      init.credentials === 'omit' && init.cache === 'no-store' &&
+      /^Bearer /u.test(init.headers.Authorization)));
+    const aborted = new AbortController(); aborted.abort();
+    await assert.rejects(instance.list({kind: 'PERSONAL', signal: aborted.signal}),
+      {name: 'AbortError'});
+  } finally {await f.close();}
+});
+
+test('CALIBRATION-MOUNT-04 / BROWSER_BUNDLE_ONLY: host mount bundles without product Bootstrap injection', async () => {
+  const result = await build({entryPoints: ['apps/web/src/calibration-workspace-preset-mount.mjs'],
+    absWorkingDir: process.cwd(), bundle: true, platform: 'browser', format: 'esm',
+    target: 'es2022', write: false, logLevel: 'silent'});
+  assert.equal(result.outputFiles.length, 1);
+  const source = new TextDecoder().decode(result.outputFiles[0].contents);
+  assert.match(source, /mountCalibrationWorkspacePreset/u);
+  assert.match(source, /calibration-preset/u);
+  assert.ok(source.length > 20_000);
+});

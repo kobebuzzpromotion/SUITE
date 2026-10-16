@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUITE Local Levels browser fixture · synthetic non-RAW</title>
+<link rel="stylesheet" href="/apps/web/src/styles.css"><link rel="stylesheet" href="/apps/web/src/editorial-editor.css"></head>
+<body><div class="fixture-controls" aria-label="合成画像の試験条件">
+<button id="fixture-geometry" type="button">回転・Crop・余白へ変更</button>
+<button id="fixture-plain" type="button">元の構図へ戻す</button>
+<button id="fixture-revoke" type="button">試験権限を失効</button>
+<button id="fixture-touch-stroke" type="button">Touch PointerEventを模擬</button>
+<button id="fixture-touch-cancel" type="button">Touch取消を模擬</button>
+<output id="fixture-report" role="status">合成非RAWの試験環境を準備中</output>
+</div><pre id="fixture-data" hidden></pre><div id="app"></div><script>addEventListener('error',event=>{document.querySelector('#fixture-report').textContent=`ERROR: ${event.message}`;});addEventListener('unhandledrejection',event=>{document.querySelector('#fixture-report').textContent=`REJECTION: ${event.reason?.message??event.reason}`;});</script><script type="module" src="/apps/web/tests/fixtures/local-levels-browser.mjs"></script></body></html>

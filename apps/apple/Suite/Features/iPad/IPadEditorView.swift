@@ -6,6 +6,7 @@ struct IPadEditorView: View {
     @ObservedObject var model: EditorModel
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var activeSheet: IPadEditorSheet?
+    @State private var showsLargePrint = false
 
     private let background = Color(red: 0.045, green: 0.05, blue: 0.055)
     private let panel = Color(red: 0.09, green: 0.095, blue: 0.105)
@@ -52,6 +53,7 @@ struct IPadEditorView: View {
         .sheet(item: $activeSheet) { sheet in
             sheetContent(sheet)
         }
+        .sheet(isPresented: $showsLargePrint) { LargePrintExportSheet(model: model) }
     }
 
     private var header: some View {
@@ -144,6 +146,7 @@ struct IPadEditorView: View {
                     .frame(minHeight: 44).disabled(!canEdit)
 
                 Menu {
+                    Button("大判TIFF（明示設定）") { showsLargePrint = true }
                     Button("保存済み設定で書き出す", action: model.exportConfigured)
                     Button("JPEGで書き出す", action: model.exportJPEG)
                         .keyboardShortcut("e", modifiers: [.command, .shift])
